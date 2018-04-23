@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Insert an ILA (ChipScope) into a Routed DCP &mdash; RapidWright  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="RapidWright  documentation" href="index.html"/>
+        <link rel="up" title="RapidWright Tutorials" href="Tutorials.html"/>
+        <link rel="next" title="Build an IP Integrator Design with Pre-Implemented Blocks" href="IPI_PreImpl_Tutorial.html"/>
+        <link rel="prev" title="RapidWright Tutorials" href="Tutorials.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RapidWright
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XDD_File_Format.html">XDD File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Insert an ILA (ChipScope) into a Routed DCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DCP_From_Scratch_Tutorial.html">How to Create a DCP From Scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>Insert an ILA (ChipScope) into a Routed DCP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ILA_Tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="insert-an-ila-chipscope-into-a-routed-dcp">
+<h1>Insert an ILA (ChipScope) into a Routed DCP<a class="headerlink" href="#insert-an-ila-chipscope-into-a-routed-dcp" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>What You’ll Need to Get Started:</dt>
+<dd><ul class="first last simple">
+<li>Vivado 2017.3</li>
+<li>RapidWright 2017.3</li>
+</ul>
+</dd>
+</dl>
+<p>Often, you might find yourself in the following scenario.  You’ve worked tirelessly to finally meet timing on your design and you are full of anticipation while you patiently generate a bitstream.  Your anticipation turns to anguish and horror as you realize your design is not working in hardware.  You fret over what unpleasant and demeaning tasks you’ll have to perform just to figure out what is going wrong.  All the while you are realizing that all your hard work in closing timing has gone down the drain.  Unless…, perhaps, if there was some way you could keep your design intact and insert an ILA (ChipScope) core on top of your design without disturbing the placement and routing.  This tutorial will help you do just that.</p>
+<p>Since this is a tutorial, we will start by showing you how to generate a placed and routed design from scratch to test.  If you have your own, know that it will need to meet the following requirements:</p>
+<blockquote>
+<div><ul class="simple">
+<li>It cannot already have a Debug Hub present in the design (this is common if you are using a MIG or other Debug core)</li>
+<li>There must be adequate resources for the ILA you are requesting present on the device</li>
+</ul>
+</div></blockquote>
+<p>To generate an example placed and routed MicroBlaze design, run the following Tcl commands in your Vivado’s Tcl prompt (Note the use of $CWD, please replace this with your current working directory):</p>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">create_project</span> microblaze <span class="nv">$CWD</span><span class="o">/</span>microblaze <span class="o">-</span>part xcku040-ffva1156-2-e
+<span class="nv">set_property</span> board_part xilinx.com:kcu105:part0:1.2 <span class="k">[</span><span class="nv">current_project</span><span class="k">]</span>
+<span class="nv">set_property</span> target_language VHDL <span class="k">[</span><span class="nv">current_project</span><span class="k">]</span>
+<span class="nv">create_bd_design</span> <span class="s2">&quot;base_mb&quot;</span> <span class="o">-</span>mode batch
+<span class="nv">update_compile_order</span> <span class="o">-</span>fileset sim_1
+<span class="nv">update_compile_order</span> <span class="o">-</span>fileset sources_1
+<span class="nv">launch_runs</span> impl_1
+</pre></div>
+</div>
+<p>This will take several minutes.  When this is finished, we need to generate unencrypted EDIF (the EDIF in the DCP will by encrypted by default) by running the following commands:</p>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">open_run</span> impl_1
+<span class="nv">write_edif</span> <span class="nv">$CWD</span><span class="o">/</span>microblaze<span class="o">/</span>microblaze.runs<span class="o">/</span>impl_1<span class="o">/</span>base_mb_wrapper_routed.edf
+</pre></div>
+</div>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/microblaze.png"><img alt="_images/microblaze.png" src="_images/microblaze.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-text">The implemented microblaze design should looks similar to the one above</span></p>
+</div>
+<p>Once you have the DCP and EDIF files ready, we can insert the ILA:</p>
+<p>let’s run the ILAInserter.java class in RapidWright by running:</p>
+<p><code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.debug.ILAInserter</span> <span class="pre">base_mb_wrapper_routed.dcp</span> <span class="pre">microblaze_with_ila.dcp</span> <span class="pre">16</span> <span class="pre">1024</span></code></p>
+<p>The 16 specifies the probe count of the ILA to be generated and 1024 is for the capture depth.  This script will automatically synthesize an ILA for you and stitch it into the DCP with these parameters.  This will again take several minutes, but when it completes successfully, you’ll have your placed and routed design with an ILA inserted.</p>
+<p>Currently, this tutorial requires you to place and route the ILA on top of the existing placed and routed design.  To finalize the implementation run the following commands:</p>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span> microblaze_with_ila.dcp
+<span class="nv">place_design</span>
+<span class="nv">update_clock_routing</span>
+<span class="nv">route_design</span>
+</pre></div>
+</div>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/microblaze_with_ila.png"><img alt="_images/microblaze_with_ila.png" src="_images/microblaze_with_ila.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-text">After placing and routing the ILA on top of the original design, your implementation should look similar to that above</span></p>
+</div>
+<p>Now, using Vivado’s ECO cockpit (Layout-&gt;ECO), you should be able to route the probes to any signals of interest.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="IPI_PreImpl_Tutorial.html" class="btn btn-neutral float-right" title="Build an IP Integrator Design with Pre-Implemented Blocks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Tutorials.html" class="btn btn-neutral" title="RapidWright Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Xilinx, Inc..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

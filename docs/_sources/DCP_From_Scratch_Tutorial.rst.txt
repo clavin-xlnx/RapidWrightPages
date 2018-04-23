@@ -1,0 +1,14 @@
+=================================================
+How to Create a DCP From Scratch
+=================================================
+
+What You'll Need to Get Started:
+  - RapidWright
+  - Vivado 2017.3 or later
+   
+This tutorial will generate a completely implemented design in a DCP file solely from RapidWright code.  Generating implementations directly from source code will open new doors into FPGA tools and research.   
+
+TODO - Still work in progress.
+   
+	
+

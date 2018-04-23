@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RapidWright Eclipse Setup &mdash; RapidWright  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="RapidWright  documentation" href="index.html"/>
+        <link rel="next" title="FPGA Architecture Basics" href="FPGA_Architecture.html"/>
+        <link rel="prev" title="Getting Started" href="Getting_Started.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RapidWright
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RapidWright Eclipse Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-by-step-instructions">Step-by-Step Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XDD_File_Format.html">XDD File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>RapidWright Eclipse Setup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/RapidWright_Eclipse_Setup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rapidwright-eclipse-setup">
+<h1>RapidWright Eclipse Setup<a class="headerlink" href="#rapidwright-eclipse-setup" title="Permalink to this headline">¶</a></h1>
+<p><strong>* Preliminary *</strong></p>
+<div class="section" id="step-by-step-instructions">
+<h2>Step-by-Step Instructions<a class="headerlink" href="#step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Make sure you have Java JDK 1.8 (or later) installed: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> Follow the instructions when running the downloaded executable.  Add the <code class="docutils literal"><span class="pre">$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin</span></code> folder to your <code class="docutils literal"><span class="pre">PATH</span></code> environment variable.</li>
+<li>Download Eclipse: <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2</a></li>
+<li>Install Eclipse by extracting the archive into a desired folder on your computer</li>
+<li>Run Eclipse (you may want to add the executable to your path)</li>
+<li>In Eclipse, choose the File-&gt;Import… menu option.  This will bring up a dialog, choose the Git/Projects from Git option as shown in the screenshot below (click Next):</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ImportProject.png"><img alt="_images/ImportProject.png" class="align-center" src="_images/ImportProject.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="6">
+<li>Choose Clone URI and click Next:</li>
+</ol>
+<a class="reference internal image-reference" href="_images/CloneURI.png"><img alt="_images/CloneURI.png" class="align-center" src="_images/CloneURI.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="7">
+<li>Copy and paste <code class="docutils literal"><span class="pre">https://github.com/Xilinx/RapidWright.git</span></code> into the URI box as shown below.  The Host and Repository path fields should automatically be populated.  Enter user and password (if applicable).</li>
+</ol>
+<a class="reference internal image-reference" href="_images/URI.png"><img alt="_images/URI.png" class="align-center" src="_images/URI.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="8">
+<li>Choose the master branch, click next:</li>
+</ol>
+<a class="reference internal image-reference" href="_images/BranchSelection.png"><img alt="_images/BranchSelection.png" class="align-center" src="_images/BranchSelection.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="9">
+<li>Choose the location of where you want Eclipse to put your RapidWright workspace.  Preferably, you should choose a workspace directory with any other Eclipse projects such as <code class="docutils literal"><span class="pre">/home/user/workspace/RapidWright</span></code>.  Click next to have Eclipse clone the repo into your workspace.</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ProjectLocation.png"><img alt="_images/ProjectLocation.png" class="align-center" src="_images/ProjectLocation.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="10">
+<li>Continue with step 2 back on the <a class="reference internal" href="Getting_Started.html#getting-started"><span class="std std-ref">Getting Started</span></a> page.</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FPGA_Architecture.html" class="btn btn-neutral float-right" title="FPGA Architecture Basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Getting_Started.html" class="btn btn-neutral" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Xilinx, Inc..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

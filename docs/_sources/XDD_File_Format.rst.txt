@@ -1,0 +1,253 @@
+=================================================
+XDD File Format
+=================================================
+This section describes the XDD (Xilinx Device Description) file format used by RapidWright.  An XDD file provides an exhaustive description of a particular Xilinx device supported by Vivado and can be generated using the ``XDDPrinter`` class.  
+
+An XDD file contains seven different sections that describe a device’s resources and connectivity.  Due to the highly regular nature of Xilinx devices, there are many constructs that are replicated.  In a loose sense, there are two kinds on constructs in the XDD files: definitions and instances.  Definitions are abstract models of a construct intended to be instantiated somewhere on the device one or more times.  The following sections represent lists of unique definitions: Tile Patterns, Node Templates, Tile Types, and Site Types.  Tiles and Clock Regions are instance constructs and are populated by instances of the definition constructs. For example, a Tile is an instance of a Tile Pattern and a Tile Type.  A Tile may also have Sites (instances of Site Types) within it.  
+
+The Intent Codes section is a named enumeration for annotation of wires.  
+
+Under the heading of each section below, a boxed textual construct pattern is shown to aid the reader correlate what kinds of information can be found in the XDD file.  These textual construct patterns can also be found in the comments (any line beginning with a ‘#’) above each section in the XDD file.  A common pattern used is providing the total count of ‘child’ objects of each section to aid in parsing.  Additionally, most every construct is enumerated sequentially with the intention that such data could be stored easily in an array.  By providing universally consistent enumerations for all objects (wire indices within a tile, for example, refer to the same named wire in all contexts), data structures created to represent these objects can use integer comparison instead of string comparison, potentially saving the user runtime and memory.
+
+Note to the reader: The subsections presented below are in the order in which they appear in the XDD file.  This may not be the most logical order for understanding the constructs, the user is encouraged to jump to the subsections of interest as questions arise.
+
+Tile Patterns
+================
+::
+
+	(tile_patterns <tile_pattern count>
+	  (tile_pattern <tile_pattern ID> <tile_type name> <template_entry count>
+		(template_entry <wire ID> <wire name> <node template ID> <template offset>)
+		...
+	  )
+	  ...
+	)
+
+Every tile has a tile pattern that provides a mapping (template entry) for each wire to a node template (see `Node Templates` section below).  To illustrate this concept, consider the figure below where five node templates are illustrated in a set of adjoining tile types (note these are tile types, not actual tiles).
+
+.. figure:: images/tile_patterns.png
+   :width: 550px
+   :align: center
+   
+   Simple illustration of file node templates in an INT tile.
+
+There are five wires that belong to the INT tile type highlighted in red.  Each of these wires belongs to a node template.  A node template is characterized by a list of wires that belong to different tile types and their positional offset to a base wire or origin wire.  If two tiles use the same tile pattern, they both use the same set of node templates.  In Vivado, a tile pattern index is present on each tile as the property ``TILE_PATTERN_IDX``.  For example, a set of 8 tiles that have the same pattern are highlighted in magenta in the figure below.
+
+.. figure:: images/same_tile_patterns.png
+   :width: 550px
+   :align: center
+   
+   Tiles with the same pattern highlighted in magenta.
+
+Each tile pattern listed in the XDD has a tile type and a list of node template entries.  Each template entry maps each wire ID/name within the tile to its corresponding unique node template ID to which the template in this tile pattern corresponds (see `Node Templates` for more details).  
+In tiles that have wires that do not connect to sites or PIPs but simply pass over the tile, they are called flyover wires.  Flyover wires do not have their template entries listed for space purposes as it is partially redundant.
+
+Node Templates
+=================
+::
+
+	(node_templates <node_template count>
+	  (node_template <node_template ID> <wire_item count>
+		(wire_item <template offset> <delta X> <delta Y> <tile type>.<wire name> <wire ID>)
+		...
+	  )
+	  ...
+	)
+
+This section of the XDD file enumerates all unique node templates in a device.
+
+Node (Review)
+-----------------
+Before describing node templates, let us first review the concept of a node.  Each tile type (see `Tile Types`) has a set of named, enumerated wires defined within its boundaries.  As tiles are instantiated to build a contiguous fabric, by design, the wires line up with and abut to wires in neighboring tiles. For example, consider the figure below where each tile type shows a wire (most tiles have several wires, only one per tile is shown here for simplicity) within its boundaries that forms a larger wire when the two tiles are abutted together.
+
+
+.. figure:: images/partial_node.png
+   :width: 350px
+   :align: center
+   
+   Two tiles abut connecting the wires EE2_W_BEG5 and EASTBUSIN_FT0_21
+
+The complete set of electrically equivalent connected wires is known as a node.  The figure above only shows a portion of one node, a complete node can be seen in the figure below.  
+
+.. figure:: images/node.png
+   :width: 550px
+   :align: center
+   
+   Showing the node INT_X12Y101/EE2_W_BEG5 spanning 4 tiles
+
+A wire is only defined within the context of its parent tile type, but to reference a node, the tile instance must be known as it includes all of the touching wire segments from abutting tiles as shown in Figure 11.  Nodes within Vivado are called by their source tile and source wire, so the node illustrated in Figure 11 is called INT_X12Y101/EE2_W_BEG5.  In summary, a node is defined as a collection of one or more wires that are electrically equivalent. 
+   
+Node Template
+----------------
+The concept of a node template is used to help reduce the volume of data that would be required to represent every instance of a node on a device.  Several nodes follow patterns based on the tile types and wires involved due to the repetitive nature of the fabric.  Node templates are the prototype or definition of a canonical node that has one or more instances on the device.  For example, visual illustrations of two different node templates are shown in the fogire below.  Note that there is only a single difference between (a) and (b), which is the inclusion of an additional tile type, CFRM_CBRK_L.  Even though these two nodes may present the same connectivity, the nodes are indeed different and belong to different node templates.  
+
+
+.. figure:: images/node_templates.png
+   :width: 550px
+   :align: center
+   
+   Node templates for the same architectural wire in two different contexts
+
+Wire Item
+-----------
+In order to describe a node template, the notion of a wire item is used.  A wire item describes the type of wire (tile type and wire name) and its relative offset from the origin wire in the node template.  The origin wire is generally defined as the source wire or the closest wire to the source of a potential signal.  For bidirectional wires, this convention is less obvious.  As an example, the node template illustrated in part (a) of the figure above would have the following text description:
+
+::
+
+        (node_template 197235 4
+                (wire_item 0 0 0 INT.EE2_W_BEG5 304)
+                (wire_item 1 3 0 INT.EE2_W_END5 815)
+                (wire_item 2 1 0 CLEL_R.EASTBUSIN_FT0_21 126)
+                (wire_item 3 2 0 CLE_M.EASTBUSIN_FT0_21 128)
+        )
+
+There are four relative wires within the node template.  Note that the order of the wire items is not contiguous relative to their connectivity.  The wires with more PIPs on them appear first (which if stored in memory this way is useful during routing expansion).
+
+Intent Codes
+===============
+::
+
+	(intent_codes <intent code count> <intent type>
+	   (intent_code <intent code> <intent code name>)
+		...
+	)
+
+
+An intent code is a property applied to wires and nodes.  The intent code of a wire or node can be reported in Vivado using the ``report_property`` command of the object.  Additionally, the intent code name is displayed in the Node Properties box in the Vivado GUI.  
+
+This section of the XDD file maps the integer intent code to its name. Intent codes can be used to help classify different wires and nodes to their respective types to aid in algorithms such as routing to help prune expansion selection.  For example, consider the sparse clock resource representation in the figure below.  Each of the clocking resource types have a specific intent code that is color coded.  These intent codes are useful in clock routing as different types of wires are provided to route and distribute a clock signal from its source to all the sinks.  By having a quick identifying classification, a clock router can quickly discard any wires or nodes that do not fit the kind of resource needed during each stage of clock routing and distribution.
+   
+
+.. figure:: images/clocking_codes.png
+   :width: 550px
+   :align: center
+   
+   Clock routing resources within two clock regions with color coded intent codes
+   
+
+
+Site Types
+============
+::
+
+	(site_types <site_types count>
+	  (site_type <site_type ID> <site_type name> <sitepin count> <sitewire count> <element count> <siteconn count> <sitepip count> <reserved> <checksum> <primary_type>
+		 (secondary_site_types [site_type]+ )
+		 (sitepin <sitepin ID> <sitepin name> <sitepin direction> <RESERVED>)
+		 ...
+		 (sitewire <sitewire ID> <sitewire name>)
+		 ...
+		 (element <element ID> <element name> <element def type> <element type> <elementpin count>
+		   (elementpin <elementpin ID> <elementpin name> <direction> <sitewire name>)
+		   ...
+		 )
+		 ...
+		 (siteconn <siteconn ID> <elementpin name> -> <elementpin name> <sitewire name>)
+		 ...
+		 (sitepip <sitepip ID> <element name>.<elementpin name><pip arrow><elementpin name>)
+	  )
+	  ...
+	)
+
+The site types section of the XDD file enumerates all site types in a given device family.  A site type is the prototype definition of a site.  A common example of a site type is a SLICEL or SLICEM.  Site types can be primary (there are physical sites of the same type in the architecture) or secondary (the type can be placed on sites of the secondary's primary type, but generally no secondary sites of this type exist). Secondary site types represent additional functionality where a single site type could not fully represent all of the hardware's capabilities.  Note that secondary site types will have a pin mapping back to the primary site type pins as those are the names associated with wires in the routing of the device.  
+
+Site types are composed of several constructs: site pins, site wires, elements, element pin connections and site PIPs.  A site type will define an interface of input and output pins, called site pins.  All user signals enter and exit a site using a site pin.  
+A site wire is a collection of electrically equivalent element pins.  For example, consider the highlighted site wire SLICE_X10Y164/AX in the figure below.  It connects five element pins: AX (corresponding site pin), CARRY8/AX, FFMUXA1/BYP, A6LUT/DI2 and F7MUX_AB/S0.
+
+.. figure:: images/site_wire.png
+   :width: 550px
+   :align: center
+   
+   Highlighted site wire AX in SLICE_X10Y164 showing 5 element pin connections
+
+Elements 
+-----------
+Elements are the lowest level functional blocks present on the device.  Elements belong to a parent site type.  Elements within the same site type will have a unique name and will have a corresponding definition type (i.e. some elements are instances of the same library element).   There are three classes or types of elements: BELs, RBELs and ports.  
+
+BELs (basic elements of logic) consist of LUTs, carry chains, flip flops and similar kinds of programmable elements.  BELs can also share element pins, such as in the 6LUT where obeying certain rules can also support a 5LUT cell at the same time. BELs can also support route through behavior when a logic cell is not consuming its resources. 
+ 
+RBELs (routing BELs) only support routing, with the single exception of providing an inversion option in key locations.  RBELs are programmable muxes within a site to help connect site wires together.  The programmable connections provided by an RBEL from its input to output pins are called site PIPs.
+Port elements are simply the internal side of a site pin.  They provide an element pin internal to the site to help element pins and site wire abstractions to work together consistently.  The name of the port element and the site pin are one and the same.
+
+The site connections construct, siteconns, describes element pin to element pin connections within the site.  This list of connections define all the element pins that belong to a site wire.
+
+Tile Types
+=============
+::
+
+	(tile_types <tile_types count>
+	  (tile_type <tile_type ID> <tile_type name> <site count> <wire count> <pip count>
+	  ...
+		(site_type_inst <site_type_inst index> <site_type ID> <site_type name>)
+		...
+		(wire <wire ID> <wire name> <intent code name> <RESERVED>)
+		...
+		(pip <pip ID> <tile_type>.<wire0 name><pip arrow><wire1 name> <RESERVED> <RESERVED> <is pseudo> <is test> <is excluded> <is inverted>)
+		...
+	  )
+	  ...
+	)
+
+The tile types section of the XDD file lists all of the unique tile types used throughout a device family.  A tile type consists of three potential groups of objects: (1) site type instances, (2) wires, and (3) PIPs.  
+
+Site Type Instances
+----------------------
+A tile type may have one or more site types instantiated, each as a child object.  These site type instances are simply instances of site types (as defined in the Site Types section).  As tile types serve as the prototype definition of a tile, it must have a notion of the kinds of sites tiles will contain.  In the Tiles section, the actual site presented to the user of the fabric is defined and is given a unique instance name.
+
+Wires
+-------
+Each tile type has an enumerated ordered set of wires with unique names.  These wires exist outside of sites but inside tiles.  They connect the edges of tiles to other constructs within tiles such as switch box/PIP junctions (in interconnect tiles) and site pins.  
+
+PIPs
+--------
+A PIP (programmable interconnect point) defines a potential connection that can be made between two wires (and in a fabric context, two nodes) using a routing mux (not explicitly represented).  A route between two site pins is generally established by turning on a select set of PIPs which connect the wires in between the two site pins together.
+
+A PIP exists outside of sites but inside tiles (PIPs that exist inside sites are called Site PIPs and are described in the Site Types section).  Generally, PIPs exist within a switch box, however, this construct is not present in the VRI, only in the Vivado Device Model GUI view.  A PIP always connects two wires that are within its own tile. Note however, that in a fabric context when tile types are instantiated in a grid, wires at the tile edges can form connections by abutment.  The device model presented in the VRI does not include explicit tile edge connections.   The VRI provides a wire-centric view and the user should be aware of the tile-based fabric construction.
+
+PIPs have different properties and types.  To denote a class or type of PIP, the ASCII PIP arrow in between wire0 and wire1 of the PIP is used.  The different variants of the PIP arrow are shown in the Table below.
+
+================ =============================
+ASCII Arrow      PIP Type
+================ =============================
+``->``           Directional, not buffered
+``->>``          Directional, buffered
+``<->``          Bidirectional, not buffered
+``<<->``         Bidirectional, buffered
+``<<->>``        Bidirectional, buffered
+================ =============================
+
+
+Tiles 
+=========
+::
+
+	(tiles <tile rows count> < tile columns count>
+	  (tile <row index> <column index> <tile name> <tile_type name> <tile_pattern ID> <site count>
+		(site <site ID> <site name> <site_type name> <is internal> <RPM X> <RPM Y> <pinwire count>
+		  (pinwire <pinwire ID> <pinwire name> <direction> <wire name> <node tile name> <node wire name>)
+		  ...
+		)
+		...
+	  )
+	  ...
+	)
+
+A tile is an instantiation of a tile type.  It is made unique by giving it absolute tile coordinates, a unique name and the sites within the tile are also given unique names.  Vivado relies on the absolute grid coordinates of the tiles and sites to establish relative proximity during algorithmic execution.  Tiles are also assigned a tile pattern (see ``Tile Patterns``).    
+
+As sites will connect to wires and in turn nodes, the name of the node that each site pin connects to is also listed.  This is useful in applications such as routing where the name of the node is the input pin within the switch box (INT tile) neighboring the site.  The node is a better indicator of how a route should enter the site.
+
+Clock Regions
+==============
+::
+
+	(clock_regions <clock_region rows count> <clock_region columns count>
+	  (clock_region <row index> <column index> <clock_region name> <upper right tile name start>:<lower right tile name end>)
+	  ...
+	)
+
+Clock regions (also known as fabric sub regions, or FSRs) are groups of tiles that share clocking resources.  All tiles in a clock region can be clocked from the same clock distribution lines.  
+
+For brevity, a clock region is described by identifying the upper left tile and lower right tile that form an inclusive rectangle around the tiles that belong to a clock region.  Clock regions are named after their XY coordinates within the fabric grid with the origin being at the lower left corner of the fabric.  It is interesting to note, that not all tiles fall into a clock region.  There are some exceptional tiles at clock region boundaries that do not belong to a clock region.  
+
+
+

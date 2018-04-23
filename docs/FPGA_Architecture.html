@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FPGA Architecture Basics &mdash; RapidWright  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="RapidWright  documentation" href="index.html"/>
+        <link rel="next" title="Xilinx Architecture Terminology" href="Xilinx_Architecture.html"/>
+        <link rel="prev" title="RapidWright Eclipse Setup" href="RapidWright_Eclipse_Setup.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RapidWright
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FPGA Architecture Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-an-fpga">What is an FPGA?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cpu-vs-fpga">CPU vs. FPGA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookup-tables-luts">Lookup Tables (LUTs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#state-elements">State Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#carry-chains">Carry Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dsp-blocks">DSP Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#block-rams">Block RAMs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XDD_File_Format.html">XDD File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>FPGA Architecture Basics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/FPGA_Architecture.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="fpga-architecture-basics">
+<h1><a class="toc-backref" href="#id8">FPGA Architecture Basics</a><a class="headerlink" href="#fpga-architecture-basics" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#fpga-architecture-basics" id="id8">FPGA Architecture Basics</a><ul>
+<li><a class="reference internal" href="#what-is-an-fpga" id="id9">What is an FPGA?</a></li>
+<li><a class="reference internal" href="#cpu-vs-fpga" id="id10">CPU vs. FPGA</a></li>
+<li><a class="reference internal" href="#lookup-tables-luts" id="id11">Lookup Tables (LUTs)</a></li>
+<li><a class="reference internal" href="#state-elements" id="id12">State Elements</a></li>
+<li><a class="reference internal" href="#carry-chains" id="id13">Carry Chains</a></li>
+<li><a class="reference internal" href="#dsp-blocks" id="id14">DSP Blocks</a></li>
+<li><a class="reference internal" href="#block-rams" id="id15">Block RAMs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This section is meant as a brief introduction to FPGA architecture and technology.  Most people familiar with FPGAs can easily skip this section.</p>
+<div class="section" id="what-is-an-fpga">
+<h2><a class="toc-backref" href="#id9">What is an FPGA?</a><a class="headerlink" href="#what-is-an-fpga" title="Permalink to this headline">¶</a></h2>
+<p>An field programmable gate array (FPGA) is a special kind of chip (integrated circuit, silicon device, microchip, computer chip, or whatever designation is most familiar) that can be programmed to behave essentially like any other chip.  One might think that a microprocessor or CPU falls into such a description as it is programmable through software compilation.  However, an FPGA and CPU differ significantly in architecture and programming model.</p>
+</div>
+<div class="section" id="cpu-vs-fpga">
+<h2><a class="toc-backref" href="#id10">CPU vs. FPGA</a><a class="headerlink" href="#cpu-vs-fpga" title="Permalink to this headline">¶</a></h2>
+<p>A central processing unit (CPU or just processor) follows the Von Neumann compute-based architecture as illustrated in the figure below.</p>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="_images/cpu.gif"><img alt="_images/cpu.gif" src="_images/cpu.gif" style="width: 540px;" /></a>
+<p class="caption"><span class="caption-text">Basic Von Neumann Processing Model for CPUs (Source: <a class="reference external" href="https://commons.wikimedia.org/wiki/File:ABasicComputer.gif">Labtron, Creative Commons</a>).</span></p>
+</div>
+<p>A control unit driven by instructions fetched from memory drives the flow of input data through the processor’s registers and logic producing outputs.  The data paths, instruction set, register counts and memory interface are all fixed at the time of fabrication of the CPU.  That is, they are unchanging attributes of the processor and cannot be customized later.</p>
+<p>In stark contrast to the CPU architecture, an FPGA has highly configurable logic and data paths.  This is enabled by a bit-wise, fine-grained architectural model to realize computation.  In order to better understand how FPGAs work, it is beneficial to comprehend their atomic units of computation.  Although modern FPGAs have a wide variety of components, at their heart is a large array of replicated programmable look-up tables (LUTs), flip-flops (or registers) and programmable wires called interconnect as seen in the figures below.</p>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="_images/logic_array.png"><img alt="_images/logic_array.png" src="_images/logic_array.png" style="width: 540px;" /></a>
+<p class="caption"><span class="caption-text">Hypothetical FPGA logic array of LUTs, flip flops and programmable wires (interconnect)</span></p>
+</div>
+<div class="figure align-center" id="id5">
+<a class="reference internal image-reference" href="_images/logic_array_closeup.png"><img alt="_images/logic_array_closeup.png" src="_images/logic_array_closeup.png" style="width: 540px;" /></a>
+<p class="caption"><span class="caption-text">Close up view of replicated tiles of the logic array and interconnect</span></p>
+</div>
+</div>
+<div class="section" id="lookup-tables-luts">
+<h2><a class="toc-backref" href="#id11">Lookup Tables (LUTs)</a><a class="headerlink" href="#lookup-tables-luts" title="Permalink to this headline">¶</a></h2>
+<p>At the heart of configurable logic in FPGAs, lies a basic atomic unit of computation, a lookup table or LUT.  A LUT has a single bit output that is calculated based on the input signal values and the configurable table (or memory) entries as shown in the figure below.</p>
+<div class="figure align-center" id="id6">
+<a class="reference internal image-reference" href="_images/luts.png"><img alt="_images/luts.png" src="_images/luts.png" style="width: 540px;" /></a>
+<p class="caption"><span class="caption-text">(a) Truth table relationship of a LUT (b) Diagram of logical behaviour of a LUT</span></p>
+</div>
+<p>Although mainstream FPGAs typically use 6-input LUTs, this example illustrates a 3-input LUT for simplicity but the principle of operation is the same.</p>
+<p>LUTs are typically constructed using an N:1 multiplexer (shown in green in Figure 4b) and an Nx1-bit memory (shown in blue).   The example in the figure above is a LUT where N=8.  The number of inputs of a LUT is calculated as the log base 2 of N.</p>
+<p>The memory entries in blue boxes in part (b) of the figure above represent the configurable table entries under the ‘out’ column in  part (a).  The vector of programming bits {a, b, … h} ultimately decide how the LUT will behave given different values presented on the inputs {i0, i1, i2}.  For example, to program the LUT to evaluate “i0 XOR i1” on the inputs, the programming vector {a=0,b=1,c=1,d=0,e=0,f=1,g=1,h=0} would be used.
+A LUT can implement any Boolean logic equation limited only by the number of inputs of the LUT’s size.  This characteristic is illustrated in the figure below.  LUTs are commonly chained or combined in series to implement larger Boolean equations.</p>
+<div class="figure align-center" id="id7">
+<a class="reference internal image-reference" href="_images/lut_functions.png"><img alt="_images/lut_functions.png" src="_images/lut_functions.png" style="width: 540px;" /></a>
+<p class="caption"><span class="caption-text">Examples of several (but not all) logic functions a LUT can potentially implement</span></p>
+</div>
+<p>In some devices, some of the LUTs have additional functionality then enable them to act as small RAMs.  These RAMs can be chained together to build larger RAMs as well.</p>
+</div>
+<div class="section" id="state-elements">
+<h2><a class="toc-backref" href="#id12">State Elements</a><a class="headerlink" href="#state-elements" title="Permalink to this headline">¶</a></h2>
+<p>Once a value is computed from a LUT, it often is desirable to store it.  For this purpose, most FPGAs pair their LUTs with a D-flip-flop or equivalent state element.  Often the storage element has configurable reset/clear and clock enable signals with an option of making it behave as a latch.  These state elements have dedicated clocking paths to help minimize clock skew.</p>
+<p>By chaining together LUTs and storing results in flip flops, FPGAs can implement any number of functions and computation limited only by the number of resources of the device and its delay.</p>
+<p>Xilinx offers a variant of LUTs that enable them to also store data in the lookup portion of the table such that they can perform as small memories, shifters or FIFOs.  More information on this can be found in <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug474_7Series_CLB.pdf">Series 7 CLB User’s Guide</a> or <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug574-ultrascale-clb.pdf">UltraScale CLB User’s Guide</a>.</p>
+</div>
+<div class="section" id="carry-chains">
+<h2><a class="toc-backref" href="#id13">Carry Chains</a><a class="headerlink" href="#carry-chains" title="Permalink to this headline">¶</a></h2>
+<p>Carry chain blocks are primitive elements that are provided with a group of LUTs to enable more efficient programmable arithmetic.  Primarily it provides dedicated paths for the carry logic of simple arithmetic operations (add, subtract, comparisons, equals, etc).  Implementing these arithmetic operations in LUTs would result in an inefficient use of resources and performance would suffer.</p>
+<p>For more detailed information of Xilinx carry chains, please see <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug474_7Series_CLB.pdf">Series 7 CLB User’s Guide</a> or <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug574-ultrascale-clb.pdf">UltraScale CLB User’s Guide</a>.</p>
+</div>
+<div class="section" id="dsp-blocks">
+<h2><a class="toc-backref" href="#id14">DSP Blocks</a><a class="headerlink" href="#dsp-blocks" title="Permalink to this headline">¶</a></h2>
+<p>Multiplication on FPGAs can be quite expensive when implemented in LUTs and is a common operation.  Therefore, dedicated hard blocks to provide integer multiplication have been present in FPGAs for several years.  As applications have evolved, multiplier blocks have evolved to support a variety of DSP-friendly operations such as MAC (multiply, accumulate), wide AND/XOR and several others.</p>
+<p>For more detailed information of Xilinx DSP blocks, please see <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug479_7Series_DSP48E1.pdf">Series 7 DSP User’s Guide</a> or <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug579-ultrascale-dsp.pdf">UltraScale DSP User’s Guide</a>.</p>
+</div>
+<div class="section" id="block-rams">
+<h2><a class="toc-backref" href="#id15">Block RAMs</a><a class="headerlink" href="#block-rams" title="Permalink to this headline">¶</a></h2>
+<p>Larger memories (than those made available as small LUTs) are also a significant resource on FPGAs that generally provide several kilobits of memory storage (Xilinx typically makes 18k or 36k available).  These memories are provided in the fabric and are highly configurable and compose-able such that larger memories with several features can be made a available.</p>
+<p>For more detailed information of Xilinx Block RAMs, please see <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug473_7Series_Memory_Resources.pdf">Series 7 Memory User’s Guide</a> or <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug573-ultrascale-memory-resources.pdf">UltraScale Memory User’s Guide</a></p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Xilinx_Architecture.html" class="btn btn-neutral float-right" title="Xilinx Architecture Terminology" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="RapidWright_Eclipse_Setup.html" class="btn btn-neutral" title="RapidWright Eclipse Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Xilinx, Inc..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

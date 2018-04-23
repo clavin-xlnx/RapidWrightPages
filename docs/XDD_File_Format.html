@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>XDD File Format &mdash; RapidWright  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="RapidWright  documentation" href="index.html"/>
+        <link rel="next" title="A Pre-implemented Module Flow" href="PreImplemented_Module_Flow.html"/>
+        <link rel="prev" title="Implementation Basics" href="Implementation_Basics.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RapidWright
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">XDD File Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tile-patterns">Tile Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-templates">Node Templates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#node-review">Node (Review)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node-template">Node Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wire-item">Wire Item</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#intent-codes">Intent Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#site-types">Site Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#elements">Elements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tile-types">Tile Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site-type-instances">Site Type Instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wires">Wires</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pips">PIPs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tiles">Tiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clock-regions">Clock Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>XDD File Format</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/XDD_File_Format.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xdd-file-format">
+<h1>XDD File Format<a class="headerlink" href="#xdd-file-format" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the XDD (Xilinx Device Description) file format used by RapidWright.  An XDD file provides an exhaustive description of a particular Xilinx device supported by Vivado and can be generated using the <code class="docutils literal"><span class="pre">XDDPrinter</span></code> class.</p>
+<p>An XDD file contains seven different sections that describe a device’s resources and connectivity.  Due to the highly regular nature of Xilinx devices, there are many constructs that are replicated.  In a loose sense, there are two kinds on constructs in the XDD files: definitions and instances.  Definitions are abstract models of a construct intended to be instantiated somewhere on the device one or more times.  The following sections represent lists of unique definitions: Tile Patterns, Node Templates, Tile Types, and Site Types.  Tiles and Clock Regions are instance constructs and are populated by instances of the definition constructs. For example, a Tile is an instance of a Tile Pattern and a Tile Type.  A Tile may also have Sites (instances of Site Types) within it.</p>
+<p>The Intent Codes section is a named enumeration for annotation of wires.</p>
+<p>Under the heading of each section below, a boxed textual construct pattern is shown to aid the reader correlate what kinds of information can be found in the XDD file.  These textual construct patterns can also be found in the comments (any line beginning with a ‘#’) above each section in the XDD file.  A common pattern used is providing the total count of ‘child’ objects of each section to aid in parsing.  Additionally, most every construct is enumerated sequentially with the intention that such data could be stored easily in an array.  By providing universally consistent enumerations for all objects (wire indices within a tile, for example, refer to the same named wire in all contexts), data structures created to represent these objects can use integer comparison instead of string comparison, potentially saving the user runtime and memory.</p>
+<p>Note to the reader: The subsections presented below are in the order in which they appear in the XDD file.  This may not be the most logical order for understanding the constructs, the user is encouraged to jump to the subsections of interest as questions arise.</p>
+<div class="section" id="tile-patterns">
+<h2>Tile Patterns<a class="headerlink" href="#tile-patterns" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">tile_patterns</span> <span class="o">&lt;</span><span class="n">tile_pattern</span> <span class="n">count</span><span class="o">&gt;</span>
+  <span class="p">(</span><span class="n">tile_pattern</span> <span class="o">&lt;</span><span class="n">tile_pattern</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tile_type</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">template_entry</span> <span class="n">count</span><span class="o">&gt;</span>
+        <span class="p">(</span><span class="n">template_entry</span> <span class="o">&lt;</span><span class="n">wire</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">wire</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">node</span> <span class="n">template</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">template</span> <span class="n">offset</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="o">...</span>
+  <span class="p">)</span>
+  <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Every tile has a tile pattern that provides a mapping (template entry) for each wire to a node template (see <cite>Node Templates</cite> section below).  To illustrate this concept, consider the figure below where five node templates are illustrated in a set of adjoining tile types (note these are tile types, not actual tiles).</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/tile_patterns.png"><img alt="_images/tile_patterns.png" src="_images/tile_patterns.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Simple illustration of file node templates in an INT tile.</span></p>
+</div>
+<p>There are five wires that belong to the INT tile type highlighted in red.  Each of these wires belongs to a node template.  A node template is characterized by a list of wires that belong to different tile types and their positional offset to a base wire or origin wire.  If two tiles use the same tile pattern, they both use the same set of node templates.  In Vivado, a tile pattern index is present on each tile as the property <code class="docutils literal"><span class="pre">TILE_PATTERN_IDX</span></code>.  For example, a set of 8 tiles that have the same pattern are highlighted in magenta in the figure below.</p>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/same_tile_patterns.png"><img alt="_images/same_tile_patterns.png" src="_images/same_tile_patterns.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Tiles with the same pattern highlighted in magenta.</span></p>
+</div>
+<p>Each tile pattern listed in the XDD has a tile type and a list of node template entries.  Each template entry maps each wire ID/name within the tile to its corresponding unique node template ID to which the template in this tile pattern corresponds (see <cite>Node Templates</cite> for more details).
+In tiles that have wires that do not connect to sites or PIPs but simply pass over the tile, they are called flyover wires.  Flyover wires do not have their template entries listed for space purposes as it is partially redundant.</p>
+</div>
+<div class="section" id="node-templates">
+<h2>Node Templates<a class="headerlink" href="#node-templates" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">node_templates</span> <span class="o">&lt;</span><span class="n">node_template</span> <span class="n">count</span><span class="o">&gt;</span>
+  <span class="p">(</span><span class="n">node_template</span> <span class="o">&lt;</span><span class="n">node_template</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">wire_item</span> <span class="n">count</span><span class="o">&gt;</span>
+        <span class="p">(</span><span class="n">wire_item</span> <span class="o">&lt;</span><span class="n">template</span> <span class="n">offset</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">delta</span> <span class="n">X</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">delta</span> <span class="n">Y</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tile</span> <span class="nb">type</span><span class="o">&gt;.&lt;</span><span class="n">wire</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">wire</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="o">...</span>
+  <span class="p">)</span>
+  <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This section of the XDD file enumerates all unique node templates in a device.</p>
+<div class="section" id="node-review">
+<h3>Node (Review)<a class="headerlink" href="#node-review" title="Permalink to this headline">¶</a></h3>
+<p>Before describing node templates, let us first review the concept of a node.  Each tile type (see <cite>Tile Types</cite>) has a set of named, enumerated wires defined within its boundaries.  As tiles are instantiated to build a contiguous fabric, by design, the wires line up with and abut to wires in neighboring tiles. For example, consider the figure below where each tile type shows a wire (most tiles have several wires, only one per tile is shown here for simplicity) within its boundaries that forms a larger wire when the two tiles are abutted together.</p>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="_images/partial_node.png"><img alt="_images/partial_node.png" src="_images/partial_node.png" style="width: 350px;" /></a>
+<p class="caption"><span class="caption-text">Two tiles abut connecting the wires EE2_W_BEG5 and EASTBUSIN_FT0_21</span></p>
+</div>
+<p>The complete set of electrically equivalent connected wires is known as a node.  The figure above only shows a portion of one node, a complete node can be seen in the figure below.</p>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="_images/node.png"><img alt="_images/node.png" src="_images/node.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Showing the node INT_X12Y101/EE2_W_BEG5 spanning 4 tiles</span></p>
+</div>
+<p>A wire is only defined within the context of its parent tile type, but to reference a node, the tile instance must be known as it includes all of the touching wire segments from abutting tiles as shown in Figure 11.  Nodes within Vivado are called by their source tile and source wire, so the node illustrated in Figure 11 is called INT_X12Y101/EE2_W_BEG5.  In summary, a node is defined as a collection of one or more wires that are electrically equivalent.</p>
+</div>
+<div class="section" id="node-template">
+<h3>Node Template<a class="headerlink" href="#node-template" title="Permalink to this headline">¶</a></h3>
+<p>The concept of a node template is used to help reduce the volume of data that would be required to represent every instance of a node on a device.  Several nodes follow patterns based on the tile types and wires involved due to the repetitive nature of the fabric.  Node templates are the prototype or definition of a canonical node that has one or more instances on the device.  For example, visual illustrations of two different node templates are shown in the fogire below.  Note that there is only a single difference between (a) and (b), which is the inclusion of an additional tile type, CFRM_CBRK_L.  Even though these two nodes may present the same connectivity, the nodes are indeed different and belong to different node templates.</p>
+<div class="figure align-center" id="id5">
+<a class="reference internal image-reference" href="_images/node_templates.png"><img alt="_images/node_templates.png" src="_images/node_templates.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Node templates for the same architectural wire in two different contexts</span></p>
+</div>
+</div>
+<div class="section" id="wire-item">
+<h3>Wire Item<a class="headerlink" href="#wire-item" title="Permalink to this headline">¶</a></h3>
+<p>In order to describe a node template, the notion of a wire item is used.  A wire item describes the type of wire (tile type and wire name) and its relative offset from the origin wire in the node template.  The origin wire is generally defined as the source wire or the closest wire to the source of a potential signal.  For bidirectional wires, this convention is less obvious.  As an example, the node template illustrated in part (a) of the figure above would have the following text description:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">node_template</span> <span class="mi">197235</span> <span class="mi">4</span>
+        <span class="p">(</span><span class="n">wire_item</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="n">INT</span><span class="o">.</span><span class="n">EE2_W_BEG5</span> <span class="mi">304</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">wire_item</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">0</span> <span class="n">INT</span><span class="o">.</span><span class="n">EE2_W_END5</span> <span class="mi">815</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">wire_item</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">0</span> <span class="n">CLEL_R</span><span class="o">.</span><span class="n">EASTBUSIN_FT0_21</span> <span class="mi">126</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">wire_item</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">0</span> <span class="n">CLE_M</span><span class="o">.</span><span class="n">EASTBUSIN_FT0_21</span> <span class="mi">128</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>There are four relative wires within the node template.  Note that the order of the wire items is not contiguous relative to their connectivity.  The wires with more PIPs on them appear first (which if stored in memory this way is useful during routing expansion).</p>
+</div>
+</div>
+<div class="section" id="intent-codes">
+<h2>Intent Codes<a class="headerlink" href="#intent-codes" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">intent_codes</span> <span class="o">&lt;</span><span class="n">intent</span> <span class="n">code</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">intent</span> <span class="nb">type</span><span class="o">&gt;</span>
+   <span class="p">(</span><span class="n">intent_code</span> <span class="o">&lt;</span><span class="n">intent</span> <span class="n">code</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">intent</span> <span class="n">code</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>An intent code is a property applied to wires and nodes.  The intent code of a wire or node can be reported in Vivado using the <code class="docutils literal"><span class="pre">report_property</span></code> command of the object.  Additionally, the intent code name is displayed in the Node Properties box in the Vivado GUI.</p>
+<p>This section of the XDD file maps the integer intent code to its name. Intent codes can be used to help classify different wires and nodes to their respective types to aid in algorithms such as routing to help prune expansion selection.  For example, consider the sparse clock resource representation in the figure below.  Each of the clocking resource types have a specific intent code that is color coded.  These intent codes are useful in clock routing as different types of wires are provided to route and distribute a clock signal from its source to all the sinks.  By having a quick identifying classification, a clock router can quickly discard any wires or nodes that do not fit the kind of resource needed during each stage of clock routing and distribution.</p>
+<div class="figure align-center" id="id6">
+<a class="reference internal image-reference" href="_images/clocking_codes.png"><img alt="_images/clocking_codes.png" src="_images/clocking_codes.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Clock routing resources within two clock regions with color coded intent codes</span></p>
+</div>
+</div>
+<div class="section" id="site-types">
+<h2>Site Types<a class="headerlink" href="#site-types" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">site_types</span> <span class="o">&lt;</span><span class="n">site_types</span> <span class="n">count</span><span class="o">&gt;</span>
+  <span class="p">(</span><span class="n">site_type</span> <span class="o">&lt;</span><span class="n">site_type</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">site_type</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sitepin</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sitewire</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">element</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">siteconn</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sitepip</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">reserved</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">checksum</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">primary_type</span><span class="o">&gt;</span>
+         <span class="p">(</span><span class="n">secondary_site_types</span> <span class="p">[</span><span class="n">site_type</span><span class="p">]</span><span class="o">+</span> <span class="p">)</span>
+         <span class="p">(</span><span class="n">sitepin</span> <span class="o">&lt;</span><span class="n">sitepin</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sitepin</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sitepin</span> <span class="n">direction</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">RESERVED</span><span class="o">&gt;</span><span class="p">)</span>
+         <span class="o">...</span>
+         <span class="p">(</span><span class="n">sitewire</span> <span class="o">&lt;</span><span class="n">sitewire</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sitewire</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">)</span>
+         <span class="o">...</span>
+         <span class="p">(</span><span class="n">element</span> <span class="o">&lt;</span><span class="n">element</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">element</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">element</span> <span class="k">def</span> <span class="nf">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">element</span> <span class="nb">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">elementpin</span> <span class="n">count</span><span class="o">&gt;</span>
+           <span class="p">(</span><span class="n">elementpin</span> <span class="o">&lt;</span><span class="n">elementpin</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">elementpin</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">direction</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sitewire</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">)</span>
+           <span class="o">...</span>
+         <span class="p">)</span>
+         <span class="o">...</span>
+         <span class="p">(</span><span class="n">siteconn</span> <span class="o">&lt;</span><span class="n">siteconn</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">elementpin</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-&gt;</span> <span class="o">&lt;</span><span class="n">elementpin</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sitewire</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">)</span>
+         <span class="o">...</span>
+         <span class="p">(</span><span class="n">sitepip</span> <span class="o">&lt;</span><span class="n">sitepip</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">element</span> <span class="n">name</span><span class="o">&gt;.&lt;</span><span class="n">elementpin</span> <span class="n">name</span><span class="o">&gt;&lt;</span><span class="n">pip</span> <span class="n">arrow</span><span class="o">&gt;&lt;</span><span class="n">elementpin</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="p">)</span>
+  <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The site types section of the XDD file enumerates all site types in a given device family.  A site type is the prototype definition of a site.  A common example of a site type is a SLICEL or SLICEM.  Site types can be primary (there are physical sites of the same type in the architecture) or secondary (the type can be placed on sites of the secondary’s primary type, but generally no secondary sites of this type exist). Secondary site types represent additional functionality where a single site type could not fully represent all of the hardware’s capabilities.  Note that secondary site types will have a pin mapping back to the primary site type pins as those are the names associated with wires in the routing of the device.</p>
+<p>Site types are composed of several constructs: site pins, site wires, elements, element pin connections and site PIPs.  A site type will define an interface of input and output pins, called site pins.  All user signals enter and exit a site using a site pin.
+A site wire is a collection of electrically equivalent element pins.  For example, consider the highlighted site wire SLICE_X10Y164/AX in the figure below.  It connects five element pins: AX (corresponding site pin), CARRY8/AX, FFMUXA1/BYP, A6LUT/DI2 and F7MUX_AB/S0.</p>
+<div class="figure align-center" id="id7">
+<a class="reference internal image-reference" href="_images/site_wire.png"><img alt="_images/site_wire.png" src="_images/site_wire.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Highlighted site wire AX in SLICE_X10Y164 showing 5 element pin connections</span></p>
+</div>
+<div class="section" id="elements">
+<h3>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h3>
+<p>Elements are the lowest level functional blocks present on the device.  Elements belong to a parent site type.  Elements within the same site type will have a unique name and will have a corresponding definition type (i.e. some elements are instances of the same library element).   There are three classes or types of elements: BELs, RBELs and ports.</p>
+<p>BELs (basic elements of logic) consist of LUTs, carry chains, flip flops and similar kinds of programmable elements.  BELs can also share element pins, such as in the 6LUT where obeying certain rules can also support a 5LUT cell at the same time. BELs can also support route through behavior when a logic cell is not consuming its resources.</p>
+<p>RBELs (routing BELs) only support routing, with the single exception of providing an inversion option in key locations.  RBELs are programmable muxes within a site to help connect site wires together.  The programmable connections provided by an RBEL from its input to output pins are called site PIPs.
+Port elements are simply the internal side of a site pin.  They provide an element pin internal to the site to help element pins and site wire abstractions to work together consistently.  The name of the port element and the site pin are one and the same.</p>
+<p>The site connections construct, siteconns, describes element pin to element pin connections within the site.  This list of connections define all the element pins that belong to a site wire.</p>
+</div>
+</div>
+<div class="section" id="tile-types">
+<h2>Tile Types<a class="headerlink" href="#tile-types" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">tile_types</span> <span class="o">&lt;</span><span class="n">tile_types</span> <span class="n">count</span><span class="o">&gt;</span>
+  <span class="p">(</span><span class="n">tile_type</span> <span class="o">&lt;</span><span class="n">tile_type</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tile_type</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">site</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">wire</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">pip</span> <span class="n">count</span><span class="o">&gt;</span>
+  <span class="o">...</span>
+        <span class="p">(</span><span class="n">site_type_inst</span> <span class="o">&lt;</span><span class="n">site_type_inst</span> <span class="n">index</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">site_type</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">site_type</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="o">...</span>
+        <span class="p">(</span><span class="n">wire</span> <span class="o">&lt;</span><span class="n">wire</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">wire</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">intent</span> <span class="n">code</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">RESERVED</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="o">...</span>
+        <span class="p">(</span><span class="n">pip</span> <span class="o">&lt;</span><span class="n">pip</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tile_type</span><span class="o">&gt;.&lt;</span><span class="n">wire0</span> <span class="n">name</span><span class="o">&gt;&lt;</span><span class="n">pip</span> <span class="n">arrow</span><span class="o">&gt;&lt;</span><span class="n">wire1</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">RESERVED</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">RESERVED</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="ow">is</span> <span class="n">pseudo</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="ow">is</span> <span class="n">test</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="ow">is</span> <span class="n">excluded</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="ow">is</span> <span class="n">inverted</span><span class="o">&gt;</span><span class="p">)</span>
+        <span class="o">...</span>
+  <span class="p">)</span>
+  <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The tile types section of the XDD file lists all of the unique tile types used throughout a device family.  A tile type consists of three potential groups of objects: (1) site type instances, (2) wires, and (3) PIPs.</p>
+<div class="section" id="site-type-instances">
+<h3>Site Type Instances<a class="headerlink" href="#site-type-instances" title="Permalink to this headline">¶</a></h3>
+<p>A tile type may have one or more site types instantiated, each as a child object.  These site type instances are simply instances of site types (as defined in the Site Types section).  As tile types serve as the prototype definition of a tile, it must have a notion of the kinds of sites tiles will contain.  In the Tiles section, the actual site presented to the user of the fabric is defined and is given a unique instance name.</p>
+</div>
+<div class="section" id="wires">
+<h3>Wires<a class="headerlink" href="#wires" title="Permalink to this headline">¶</a></h3>
+<p>Each tile type has an enumerated ordered set of wires with unique names.  These wires exist outside of sites but inside tiles.  They connect the edges of tiles to other constructs within tiles such as switch box/PIP junctions (in interconnect tiles) and site pins.</p>
+</div>
+<div class="section" id="pips">
+<h3>PIPs<a class="headerlink" href="#pips" title="Permalink to this headline">¶</a></h3>
+<p>A PIP (programmable interconnect point) defines a potential connection that can be made between two wires (and in a fabric context, two nodes) using a routing mux (not explicitly represented).  A route between two site pins is generally established by turning on a select set of PIPs which connect the wires in between the two site pins together.</p>
+<p>A PIP exists outside of sites but inside tiles (PIPs that exist inside sites are called Site PIPs and are described in the Site Types section).  Generally, PIPs exist within a switch box, however, this construct is not present in the VRI, only in the Vivado Device Model GUI view.  A PIP always connects two wires that are within its own tile. Note however, that in a fabric context when tile types are instantiated in a grid, wires at the tile edges can form connections by abutment.  The device model presented in the VRI does not include explicit tile edge connections.   The VRI provides a wire-centric view and the user should be aware of the tile-based fabric construction.</p>
+<p>PIPs have different properties and types.  To denote a class or type of PIP, the ASCII PIP arrow in between wire0 and wire1 of the PIP is used.  The different variants of the PIP arrow are shown in the Table below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ASCII Arrow</th>
+<th class="head">PIP Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">-&gt;</span></code></td>
+<td>Directional, not buffered</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">-&gt;&gt;</span></code></td>
+<td>Directional, buffered</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&lt;-&gt;</span></code></td>
+<td>Bidirectional, not buffered</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">&lt;&lt;-&gt;</span></code></td>
+<td>Bidirectional, buffered</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">&lt;&lt;-&gt;&gt;</span></code></td>
+<td>Bidirectional, buffered</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="tiles">
+<h2>Tiles<a class="headerlink" href="#tiles" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">tiles</span> <span class="o">&lt;</span><span class="n">tile</span> <span class="n">rows</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span> <span class="n">tile</span> <span class="n">columns</span> <span class="n">count</span><span class="o">&gt;</span>
+  <span class="p">(</span><span class="n">tile</span> <span class="o">&lt;</span><span class="n">row</span> <span class="n">index</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">column</span> <span class="n">index</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tile</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tile_type</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">tile_pattern</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">site</span> <span class="n">count</span><span class="o">&gt;</span>
+        <span class="p">(</span><span class="n">site</span> <span class="o">&lt;</span><span class="n">site</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">site</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">site_type</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="ow">is</span> <span class="n">internal</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">RPM</span> <span class="n">X</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">RPM</span> <span class="n">Y</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">pinwire</span> <span class="n">count</span><span class="o">&gt;</span>
+          <span class="p">(</span><span class="n">pinwire</span> <span class="o">&lt;</span><span class="n">pinwire</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">pinwire</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">direction</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">wire</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">node</span> <span class="n">tile</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">node</span> <span class="n">wire</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">)</span>
+          <span class="o">...</span>
+        <span class="p">)</span>
+        <span class="o">...</span>
+  <span class="p">)</span>
+  <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>A tile is an instantiation of a tile type.  It is made unique by giving it absolute tile coordinates, a unique name and the sites within the tile are also given unique names.  Vivado relies on the absolute grid coordinates of the tiles and sites to establish relative proximity during algorithmic execution.  Tiles are also assigned a tile pattern (see <code class="docutils literal"><span class="pre">Tile</span> <span class="pre">Patterns</span></code>).</p>
+<p>As sites will connect to wires and in turn nodes, the name of the node that each site pin connects to is also listed.  This is useful in applications such as routing where the name of the node is the input pin within the switch box (INT tile) neighboring the site.  The node is a better indicator of how a route should enter the site.</p>
+</div>
+<div class="section" id="clock-regions">
+<h2>Clock Regions<a class="headerlink" href="#clock-regions" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">clock_regions</span> <span class="o">&lt;</span><span class="n">clock_region</span> <span class="n">rows</span> <span class="n">count</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">clock_region</span> <span class="n">columns</span> <span class="n">count</span><span class="o">&gt;</span>
+  <span class="p">(</span><span class="n">clock_region</span> <span class="o">&lt;</span><span class="n">row</span> <span class="n">index</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">column</span> <span class="n">index</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">clock_region</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">upper</span> <span class="n">right</span> <span class="n">tile</span> <span class="n">name</span> <span class="n">start</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">lower</span> <span class="n">right</span> <span class="n">tile</span> <span class="n">name</span> <span class="n">end</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Clock regions (also known as fabric sub regions, or FSRs) are groups of tiles that share clocking resources.  All tiles in a clock region can be clocked from the same clock distribution lines.</p>
+<p>For brevity, a clock region is described by identifying the upper left tile and lower right tile that form an inclusive rectangle around the tiles that belong to a clock region.  Clock regions are named after their XY coordinates within the fabric grid with the origin being at the lower left corner of the fabric.  It is interesting to note, that not all tiles fall into a clock region.  There are some exceptional tiles at clock region boundaries that do not belong to a clock region.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PreImplemented_Module_Flow.html" class="btn btn-neutral float-right" title="A Pre-implemented Module Flow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Implementation_Basics.html" class="btn btn-neutral" title="Implementation Basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Xilinx, Inc..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

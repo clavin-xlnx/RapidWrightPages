@@ -1,0 +1,184 @@
+===========================
+RapidWright Overview
+===========================
+.. contents:: Table of Contents
+   :depth: 2
+
+This page aims to help bridge the gap between Xilinx architectural constructs and classes and APIs found within the RapidWright code base.  There are three core packages within RapidWight: device, edif and design.  
+   
+Device Package
+===============
+The device package contains the classes that correspond to constructs in the hardware and/or silicon devices.  The most prominent and important class in this package is aptly named the ``Device`` class.  The ``Device`` class represents a specific product family member (xcku040, for example) but does not carry package, speed grade or temperature grade information.  These additional unique attributes are captured in the ``Package`` class.  When a specific device is combined with its package and grade information, this uniquely identifies a Xilinx part, represented by the ``Part`` class.  
+
+Most of the details of managing speed grades, packages, temperature are most commonly dealt with by using a string to uniquely identify a part is by using a String of the part name.  RapidWright automatically interprets all valid and supported Xilinx devices by part name and can correctly load a device if that information is included or not.  For example, the following lines of code all load the same device, even though the part name is slightly different:
+
+.. code-block:: java
+
+	Device device = null;
+	device = Device.getDevice("xcku040");
+	device = Device.getDevice("xcku040-fbva676-2");
+	device = Device.getDevice("xcku040ffva1156");
+	device = Device.getDevice("xcku040-sfva784-1LV-i");
+	device = Device.getDevice("xcku040ffva1156-2");
+   
+The ``Device`` class maintains a singleton map to avoid loading the same device more than once.  Devices files are stored in ``com.xilinx.rapidwright.util.FileTools.DEVICE_FOLDER_NAME`` and are provided by the maintainers of the RapidWright project, typically refreshed with each production release of Vivado (2017.3, 2017.4, 2018.1, ...).  A significant amount of information is stored in the device files and so they are highly compressed to avoid consuming excessive disk space.  However, to get a textual representation of the data stored in a device file, you can use the ``XDDPrinter`` class to generate a Xilinx Device Database (.xdd) file.  This file format was created specifically for RapidWright and potentially opens the door for experimenting with devices by modifying the XDD file and compiling a new device.
+
+The Device class makes available all of the architectural resources through various APIs and data objects that follow the same hierarchical model as shown previously in the :ref:`Xilinx Architecture Terminology` section.  
+
+In representing the device architecture, the main components can be loosely categorized into two main categories: definition objects and instance objects as shown in the figure below.
+
+
+.. figure:: images/defs_insts.png
+	:width: 550px
+	:align: center
+	
+	Categorization of the core architectural classes with their most significant class member variables listed
+
+Each ``Device`` object maintains a unique list of the definition objects ``TileType`` and ``SiteType`` that are referenced by ``Tile`` and ``Site`` instances objects, respectively.  Note that the ``ElementType`` is unique among the other class types.  It is a definition object that belongs to ``SiteType`` and there is no explicit instance object that elaborates it within the device architecture.  This is because the collection of ``ElementType`` objects as defined in a ``SiteType`` is always unique.  For example, in a ``SiteTypeEnum.SLICEL`` ``SiteType``, there are 8 LUTs and 16 flip flops, but each is a uniquely named ``ElementType``, distinguished by its name and context within the ``SiteType`` as shown in the figure below:
+
+.. figure:: images/element_names.png
+	:width: 550px
+	:align: center
+
+	A UltraScale SLICEL SiteType with the LUT and flip flop element names labeled
+	
+The ``ElementType`` class can be one of three kinds of non-routing objects in a ``SiteType``: a Logic BEL, a Routing BEL and a Port (port of the SiteType).  This is designated by its class member enum of type ``ElementClass``.  Inside a ``SiteType``, connectivity of the site wires (and/or site nets) is described by a collection of ``ElementPin`` objects that each of a reference to their parent ``ElementType``.  Connectivity of a site wire is stored in each ``ElementPin`` and also in the ``SiteType`` object.  
+
+Most components within the device architecture are assigned an integer index.  This helps to lower memory usage by not always having to explicitly represent a component of the architecture with a dedicated object.  It also helps by providing faster lookups.  In some cases, such as ``TileTypeEnum`` and ``SiteTypeEnum``, the index has been explicitly enumerated and an enum is used instead.  
+
+Some objects, such as ``Wire`` and ``Node`` are generated on the fly as needed as there can be hundreds of millions of unique instances of each.  Note that wires (as represented with an integer index) belong to a ``TileType`` and site wires (there is no explicit class for site wires, just an integer) belong to a ``SiteType``.  Thus, it is common to used raw ``int`` to store indices to wires and site wires and several APIs exist to aid in using them as such.
+
+	
+EDIF Package (Logical Netlist)
+===============================
+In Vivado, all designs post synthesis have a logical netlist that can be exported in the EDIF netlist format.  EDIF (Electronic Design Interchange Format) 2 0 0 is the netlist format of choice for RapidWright.  This is due to its inclusion in Vivado's design checkpoint file format and that Vivado has facilities to read and write it (``read_edif`` and ``write_edif``).  
+
+RapidWright reads, represents and writes logical netlist information in the EDIF format and the EDIF package is written to explicitly accommodate this need.  It was written with Vivado-generated EDIF in mind and may not support every corner case of the EDIF 2 0 0 specification.  
+
+Parsing EDIF is performed by the ``EDIFParser`` class.  EDIF is normally handled when reading or writing a DCP, but it can be parsed/exported independently as follows:
+
+.. code-block:: java
+
+	// Read in my_edif_file.edf
+	EDIFParser parser = new EDIFParser("my_edif_file.edf");
+	EDIFNetlist netlist = p.parseEDIFNetlist();
+	// Work some netlist magic...
+	// ...
+	// Now write it out
+	netlist.exportEDIF("my_edif_file_post_rapidwright.edf");
+	
+The ``EDIFNetlist`` is the top level class that contains the netlist and cell libraries.  Most of the classes (not exhaustively outlined here) follow closely to the keywords and constructs found in the EDIF file format.  The ``EDIFNetlist`` keeps a reference to the top cell which is wrapped in the ``EDIFDesign`` class.  It also maintains a top cell instance reference that is generated when the file is loaded.   
+
+Although a full explaination of netlist modeling and relationships are beyond the scope of this documentation, an attempt to clarify the contextual meaning of some of the classes will be made.  One important distinction to make is between ``EDIFPort`` and ``EDIFPortRef``.  At one level, an ``EDIFPort`` belongs to an ``EDIFCell`` and an ``EDIFPortRef`` belongs to an ``EDIFCellInstance``.   Another distinction is that an ``EDIFPort`` can be a bussed-based object whereas an ``EDIFPortRef`` can only represent a single bit.  An ``EDIFNet`` defines connectivity inside an ``EDIFCell`` by connecting ``EDIFPortRef`` objects together (port references on cell instances inside the cell or to external port references entering/leaving the cell).  
+
+.. figure:: images/edif_netlist.png
+	:width: 550px
+	:align: center
+	
+	Snapshot of the Vivado netlist viewer with references to RapidWright EDIF classes
+
+	
+Most classes inherit from ``EDIFName``.  EDIF has peculiar naming rules and provides for a mechanism to map the original name to a legal EDIF name.  The EDIF package in RapidWright attempts to hide all of the String gymnastics necessary to maintain both name spaces and simply present the user with the original intended name.  
+
+Several classes also inherit from ``EDIFPropertyObject`` (which also inherits from ``EDIFName``). ``EDIFPropertyObject`` endows objects with the ability to store properties which are key/value pairs.  Properties are a mapping between an ``EDIFName`` object and a ``EDIFPropertyObject``.  These properties can contain key programmable information such as LUT equations or attributes specific to BEL sites.  
+
+ 
+
+
+Design Package (Physical Netlist)
+==================================
+The design package is the collection of all the physical components of a netlist's implementation.  It contains all of the logical cell mappings to hardware, specifically the cells BEL/site placements and physical net mapping to programmable interconnect or routing.  
+
+The ``Design`` class in RapidWright is the central hub of information for a design.  It keeps track of the logical netlist, physical netlist, constraints, device and part references as well as other helper constructs.  The ``Design`` class is most similar to a design checkpoint in that it contains all the information necessary to create a DCP file.  
+
+Since a design programs a device, there are some one-to-one mappings between the device and design representation in RapidWright.  For example:
+
+.. figure:: images/design_maps_device.png
+	:width: 550px
+	:align: center
+	
+	Illustration representing how a ``Cell``, ``SiteInstance`` and ``Design`` map to ``ElementType``, ``Site`` and ``Device`` respectively
+
+SiteInstance
+---------------
+Design representation and implementation in Vivado is element-centric (BEL and cell).  This is in contrast to its predecessor, ISE and the XDL representation which made design representation more site-centric.  The ``SiteInstance`` has less emphasis than in the past, but it cannot be abandoned.  It keeps track of the cells placed onto its elements, the site PIPs used in routing and also a new construct called 'connection tag' that marks how routing resources map to nets.
+
+Each ``SiteInstance`` maps to a specific compatible site within a device.  The SiteInstance has a type using a ``SiteTypeEnum`` as the designator.  It also maintains a map of named leaf cells from the logical netlist that are physically placed onto the element sites within the site.  RapidWright also keeps track of a lock flag that is used in certain situations by Vivado to prevent components insides the site from being moved.
+
+One of the more explicit parts of design representation that exist in Vivado over its predecessor is how it represents routing inside the site, or 'site routing'.  Vivado handles routing inside of a site very differently than the routing outside of a site.  Routing that takes place outside of a site is normally handled by Vivado's ``route_design`` implementation command.  However, site routing is generally handles less explicitly and can be invoked anytime a change is made within a site.  The two main components used to represent site routing are site PIPs (represented by the ``SitePIP`` class) and connection tags or CTAGs for short.
+
+A site PIP is a programmable interconnect point that exists inside a site (specified inside a ``SiteType``).  Generally, a site PIP will establish a connection through a routing BEL or, in some cases, a logic BEL from an element input pin to an element output pin, thus connecting two separate site wires. The SiteInstance is the entity in RapidWright where site PIP usage is recorded and maintained.  By default all site PIPs are turned off, if the site PIP is added to the ``SiteInstance`` then it is interpreted as the site PIP being turned on or used.  
+
+A connection tag (or CTAG), is a mapping between a physical net name and a site wire name.  As is commonly needed, a net being routed through a site will consume site wires and site PIPs as it traverses a path to its destination.  CTAGs help make the path explicit by keeping a mapping of each consumed site wire to its corresponding net.  Currently in RapidWright, this mapping must be accurately maintained by the user in order for designs to be properly represented when they reach Vivado.  Failure to do so will result in unpredictable implementation behavior or errors when trying to load DCP files.  
+
+Net
+---------------
+Routing outside of a site is represented by the ``Net`` class.  A ``Net`` in RapidWright is typically named after the logical driver source pin and represents the entire set of logically equivalent nets that map to the same electrically equivalent net.  A ``Net`` is a physical net that implements a route using PIPs (programmable interconnect points) that, when combined together configure wires into a path from a source site pin to one or more sink site pins.  The ``PIP`` class is instantiated as needed to save memory although there is a definition-like object called the ``TilePIP`` (device package) that contains definition data and belongs to the ``TileType`` class. 
+
+Cell
+----------------
+At the lowest level, a RapidWright cell maps a logical leaf cell from the EDIF netlist (``EDIFCellInstance``) to an ``ElementType`` (or logical BEL site).  The cell name is typically the full hierarchical logical name of the leaf cell it maps to and also maintains the library cell type name (FDRE, for example for a reset flip flop).  A cell also maintains the logical cell pin mappings to the phsyical cell pin mappings (pins on the ``ElementType``).  
+
+
+Module
+--------------
+A module is a physical netlist container construct available in RapidWright.  A RapidWright module is represented by the ``Module`` class in the ``design`` package.  A module contains both a logical and physical netlist that provides all the details necessary for a full implementation.  It is most similar to a placed and routed out-of-context DCP, however RapidWright enables the implementation to be replicated or relocated to multiple compatible areas of the fabric---capabilities that are not yet available in Vivado.  A module is a definition object in that the ``SiteInstance`` and ``Net`` objects it contains are a prototype or blueprint for a pre-implemented block that can potentially be 'stamped' out and relocated in valid locations around a device.  The ``ModuleInstance`` represents the instance object of a ``Module`` and is part of the implemented portion of a physical netlist.
+
+Module Instance
+-----------------
+A module instance quite simply is an instance of a module.  RapidWright supports module instances in a design using the ``ModuleInstance`` class in the ``design`` package.  Module instances have a unique name within the design and as each module has a collection of ``SiteInstance`` and ``Net`` objects, these containers are prefixed hierarchically with the module instance name.  For example, if a module had a ``SiteInstance`` named "SLICE_X2Y2" and a ``Net`` named ``data_ready``, a newly created module instance named "fred" would have counterpart ``SiteInstance`` and ``Net`` objects called "fred/SLICE_X2Y2" and "fred/data_ready".  
+
+A module instance will typically have one of its site instances selected as what is called an 'anchor'.  The anchor site instance is a common reference point by which all other site instances and nets in the instance can be referenced.  This is useful for determining if a potential location on the fabric is compatible with the module instance for placement.  
+
+The ``Module`` and ``ModuleInstance`` concept is not available in Vivado or the DCP file format.  If these constructs are used in a RapidWright design, they can be 'flattened' or saved to an XPN file (see next section).
+
+
+Xilinx Physical Netlist (XPN) File Format
+------------------------------------------
+The Xilinx Physical Netlist (XPN) file format is a text-based file format that contains the placement and routing information of a RapidWright design.  It contains the information most similar to an XDEF file in a design checkpoint, but it cannot be read by Vivado.  The added benefit of the XPN file format is that it can also save and restore ``Module`` and ``ModuleInstance`` data along with all placement and routing information.  There are four major sections in an XPN file, ``PART``, ``MACRO`` , ``SITE`` and ``NET``.  The ``MACRO`` section is optional if the design does not contain any ``Module`` or ``ModuleInstance`` objects.  Comments can be added by using the ``#`` symbol at the start of the line and the rest of the line will be ignored by the ``XPNReader``.  
+
+::
+
+	PART <part name>
+
+:: 
+
+	MACRO <name> <anchor site instance name> <implementation index> <min clock period (ns)> [pblock]
+		MACRO_INST <list of ModuleInstance objects instantiating this Module>
+		MACRO_PORT  <name> <site instance name> <pin name> <worst case port delay (ns)>
+		...
+		SITE { see below for definition }
+		...
+		END_SITES
+		NET { see below for definition }
+		...
+		END_NETS
+	END_MACROS
+
+:: 
+
+	SITE <site name> <site instance name> <site type> [<LOCKED>] [MACRO_INST] [module instance name] [template site instance name]
+		BEL <bel name> <logical cell name> <library element name>
+		  PINS <bel pin name>:<library element pin name>[!] ...
+		...
+		PIPS
+		  <element name> <input element pin name><pip arrow><output element pin name>
+		  ...
+		CTAGS
+		  <site wire name> <net name>
+		  ...
+	...
+	END_SITES
+
+	
+::
+
+	NET <net name> [GND|VCC] [MACRO_INST] [module instance name]
+	  [OUTPIN <site instance name>.<site pin name>]
+	  [INPIN <site instance name>.<site pin name>]
+	  ...
+	...
+	  PIP <tile name>/<tile type name>.<wire0 name><pip arrow><wire1 name>
+	  ...
+	END_NETS
+

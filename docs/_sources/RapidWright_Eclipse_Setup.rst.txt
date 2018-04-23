@@ -1,0 +1,43 @@
+===============================
+RapidWright Eclipse Setup
+===============================
+
+*** Preliminary ***
+
+Step-by-Step Instructions
+===============================
+1. Make sure you have Java JDK 1.8 (or later) installed: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html Follow the instructions when running the downloaded executable.  Add the ``$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin`` folder to your ``PATH`` environment variable. 
+2. Download Eclipse: http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2
+3. Install Eclipse by extracting the archive into a desired folder on your computer 
+4. Run Eclipse (you may want to add the executable to your path) 
+5. In Eclipse, choose the File->Import... menu option.  This will bring up a dialog, choose the Git/Projects from Git option as shown in the screenshot below (click Next):
+
+.. image:: images/ImportProject.png
+	:width: 550px
+	:align: center
+
+6. Choose Clone URI and click Next:
+
+.. image:: images/CloneURI.png
+	:width: 550px
+	:align: center
+	
+7. Copy and paste ``https://github.com/Xilinx/RapidWright.git`` into the URI box as shown below.  The Host and Repository path fields should automatically be populated.  Enter user and password (if applicable).  
+
+.. image:: images/URI.png
+	:width: 550px
+	:align: center
+
+8. Choose the master branch, click next:
+
+.. image:: images/BranchSelection.png
+	:width: 550px
+	:align: center
+
+9. Choose the location of where you want Eclipse to put your RapidWright workspace.  Preferably, you should choose a workspace directory with any other Eclipse projects such as ``/home/user/workspace/RapidWright``.  Click next to have Eclipse clone the repo into your workspace.
+
+.. image:: images/ProjectLocation.png
+	:width: 550px
+	:align: center
+	
+10. Continue with step 2 back on the :ref:`Getting Started` page.

@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Implementation Basics &mdash; RapidWright  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="RapidWright  documentation" href="index.html"/>
+        <link rel="next" title="XDD File Format" href="XDD_File_Format.html"/>
+        <link rel="prev" title="Design Checkpoints" href="Design_Checkpoints.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RapidWright
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementation Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#placement">Placement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bel-placement">BEL Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site-placement">Site Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-placement">Module Placement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#routing">Routing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site-intra-site-routing">Site (Intra-site) Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interconnect-inter-site-routing">Interconnect (Inter-site) Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clock-routing">Clock Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#route-analysis">Route Analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="XDD_File_Format.html">XDD File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Implementation Basics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Implementation_Basics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="implementation-basics">
+<h1><a class="toc-backref" href="#id1">Implementation Basics</a><a class="headerlink" href="#implementation-basics" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#implementation-basics" id="id1">Implementation Basics</a><ul>
+<li><a class="reference internal" href="#placement" id="id2">Placement</a></li>
+<li><a class="reference internal" href="#routing" id="id3">Routing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Implementation, in the context of RapidWright and compiling designs for FPGAs, is defined as the placement and routing of a synthesized/mapped netlist to a specific FPGA device.  This section will describe the detailed mechanics of how placement and routing can be achieved in RapidWright.</p>
+<div class="section" id="placement">
+<h2><a class="toc-backref" href="#id2">Placement</a><a class="headerlink" href="#placement" title="Permalink to this headline">¶</a></h2>
+<p>As opposed to Vivado, RapidWright enables three layers or levels of placement in its design abstraction: BEL/element level, site level and module level.  Vivado primarily only enables BEL placement (previously in ISE, sites were the major unit of placement).  This section details how RapidWright represents and interacts with design elements at the three levels of placement mentioned.</p>
+<div class="section" id="bel-placement">
+<h3>BEL Placement<a class="headerlink" href="#bel-placement" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Reliable automatic BEL placement in RapidWright is still a work in progress and care should be taken when attempting this capability.</p>
+</div>
+<p>Creating correct BEL placements is quite tricky as several factors must be taken into consideration when placing a cell onto a BEL site.  Some questions one might need to ask when placing a cell onto a BEL site are:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Is the BEL site already occupied and are all pins map-able to the surrounding BEL connections?</li>
+<li>Are all of the cell connections routable within the site and interconnect?</li>
+<li>Are the clock and set/reset domains compatible with those already used within the site or are there resources available to route alternatives?</li>
+<li>Does this cell depend on any dedicated inter-site wires (such as carry chains or DSP cascades) that are not available?</li>
+</ol>
+</div></blockquote>
+<p>Placing a cell correctly can necessitate updates to the design in the following categories:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Mapping of the BEL to a <code class="docutils literal"><span class="pre">Cell</span></code> object in RapidWright</li>
+<li>Pin mappings between the logical and physical cell pins must be added and/or routed within the site (conditions will vary).</li>
+<li>Use of one or more SitePIPs as part of routing the site (stored in the respective <code class="docutils literal"><span class="pre">SiteInstance</span></code>)</li>
+<li>Addition of CTAGs also as part of routing a site (stored in the respective <code class="docutils literal"><span class="pre">SiteInstance</span></code>)</li>
+</ol>
+</div></blockquote>
+<p>Generic pin mappings are available in the <code class="docutils literal"><span class="pre">UnisimManager</span></code> by calling <code class="docutils literal"><span class="pre">getPinMappings()</span></code> although the pin mappings should be reviewed/updated to match the respective placement scenario.</p>
+<p>A SitePIP configures a routing BEL to propagate a signal from one of its inputs to its output pin.  SitePIPs must be turned on in the respective SiteInstance when a cell is placed onto a BEL as the common convention in Vivado is to always leave the site in a legally routed state.</p>
+<p>A CTAG (as you may recall from <a class="reference internal" href="RapidWright_Overview.html#siteinstance"><span class="std std-ref">SiteInstance</span></a>) is a mapping between a site wire and the respective net that is being routed on that resource.  The mappings are essential and can be tricky to get correct as there are a lot of different scenarios where they may be required. RapidWright is still maturing and currently has limited facilities to answer all these questions automatically.  Work will continue to make this process easier and more reliable.  However, for the most reliable  placement of a cell, an authoritative source is to attempt a single cell placement within Vivado in the same context using the <code class="docutils literal"><span class="pre">place_cell</span></code> Tcl command.  Compare the state of the site before and after the placement to get a definitive recipe.</p>
+</div>
+<div class="section" id="site-placement">
+<h3>Site Placement<a class="headerlink" href="#site-placement" title="Permalink to this headline">¶</a></h3>
+<p>Within RapidWright, it is quite straightforward in most cases to move a <code class="docutils literal"><span class="pre">SiteInstance</span></code> from one site to another.  An example of how to relocate a site instance from one location to another is shown below:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Design</span><span class="o">.</span><span class="na">readCheckpoint</span><span class="o">(</span><span class="s">&quot;example.dcp&quot;</span><span class="o">);</span>
+<span class="n">SiteInstance</span> <span class="n">si</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="na">getSiteInstanceFromSiteName</span><span class="o">(</span><span class="s">&quot;SLICE_X0Y0&quot;</span><span class="o">);</span>
+<span class="n">si</span><span class="o">.</span><span class="na">place</span><span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="na">getDevice</span><span class="o">().</span><span class="na">getSite</span><span class="o">(</span><span class="s">&quot;SLICE_X1Y1&quot;</span><span class="o">));</span>
+</pre></div>
+</div>
+<p>The user is responsible for changing any existing routing resources that previously routed to the old site.</p>
+</div>
+<div class="section" id="module-placement">
+<h3>Module Placement<a class="headerlink" href="#module-placement" title="Permalink to this headline">¶</a></h3>
+<p>One of RapidWright’s unique capabilities is providing another level of hierarchy in implementation.  Through the <code class="docutils literal"><span class="pre">Module</span></code> and <code class="docutils literal"><span class="pre">ModuleInstance</span></code> classes, a complex cell can be replicated and/or relocated across the device.  When a pre-implemented module is created for a device, all valid locations are pre-calculated and stored for the anchor site within the <code class="docutils literal"><span class="pre">Module</span></code>.  Therefore, placement of a <code class="docutils literal"><span class="pre">ModuleInstance</span></code> is simply selecting one of the valid anchor sites and applying it.</p>
+</div>
+</div>
+<div class="section" id="routing">
+<h2><a class="toc-backref" href="#id3">Routing</a><a class="headerlink" href="#routing" title="Permalink to this headline">¶</a></h2>
+<p>In Vivado, there is roughly three different types of routing: intra-site, inter-site and clock routing.  This section provides a light overview of each.</p>
+<div class="section" id="site-intra-site-routing">
+<h3>Site (Intra-site) Routing<a class="headerlink" href="#site-intra-site-routing" title="Permalink to this headline">¶</a></h3>
+<p>When a cell or cells are placed onto BELs, typical Vivado convention is to route the site immediately after.  Routing a site implied mapping the physical net to site wires and site pips.  This is done within the respective <code class="docutils literal"><span class="pre">SiteInstance</span></code> by using CTAGs to map nets to site wires and turning on SitePIPs.  Site routing is quite tricky and often it might be best to observe examples within Vivado itself to get CTAG and SitePIP configuration correct.</p>
+</div>
+<div class="section" id="interconnect-inter-site-routing">
+<h3>Interconnect (Inter-site) Routing<a class="headerlink" href="#interconnect-inter-site-routing" title="Permalink to this headline">¶</a></h3>
+<p>The bulk of the work load in routing a design is in inter-site routing.  This is the task of routing site pin to site pin using the PIPs available within the general interconnect found in switch boxes (INT tiles).  The physical routing of a net in RapidWright is simply described by a list of PIPs.  RapidWright comes with a rudimentary router for UltraScale architectures, but it is still a work in progress.  It doesn’t fully resolve congestion, but provides a working example for more specialized tasks.</p>
+</div>
+<div class="section" id="clock-routing">
+<h3>Clock Routing<a class="headerlink" href="#clock-routing" title="Permalink to this headline">¶</a></h3>
+<p>Clock routing is very architecture specific and is similar to inter-site routing in that it is also implemented by a list of PIPs. However, there are key steps and constraints that must be satisfied beyond typical inter-site routing.</p>
+<p>(More to come…)</p>
+</div>
+<div class="section" id="route-analysis">
+<h3>Route Analysis<a class="headerlink" href="#route-analysis" title="Permalink to this headline">¶</a></h3>
+<p>One of the most useful reports for routing generated by Vivado is created by running <code class="docutils literal"><span class="pre">report_route_status</span></code>.  It has several options and can be configured to dump explicit node by node connectivity.  In this format there are symbols generated on each line, here is a table that defines their meaning:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Symbol</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">[</span></code></td>
+<td>Tree End and Branch Start</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">{</span></code></td>
+<td>Branch Start</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">*</span></code></td>
+<td>Locked Node</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">!</span></code></td>
+<td>Inverting Arc</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">#</span></code></td>
+<td>Arc Set to Invert</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">}</span></code></td>
+<td>Branch End</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">]</span></code></td>
+<td>Tree End and Branch End</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">p</span></code></td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>There are various types of nodes that do not correspond to those in the device but are used for structure of the route.  The names that appear in reports generated from <code class="docutils literal"><span class="pre">report_route_status</span></code> are shown in the table below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="42%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Node Type (prefixed by “NoTile/”)</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">Logical_Driver</span></code></td>
+<td>Designates the source site for a net when ambiguous</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">GAP</span></code></td>
+<td>Makes a gap in routing valid</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">GAP</span> <span class="pre">(PlaceHolder:</span> <span class="pre">&lt;Tile/Wire&gt;)</span></code></td>
+<td>Place holder with info. to restore clock routing</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">NoWire</span></code></td>
+<td>An invalid node</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">Start_of_Stub</span></code></td>
+<td>Validates an antenna node</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">Delay_Arc_Index=&lt;Delay</span> <span class="pre">Arc</span> <span class="pre">Index&gt;</span></code></td>
+<td>Captures variable delay settings in routing</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="XDD_File_Format.html" class="btn btn-neutral float-right" title="XDD File Format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Design_Checkpoints.html" class="btn btn-neutral" title="Design Checkpoints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Xilinx, Inc..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

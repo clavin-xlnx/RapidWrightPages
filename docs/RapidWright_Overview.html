@@ -1,0 +1,409 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RapidWright Overview &mdash; RapidWright  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="RapidWright  documentation" href="index.html"/>
+        <link rel="next" title="Design Checkpoints" href="Design_Checkpoints.html"/>
+        <link rel="prev" title="Xilinx Architecture Terminology" href="Xilinx_Architecture.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RapidWright
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RapidWright Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#device-package">Device Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#edif-package-logical-netlist">EDIF Package (Logical Netlist)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#design-package-physical-netlist">Design Package (Physical Netlist)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#siteinstance">SiteInstance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#net">Net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cell">Cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module">Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-instance">Module Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xilinx-physical-netlist-xpn-file-format">Xilinx Physical Netlist (XPN) File Format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XDD_File_Format.html">XDD File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>RapidWright Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/RapidWright_Overview.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rapidwright-overview">
+<h1><a class="toc-backref" href="#id5">RapidWright Overview</a><a class="headerlink" href="#rapidwright-overview" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#rapidwright-overview" id="id5">RapidWright Overview</a><ul>
+<li><a class="reference internal" href="#device-package" id="id6">Device Package</a></li>
+<li><a class="reference internal" href="#edif-package-logical-netlist" id="id7">EDIF Package (Logical Netlist)</a></li>
+<li><a class="reference internal" href="#design-package-physical-netlist" id="id8">Design Package (Physical Netlist)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This page aims to help bridge the gap between Xilinx architectural constructs and classes and APIs found within the RapidWright code base.  There are three core packages within RapidWight: device, edif and design.</p>
+<div class="section" id="device-package">
+<h2><a class="toc-backref" href="#id6">Device Package</a><a class="headerlink" href="#device-package" title="Permalink to this headline">¶</a></h2>
+<p>The device package contains the classes that correspond to constructs in the hardware and/or silicon devices.  The most prominent and important class in this package is aptly named the <code class="docutils literal"><span class="pre">Device</span></code> class.  The <code class="docutils literal"><span class="pre">Device</span></code> class represents a specific product family member (xcku040, for example) but does not carry package, speed grade or temperature grade information.  These additional unique attributes are captured in the <code class="docutils literal"><span class="pre">Package</span></code> class.  When a specific device is combined with its package and grade information, this uniquely identifies a Xilinx part, represented by the <code class="docutils literal"><span class="pre">Part</span></code> class.</p>
+<p>Most of the details of managing speed grades, packages, temperature are most commonly dealt with by using a string to uniquely identify a part is by using a String of the part name.  RapidWright automatically interprets all valid and supported Xilinx devices by part name and can correctly load a device if that information is included or not.  For example, the following lines of code all load the same device, even though the part name is slightly different:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Device</span> <span class="n">device</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040&quot;</span><span class="o">);</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040-fbva676-2&quot;</span><span class="o">);</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040ffva1156&quot;</span><span class="o">);</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040-sfva784-1LV-i&quot;</span><span class="o">);</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040ffva1156-2&quot;</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">Device</span></code> class maintains a singleton map to avoid loading the same device more than once.  Devices files are stored in <code class="docutils literal"><span class="pre">com.xilinx.rapidwright.util.FileTools.DEVICE_FOLDER_NAME</span></code> and are provided by the maintainers of the RapidWright project, typically refreshed with each production release of Vivado (2017.3, 2017.4, 2018.1, …).  A significant amount of information is stored in the device files and so they are highly compressed to avoid consuming excessive disk space.  However, to get a textual representation of the data stored in a device file, you can use the <code class="docutils literal"><span class="pre">XDDPrinter</span></code> class to generate a Xilinx Device Database (.xdd) file.  This file format was created specifically for RapidWright and potentially opens the door for experimenting with devices by modifying the XDD file and compiling a new device.</p>
+<p>The Device class makes available all of the architectural resources through various APIs and data objects that follow the same hierarchical model as shown previously in the <a class="reference internal" href="Xilinx_Architecture.html#xilinx-architecture-terminology"><span class="std std-ref">Xilinx Architecture Terminology</span></a> section.</p>
+<p>In representing the device architecture, the main components can be loosely categorized into two main categories: definition objects and instance objects as shown in the figure below.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/defs_insts.png"><img alt="_images/defs_insts.png" src="_images/defs_insts.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Categorization of the core architectural classes with their most significant class member variables listed</span></p>
+</div>
+<p>Each <code class="docutils literal"><span class="pre">Device</span></code> object maintains a unique list of the definition objects <code class="docutils literal"><span class="pre">TileType</span></code> and <code class="docutils literal"><span class="pre">SiteType</span></code> that are referenced by <code class="docutils literal"><span class="pre">Tile</span></code> and <code class="docutils literal"><span class="pre">Site</span></code> instances objects, respectively.  Note that the <code class="docutils literal"><span class="pre">ElementType</span></code> is unique among the other class types.  It is a definition object that belongs to <code class="docutils literal"><span class="pre">SiteType</span></code> and there is no explicit instance object that elaborates it within the device architecture.  This is because the collection of <code class="docutils literal"><span class="pre">ElementType</span></code> objects as defined in a <code class="docutils literal"><span class="pre">SiteType</span></code> is always unique.  For example, in a <code class="docutils literal"><span class="pre">SiteTypeEnum.SLICEL</span></code> <code class="docutils literal"><span class="pre">SiteType</span></code>, there are 8 LUTs and 16 flip flops, but each is a uniquely named <code class="docutils literal"><span class="pre">ElementType</span></code>, distinguished by its name and context within the <code class="docutils literal"><span class="pre">SiteType</span></code> as shown in the figure below:</p>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/element_names.png"><img alt="_images/element_names.png" src="_images/element_names.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">A UltraScale SLICEL SiteType with the LUT and flip flop element names labeled</span></p>
+</div>
+<p>The <code class="docutils literal"><span class="pre">ElementType</span></code> class can be one of three kinds of non-routing objects in a <code class="docutils literal"><span class="pre">SiteType</span></code>: a Logic BEL, a Routing BEL and a Port (port of the SiteType).  This is designated by its class member enum of type <code class="docutils literal"><span class="pre">ElementClass</span></code>.  Inside a <code class="docutils literal"><span class="pre">SiteType</span></code>, connectivity of the site wires (and/or site nets) is described by a collection of <code class="docutils literal"><span class="pre">ElementPin</span></code> objects that each of a reference to their parent <code class="docutils literal"><span class="pre">ElementType</span></code>.  Connectivity of a site wire is stored in each <code class="docutils literal"><span class="pre">ElementPin</span></code> and also in the <code class="docutils literal"><span class="pre">SiteType</span></code> object.</p>
+<p>Most components within the device architecture are assigned an integer index.  This helps to lower memory usage by not always having to explicitly represent a component of the architecture with a dedicated object.  It also helps by providing faster lookups.  In some cases, such as <code class="docutils literal"><span class="pre">TileTypeEnum</span></code> and <code class="docutils literal"><span class="pre">SiteTypeEnum</span></code>, the index has been explicitly enumerated and an enum is used instead.</p>
+<p>Some objects, such as <code class="docutils literal"><span class="pre">Wire</span></code> and <code class="docutils literal"><span class="pre">Node</span></code> are generated on the fly as needed as there can be hundreds of millions of unique instances of each.  Note that wires (as represented with an integer index) belong to a <code class="docutils literal"><span class="pre">TileType</span></code> and site wires (there is no explicit class for site wires, just an integer) belong to a <code class="docutils literal"><span class="pre">SiteType</span></code>.  Thus, it is common to used raw <code class="docutils literal"><span class="pre">int</span></code> to store indices to wires and site wires and several APIs exist to aid in using them as such.</p>
+</div>
+<div class="section" id="edif-package-logical-netlist">
+<h2><a class="toc-backref" href="#id7">EDIF Package (Logical Netlist)</a><a class="headerlink" href="#edif-package-logical-netlist" title="Permalink to this headline">¶</a></h2>
+<p>In Vivado, all designs post synthesis have a logical netlist that can be exported in the EDIF netlist format.  EDIF (Electronic Design Interchange Format) 2 0 0 is the netlist format of choice for RapidWright.  This is due to its inclusion in Vivado’s design checkpoint file format and that Vivado has facilities to read and write it (<code class="docutils literal"><span class="pre">read_edif</span></code> and <code class="docutils literal"><span class="pre">write_edif</span></code>).</p>
+<p>RapidWright reads, represents and writes logical netlist information in the EDIF format and the EDIF package is written to explicitly accommodate this need.  It was written with Vivado-generated EDIF in mind and may not support every corner case of the EDIF 2 0 0 specification.</p>
+<p>Parsing EDIF is performed by the <code class="docutils literal"><span class="pre">EDIFParser</span></code> class.  EDIF is normally handled when reading or writing a DCP, but it can be parsed/exported independently as follows:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// Read in my_edif_file.edf</span>
+<span class="n">EDIFParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EDIFParser</span><span class="o">(</span><span class="s">&quot;my_edif_file.edf&quot;</span><span class="o">);</span>
+<span class="n">EDIFNetlist</span> <span class="n">netlist</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">parseEDIFNetlist</span><span class="o">();</span>
+<span class="c1">// Work some netlist magic...</span>
+<span class="c1">// ...</span>
+<span class="c1">// Now write it out</span>
+<span class="n">netlist</span><span class="o">.</span><span class="na">exportEDIF</span><span class="o">(</span><span class="s">&quot;my_edif_file_post_rapidwright.edf&quot;</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">EDIFNetlist</span></code> is the top level class that contains the netlist and cell libraries.  Most of the classes (not exhaustively outlined here) follow closely to the keywords and constructs found in the EDIF file format.  The <code class="docutils literal"><span class="pre">EDIFNetlist</span></code> keeps a reference to the top cell which is wrapped in the <code class="docutils literal"><span class="pre">EDIFDesign</span></code> class.  It also maintains a top cell instance reference that is generated when the file is loaded.</p>
+<p>Although a full explaination of netlist modeling and relationships are beyond the scope of this documentation, an attempt to clarify the contextual meaning of some of the classes will be made.  One important distinction to make is between <code class="docutils literal"><span class="pre">EDIFPort</span></code> and <code class="docutils literal"><span class="pre">EDIFPortRef</span></code>.  At one level, an <code class="docutils literal"><span class="pre">EDIFPort</span></code> belongs to an <code class="docutils literal"><span class="pre">EDIFCell</span></code> and an <code class="docutils literal"><span class="pre">EDIFPortRef</span></code> belongs to an <code class="docutils literal"><span class="pre">EDIFCellInstance</span></code>.   Another distinction is that an <code class="docutils literal"><span class="pre">EDIFPort</span></code> can be a bussed-based object whereas an <code class="docutils literal"><span class="pre">EDIFPortRef</span></code> can only represent a single bit.  An <code class="docutils literal"><span class="pre">EDIFNet</span></code> defines connectivity inside an <code class="docutils literal"><span class="pre">EDIFCell</span></code> by connecting <code class="docutils literal"><span class="pre">EDIFPortRef</span></code> objects together (port references on cell instances inside the cell or to external port references entering/leaving the cell).</p>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="_images/edif_netlist.png"><img alt="_images/edif_netlist.png" src="_images/edif_netlist.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Snapshot of the Vivado netlist viewer with references to RapidWright EDIF classes</span></p>
+</div>
+<p>Most classes inherit from <code class="docutils literal"><span class="pre">EDIFName</span></code>.  EDIF has peculiar naming rules and provides for a mechanism to map the original name to a legal EDIF name.  The EDIF package in RapidWright attempts to hide all of the String gymnastics necessary to maintain both name spaces and simply present the user with the original intended name.</p>
+<p>Several classes also inherit from <code class="docutils literal"><span class="pre">EDIFPropertyObject</span></code> (which also inherits from <code class="docutils literal"><span class="pre">EDIFName</span></code>). <code class="docutils literal"><span class="pre">EDIFPropertyObject</span></code> endows objects with the ability to store properties which are key/value pairs.  Properties are a mapping between an <code class="docutils literal"><span class="pre">EDIFName</span></code> object and a <code class="docutils literal"><span class="pre">EDIFPropertyObject</span></code>.  These properties can contain key programmable information such as LUT equations or attributes specific to BEL sites.</p>
+</div>
+<div class="section" id="design-package-physical-netlist">
+<h2><a class="toc-backref" href="#id8">Design Package (Physical Netlist)</a><a class="headerlink" href="#design-package-physical-netlist" title="Permalink to this headline">¶</a></h2>
+<p>The design package is the collection of all the physical components of a netlist’s implementation.  It contains all of the logical cell mappings to hardware, specifically the cells BEL/site placements and physical net mapping to programmable interconnect or routing.</p>
+<p>The <code class="docutils literal"><span class="pre">Design</span></code> class in RapidWright is the central hub of information for a design.  It keeps track of the logical netlist, physical netlist, constraints, device and part references as well as other helper constructs.  The <code class="docutils literal"><span class="pre">Design</span></code> class is most similar to a design checkpoint in that it contains all the information necessary to create a DCP file.</p>
+<p>Since a design programs a device, there are some one-to-one mappings between the device and design representation in RapidWright.  For example:</p>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="_images/design_maps_device.png"><img alt="_images/design_maps_device.png" src="_images/design_maps_device.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Illustration representing how a <code class="docutils literal"><span class="pre">Cell</span></code>, <code class="docutils literal"><span class="pre">SiteInstance</span></code> and <code class="docutils literal"><span class="pre">Design</span></code> map to <code class="docutils literal"><span class="pre">ElementType</span></code>, <code class="docutils literal"><span class="pre">Site</span></code> and <code class="docutils literal"><span class="pre">Device</span></code> respectively</span></p>
+</div>
+<div class="section" id="siteinstance">
+<h3>SiteInstance<a class="headerlink" href="#siteinstance" title="Permalink to this headline">¶</a></h3>
+<p>Design representation and implementation in Vivado is element-centric (BEL and cell).  This is in contrast to its predecessor, ISE and the XDL representation which made design representation more site-centric.  The <code class="docutils literal"><span class="pre">SiteInstance</span></code> has less emphasis than in the past, but it cannot be abandoned.  It keeps track of the cells placed onto its elements, the site PIPs used in routing and also a new construct called ‘connection tag’ that marks how routing resources map to nets.</p>
+<p>Each <code class="docutils literal"><span class="pre">SiteInstance</span></code> maps to a specific compatible site within a device.  The SiteInstance has a type using a <code class="docutils literal"><span class="pre">SiteTypeEnum</span></code> as the designator.  It also maintains a map of named leaf cells from the logical netlist that are physically placed onto the element sites within the site.  RapidWright also keeps track of a lock flag that is used in certain situations by Vivado to prevent components insides the site from being moved.</p>
+<p>One of the more explicit parts of design representation that exist in Vivado over its predecessor is how it represents routing inside the site, or ‘site routing’.  Vivado handles routing inside of a site very differently than the routing outside of a site.  Routing that takes place outside of a site is normally handled by Vivado’s <code class="docutils literal"><span class="pre">route_design</span></code> implementation command.  However, site routing is generally handles less explicitly and can be invoked anytime a change is made within a site.  The two main components used to represent site routing are site PIPs (represented by the <code class="docutils literal"><span class="pre">SitePIP</span></code> class) and connection tags or CTAGs for short.</p>
+<p>A site PIP is a programmable interconnect point that exists inside a site (specified inside a <code class="docutils literal"><span class="pre">SiteType</span></code>).  Generally, a site PIP will establish a connection through a routing BEL or, in some cases, a logic BEL from an element input pin to an element output pin, thus connecting two separate site wires. The SiteInstance is the entity in RapidWright where site PIP usage is recorded and maintained.  By default all site PIPs are turned off, if the site PIP is added to the <code class="docutils literal"><span class="pre">SiteInstance</span></code> then it is interpreted as the site PIP being turned on or used.</p>
+<p>A connection tag (or CTAG), is a mapping between a physical net name and a site wire name.  As is commonly needed, a net being routed through a site will consume site wires and site PIPs as it traverses a path to its destination.  CTAGs help make the path explicit by keeping a mapping of each consumed site wire to its corresponding net.  Currently in RapidWright, this mapping must be accurately maintained by the user in order for designs to be properly represented when they reach Vivado.  Failure to do so will result in unpredictable implementation behavior or errors when trying to load DCP files.</p>
+</div>
+<div class="section" id="net">
+<h3>Net<a class="headerlink" href="#net" title="Permalink to this headline">¶</a></h3>
+<p>Routing outside of a site is represented by the <code class="docutils literal"><span class="pre">Net</span></code> class.  A <code class="docutils literal"><span class="pre">Net</span></code> in RapidWright is typically named after the logical driver source pin and represents the entire set of logically equivalent nets that map to the same electrically equivalent net.  A <code class="docutils literal"><span class="pre">Net</span></code> is a physical net that implements a route using PIPs (programmable interconnect points) that, when combined together configure wires into a path from a source site pin to one or more sink site pins.  The <code class="docutils literal"><span class="pre">PIP</span></code> class is instantiated as needed to save memory although there is a definition-like object called the <code class="docutils literal"><span class="pre">TilePIP</span></code> (device package) that contains definition data and belongs to the <code class="docutils literal"><span class="pre">TileType</span></code> class.</p>
+</div>
+<div class="section" id="cell">
+<h3>Cell<a class="headerlink" href="#cell" title="Permalink to this headline">¶</a></h3>
+<p>At the lowest level, a RapidWright cell maps a logical leaf cell from the EDIF netlist (<code class="docutils literal"><span class="pre">EDIFCellInstance</span></code>) to an <code class="docutils literal"><span class="pre">ElementType</span></code> (or logical BEL site).  The cell name is typically the full hierarchical logical name of the leaf cell it maps to and also maintains the library cell type name (FDRE, for example for a reset flip flop).  A cell also maintains the logical cell pin mappings to the phsyical cell pin mappings (pins on the <code class="docutils literal"><span class="pre">ElementType</span></code>).</p>
+</div>
+<div class="section" id="module">
+<h3>Module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h3>
+<p>A module is a physical netlist container construct available in RapidWright.  A RapidWright module is represented by the <code class="docutils literal"><span class="pre">Module</span></code> class in the <code class="docutils literal"><span class="pre">design</span></code> package.  A module contains both a logical and physical netlist that provides all the details necessary for a full implementation.  It is most similar to a placed and routed out-of-context DCP, however RapidWright enables the implementation to be replicated or relocated to multiple compatible areas of the fabric—capabilities that are not yet available in Vivado.  A module is a definition object in that the <code class="docutils literal"><span class="pre">SiteInstance</span></code> and <code class="docutils literal"><span class="pre">Net</span></code> objects it contains are a prototype or blueprint for a pre-implemented block that can potentially be ‘stamped’ out and relocated in valid locations around a device.  The <code class="docutils literal"><span class="pre">ModuleInstance</span></code> represents the instance object of a <code class="docutils literal"><span class="pre">Module</span></code> and is part of the implemented portion of a physical netlist.</p>
+</div>
+<div class="section" id="module-instance">
+<h3>Module Instance<a class="headerlink" href="#module-instance" title="Permalink to this headline">¶</a></h3>
+<p>A module instance quite simply is an instance of a module.  RapidWright supports module instances in a design using the <code class="docutils literal"><span class="pre">ModuleInstance</span></code> class in the <code class="docutils literal"><span class="pre">design</span></code> package.  Module instances have a unique name within the design and as each module has a collection of <code class="docutils literal"><span class="pre">SiteInstance</span></code> and <code class="docutils literal"><span class="pre">Net</span></code> objects, these containers are prefixed hierarchically with the module instance name.  For example, if a module had a <code class="docutils literal"><span class="pre">SiteInstance</span></code> named “SLICE_X2Y2” and a <code class="docutils literal"><span class="pre">Net</span></code> named <code class="docutils literal"><span class="pre">data_ready</span></code>, a newly created module instance named “fred” would have counterpart <code class="docutils literal"><span class="pre">SiteInstance</span></code> and <code class="docutils literal"><span class="pre">Net</span></code> objects called “fred/SLICE_X2Y2” and “fred/data_ready”.</p>
+<p>A module instance will typically have one of its site instances selected as what is called an ‘anchor’.  The anchor site instance is a common reference point by which all other site instances and nets in the instance can be referenced.  This is useful for determining if a potential location on the fabric is compatible with the module instance for placement.</p>
+<p>The <code class="docutils literal"><span class="pre">Module</span></code> and <code class="docutils literal"><span class="pre">ModuleInstance</span></code> concept is not available in Vivado or the DCP file format.  If these constructs are used in a RapidWright design, they can be ‘flattened’ or saved to an XPN file (see next section).</p>
+</div>
+<div class="section" id="xilinx-physical-netlist-xpn-file-format">
+<h3>Xilinx Physical Netlist (XPN) File Format<a class="headerlink" href="#xilinx-physical-netlist-xpn-file-format" title="Permalink to this headline">¶</a></h3>
+<p>The Xilinx Physical Netlist (XPN) file format is a text-based file format that contains the placement and routing information of a RapidWright design.  It contains the information most similar to an XDEF file in a design checkpoint, but it cannot be read by Vivado.  The added benefit of the XPN file format is that it can also save and restore <code class="docutils literal"><span class="pre">Module</span></code> and <code class="docutils literal"><span class="pre">ModuleInstance</span></code> data along with all placement and routing information.  There are four major sections in an XPN file, <code class="docutils literal"><span class="pre">PART</span></code>, <code class="docutils literal"><span class="pre">MACRO</span></code> , <code class="docutils literal"><span class="pre">SITE</span></code> and <code class="docutils literal"><span class="pre">NET</span></code>.  The <code class="docutils literal"><span class="pre">MACRO</span></code> section is optional if the design does not contain any <code class="docutils literal"><span class="pre">Module</span></code> or <code class="docutils literal"><span class="pre">ModuleInstance</span></code> objects.  Comments can be added by using the <code class="docutils literal"><span class="pre">#</span></code> symbol at the start of the line and the rest of the line will be ignored by the <code class="docutils literal"><span class="pre">XPNReader</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PART</span> <span class="o">&lt;</span><span class="n">part</span> <span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">MACRO</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">anchor</span> <span class="n">site</span> <span class="n">instance</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">implementation</span> <span class="n">index</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nb">min</span> <span class="n">clock</span> <span class="n">period</span> <span class="p">(</span><span class="n">ns</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">pblock</span><span class="p">]</span>
+        <span class="n">MACRO_INST</span> <span class="o">&lt;</span><span class="nb">list</span> <span class="n">of</span> <span class="n">ModuleInstance</span> <span class="n">objects</span> <span class="n">instantiating</span> <span class="n">this</span> <span class="n">Module</span><span class="o">&gt;</span>
+        <span class="n">MACRO_PORT</span>  <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">site</span> <span class="n">instance</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">pin</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">worst</span> <span class="n">case</span> <span class="n">port</span> <span class="n">delay</span> <span class="p">(</span><span class="n">ns</span><span class="p">)</span><span class="o">&gt;</span>
+        <span class="o">...</span>
+        <span class="n">SITE</span> <span class="p">{</span> <span class="n">see</span> <span class="n">below</span> <span class="k">for</span> <span class="n">definition</span> <span class="p">}</span>
+        <span class="o">...</span>
+        <span class="n">END_SITES</span>
+        <span class="n">NET</span> <span class="p">{</span> <span class="n">see</span> <span class="n">below</span> <span class="k">for</span> <span class="n">definition</span> <span class="p">}</span>
+        <span class="o">...</span>
+        <span class="n">END_NETS</span>
+<span class="n">END_MACROS</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>SITE &lt;site name&gt; &lt;site instance name&gt; &lt;site type&gt; [&lt;LOCKED&gt;] [MACRO_INST] [module instance name] [template site instance name]
+        BEL &lt;bel name&gt; &lt;logical cell name&gt; &lt;library element name&gt;
+          PINS &lt;bel pin name&gt;:&lt;library element pin name&gt;[!] ...
+        ...
+        PIPS
+          &lt;element name&gt; &lt;input element pin name&gt;&lt;pip arrow&gt;&lt;output element pin name&gt;
+          ...
+        CTAGS
+          &lt;site wire name&gt; &lt;net name&gt;
+          ...
+...
+END_SITES
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">NET</span> <span class="o">&lt;</span><span class="n">net</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">GND</span><span class="o">|</span><span class="n">VCC</span><span class="p">]</span> <span class="p">[</span><span class="n">MACRO_INST</span><span class="p">]</span> <span class="p">[</span><span class="n">module</span> <span class="n">instance</span> <span class="n">name</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">OUTPIN</span> <span class="o">&lt;</span><span class="n">site</span> <span class="n">instance</span> <span class="n">name</span><span class="o">&gt;.&lt;</span><span class="n">site</span> <span class="n">pin</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">INPIN</span> <span class="o">&lt;</span><span class="n">site</span> <span class="n">instance</span> <span class="n">name</span><span class="o">&gt;.&lt;</span><span class="n">site</span> <span class="n">pin</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="o">...</span>
+<span class="o">...</span>
+  <span class="n">PIP</span> <span class="o">&lt;</span><span class="n">tile</span> <span class="n">name</span><span class="o">&gt;/&lt;</span><span class="n">tile</span> <span class="nb">type</span> <span class="n">name</span><span class="o">&gt;.&lt;</span><span class="n">wire0</span> <span class="n">name</span><span class="o">&gt;&lt;</span><span class="n">pip</span> <span class="n">arrow</span><span class="o">&gt;&lt;</span><span class="n">wire1</span> <span class="n">name</span><span class="o">&gt;</span>
+  <span class="o">...</span>
+<span class="n">END_NETS</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Design_Checkpoints.html" class="btn btn-neutral float-right" title="Design Checkpoints" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Xilinx_Architecture.html" class="btn btn-neutral" title="Xilinx Architecture Terminology" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Xilinx, Inc..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

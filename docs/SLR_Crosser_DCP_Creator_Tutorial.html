@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Create Placed and Routed DCP to Cross SLR &mdash; RapidWright  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="RapidWright  documentation" href="index.html"/>
+        <link rel="up" title="RapidWright Tutorials" href="Tutorials.html"/>
+        <link rel="prev" title="How to Create a DCP From Scratch" href="DCP_From_Scratch_Tutorial.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RapidWright
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XDD_File_Format.html">XDD File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ILA_Tutorial.html">Insert an ILA (ChipScope) into a Routed DCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DCP_From_Scratch_Tutorial.html">How to Create a DCP From Scratch</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Create Placed and Routed DCP to Cross SLR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#steps-to-run">Steps to Run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>Create Placed and Routed DCP to Cross SLR</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/SLR_Crosser_DCP_Creator_Tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="create-placed-and-routed-dcp-to-cross-slr">
+<h1>Create Placed and Routed DCP to Cross SLR<a class="headerlink" href="#create-placed-and-routed-dcp-to-cross-slr" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>What You’ll Need to Get Started:</dt>
+<dd><ul class="first last simple">
+<li>RapidWright 2017.3 or later</li>
+<li>Vivado 2017.3 or later</li>
+</ul>
+</dd>
+</dl>
+<p>One of the example programs that is provided with RapidWright solves a challenging problem on UltraScale+ devices (this approach is not valid for Series 7 or UltraScale parts).  Crossing super logic region (SLR) boundaries at high speed can prove quite difficult in conventional Vivado flows.  The hardware provides dedicated TX/RX flip flops in Laguna sites to enable the creation of paths with very short delay but experience two significant problems:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The dedicated super long lines (SLLs) that connect TX and RX Laguna flip flop pairs are often sensitive to hold time violations due to the higher multi-die variability.</li>
+<li>Paths crossing the SLR boundary are taxed with an additional delay penality called “Inter-SLR Compensation” (ISC).  This penalty increases the calculated delay and reduces it potential for high speed.</li>
+</ol>
+</div></blockquote>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/ISC.png"><img alt="_images/ISC.png" src="_images/ISC.png" style="width: 350px;" /></a>
+<p class="caption"><span class="caption-text">Example Vivado tooltip window describing the Inter-SLR Compensation delay penalty</span></p>
+</div>
+<p>In RapidWright, we have created a parametrized, stand-alone application that can automatically generate a placed and routed DCP from scratch that implements a circuit that eliminates and minimizes the two challenges mentioned above.  First, it creates a netlist with pairs of flops that are connected and placed and routed across SLR crossings using the dedicated Laguna TX/RX flip flop sites.  Next, it custom routes the clock (the circuit has its own BUFGCE) such that it can individually tune the leaf clock buffers (LCBs) for each direction on each side of the SLR.  By using the LCBs, the hold time in the first challenge mentioned above is eliminated.  To minimize the ISC penalty, a clock root is generated for each clock region (CR) that contains an SLR crossing.</p>
+<div class="section" id="steps-to-run">
+<h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Ensure you have RapidWright correctly setup and/or installed. See the <a class="reference internal" href="Getting_Started.html#getting-started"><span class="std std-ref">Getting Started</span></a> page for details.</li>
+<li>Run <code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.examples.SLRCrosserDCPCreator</span> <span class="pre">-h</span></code>.  This will print all the available options to parameterize the SLR crossing output, example output below:</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span>==============================================================================
+==                        SLR Crossing DCP Generator                        ==
+==============================================================================
+This RapidWright program creates a placed and routed DCP that can be
+imported into UltraScale+ designs to aid in high speed SLR crossings.  See
+RapidWright documentation for more information.
+
+Option                                   Description
+------                                   -----------
+-?, -h                                   Print Help
+-a [String: Clk input net name]          (default: clk_in)
+-b [String: Clock BUFGCE site name]      (default: BUFGCE_X0Y218)
+-c [String: Clk net name]                (default: clk)
+-d [String: Design Name]                 (default: slr_crosser)
+-i [String: Input bus name prefix]       (default: input)
+-l [String: Comma separated list of      (default: LAGUNA_X2Y120)
+  Laguna sites for each SLR crossing]
+-n [String: North bus name suffix]       (default: _north)
+-o [String: Output DCP File Name]        (default: slr_crosser.dcp)
+-p [String: UltraScale+ Part Name]       (default: xcvu9p-flgc2104-2-i)
+-q [String: Output bus name prefix]      (default: output)
+-r [String: INT clk Laguna RX flops]     (default: GCLK_B_0_1)
+-s [String: South bus name suffix]       (default: _south)
+-t [String: INT clk Laguna TX flops]     (default: GCLK_B_0_0)
+-u [String: Clk output net name]         (default: clk_out)
+-v [Boolean: Print verbose output]       (default: true)
+-w [Integer: SLR crossing bus width]     (default: 512)
+-x [Double: Clk period constraint (ns)]  (default: 1.538)
+-y [String: BUFGCE cell instance name]   (default: BUFGCE_inst)
+-z [Boolean: Use common centroid]        (default: false)
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>A default scenario of a single bi-directional crossing of 512 bits is generated at the LAGUNA_X2Y120 site on a VU9P part if no options are provided. The DCP is generated in the current working directory with the name <code class="docutils literal"><span class="pre">slr_crosser.dcp</span></code> unless the <code class="docutils literal"><span class="pre">-o</span></code> option is specified.</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ java com.xilinx.rapidwright.examples.SLRCrosserDCPCreator
+==============================================================================
+==                           SLRCrosserDCPCreator                           ==
+==============================================================================
+                    Init:     4.787s
+          Create Netlist:     0.123s
+     Place SLR Crossings:     0.121s
+      Custom Clock Route:     3.756s
+           Route VCC/GND:     0.079s
+              Write EDIF:     0.148s
+     Writing XDEF Header:     0.090s
+  Writing XDEF Placement:     0.213s
+    Writing XDEF Routing:     0.404s
+ Writing XDEF Finalizing:     0.079s
+             Writing XDC:     0.039s
+------------------------------------------------------------------------------
+         [No GC] *Total*:     9.839s
+Wrote final DCP: /home/user/slr_crosser.dcp
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Open the DCP using Vivado to view the design.  It should look similar to the annotated screenshot below:</li>
+</ol>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/SLR_crossing.png"><img alt="_images/SLR_crossing.png" src="_images/SLR_crossing.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Vivado Screenshot with bubble annotations of a single, bi-direction 512-bit SLR crossing circuit.</span></p>
+</div>
+<ol class="arabic simple" start="5">
+<li>You can also unzip the DCP (treating it like an ordinary ZIP file) and inside you’ll find Verilog and VHDL stubs that can be imported into RTL designs for black box inclusion.  Example output below:</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ unzip slr_crosser.dcp
+Archive:  slr_crosser.dcp
+  inflating: slr_crosser.edf
+  inflating: slr_crosser.xdef
+  inflating: slr_crosser_late.xdc
+  inflating: slr_crosser_stub.v
+  inflating: slr_crosser_stub.vhdl
+  inflating: dcp.xml
+$ cat slr_crosser_stub.v
+// This file was generated by RapidWright 2017.3.0.
+
+// This empty module with port declaration file causes synthesis tools to infer a black box for IP.
+// Please paste the declaration into a Verilog source file or add the file as an additional source.
+module slr_crosser(clk_in, clk_out, input0_north, input0_south, output0_north, output0_south);
+  input clk_in;
+  output clk_out;
+  input [511:0]input0_north;
+  input [511:0]input0_south;
+  output [511:0]output0_north;
+  output [511:0]output0_south;
+endmodule
+$
+</pre></div>
+</div>
+<p>Optionally, you can open the DCP in Vivado and write out the netlist as EDIF, Verilog or VHDL to be packaged as an IP. The DCP can then be dropped into the IP cache later.</p>
+<ol class="arabic simple" start="6">
+<li>As one additional example, the generator is capable of using every SLL in the device.  To generate such a DCP for a VU9P device, run:</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ java com.xilinx.rapidwright.examples.SLRCrosserDCPCreator -w 720 -l LAGUNA_X0Y120,LAGUNA_X2Y120,LAGUNA_X4Y120,LAGUNA_X6Y120,LAGUNA_X8Y120,LAGUNA_X10Y120,LAGUNA_X12Y120,LAGUNA_X14Y120,LAGUNA_X16Y120,LAGUNA_X18Y120,LAGUNA_X20Y120,LAGUNA_X22Y120,LAGUNA_X0Y360,LAGUNA_X2Y360,LAGUNA_X4Y360,LAGUNA_X6Y360,LAGUNA_X8Y360,LAGUNA_X10Y360,LAGUNA_X12Y360,LAGUNA_X14Y360,LAGUNA_X16Y360,LAGUNA_X18Y360,LAGUNA_X20Y360,LAGUNA_X22Y360
+</pre></div>
+</div>
+<p>The resultant DCP should look similar to the following in Vivado:</p>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="_images/Full_SLR_crossing.png"><img alt="_images/Full_SLR_crossing.png" src="_images/Full_SLR_crossing.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Vivado Screenshot of all SLLs being used at potentially a 760MHz for a speed grade 2 device.</span></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="DCP_From_Scratch_Tutorial.html" class="btn btn-neutral" title="How to Create a DCP From Scratch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Xilinx, Inc..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+=================================================
+Insert an ILA (ChipScope) into a Routed DCP
+=================================================
+
+What You'll Need to Get Started:
+  - Vivado 2017.3
+  - RapidWright 2017.3
+   
+Often, you might find yourself in the following scenario.  You've worked tirelessly to finally meet timing on your design and you are full of anticipation while you patiently generate a bitstream.  Your anticipation turns to anguish and horror as you realize your design is not working in hardware.  You fret over what unpleasant and demeaning tasks you'll have to perform just to figure out what is going wrong.  All the while you are realizing that all your hard work in closing timing has gone down the drain.  Unless..., perhaps, if there was some way you could keep your design intact and insert an ILA (ChipScope) core on top of your design without disturbing the placement and routing.  This tutorial will help you do just that.
+
+Since this is a tutorial, we will start by showing you how to generate a placed and routed design from scratch to test.  If you have your own, know that it will need to meet the following requirements:
+
+  - It cannot already have a Debug Hub present in the design (this is common if you are using a MIG or other Debug core)
+  - There must be adequate resources for the ILA you are requesting present on the device
+
+To generate an example placed and routed MicroBlaze design, run the following Tcl commands in your Vivado's Tcl prompt (Note the use of $CWD, please replace this with your current working directory):
+  
+.. code-block:: tcl
+
+	create_project microblaze $CWD/microblaze -part xcku040-ffva1156-2-e
+	set_property board_part xilinx.com:kcu105:part0:1.2 [current_project]
+	set_property target_language VHDL [current_project]
+	create_bd_design "base_mb" -mode batch
+	update_compile_order -fileset sim_1
+	update_compile_order -fileset sources_1
+	launch_runs impl_1
+	
+This will take several minutes.  When this is finished, we need to generate unencrypted EDIF (the EDIF in the DCP will by encrypted by default) by running the following commands:
+
+.. code-block:: tcl
+	
+	open_run impl_1
+	write_edif $CWD/microblaze/microblaze.runs/impl_1/base_mb_wrapper_routed.edf
+
+	
+.. figure:: images/microblaze.png
+	:width: 450px
+	:align: center
+	
+	The implemented microblaze design should looks similar to the one above
+
+	
+Once you have the DCP and EDIF files ready, we can insert the ILA:
+
+let's run the ILAInserter.java class in RapidWright by running:
+
+``java com.xilinx.rapidwright.debug.ILAInserter base_mb_wrapper_routed.dcp microblaze_with_ila.dcp 16 1024``
+
+The 16 specifies the probe count of the ILA to be generated and 1024 is for the capture depth.  This script will automatically synthesize an ILA for you and stitch it into the DCP with these parameters.  This will again take several minutes, but when it completes successfully, you'll have your placed and routed design with an ILA inserted.
+
+Currently, this tutorial requires you to place and route the ILA on top of the existing placed and routed design.  To finalize the implementation run the following commands:
+
+.. code-block:: tcl
+	
+	open_checkpoint microblaze_with_ila.dcp
+	place_design
+	update_clock_routing
+	route_design
+
+.. figure:: images/microblaze_with_ila.png
+	:width: 450px
+	:align: center
+	
+	After placing and routing the ILA on top of the original design, your implementation should look similar to that above
+	
+	
+Now, using Vivado's ECO cockpit (Layout->ECO), you should be able to route the probes to any signals of interest. 
+	
+

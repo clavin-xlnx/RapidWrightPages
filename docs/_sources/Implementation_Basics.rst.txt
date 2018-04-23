@@ -1,0 +1,100 @@
+================================
+Implementation Basics
+================================
+.. contents:: Table of Contents
+   :depth: 2
+
+Implementation, in the context of RapidWright and compiling designs for FPGAs, is defined as the placement and routing of a synthesized/mapped netlist to a specific FPGA device.  This section will describe the detailed mechanics of how placement and routing can be achieved in RapidWright.
+
+   
+Placement
+===========
+As opposed to Vivado, RapidWright enables three layers or levels of placement in its design abstraction: BEL/element level, site level and module level.  Vivado primarily only enables BEL placement (previously in ISE, sites were the major unit of placement).  This section details how RapidWright represents and interacts with design elements at the three levels of placement mentioned.
+
+BEL Placement
+----------------
+.. note:: Reliable automatic BEL placement in RapidWright is still a work in progress and care should be taken when attempting this capability.  
+
+Creating correct BEL placements is quite tricky as several factors must be taken into consideration when placing a cell onto a BEL site.  Some questions one might need to ask when placing a cell onto a BEL site are:
+
+ 1. Is the BEL site already occupied and are all pins map-able to the surrounding BEL connections?
+ 2. Are all of the cell connections routable within the site and interconnect?
+ 3. Are the clock and set/reset domains compatible with those already used within the site or are there resources available to route alternatives?
+ 4. Does this cell depend on any dedicated inter-site wires (such as carry chains or DSP cascades) that are not available?
+ 
+Placing a cell correctly can necessitate updates to the design in the following categories:
+
+ 1. Mapping of the BEL to a ``Cell`` object in RapidWright
+ 2. Pin mappings between the logical and physical cell pins must be added and/or routed within the site (conditions will vary).
+ 3. Use of one or more SitePIPs as part of routing the site (stored in the respective ``SiteInstance``) 
+ 4. Addition of CTAGs also as part of routing a site (stored in the respective ``SiteInstance``)
+ 
+Generic pin mappings are available in the ``UnisimManager`` by calling ``getPinMappings()`` although the pin mappings should be reviewed/updated to match the respective placement scenario.
+
+A SitePIP configures a routing BEL to propagate a signal from one of its inputs to its output pin.  SitePIPs must be turned on in the respective SiteInstance when a cell is placed onto a BEL as the common convention in Vivado is to always leave the site in a legally routed state.  
+ 
+A CTAG (as you may recall from :ref:`SiteInstance`) is a mapping between a site wire and the respective net that is being routed on that resource.  The mappings are essential and can be tricky to get correct as there are a lot of different scenarios where they may be required. RapidWright is still maturing and currently has limited facilities to answer all these questions automatically.  Work will continue to make this process easier and more reliable.  However, for the most reliable  placement of a cell, an authoritative source is to attempt a single cell placement within Vivado in the same context using the ``place_cell`` Tcl command.  Compare the state of the site before and after the placement to get a definitive recipe.  
+
+Site Placement
+----------------
+Within RapidWright, it is quite straightforward in most cases to move a ``SiteInstance`` from one site to another.  An example of how to relocate a site instance from one location to another is shown below: 
+
+.. code-block:: java
+
+  Design d = Design.readCheckpoint("example.dcp");
+  SiteInstance si = d.getSiteInstanceFromSiteName("SLICE_X0Y0");
+  si.place(d.getDevice().getSite("SLICE_X1Y1"));
+
+The user is responsible for changing any existing routing resources that previously routed to the old site.  
+  
+Module Placement
+-----------------
+One of RapidWright's unique capabilities is providing another level of hierarchy in implementation.  Through the ``Module`` and ``ModuleInstance`` classes, a complex cell can be replicated and/or relocated across the device.  When a pre-implemented module is created for a device, all valid locations are pre-calculated and stored for the anchor site within the ``Module``.  Therefore, placement of a ``ModuleInstance`` is simply selecting one of the valid anchor sites and applying it.  
+
+Routing
+===========
+In Vivado, there is roughly three different types of routing: intra-site, inter-site and clock routing.  This section provides a light overview of each.
+
+Site (Intra-site) Routing
+---------------------------
+When a cell or cells are placed onto BELs, typical Vivado convention is to route the site immediately after.  Routing a site implied mapping the physical net to site wires and site pips.  This is done within the respective ``SiteInstance`` by using CTAGs to map nets to site wires and turning on SitePIPs.  Site routing is quite tricky and often it might be best to observe examples within Vivado itself to get CTAG and SitePIP configuration correct.
+
+Interconnect (Inter-site) Routing
+------------------------------------
+The bulk of the work load in routing a design is in inter-site routing.  This is the task of routing site pin to site pin using the PIPs available within the general interconnect found in switch boxes (INT tiles).  The physical routing of a net in RapidWright is simply described by a list of PIPs.  RapidWright comes with a rudimentary router for UltraScale architectures, but it is still a work in progress.  It doesn't fully resolve congestion, but provides a working example for more specialized tasks.  
+
+Clock Routing
+----------------------
+Clock routing is very architecture specific and is similar to inter-site routing in that it is also implemented by a list of PIPs. However, there are key steps and constraints that must be satisfied beyond typical inter-site routing.  
+
+(More to come...)
+
+Route Analysis
+----------------
+One of the most useful reports for routing generated by Vivado is created by running ``report_route_status``.  It has several options and can be configured to dump explicit node by node connectivity.  In this format there are symbols generated on each line, here is a table that defines their meaning:
+
+====== ==============================
+Symbol Description
+====== ==============================
+``[``  Tree End and Branch Start
+``{``  Branch Start
+``*``  Locked Node
+``!``  Inverting Arc
+``#``  Arc Set to Invert
+``}``  Branch End
+``]``  Tree End and Branch End
+``p``  
+====== ==============================
+
+There are various types of nodes that do not correspond to those in the device but are used for structure of the route.  The names that appear in reports generated from ``report_route_status`` are shown in the table below:
+
+===================================== ===================================================
+Node Type (prefixed by "NoTile/")     Description
+===================================== ===================================================
+``Logical_Driver``                    Designates the source site for a net when ambiguous
+``GAP``                               Makes a gap in routing valid
+``GAP (PlaceHolder: <Tile/Wire>)``    Place holder with info. to restore clock routing 
+``NoWire``                            An invalid node
+``Start_of_Stub``                     Validates an antenna node
+``Delay_Arc_Index=<Delay Arc Index>`` Captures variable delay settings in routing
+===================================== ===================================================

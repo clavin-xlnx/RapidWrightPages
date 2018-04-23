@@ -1,0 +1,45 @@
+==========================================================
+Build an IP Integrator Design with Pre-Implemented Blocks
+==========================================================
+
+What You'll Need to Get Started:
+  - Vivado 2017.3
+  - RapidWright 2017.3
+
+This tutorial will begin by creating an example MicroBlaze design in IP Integrator (IPI) and showing how RapidWright can pre-implement the blocks of the design, place them and route them   
+  
+To generate an example placed and routed MicroBlaze design, run the following Tcl commands in your Vivado's Tcl prompt:
+  
+.. code-block:: tcl
+
+	create_project project_1 [pwd]/testBlockStitcher -part xcku040-ffva1156-2-e
+	set_property board_part xilinx.com:kcu105:part0:1.3 [current_project]
+	set_property target_language VHDL [current_project]
+	create_bd_design "base_mb" -mode batch
+	instantiate_example_design -design base_mb base_mb
+	
+Now that we have an IPI design created, we have the option of running one of two different implementation flows.  To run the conventional implementation flow in Vivado, you could run:
+
+.. code-block:: tcl
+
+	launch_runs impl_1	
+	
+But this tutorial is here to show you how to build this design with pre-implemented blocks. To run the RapidWright pre-implemented block flow, you will need to source a rapidwright.tcl and then run a command:
+
+.. code-block:: tcl
+
+	source ${::env(RAPIDWRIGHT_PATH)}/tclScripts/rapidwright.tcl
+	rapid_compile_ipi
+	
+This Tcl procedure will invoke Vivado to generate and synthesize the various IPs in the IPI design.  Unless you set the environment variable ``IP_CACHE_PATH``, the IP and pre-implemented block cache defaults to ``$HOME/blockCache``.  If the cache is empty, it will take several minutes to pre-implement each block.  However, this process will eventually conclude with the design being fully stitched together in the ``BlockStitcher`` class in RapidWright and ultimately produce a placed and routed DCP.
+
+Once the pre-implemented block flow is complete, you can test its recompilation speed by re-running:
+
+.. code-block:: tcl
+
+	rapid_compile_ipi
+
+This should complete in less than a minute.  Any connectivity changes to the design or adding blocks that have already been stored in the cache should always compile in less than a minute.  
+	
+
+	
