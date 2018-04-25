@@ -3,7 +3,7 @@ Create Placed and Routed DCP to Cross SLR
 =================================================
 
 What You'll Need to Get Started:
-  - RapidWright 2017.3 or later
+  - RapidWright 2017.4 or later
   - Vivado 2017.3 or later
    
 One of the example programs that is provided with RapidWright solves a challenging problem on UltraScale+ devices (this approach is not valid for Series 7 or UltraScale parts).  Crossing super logic region (SLR) boundaries at high speed can prove quite difficult in conventional Vivado flows.  The hardware provides dedicated TX/RX flip flops in Laguna sites to enable the creation of paths with very short delay but experience two significant problems:

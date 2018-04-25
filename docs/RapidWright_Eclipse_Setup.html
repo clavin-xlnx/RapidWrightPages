@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">RapidWright Eclipse Setup</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#step-by-step-instructions">Step-by-Step Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-eclipse-with-existing-repo">Setup Eclipse with Existing Repo</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
@@ -179,7 +180,6 @@
             
   <div class="section" id="rapidwright-eclipse-setup">
 <h1>RapidWright Eclipse Setup<a class="headerlink" href="#rapidwright-eclipse-setup" title="Permalink to this headline">¶</a></h1>
-<p><strong>* Preliminary *</strong></p>
 <div class="section" id="step-by-step-instructions">
 <h2>Step-by-Step Instructions<a class="headerlink" href="#step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
@@ -207,8 +207,44 @@
 </ol>
 <a class="reference internal image-reference" href="_images/ProjectLocation.png"><img alt="_images/ProjectLocation.png" class="align-center" src="_images/ProjectLocation.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="10">
-<li>Continue with step 2 back on the <a class="reference internal" href="Getting_Started.html#getting-started"><span class="std std-ref">Getting Started</span></a> page.</li>
+<li>Continue with step 2 back on the <a class="reference internal" href="Getting_Started.html#manual-installation-steps"><span class="std std-ref">Manual Installation Steps</span></a> section of the <a class="reference internal" href="Getting_Started.html#getting-started"><span class="std std-ref">Getting Started</span></a> page.</li>
 </ol>
+</div>
+<div class="section" id="setup-eclipse-with-existing-repo">
+<h2>Setup Eclipse with Existing Repo<a class="headerlink" href="#setup-eclipse-with-existing-repo" title="Permalink to this headline">¶</a></h2>
+<p>If you already have the RapidWright repository checked out, you can import it into an Eclipse workspace by following these steps (you can skip to Step 5 if you already have Eclipse installed and open)</p>
+<ol class="arabic simple">
+<li>Make sure you have Java JDK 1.8 (or later) installed: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> Follow the instructions when running the downloaded executable.  Add the <code class="docutils literal"><span class="pre">$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin</span></code> folder to your <code class="docutils literal"><span class="pre">PATH</span></code> environment variable.</li>
+<li>Download Eclipse: <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2</a></li>
+<li>Install Eclipse by extracting the archive into a desired folder on your computer</li>
+<li>Run Eclipse (you may want to add the executable to your path)</li>
+<li>In Eclipse, choose the File-&gt;Import… menu option.  This will bring up a dialog, choose the Git/Projects from Git option as shown in the screenshot below (click Next):</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ImportExistingGitProject.png"><img alt="_images/ImportExistingGitProject.png" class="align-center" src="_images/ImportExistingGitProject.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="6">
+<li>Choose ‘Existing local repository’, then click Next</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ImportExistingGitProject2.png"><img alt="_images/ImportExistingGitProject2.png" class="align-center" src="_images/ImportExistingGitProject2.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="7">
+<li>Select the existing repository by clicking the ‘Add…’ button</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ImportExistingGitProject3.png"><img alt="_images/ImportExistingGitProject3.png" class="align-center" src="_images/ImportExistingGitProject3.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="8">
+<li>Enter the location of the repository in the ‘Directory:’ text box, check the box next to the name of the repo once it appears in the lower window. Click ‘Finish’ and then ‘Next’ on the previous window.</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ImportExistingGitProject4.png"><img alt="_images/ImportExistingGitProject4.png" class="align-center" src="_images/ImportExistingGitProject4.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="9">
+<li>On the Wizard selection window, choose ‘Import existing projects’.  Then, click ‘Next’.</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ImportExistingGitProject5.png"><img alt="_images/ImportExistingGitProject5.png" class="align-center" src="_images/ImportExistingGitProject5.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="10">
+<li>Finally, click ‘Finish’ to finalize the import.</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ImportExistingGitProject6.png"><img alt="_images/ImportExistingGitProject6.png" class="align-center" src="_images/ImportExistingGitProject6.png" style="width: 550px;" /></a>
+<ol class="arabic simple" start="11">
+<li>Eclipse will then import the project, compile all the source and it should look similar to the screenshot below:</li>
+</ol>
+<a class="reference internal image-reference" href="_images/ImportExistingGitProject7.png"><img alt="_images/ImportExistingGitProject7.png" class="align-center" src="_images/ImportExistingGitProject7.png" style="width: 750px;" /></a>
 </div>
 </div>
 

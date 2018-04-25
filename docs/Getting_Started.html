@@ -104,10 +104,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#quick-start-try-it-out">Quick Start (Try it out)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#full-installation-development">Full Installation (Development)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#highly-recommended">Highly Recommended</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#optional">Optional</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installation-steps">Installation Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-installer">Automatic Installer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-installation-steps">Manual Installation Steps</a></li>
 </ul>
 </li>
 </ul>
@@ -225,32 +223,31 @@
 </div>
 <div class="section" id="full-installation-development">
 <h2><a class="toc-backref" href="#id4">Full Installation (Development)</a><a class="headerlink" href="#full-installation-development" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="pre-requisites">
-<h3>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h3>
+<p>RapidWright is written in Java and should be able to run on most platforms.  However, we currently only test on RedHat 6 or Windows 7 (64-bit).</p>
+<p><strong>Pre-requisites</strong></p>
 <ol class="arabic simple">
-<li>Oracle JRE/JDK Java 1.8 or later (<a class="reference external" href="https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html">install instructions here</a>)</li>
-</ol>
-</div>
-<div class="section" id="highly-recommended">
-<h3>Highly Recommended<a class="headerlink" href="#highly-recommended" title="Permalink to this headline">¶</a></h3>
-<ol class="arabic simple">
-<li><a class="reference external" href="https://www.xilinx.com/products/design-tools/vivado.html">Vivado Design Suite 2017.4</a></li>
+<li>Oracle JDK Java 1.8 or later (<a class="reference external" href="https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html">install instructions here</a>)</li>
 <li><a class="reference external" href="https://git-scm.com/">Git</a> source code revision control system</li>
-<li>An IDE such as <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">Eclipse</a></li>
+<li><a class="reference external" href="https://www.xilinx.com/products/design-tools/vivado.html">Vivado Design Suite 2017.4</a>  (Not essential to run RapidWright, but makes it useful)</li>
+<li>(Recommended) An IDE such as <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">Eclipse</a></li>
+<li>(Optional) <a class="reference external" href="https://gradle.org/install/">Gradle 4.0</a> or later (build tool)</li>
 </ol>
-</div>
-<div class="section" id="optional">
-<h3>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="automatic-installer">
+<h3>Automatic Installer<a class="headerlink" href="#automatic-installer" title="Permalink to this headline">¶</a></h3>
+<p>The easiest way to get RapidWright setup is to use the automatic installer jar that performs the manual installation automatically.  Make sure you have the JDK and Git on your PATH.</p>
 <ol class="arabic simple">
-<li><a class="reference external" href="https://gradle.org/install/">Gradle 4.0</a> or later (build tool)</li>
+<li>Download <a class="reference download internal" href="_downloads/rapidwright-installer.jar" download=""><code class="xref download docutils literal"><span class="pre">rapidwright-installer.jar</span></code></a> to the directory where you would like RapidWright to reside.</li>
+<li>From a terminal in that directory, run <code class="docutils literal"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">rapidwright-installer.jar</span></code> (To open a terminal on Windows, search and run ‘cmd.exe’ from the Start orb)</li>
+<li>Use one of the BASH/CSH/BAT scripts created at the end of the install to set the proper environment variables for subsequent invocations of RapidWright.</li>
+<li>(Optional) You can setup Eclipse after the automatic install by following <a class="reference internal" href="RapidWright_Eclipse_Setup.html#setup-eclipse-with-existing-repo"><span class="std std-ref">Setup Eclipse with Existing Repo</span></a>.</li>
 </ol>
 </div>
-<div class="section" id="installation-steps">
-<h3>Installation Steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="manual-installation-steps">
+<h3>Manual Installation Steps<a class="headerlink" href="#manual-installation-steps" title="Permalink to this headline">¶</a></h3>
 <p>RapidWright source code and data files are hosted on <a class="reference external" href="https://github.com/Xilinx/RapidWright">GitHub</a>.  Here is how to get the necessary files to get started:</p>
 <ol class="arabic simple">
 <li>Use <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/Xilinx/RapidWright.git</span></code> to clone the repo, either on the command line or setting up a new project in your IDE.  For a detailed tutorial setting up RapidWright in Eclipse see the <a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> page.</li>
-<li>Go to <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases">https://github.com/Xilinx/RapidWright/releases</a> and download the latest release files: <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/download/latest/rapidwright_data.zip">rapidwright_data.zip</a> and <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/download/latest/rapidwright_jars.zip">rapidwright_jars.zip</a>.</li>
+<li>Go to <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases">https://github.com/Xilinx/RapidWright/releases</a> and download the latest release files: rapidwright_data.zip and rapidwright_jars.zip.</li>
 <li>Expand the two zip files into the root repository directory, there should be a ‘jars’ and ‘data’ directory listed there. Make sure to delete previous ‘jars’ and ‘data’ directories if present.</li>
 <li>Set the environment variable <code class="docutils literal"><span class="pre">RAPIDWRIGHT_PATH=&lt;your_repo_path&gt;</span></code></li>
 <li>Be sure to add the compiled Java files and jar files in the jar folder to your <code class="docutils literal"><span class="pre">CLASSPATH</span></code> variable. If using Bash and can delete the unused OS-specific jars in the jars directory, you could add the following to your <code class="docutils literal"><span class="pre">.bashrc</span></code> file:

@@ -40,28 +40,32 @@ Note that the standalone jar comes with only a very few select devices:
   
 Full Installation (Development)
 ===================================
+RapidWright is written in Java and should be able to run on most platforms.  However, we currently only test on RedHat 6 or Windows 7 (64-bit).
 
-Pre-requisites
--------------------
-1. Oracle JRE/JDK Java 1.8 or later (`install instructions here <https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html>`_)
+**Pre-requisites**
 
-Highly Recommended
--------------------------
-1. `Vivado Design Suite 2017.4 <https://www.xilinx.com/products/design-tools/vivado.html>`_ 
+1. Oracle JDK Java 1.8 or later (`install instructions here <https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html>`_)
 2. `Git <https://git-scm.com/>`_ source code revision control system
-3. An IDE such as `Eclipse <http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2>`_ 
+3. `Vivado Design Suite 2017.4 <https://www.xilinx.com/products/design-tools/vivado.html>`_  (Not essential to run RapidWright, but makes it useful)
+4. (Recommended) An IDE such as `Eclipse <http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2>`_ 
+5. (Optional) `Gradle 4.0 <https://gradle.org/install/>`_ or later (build tool)
 
-Optional 
----------
-1. `Gradle 4.0 <https://gradle.org/install/>`_ or later (build tool)
+Automatic Installer 
+--------------------
+The easiest way to get RapidWright setup is to use the automatic installer jar that performs the manual installation automatically.  Make sure you have the JDK and Git on your PATH.
+
+1. Download :download:`rapidwright-installer.jar <files/rapidwright-installer.jar>` to the directory where you would like RapidWright to reside.
+2. From a terminal in that directory, run ``java -jar rapidwright-installer.jar`` (To open a terminal on Windows, search and run 'cmd.exe' from the Start orb)
+3. Use one of the BASH/CSH/BAT scripts created at the end of the install to set the proper environment variables for subsequent invocations of RapidWright.
+4. (Optional) You can setup Eclipse after the automatic install by following :ref:`Setup Eclipse with Existing Repo`.
 
    
-Installation Steps
-----------------------
+Manual Installation Steps
+---------------------------
 RapidWright source code and data files are hosted on `GitHub <https://github.com/Xilinx/RapidWright>`_.  Here is how to get the necessary files to get started:
 
 1. Use ``git clone https://github.com/Xilinx/RapidWright.git`` to clone the repo, either on the command line or setting up a new project in your IDE.  For a detailed tutorial setting up RapidWright in Eclipse see the :ref:`RapidWright Eclipse Setup` page.
-2. Go to https://github.com/Xilinx/RapidWright/releases and download the latest release files: `rapidwright_data.zip <https://github.com/Xilinx/RapidWright/releases/download/latest/rapidwright_data.zip>`_ and `rapidwright_jars.zip <https://github.com/Xilinx/RapidWright/releases/download/latest/rapidwright_jars.zip>`_.
+2. Go to https://github.com/Xilinx/RapidWright/releases and download the latest release files: rapidwright_data.zip and rapidwright_jars.zip.
 3. Expand the two zip files into the root repository directory, there should be a 'jars' and 'data' directory listed there. Make sure to delete previous 'jars' and 'data' directories if present.
 4. Set the environment variable ``RAPIDWRIGHT_PATH=<your_repo_path>``
 5. Be sure to add the compiled Java files and jar files in the jar folder to your ``CLASSPATH`` variable. If using Bash and can delete the unused OS-specific jars in the jars directory, you could add the following to your ``.bashrc`` file:  
