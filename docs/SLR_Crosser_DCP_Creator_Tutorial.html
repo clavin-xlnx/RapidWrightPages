@@ -210,7 +210,7 @@
 <h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Ensure you have RapidWright correctly setup and/or installed. See the <a class="reference internal" href="Getting_Started.html#getting-started"><span class="std std-ref">Getting Started</span></a> page for details.</li>
-<li>Run <code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.examples.SLRCrosserDCPCreator</span> <span class="pre">-h</span></code>.  This will print all the available options to parameterize the SLR crossing output, example output below:</li>
+<li>Run <code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.examples.SLRCrosserGenerator</span> <span class="pre">-h</span></code>.  This will print all the available options to parameterize the SLR crossing output, example output below:</li>
 </ol>
 <div class="highlight-default"><div class="highlight"><pre><span></span>==============================================================================
 ==                        SLR Crossing DCP Generator                        ==
@@ -247,9 +247,9 @@ Option                                   Description
 <ol class="arabic simple" start="3">
 <li>A default scenario of a single bi-directional crossing of 512 bits is generated at the LAGUNA_X2Y120 site on a VU9P part if no options are provided. The DCP is generated in the current working directory with the name <code class="docutils literal"><span class="pre">slr_crosser.dcp</span></code> unless the <code class="docutils literal"><span class="pre">-o</span></code> option is specified.</li>
 </ol>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ java com.xilinx.rapidwright.examples.SLRCrosserDCPCreator
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ java com.xilinx.rapidwright.examples.SLRCrosserGenerator
 ==============================================================================
-==                           SLRCrosserDCPCreator                           ==
+==                           SLRCrosserGenerator                            ==
 ==============================================================================
                     Init:     4.787s
           Create Netlist:     0.123s
@@ -305,7 +305,7 @@ $
 <ol class="arabic simple" start="6">
 <li>As one additional example, the generator is capable of using every SLL in the device.  To generate such a DCP for a VU9P device, run:</li>
 </ol>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ java com.xilinx.rapidwright.examples.SLRCrosserDCPCreator -w 720 -l LAGUNA_X0Y120,LAGUNA_X2Y120,LAGUNA_X4Y120,LAGUNA_X6Y120,LAGUNA_X8Y120,LAGUNA_X10Y120,LAGUNA_X12Y120,LAGUNA_X14Y120,LAGUNA_X16Y120,LAGUNA_X18Y120,LAGUNA_X20Y120,LAGUNA_X22Y120,LAGUNA_X0Y360,LAGUNA_X2Y360,LAGUNA_X4Y360,LAGUNA_X6Y360,LAGUNA_X8Y360,LAGUNA_X10Y360,LAGUNA_X12Y360,LAGUNA_X14Y360,LAGUNA_X16Y360,LAGUNA_X18Y360,LAGUNA_X20Y360,LAGUNA_X22Y360
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ java com.xilinx.rapidwright.examples.SLRCrosserGenerator -w 720 -l LAGUNA_X0Y120,LAGUNA_X2Y120,LAGUNA_X4Y120,LAGUNA_X6Y120,LAGUNA_X8Y120,LAGUNA_X10Y120,LAGUNA_X12Y120,LAGUNA_X14Y120,LAGUNA_X16Y120,LAGUNA_X18Y120,LAGUNA_X20Y120,LAGUNA_X22Y120,LAGUNA_X0Y360,LAGUNA_X2Y360,LAGUNA_X4Y360,LAGUNA_X6Y360,LAGUNA_X8Y360,LAGUNA_X10Y360,LAGUNA_X12Y360,LAGUNA_X14Y360,LAGUNA_X16Y360,LAGUNA_X18Y360,LAGUNA_X20Y360,LAGUNA_X22Y360
 </pre></div>
 </div>
 <p>The resultant DCP should look similar to the following in Vivado:</p>
