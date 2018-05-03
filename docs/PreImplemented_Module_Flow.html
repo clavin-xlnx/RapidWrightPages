@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>A Pre-implemented Module Flow &mdash; RapidWright  documentation</title>
+  <title>A Pre-implemented Module Flow &mdash; RapidWright 2017.4-beta documentation</title>
   
 
   
@@ -38,26 +38,19 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="RapidWright  documentation" href="index.html"/>
-        <link rel="next" title="RapidWright Tutorials" href="Tutorials.html"/>
-        <link rel="prev" title="XDD File Format" href="XDD_File_Format.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RapidWright Tutorials" href="Tutorials.html" />
+    <link rel="prev" title="XDD File Format" href="XDD_File_Format.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -69,14 +62,21 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> RapidWright
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/>
           
           </a>
 
           
             
+            
+              <div class="version">
+                2017.4
+              </div>
             
           
 
@@ -140,13 +140,20 @@
             
           
         </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+			</center>
+		</div>
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">RapidWright</a>
@@ -154,9 +161,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -209,7 +217,12 @@
 </div></blockquote>
 <div class="section" id="background-and-flow-comparison">
 <h2>Background and Flow Comparison<a class="headerlink" href="#background-and-flow-comparison" title="Permalink to this headline">¶</a></h2>
-<p>Both flows (high performance and rapid prototyping) start with the RapidWright provided Tcl command, <code class="docutils literal"><span class="pre">rapid_compile_ipi</span></code>.  This command can be loaded by running <code class="docutils literal"><span class="pre">source</span> <span class="pre">${::env(RAPIDWRIGHT_PATH)}/tclScripts/rapidwright.tcl</span></code> in the Vivado Tcl interpreter.  This command runs on a currently open IP Integrator design in Vivado, builds all IPs out-of-context, invokes the BlockStitcher in RapidWright to stitch all of the pre-implemented blocks together, places the blocks and routes them into a final implementation.  This command, can function in two modes as described previously.  Here is a quick comparison of the high performance vs. rapid prototyping mode for pre-implemented blocks:</p>
+<p>Both flows (high performance and rapid prototyping) start with the RapidWright provided Tcl command, <code class="docutils literal"><span class="pre">rapid_compile_ipi</span></code>.  This command can be loaded by running <code class="docutils literal"><span class="pre">source</span> <span class="pre">${::env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl</span></code> in the Vivado Tcl interpreter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using a standalone jar, you can extract the rapidwright.tcl (and other device/data) by running <code class="docutils literal"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">&lt;standalone.jar&gt;</span> <span class="pre">--unpack_data</span></code>.</p>
+</div>
+<p>This command runs on a currently open IP Integrator design in Vivado, builds all IPs out-of-context, invokes the BlockStitcher in RapidWright to stitch all of the pre-implemented blocks together, places the blocks and routes them into a final implementation.  This command, can function in two modes as described previously.  Here is a quick comparison of the high performance vs. rapid prototyping mode for pre-implemented blocks:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="22%" />
@@ -341,9 +354,7 @@ enabling concept and offer a three-step high performance design strategy:</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -361,11 +372,11 @@ enabling concept and offer a three-step high performance design strategy:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Xilinx, Inc..
+        &copy; Copyright 2018, Xilinx, Inc.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -383,7 +394,8 @@ enabling concept and offer a three-step high performance design strategy:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'2017.4-beta',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -401,14 +413,11 @@ enabling concept and offer a three-step high performance design strategy:</p>
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

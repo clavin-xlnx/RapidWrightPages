@@ -14,7 +14,7 @@ CPU vs. FPGA
 ===============================
 A central processing unit (CPU or just processor) follows the Von Neumann compute-based architecture as illustrated in the figure below.  
 
-.. figure:: images/cpu.gif
+.. figure:: images/cpu.png
    :width: 540px
    :align: center
    

@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>FPGA Architecture Basics &mdash; RapidWright  documentation</title>
+  <title>FPGA Architecture Basics &mdash; RapidWright 2017.4-beta documentation</title>
   
 
   
@@ -38,26 +38,19 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="RapidWright  documentation" href="index.html"/>
-        <link rel="next" title="Xilinx Architecture Terminology" href="Xilinx_Architecture.html"/>
-        <link rel="prev" title="RapidWright Eclipse Setup" href="RapidWright_Eclipse_Setup.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Xilinx Architecture Terminology" href="Xilinx_Architecture.html" />
+    <link rel="prev" title="RapidWright Eclipse Setup" href="RapidWright_Eclipse_Setup.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -69,14 +62,21 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> RapidWright
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/>
           
           </a>
 
           
             
+            
+              <div class="version">
+                2017.4
+              </div>
             
           
 
@@ -125,13 +125,20 @@
             
           
         </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+			</center>
+		</div>
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">RapidWright</a>
@@ -139,9 +146,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -209,7 +217,7 @@
 <h2><a class="toc-backref" href="#id10">CPU vs. FPGA</a><a class="headerlink" href="#cpu-vs-fpga" title="Permalink to this headline">¶</a></h2>
 <p>A central processing unit (CPU or just processor) follows the Von Neumann compute-based architecture as illustrated in the figure below.</p>
 <div class="figure align-center" id="id3">
-<a class="reference internal image-reference" href="_images/cpu.gif"><img alt="_images/cpu.gif" src="_images/cpu.gif" style="width: 540px;" /></a>
+<a class="reference internal image-reference" href="_images/cpu.png"><img alt="_images/cpu.png" src="_images/cpu.png" style="width: 540px;" /></a>
 <p class="caption"><span class="caption-text">Basic Von Neumann Processing Model for CPUs (Source: <a class="reference external" href="https://commons.wikimedia.org/wiki/File:ABasicComputer.gif">Labtron, Creative Commons</a>).</span></p>
 </div>
 <p>A control unit driven by instructions fetched from memory drives the flow of input data through the processor’s registers and logic producing outputs.  The data paths, instruction set, register counts and memory interface are all fixed at the time of fabrication of the CPU.  That is, they are unchanging attributes of the processor and cannot be customized later.</p>
@@ -265,9 +273,7 @@ A LUT can implement any Boolean logic equation limited only by the number of inp
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -285,11 +291,11 @@ A LUT can implement any Boolean logic equation limited only by the number of inp
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Xilinx, Inc..
+        &copy; Copyright 2018, Xilinx, Inc.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -307,7 +313,8 @@ A LUT can implement any Boolean logic equation limited only by the number of inp
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'',
+            VERSION:'2017.4-beta',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -325,14 +332,11 @@ A LUT can implement any Boolean logic equation limited only by the number of inp
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

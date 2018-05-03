@@ -9,7 +9,11 @@ This section presents a pre-implemented module flow that can operate in two ways
 --------------------------------
 Background and Flow Comparison
 --------------------------------
-Both flows (high performance and rapid prototyping) start with the RapidWright provided Tcl command, ``rapid_compile_ipi``.  This command can be loaded by running ``source ${::env(RAPIDWRIGHT_PATH)}/tclScripts/rapidwright.tcl`` in the Vivado Tcl interpreter.  This command runs on a currently open IP Integrator design in Vivado, builds all IPs out-of-context, invokes the BlockStitcher in RapidWright to stitch all of the pre-implemented blocks together, places the blocks and routes them into a final implementation.  This command, can function in two modes as described previously.  Here is a quick comparison of the high performance vs. rapid prototyping mode for pre-implemented blocks:
+Both flows (high performance and rapid prototyping) start with the RapidWright provided Tcl command, ``rapid_compile_ipi``.  This command can be loaded by running ``source ${::env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl`` in the Vivado Tcl interpreter.  
+
+.. note:: If you are using a standalone jar, you can extract the rapidwright.tcl (and other device/data) by running ``java -jar <standalone.jar> --unpack_data``.
+
+This command runs on a currently open IP Integrator design in Vivado, builds all IPs out-of-context, invokes the BlockStitcher in RapidWright to stitch all of the pre-implemented blocks together, places the blocks and routes them into a final implementation.  This command, can function in two modes as described previously.  Here is a quick comparison of the high performance vs. rapid prototyping mode for pre-implemented blocks:
 
 +--------------------+------------------------------------+------------------------------------+
 |                    | High Performance Flow              | Rapid Prototyping Flow             |
