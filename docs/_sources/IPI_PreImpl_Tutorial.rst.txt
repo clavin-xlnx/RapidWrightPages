@@ -28,7 +28,7 @@ But this tutorial is here to show you how to build this design with pre-implemen
 
 .. code-block:: tcl
 
-	source ${::env(RAPIDWRIGHT_PATH)}/tclScripts/rapidwright.tcl
+	source ${::env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl
 	rapid_compile_ipi
 	
 This Tcl procedure will invoke Vivado to generate and synthesize the various IPs in the IPI design.  Unless you set the environment variable ``IP_CACHE_PATH``, the IP and pre-implemented block cache defaults to ``$HOME/blockCache``.  If the cache is empty, it will take several minutes to pre-implement each block.  However, this process will eventually conclude with the design being fully stitched together in the ``BlockStitcher`` class in RapidWright and ultimately produce a placed and routed DCP.
