@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Xilinx Architecture Terminology &mdash; RapidWright 2018.2.0-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RapidWright Overview" href="RapidWright_Overview.html" />
+    <link rel="prev" title="FPGA Architecture Basics" href="FPGA_Architecture.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2018.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Xilinx Architecture Terminology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bel-basic-element-of-logic">BEL (Basic Element of Logic)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#site">Site</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site-type">Site Type</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tile">Tile</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tile-type">Tile Type</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fsr-fabric-sub-region-or-clock-region">FSR (Fabric Sub Region or Clock Region)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slr-super-logic-region">SLR (Super Logic Region)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#device">Device</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Xilinx Architecture Terminology</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Xilinx_Architecture.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xilinx-architecture-terminology">
+<h1><a class="toc-backref" href="#id4">Xilinx Architecture Terminology</a><a class="headerlink" href="#xilinx-architecture-terminology" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#xilinx-architecture-terminology" id="id4">Xilinx Architecture Terminology</a><ul>
+<li><a class="reference internal" href="#bel-basic-element-of-logic" id="id5">BEL (Basic Element of Logic)</a></li>
+<li><a class="reference internal" href="#site" id="id6">Site</a></li>
+<li><a class="reference internal" href="#tile" id="id7">Tile</a></li>
+<li><a class="reference internal" href="#fsr-fabric-sub-region-or-clock-region" id="id8">FSR (Fabric Sub Region or Clock Region)</a></li>
+<li><a class="reference internal" href="#slr-super-logic-region" id="id9">SLR (Super Logic Region)</a></li>
+<li><a class="reference internal" href="#device" id="id10">Device</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>In order to use RapidWright, an understanding of Xilinx FPGA architecture and hierarchy will be necessary in navigating your way around the device APIs.  In Xilinx FPGAs, there are six major levels of hierarchy that describe basic components all the way up to the entire device.  This hierarchy can be seen in the figure below:</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/hierarchy.png"><img alt="_images/hierarchy.png" src="_images/hierarchy.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Levels of architectural hierarchy in Xilinx FPGAs.</span></p>
+</div>
+<p>We begin our discussion with a bottom-up approach starting with the lowest level of hierarchy, the basic element of logic.</p>
+<div class="section" id="bel-basic-element-of-logic">
+<h2><a class="toc-backref" href="#id5">BEL (Basic Element of Logic)</a><a class="headerlink" href="#bel-basic-element-of-logic" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/bels.png"><img alt="_images/bels.png" src="_images/bels.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Vivado representation of two routing muxes (routing BELs) and two flip flops (logic BELs).</span></p>
+</div>
+<p>At the lowest level, the atomic unit of Xilinx FPGAs is a BEL.  BELs are the smallest, indivisible, representable component in the fabric of an FPGA.  There are two kinds of BELs, Logic BELs (Basic Element of Logic) and Routing BELs.  A Logic BEL is a configurable logic-based site that can support the implementation of a design cell.  Each BEL can support one or more types of UNISIM cells (UNISIM cells are described in Libraries Guides <a class="reference external" href="https://www.xilinx.com/cgi-bin/docs/rdoc?v=latest;d=ug953-vivado-7series-libraries.pdf">UG953</a> for Series 7 devices and <a class="reference external" href="https://www.xilinx.com/cgi-bin/docs/rdoc?v=latest;d=ug974-vivado-ultrascale-libraries.pdf">UG974</a> for UltraScale™ devices).  The mapping between a leaf cell (non-leaf cells do not represent implementable hardware, just hierarchy) in the netlist and a BEL site is referred to as the ‘placement’ of the cell.  Thus, when one runs the Vivado command <code class="docutils literal"><span class="pre">place_design</span></code>, it is essentially mapping all leaf cells in the netlist to compatible and legal BEL sites.</p>
+<p>Routing BELs are programmable routing muxes used to route signals between BELs.  Routing BELs do not support any design elements (logic cells from the netlist do not occupy routing BEL sites), they are used only for routing.  However, some routing BELs do have optional inversions.</p>
+<p>BELs have input and output pins.  BELs also have configurable connections that connect an input pin to an output pin.  These BEL-based configurable connections are called site PIPs (where PIP stands for Programmable Interconnect Point).  Both logic BELs and routing BELs can have site PIPs.  However, in the case of a logic BEL, the site must be unoccupied by a cell in order for the route through to be usable.  Often, these site PIPs, when implemented in logic BELs (a LUT is a common example), are referred to as a “route through” or “route-thru.”  When routing a design, in order to physically route a net it is sometimes necessary to route through unused LUTs or other logic BELs with site PIPs.</p>
+</div>
+<div class="section" id="site">
+<h2><a class="toc-backref" href="#id6">Site</a><a class="headerlink" href="#site" title="Permalink to this headline">¶</a></h2>
+<p>A group of related elements and their connectivity is referred to as a site.  Inside of a site, one can find three major categories of objects:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>BELs (Logic BELs and/or Routing BELs)</li>
+<li>Site Pins (External input and output pins to the site)</li>
+<li>Site wires (connecting elements to each other and site pins)</li>
+</ol>
+</div></blockquote>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="_images/site.png"><img alt="_images/site.png" src="_images/site.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">An UltraScale+ SLICEL site, where logic BELs are magenta, routing BELs are green, site pins are red and site wires are yellow.</span></p>
+</div>
+<p>Sites are instances of a type and each site has a unique name with an <code class="docutils literal"><span class="pre">_X#Y#</span></code> suffix denoting its location in the site type grid.  Each site type will have its own XY coordinate grid, independent of others.  The only exception to this is that SLICEL and SLICEM types share the same grid space.  SLICEL and SLICEM are the most common site type and are the basic configurable logic building blocks that contain LUTs and flip flops that form the backbone of the FPGA fabric.</p>
+<div class="section" id="site-type">
+<h3>Site Type<a class="headerlink" href="#site-type" title="Permalink to this headline">¶</a></h3>
+<p>Sites are heavily replicated across the device and each instance of a site corresponds to a site type of that device’s architecture family.  Additionally, sites found in an FPGA device are sometimes capable of hosting different types, however, when a tile is queried, a ‘primary’ site type is designated.</p>
+</div>
+</div>
+<div class="section" id="tile">
+<h2><a class="toc-backref" href="#id7">Tile</a><a class="headerlink" href="#tile" title="Permalink to this headline">¶</a></h2>
+<p>At an abstract level, Xilinx devices are created by assembling a grid of tiles.  Similar to sites, each tile is an instance of a type and each tile has a unique name with an <code class="docutils literal"><span class="pre">_X#Y#</span></code> suffix.  Tiles are the building blocks used when constructing an FPGA device.  Tiles are designed to abut one another when laid down to construct an FPGA device.</p>
+<p>Not all tiles contain sites and those that do, can have more than one.  Unlike sites and BELs, tiles do not have user visible pins.  Instead, tiles contain uniquely-named wires that can connect to site pins or other wires through a programmable interconnect point (PIP).  PIPs are programmable muxes that connect two wires together in the same tile.  Most PIPs are present in switch box tiles (those with the “INT” prefix). Columns of switch box tiles are designed to connect to all fabric resources such as CLBs, DSPs, and BRAMs.  When tiles abut, they are designed such that certain wires in the adjoining tiles line up and connect as shown in the figure below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/wire_abut.png"><img alt="_images/wire_abut.png" src="_images/wire_abut.png" style="width: 350px;" /></a>
+</div>
+<div class="section" id="node">
+<h3>Node<a class="headerlink" href="#node" title="Permalink to this headline">¶</a></h3>
+<p>As there are no pins on tiles, the notion of a node is used to describe the connectivity of wires in between tiles.  A node is a collection of electrically connected wires that spans one or more tiles.  The figure below shows how four wires that abut among four tiles form a node:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/node.png"><img alt="_images/node.png" src="_images/node.png" style="width: 600px;" /></a>
+</div>
+<p>Nodes and wires exist as first class Tcl objects in Vivado and the example above can be queried as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">get_wires</span> <span class="o">-</span><span class="n">of</span> <span class="p">[</span><span class="n">get_node</span> <span class="n">INT_X12Y101</span><span class="o">/</span><span class="n">EE2_W_BEG5</span><span class="p">]</span>
+<span class="n">INT_X12Y101</span><span class="o">/</span><span class="n">EE2_W_BEG5</span> <span class="n">INT_X13Y101</span><span class="o">/</span><span class="n">EE2_W_END5</span> <span class="n">CLEL_R_X12Y101</span><span class="o">/</span><span class="n">EASTBUSIN_FT0_21</span> <span class="n">CLE_M_X13Y101</span><span class="o">/</span><span class="n">EASTBUSIN_FT0_21</span>
+<span class="o">%</span>
+</pre></div>
+</div>
+<p>For additional resources regarding Vivado objects, see <a class="reference external" href="https://www.xilinx.com/cgi-bin/docs/rdoc?v=latest;d=ug912-vivado-properties.pdf">UG912: Vivado Design Suite Properties Reference Guide</a>.</p>
+</div>
+<div class="section" id="tile-type">
+<h3>Tile Type<a class="headerlink" href="#tile-type" title="Permalink to this headline">¶</a></h3>
+<p>Each tile belongs to a type or definition.  A tile type will contain the inventory list of all wires, PIPs and site types.  Vivado does not directly represent the tile type as an object, but is listed as a property value under each tile.</p>
+<p>Xilinx traditionally has leveraged a columnar-based architectural approach to tile layout.  That is, with a few exceptions, all tiles within a column are of the same type but tiles occupying the same row are typically different types.</p>
+</div>
+</div>
+<div class="section" id="fsr-fabric-sub-region-or-clock-region">
+<h2><a class="toc-backref" href="#id8">FSR (Fabric Sub Region or Clock Region)</a><a class="headerlink" href="#fsr-fabric-sub-region-or-clock-region" title="Permalink to this headline">¶</a></h2>
+<p>A fabric sub region, also known as a clock region, is a replicated 2D array of tiles in the fabric.  In the UltraScale architecture, all FSRs are 60 CLBs tall, but their width will vary depending on the mix of tile types used in its construction.</p>
+<p>Clock routing and distribution lines are represented as the same granularity as FSRs.  In UltraScale architectures, there are 24 horizontal routing tracks, 24 vertical routing tracks, 24 horizontal distribution tracks and 24 vertical distribution tracks.  These routing and distribution tracks abut to tracks in neighboring FSRs to form the device clock network resource set.  For more information specific to clocking resources, please see <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug472_7Series_Clocking.pdf">UG472: Series 7 Clocking Resources User Guide</a> or <a class="reference external" href="https://www.xilinx.com/support/documentation/user_guides/ug572-ultrascale-clocking.pdf">UG572: UltraScale Architecture Clocking Resources User Guide</a>.</p>
+</div>
+<div class="section" id="slr-super-logic-region">
+<h2><a class="toc-backref" href="#id9">SLR (Super Logic Region)</a><a class="headerlink" href="#slr-super-logic-region" title="Permalink to this headline">¶</a></h2>
+<p>This level of hierarchy is only present on devices that use the stacked silicon interconnect technology (SSIT) or also known as 2.5D packaging using a silicon interposer.  As multiple dies (or dice) are packaged together, each die becomes a super logic region or SLR.  SLRs contain a 2D array of FSRs and are typically identical as each die is fabricated from the same mask set.</p>
+<p>In order for logic to communicate between SLRs, the UltraScale architecture employ special tiles in the FSRs neighbouring the abutment of two SLRs.  A column of CLBs is removed and replaced with special tiles called Laguna tiles that have dedicated flip flop sites to aid in crossing the SLR divide.</p>
+</div>
+<div class="section" id="device">
+<h2><a class="toc-backref" href="#id10">Device</a><a class="headerlink" href="#device" title="Permalink to this headline">¶</a></h2>
+<p>At the highest level of Xilinx architecture is the device. This is generally a 2D array of FSRs for single die products or two or more SLRs abutted vertically.</p>
+<p>The core object in RapidWright is the Device class for any Xilinx device and is described in the next section.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="RapidWright_Overview.html" class="btn btn-neutral float-right" title="RapidWright Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="FPGA_Architecture.html" class="btn btn-neutral" title="FPGA Architecture Basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2018.2.0-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

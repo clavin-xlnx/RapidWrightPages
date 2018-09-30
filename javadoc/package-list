@@ -1,0 +1,17 @@
+com.xilinx.rapidwright.debug
+com.xilinx.rapidwright.design
+com.xilinx.rapidwright.design.blocks
+com.xilinx.rapidwright.design.tools
+com.xilinx.rapidwright.device
+com.xilinx.rapidwright.device.browser
+com.xilinx.rapidwright.device.helper
+com.xilinx.rapidwright.edif
+com.xilinx.rapidwright.examples
+com.xilinx.rapidwright.examples.tilebrowser
+com.xilinx.rapidwright.gui
+com.xilinx.rapidwright.ipi
+com.xilinx.rapidwright.placer.blockplacer
+com.xilinx.rapidwright.placer.handplacer
+com.xilinx.rapidwright.router
+com.xilinx.rapidwright.tests
+com.xilinx.rapidwright.util

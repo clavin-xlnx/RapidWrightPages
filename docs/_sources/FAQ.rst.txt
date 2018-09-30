@@ -1,0 +1,46 @@
+==========================================================
+Frequently Asked Questions
+==========================================================
+
+I can't open my DCP in RapidWright, I get 'ERROR: Couldn't determine a proper EDIF netlist to load with the DCP file ...', what should I do?
+=============================================================================================================================================
+RapidWright is able to read any unencrypted design files.  If a design/DCP has been encrypted, you'll need to generate a new file without encryption in order to use it with RapidWright.  
+
+However, sometimes without explicitly invoking encryption, Vivado will encrypt the EDIF file present in a DCP automatically (it is quite common).  To enable reading the DCP within RapidWright, load the DCP in Vivado and then create a similarly named EDIF file (mydesign.dcp --> mydesign.edf) by running the command ``write_edif mydesign.edf``.  This will generate an unencrypted EDIF file (only if encryption is turned off and the design does not contain any encrypted IPs) that RapidWright can recognize and load in with the rest of the DCP.
+
+RapidWright comes with a small utility called ``ReplaceEDIFInDCP`` that can avoid the use of two files for situations that may require that convenience.
+
+Can RapidWright be used for designs targeting the AWS F1 platform?
+====================================================================
+Yes, there are some ways in which parts of a design generated in RapidWright can be inserted into an existing AWS-F1 design.  One technique uses the Vivado command ``read_checkpoint -cell <cell_instance_name> <checkpoint.dcp>``. If you insert a blackbox that matches your DCP (see the stub files inside the ZIP/DCP file) into your AWS-F1 design, you can use the ``read_checkpoint`` command to pull in a synthesized, placed and/or routed DCP into the existing design.  
+
+Note that RapidWright cannot read in the AWS F1 shell design as it is encrypted and user design data is encrypted by default. 
+
+When should I use RapidWright and when should I use Vivado?
+===============================================================
+We recommend that Vivado be used for all tasks that meet the users expectations.  If you have designs that are running successfully and meeting your design constraints, there is no need to use RapidWright.  However, if you are seeking to improve performance and/or productivity because of unique insights you might have into your application and/or the FPGA architecture being targeted, RapidWright might be able to help.  Vivado will always be part of the flow for validating designs (DRC/Timing) and creating bitstreams.  However, there may be strategic design structures that can be created, preserved and/or replicated in RapidWright that might help you achieve your performance goals.
+
+
+What languages does RapidWright support, and how do I interact with them?
+===========================================================================
+RapidWright is written in Java.  RapidWright is also packaged with a Python interpreter called `Jython <http://www.jython.org>`_ that enables it to run pure Python scripts and code.  We recommend that for more compute intensive work, Java implementations be the language of choice as it will execute faster.  Python is especially useful for interacting with RapidWright in a command-line type fashion.  This allows device and design objects to remain persistent as the user examines their work and choose to make changes on the fly.  
+
+
+
+Why is the framework called RapidWright?
+===========================================
+The 'Rapid' portion is to indicate speed and efficiency. It also provides some resemblance from a previous generation framework called RapidSmith.  The 'Wright' portion was a common surname in England and means maker or builder.  RapidWright is a framework to help you quickly build designs for Vivado.
+
+Can RapidWright generate bitstreams?
+============================================
+No. There is currently no bitstream information in RapidWright.  Any designs will need to be put back into Vivado for DRC and bitstream generation.
+
+Does RapidWright have device timing information?
+=================================================
+No.  Currently, there is no timing information provided in RapidWright.  To run timing, use the ``Design.writeCheckpoint()`` command and load the design in Vivado to report timing.
+
+Is there any published work on RapidWright?
+=============================================
+Yes, we had a paper at `FCCM 2018 <http://fccm.org/2018/program.html#program>`_ (The 26th IEEE International Symposium on Field-Programmable Custom Computing Machines).  A preprint copy of the paper is available here: :download:`FCCM18-RapidWright.pdf <files/FCCM18-RapidWright.pdf>`. The presentation slides are avilable here: :download:`FCCM18-RapidWright-Presentation.pdf <files/FCCM18-RapidWright-Presentation.pdf>`.
+
+

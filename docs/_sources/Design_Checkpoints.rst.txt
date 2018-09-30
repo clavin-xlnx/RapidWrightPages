@@ -1,0 +1,41 @@
+===========================
+Design Checkpoints 
+===========================
+.. contents:: Table of Contents
+   :depth: 2
+
+What is a Design Checkpoint?
+================================
+A design checkpoint (DCP) is a file used by the Vivado Design Suite that represents a snapshot of a design at any stage of the design process.  The snapshot includes the netlist, constraints and implementation results.  
+
+
+What is Inside a Design Checkpoint?
+====================================
+A design checkpoint file (extention .dcp) is a Vivado file format that contains a synthesized netlist, design constraints and can contain placement and routing information.  RapidWright provides readers and writers to parse and export the various components.  
+
+RapidWright and Design Checkpoint Files
+========================================
+RapidWright can freely read and write checkpoint files with the following exceptions:
+
+  * If the design is encrypted, RapidWright cannot open it.  RapidWright is not capable of decrypting files.
+  
+    * Sometimes, however, a design may not be secured or designated to be encrypted but the EDIF file in the DCP is encrypted.  This is due to RTL source references being stored in the EDIF file. Vivado will allow you to write out an EDIF file (without RTL source references) with the ``write_edif`` Tcl command.  RapidWright can read in the alternate EDIF file along side the DCP if it has the same root name (.edf extension instead of .dcp).
+	
+  * If the design checkpoint file is created with a much newer version of Vivado compared with the RapidWright release, it may not be able to read the file.
+  * Conversely, older versions of Vivado may not be able to read RapidWright checkpoint files
+  
+Here are a few ways to read/write a design checkpoint in RapidWright:
+
+.. code-block:: java
+
+	Design design = Design.readCheckpoint("my_design_routed.dcp");
+	// or if the EDIF inside the DCP is encrypted because of source references, 
+	//   you can alternatively supply a separate EDIF
+	design = Design.readCheckpoint("my_design_routed.dcp", "my_design_edif.edf");
+
+	// To write out a design
+	design.writeCheckpoint("my_design_post_rapidwright.dcp");
+	
+The interface that enables RapidWright to read and write checkpoints is handled by the RapidWright API Library in the provided rapidwright-api-library-<ver>.jar.  The APIs in this tool are used in the Design class with readCheckpoint() and writeCheckpoint().  Note that it is licensed separately from the rest of RapidWright under a modified Xilinx EULA. Also note that RapidWright is not an official product from Xilinx and designs created or derived from it are not warranted. Please see `LICENSE.TXT <https://github.com/Xilinx/RapidWright/blob/master/LICENSE.TXT>`_ for full details.
+
+
