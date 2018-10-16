@@ -5,6 +5,7 @@ RapidWright Tutorials
    :maxdepth: 2
 
    SLR_Crosser_DCP_Creator_Tutorial
+   IPI_PreImpl_Tutorial
    
 
 More to come soon!

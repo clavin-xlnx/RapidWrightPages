@@ -4,13 +4,15 @@ Build an IP Integrator Design with Pre-Implemented Blocks
 
 What You'll Need to Get Started:
   - Vivado 2018.2 or later
-  - RapidWright 2018.2 or later
+  - RapidWright 2018.2.1 or later
   
 .. note:: This tutorial uses the Tcl script ``rapidwright.tcl`` found in RapidWright.  If you are using a standalone jar, you can extract the rapidwright.tcl (and other device/data) by running ``java -jar <standalone.jar> --unpack_data`` and setting the environment variable RAPIDWRIGHT_PATH to the standalone jar location.  
   
-This tutorial will begin by creating an example MicroBlaze design in IP Integrator (IPI) and showing how RapidWright can pre-implement the blocks of the design, place them and route them.   
+This tutorial will provides an example design and execution of the rapid prototyping flow found on the page :ref:`A Pre-implemented Module Flow`.  It begins by creating an example MicroBlaze design in IP Integrator (IPI) and showing how RapidWright can pre-implement the blocks of the design, place them and route them.  This tutorial is just a demonstration example and is still under development.
   
-To generate an example placed and routed MicroBlaze design, run the following Tcl commands in your Vivado's Tcl prompt:
+Procedure
+================
+1. To generate an example placed and routed MicroBlaze design, run the following Tcl commands in your Vivado's Tcl prompt:
   
 .. code-block:: tcl
 
@@ -18,24 +20,25 @@ To generate an example placed and routed MicroBlaze design, run the following Tc
 	set_property board_part xilinx.com:kcu105:part0:1.4 [current_project]
 	set_property target_language VHDL [current_project]
 	create_bd_design "base_mb" -mode batch
+	update_compile_order -fileset sources_1
+	update_compile_order -fileset sim_1
 	instantiate_example_design -design base_mb base_mb
-	
-Now that we have an IPI design created, we have the option of running one of two different implementation flows.  To run the conventional implementation flow in Vivado, you could run:
+
+2. An XDC (Xilinx Design Constraints) file will be required for this design.  Please download :download:`base_mb.xdc <files/base_mb.xdc>` amd put it into the root of your project directory (``[pwd]/testBlockStitcher``). The XDC file is required for the RapidWright flow because IP Integrator and the OOC flow may not communicate all necessary information and the RapidWright block stitcher will need to instantiate most of the IOBs automatically.  
+
+3. To run the RapidWright pre-implemented block flow, you will need to source rapidwright.tcl, add the XDC from above to the project and run the flow with the following Tcl commands:
 
 .. code-block:: tcl
 
-	launch_runs impl_1	
-	
-But this tutorial is here to show you how to build this design with pre-implemented blocks. To run the RapidWright pre-implemented block flow, you will need to source a rapidwright.tcl and then run a command:
-
-.. code-block:: tcl
-
-	source ${::env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl
+	cd [pwd]/testBlockStitcher
+	# Download base_mb.xdc into this directory
+	add_files -fileset constrs_1 -norecurse [pwd]/base_mb.xdc
+	source ${env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl
 	rapid_compile_ipi
 	
-This Tcl procedure will invoke Vivado to generate and synthesize the various IPs in the IPI design.  Unless you set the environment variable ``IP_CACHE_PATH``, the IP and pre-implemented block cache defaults to ``$HOME/blockCache``.  If the cache is empty, it will take several minutes to pre-implement each block.  However, this process will eventually conclude with the design being fully stitched together in the ``BlockStitcher`` class in RapidWright and ultimately produce a placed and routed DCP.
+This Tcl procedure will invoke Vivado to generate, synthesize, area constrain, place and route the various IPs out-of-context in the IPI design.  Unless you set the environment variable ``IP_CACHE_PATH``, the IP and pre-implemented block cache defaults to ``$HOME/blockCache``.  If the cache is empty, it will take several minutes to pre-implement each block.  However, this process will eventually conclude with the design being fully stitched together in the ``BlockStitcher`` class in RapidWright and ultimately produce a fully placed (partially routed) DCP (the RapidWright router could be used to route the inter-block connections, but has a few outstanding issues so it is currently disabled). 
 
-Once the pre-implemented block flow is complete, you can test its recompilation speed by re-running:
+4. Once the pre-implemented block flow is complete, you can test its recompilation speed by re-running:
 
 .. code-block:: tcl
 
@@ -43,7 +46,12 @@ Once the pre-implemented block flow is complete, you can test its recompilation 
 
 This should complete in less than a minute.  Any connectivity changes to the design or adding blocks that have already been stored in the cache should always compile in less than a minute.  
 
-.. note:: The automatic block placer and router in RapidWright are still under development and although they can run quickly, their quality still needs to be improved.  We recommend using the implementation guide file described in :ref:`A Pre-implemented Module Flow` for directing placement and using Vivado for final routes between blocks.
-	
+5. The stitched and placed RapidWright-produced DCP should be in the root directory of the project with the name ``base_mb_placed.dcp``.  This design can then be opened in Vivado by running the Tcl command:
 
+.. code-block:: tcl
+
+	open_checkpoint ./base_mb_placed.dcp
+
+6. To finalize the implementation, ``route_design`` can be run to finish the design.  
 	
+.. note:: The automatic block placer and router in RapidWright are still under development and although they can run quickly, their quality still needs to be improved.  We recommend using the implementation guide file described in :ref:`A Pre-implemented Module Flow` for directing placement and using Vivado for final routes between blocks.

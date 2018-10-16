@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>A Pre-implemented Module Flow &mdash; RapidWright 2018.2.0-beta documentation</title>
+  <title>A Pre-implemented Module Flow &mdash; RapidWright 2018.2.1-beta documentation</title>
   
 
   
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                2018.2.0
+                2018.2.1
               </div>
             
           
@@ -209,7 +209,7 @@
             
   <div class="section" id="a-pre-implemented-module-flow">
 <h1>A Pre-implemented Module Flow<a class="headerlink" href="#a-pre-implemented-module-flow" title="Permalink to this headline">¶</a></h1>
-<p>This section presents a pre-implemented module flow that can operate in two ways:</p>
+<p>This section describes a pre-implemented module flow that can operate in two ways:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Target high performance implementations by reusing high quality, customized solutions.</li>
@@ -218,12 +218,12 @@
 </div></blockquote>
 <div class="section" id="background-and-flow-comparison">
 <h2>Background and Flow Comparison<a class="headerlink" href="#background-and-flow-comparison" title="Permalink to this headline">¶</a></h2>
-<p>Both flows (high performance and rapid prototyping) start with the RapidWright provided Tcl command, <code class="docutils literal"><span class="pre">rapid_compile_ipi</span></code>.  This command can be loaded by running <code class="docutils literal"><span class="pre">source</span> <span class="pre">${::env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl</span></code> in the Vivado Tcl interpreter.  Optionally, you can also configure Vivado to source the script each time it starts by modifying the Vivado_init.tcl (see the section ‘Loading and Running Tcl Scripts’ in <a href="#id1"><span class="problematic" id="id2">`</span></a>UG894: Vivado Design Suite User Guide - Using Tcl Scripting&lt;<a class="reference external" href="https://www.xilinx.com/cgi-bin/docs/rdoc?v=latest;d=ug894-vivado-tcl-scripting.pdf">https://www.xilinx.com/cgi-bin/docs/rdoc?v=latest;d=ug894-vivado-tcl-scripting.pdf</a>&gt;’_)</p>
+<p>Both flows (high performance and rapid prototyping) start with the RapidWright provided Tcl command, <code class="docutils literal"><span class="pre">rapid_compile_ipi</span></code>.  This command can be loaded by running <code class="docutils literal"><span class="pre">source</span> <span class="pre">${::env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl</span></code> in the Vivado Tcl interpreter.  Optionally, you can also configure Vivado to source the script each time it starts by modifying the Vivado_init.tcl (see the section ‘Loading and Running Tcl Scripts’ in <a class="reference external" href="https://www.xilinx.com/cgi-bin/docs/rdoc?v=latest;d=ug894-vivado-tcl-scripting.pdf">UG894: Vivado Design Suite User Guide - Using Tcl Scripting</a>).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you are using a standalone jar, you can extract the rapidwright.tcl (and other device/data) by running <code class="docutils literal"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">&lt;standalone.jar&gt;</span> <span class="pre">--unpack_data</span></code> and setting the environment variable RAPIDWRIGHT_PATH to the standalone jar location.</p>
 </div>
-<p>This command runs on a currently open IP Integrator design in Vivado, builds all IPs out-of-context, invokes the BlockStitcher in RapidWright to stitch all of the pre-implemented blocks together, places the blocks and routes them into a final implementation.  This command, can function in two modes as described previously.  Here is a quick comparison of the high performance vs. rapid prototyping mode for pre-implemented blocks:</p>
+<p>This command runs on an open IP Integrator design by synthesizing, placing and routing all IP blocks out-of-context (OOC).  Each block is provided a pblock (area constraint before placement to improves its re-usability).  The implemented result for each IP is stored in the Vivado IP cache.  RapidWright then uses the cache for each subsequent run (and only pre-implements one of each kind of IP—so if your design has multiple instances, only one run per type).  After all IPs have been implemented OOC, it invokes the <code class="docutils literal"><span class="pre">BlockStitcher</span></code> in RapidWright to stitch all of the pre-implemented blocks together, places the blocks and routes them into a final implementation (note: currently RapidWright router is disabled).  This command, can function in two modes as described previously.  Here is a quick comparison of the high performance vs. rapid prototyping mode for pre-implemented blocks:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="22%" />
@@ -282,13 +282,13 @@ enabling concept and offer a three-step high performance design strategy:</p>
 <li>Stitch, Place &amp; Route Implementation: Run the automated flow to create a final implementation.</li>
 </ol>
 </div></blockquote>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id1">
 <a class="reference internal image-reference" href="_images/design_strategy.png"><img alt="_images/design_strategy.png" src="_images/design_strategy.png" style="width: 550px;" /></a>
 <p class="caption"><span class="caption-text">High level visual of the three step process for the high performance module-based design strategy</span></p>
 </div>
 <p>The first step requires the design architect to restructure the proposed design such that it can take full advantage of the benefits provided by pre-implemented modules.  We define restructuring as a design refactoring that reflects three favorable design characteristics: (1) modularity, (2) module replication and (3) latency tolerance.  Modularity uncovers design structure so it can be strategically mapped to architectural patterns.  When modules are replicated, reuse of those high quality solutions and architectural patterns can be exploited to increase the benefits.  Finally, if the modules within a design tolerate additional latency, inserting pipeline elements between them improves both timing performance and relocatability.</p>
 <p>After the design architect has successfully restructured and modularized a design, step two is followed.  Here, the design architect creates an implementation guide file that captures how best to map the modules of a design to the architecture of the target device.  Specifically, pblocks are chosen for those pre-implemented modules of interest and physical locations are chosen for each instance.   This step provides the design architect an opportunity to navigate FPGA fabric discontinuities. These discontinuities include boundaries such as IO columns, processor subsystems, and most significantly, SLR crossings.  Such architectural obstacles cause design disruptions when targeting high performance.  However, by leveraging a pre-implemented methodology provided in RapidWright, custom-created implementation solutions can be identified and planned out to manage the fabric discontinuities by custom module placement. Ultimately, this process is iterative and can inform useful RTL/design changes by focusing design structure to better match architectural resources.</p>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id2">
 <a class="reference internal image-reference" href="_images/rapid_compile_ipi.png"><img alt="_images/rapid_compile_ipi.png" src="_images/rapid_compile_ipi.png" style="width: 550px;" /></a>
 <p class="caption"><span class="caption-text">High level view of the pre-implemented flow process and interactions between Vivado and RapidWright</span></p>
 </div>
@@ -395,7 +395,7 @@ enabling concept and offer a three-step high performance design strategy:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2018.2.0-beta',
+            VERSION:'2018.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

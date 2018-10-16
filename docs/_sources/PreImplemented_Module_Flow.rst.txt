@@ -1,7 +1,7 @@
 =================================================
 A Pre-implemented Module Flow
 =================================================
-This section presents a pre-implemented module flow that can operate in two ways:
+This section describes a pre-implemented module flow that can operate in two ways:
 
  1. Target high performance implementations by reusing high quality, customized solutions.
  2. A rapid prototyping demonstration vehicle that hints at a future of fast compile times.
@@ -9,11 +9,11 @@ This section presents a pre-implemented module flow that can operate in two ways
 --------------------------------
 Background and Flow Comparison
 --------------------------------
-Both flows (high performance and rapid prototyping) start with the RapidWright provided Tcl command, ``rapid_compile_ipi``.  This command can be loaded by running ``source ${::env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl`` in the Vivado Tcl interpreter.  Optionally, you can also configure Vivado to source the script each time it starts by modifying the Vivado_init.tcl (see the section 'Loading and Running Tcl Scripts' in `UG894: Vivado Design Suite User Guide - Using Tcl Scripting<https://www.xilinx.com/cgi-bin/docs/rdoc?v=latest;d=ug894-vivado-tcl-scripting.pdf>'_)
+Both flows (high performance and rapid prototyping) start with the RapidWright provided Tcl command, ``rapid_compile_ipi``.  This command can be loaded by running ``source ${::env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl`` in the Vivado Tcl interpreter.  Optionally, you can also configure Vivado to source the script each time it starts by modifying the Vivado_init.tcl (see the section 'Loading and Running Tcl Scripts' in `UG894: Vivado Design Suite User Guide - Using Tcl Scripting <https://www.xilinx.com/cgi-bin/docs/rdoc?v=latest;d=ug894-vivado-tcl-scripting.pdf>`_).
 
 .. note:: If you are using a standalone jar, you can extract the rapidwright.tcl (and other device/data) by running ``java -jar <standalone.jar> --unpack_data`` and setting the environment variable RAPIDWRIGHT_PATH to the standalone jar location.
 
-This command runs on a currently open IP Integrator design in Vivado, builds all IPs out-of-context, invokes the BlockStitcher in RapidWright to stitch all of the pre-implemented blocks together, places the blocks and routes them into a final implementation.  This command, can function in two modes as described previously.  Here is a quick comparison of the high performance vs. rapid prototyping mode for pre-implemented blocks:
+This command runs on an open IP Integrator design by synthesizing, placing and routing all IP blocks out-of-context (OOC).  Each block is provided a pblock (area constraint before placement to improves its re-usability).  The implemented result for each IP is stored in the Vivado IP cache.  RapidWright then uses the cache for each subsequent run (and only pre-implements one of each kind of IP---so if your design has multiple instances, only one run per type).  After all IPs have been implemented OOC, it invokes the ``BlockStitcher`` in RapidWright to stitch all of the pre-implemented blocks together, places the blocks and routes them into a final implementation (note: currently RapidWright router is disabled).  This command, can function in two modes as described previously.  Here is a quick comparison of the high performance vs. rapid prototyping mode for pre-implemented blocks:
 
 +--------------------+------------------------------------+------------------------------------+
 |                    | High Performance Flow              | Rapid Prototyping Flow             |
