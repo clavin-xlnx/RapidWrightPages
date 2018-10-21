@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Build an IP Integrator Design with Pre-Implemented Blocks &mdash; RapidWright 2018.2.1-beta documentation</title>
+  <title>Build an IP Integrator Design with Pre-Implemented Blocks &mdash; RapidWright 2018.2.2-beta documentation</title>
   
 
   
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                2018.2.1
+                2018.2.2
               </div>
             
           
@@ -198,7 +198,7 @@
 <dt>What You’ll Need to Get Started:</dt>
 <dd><ul class="first last simple">
 <li>Vivado 2018.2 or later</li>
-<li>RapidWright 2018.2.1 or later</li>
+<li>RapidWright 2018.2.2 or later</li>
 </ul>
 </dd>
 </dl>
@@ -232,6 +232,10 @@ source ${env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl
 rapid_compile_ipi
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you have run this tutorial with previous versions of RapidWright, please backup your cache (if needed) run the RapidWright Tcl command <code class="docutils literal"><span class="pre">ultra_clear_cache</span></code> to reset the cache as some state in the cache is used differently.</p>
+</div>
 <p>This Tcl procedure will invoke Vivado to generate, synthesize, area constrain, place and route the various IPs out-of-context in the IPI design.  Unless you set the environment variable <code class="docutils literal"><span class="pre">IP_CACHE_PATH</span></code>, the IP and pre-implemented block cache defaults to <code class="docutils literal"><span class="pre">$HOME/blockCache</span></code>.  If the cache is empty, it will take several minutes to pre-implement each block.  However, this process will eventually conclude with the design being fully stitched together in the <code class="docutils literal"><span class="pre">BlockStitcher</span></code> class in RapidWright and ultimately produce a fully placed (partially routed) DCP (the RapidWright router could be used to route the inter-block connections, but has a few outstanding issues so it is currently disabled).</p>
 <ol class="arabic simple" start="4">
 <li>Once the pre-implemented block flow is complete, you can test its recompilation speed by re-running:</li>
@@ -251,7 +255,7 @@ rapid_compile_ipi
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The automatic block placer and router in RapidWright are still under development and although they can run quickly, their quality still needs to be improved.  We recommend using the implementation guide file described in <a class="reference internal" href="PreImplemented_Module_Flow.html#a-pre-implemented-module-flow"><span class="std std-ref">A Pre-implemented Module Flow</span></a> for directing placement and using Vivado for final routes between blocks.</p>
+<p class="last">The automatic block placer and router in RapidWright are still under development and although they can run quickly, their quality still needs to be improved.  We recommend using the an implementation guide file (see <a class="reference internal" href="PreImplemented_Module_Flow.html#implementation-guide-file"><span class="std std-ref">Implementation Guide File</span></a>). An IGF file directs the flow on how the blocks/IPs should be pre-implemented by specifying pblocks for the IPs and placement locations for the instances.  The BlockStitcher will automatically generate an example IGF called <code class="docutils literal"><span class="pre">base_mb.igf.example</span></code> in root directory of the project.</p>
 </div>
 </div>
 </div>
@@ -298,7 +302,7 @@ rapid_compile_ipi
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2018.2.1-beta',
+            VERSION:'2018.2.2-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

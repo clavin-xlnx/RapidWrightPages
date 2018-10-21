@@ -4,7 +4,7 @@ Build an IP Integrator Design with Pre-Implemented Blocks
 
 What You'll Need to Get Started:
   - Vivado 2018.2 or later
-  - RapidWright 2018.2.1 or later
+  - RapidWright 2018.2.2 or later
   
 .. note:: This tutorial uses the Tcl script ``rapidwright.tcl`` found in RapidWright.  If you are using a standalone jar, you can extract the rapidwright.tcl (and other device/data) by running ``java -jar <standalone.jar> --unpack_data`` and setting the environment variable RAPIDWRIGHT_PATH to the standalone jar location.  
   
@@ -35,6 +35,8 @@ Procedure
 	add_files -fileset constrs_1 -norecurse [pwd]/base_mb.xdc
 	source ${env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl
 	rapid_compile_ipi
+
+.. note:: If you have run this tutorial with previous versions of RapidWright, please backup your cache (if needed) run the RapidWright Tcl command ``ultra_clear_cache`` to reset the cache as some state in the cache is used differently.
 	
 This Tcl procedure will invoke Vivado to generate, synthesize, area constrain, place and route the various IPs out-of-context in the IPI design.  Unless you set the environment variable ``IP_CACHE_PATH``, the IP and pre-implemented block cache defaults to ``$HOME/blockCache``.  If the cache is empty, it will take several minutes to pre-implement each block.  However, this process will eventually conclude with the design being fully stitched together in the ``BlockStitcher`` class in RapidWright and ultimately produce a fully placed (partially routed) DCP (the RapidWright router could be used to route the inter-block connections, but has a few outstanding issues so it is currently disabled). 
 
@@ -53,5 +55,5 @@ This should complete in less than a minute.  Any connectivity changes to the des
 	open_checkpoint ./base_mb_placed.dcp
 
 6. To finalize the implementation, ``route_design`` can be run to finish the design.  
-	
-.. note:: The automatic block placer and router in RapidWright are still under development and although they can run quickly, their quality still needs to be improved.  We recommend using the implementation guide file described in :ref:`A Pre-implemented Module Flow` for directing placement and using Vivado for final routes between blocks.
+
+.. note:: The automatic block placer and router in RapidWright are still under development and although they can run quickly, their quality still needs to be improved.  We recommend using the an implementation guide file (see :ref:`Implementation Guide File`). An IGF file directs the flow on how the blocks/IPs should be pre-implemented by specifying pblocks for the IPs and placement locations for the instances.  The BlockStitcher will automatically generate an example IGF called ``base_mb.igf.example`` in root directory of the project.
