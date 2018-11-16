@@ -12,6 +12,8 @@ This tutorial will provides an example design and execution of the rapid prototy
   
 Procedure
 ================
+0. Before running Vivado, be sure to make sure that your CLASSPATH environment variable is set properly (see :ref:`Manual Installation Steps`, steps 4 and 5).  If using the standalone jar, just set CLASSPATH=<path_to_standalone_jar>.
+
 1. To generate an example placed and routed MicroBlaze design, run the following Tcl commands in your Vivado's Tcl prompt:
   
 .. code-block:: tcl
