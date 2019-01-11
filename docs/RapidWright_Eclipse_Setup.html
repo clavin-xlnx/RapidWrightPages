@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright Eclipse Setup &mdash; RapidWright 2018.2.5-beta documentation</title>
+  <title>RapidWright Eclipse Setup &mdash; RapidWright 2018.3.0-beta documentation</title>
   
 
   
@@ -42,8 +42,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="FPGA Architecture Basics" href="FPGA_Architecture.html" />
-    <link rel="prev" title="Getting Started" href="Getting_Started.html" /> 
+    <link rel="next" title="RapidWright IntelliJ Setup" href="RapidWright_IntelliJ_Setup.html" />
+    <link rel="prev" title="Manual Install" href="Manual_Install.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -76,7 +76,7 @@
             
             
               <div class="version">
-                2018.2.5
+                2018.3.0
               </div>
             
           
@@ -102,10 +102,17 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">RapidWright Eclipse Setup</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#step-by-step-instructions">Step-by-Step Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setup-eclipse-with-existing-repo">Setup Eclipse with Existing Repo</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Getting_Started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Quick_Start.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Automatic_Install.html">Automatic Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Manual_Install.html">Manual Install</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RapidWright Eclipse Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#eclipse-step-by-step-instructions">Eclipse Step-by-Step Instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-eclipse-with-existing-repo">Setup Eclipse with Existing Repo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="RapidWright_IntelliJ_Setup.html">RapidWright IntelliJ Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RapidWright_Jupyter_Setup.html">RapidWright Jupyter Notebook Kernel Setup</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
@@ -116,6 +123,7 @@
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -168,6 +176,8 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
+          <li><a href="Getting_Started.html">Getting Started</a> &raquo;</li>
+        
       <li>RapidWright Eclipse Setup</li>
     
     
@@ -189,8 +199,8 @@
             
   <div class="section" id="rapidwright-eclipse-setup">
 <h1>RapidWright Eclipse Setup<a class="headerlink" href="#rapidwright-eclipse-setup" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="step-by-step-instructions">
-<h2>Step-by-Step Instructions<a class="headerlink" href="#step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="eclipse-step-by-step-instructions">
+<h2>Eclipse Step-by-Step Instructions<a class="headerlink" href="#eclipse-step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Make sure you have Java JDK 1.8 (or later) installed: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> Follow the instructions when running the downloaded executable.  Add the <code class="docutils literal"><span class="pre">$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin</span></code> folder to your <code class="docutils literal"><span class="pre">PATH</span></code> environment variable.</li>
 <li>Download Eclipse: <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2</a></li>
@@ -215,9 +225,6 @@
 <li>Choose the location of where you want Eclipse to put your RapidWright workspace.  Preferably, you should choose a workspace directory with any other Eclipse projects such as <code class="docutils literal"><span class="pre">/home/user/workspace/RapidWright</span></code>.  Click next to have Eclipse clone the repo into your workspace.</li>
 </ol>
 <a class="reference internal image-reference" href="_images/ProjectLocation.png"><img alt="_images/ProjectLocation.png" class="align-center" src="_images/ProjectLocation.png" style="width: 550px;" /></a>
-<ol class="arabic simple" start="10">
-<li>Continue with step 2 back on the <a class="reference internal" href="Getting_Started.html#manual-installation-steps"><span class="std std-ref">Manual Installation Steps</span></a> section of the <a class="reference internal" href="Getting_Started.html#getting-started"><span class="std std-ref">Getting Started</span></a> page.</li>
-</ol>
 </div>
 <div class="section" id="setup-eclipse-with-existing-repo">
 <h2>Setup Eclipse with Existing Repo<a class="headerlink" href="#setup-eclipse-with-existing-repo" title="Permalink to this headline">¶</a></h2>
@@ -265,10 +272,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="FPGA_Architecture.html" class="btn btn-neutral float-right" title="FPGA Architecture Basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="RapidWright_IntelliJ_Setup.html" class="btn btn-neutral float-right" title="RapidWright IntelliJ Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Getting_Started.html" class="btn btn-neutral" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Manual_Install.html" class="btn btn-neutral" title="Manual Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -277,7 +284,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Xilinx, Inc.
+        &copy; Copyright 2018-2019, Xilinx, Inc.
 
     </p>
   </div>
@@ -299,7 +306,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2018.2.5-beta',
+            VERSION:'2018.3.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

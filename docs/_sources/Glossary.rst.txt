@@ -1,0 +1,16 @@
+================
+Glossary
+================
+
+.. glossary::
+	:sorted: 
+	
+	Laguna
+		When a device is composed of multiple die (using :term:`SSIT`), CLBs are replaced with Laguna Tiles and Sites to provided dedicated logic to crossing from one die to the next.  Laguna sites contain dedicated RX and TX flip flops that connect to :term:`SLLs<SLL>`. 
+	
+	SLL
+		Super long line, these are the wires that cross between dies in a multi-die device (see :term:`SSIT`).
+	
+	SSIT
+		Stacked silicon interconnect technology: Xilinx uses an interposer substrate to package multiple FPGA die into a single package.
+		

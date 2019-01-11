@@ -1,83 +1,26 @@
 ===========================
 Getting Started
 ===========================
-.. contents:: How would you like to use RapidWright?
-   :depth: 2
 
+**How would you like to use RapidWright?**
 
-Quick Start (Try it out)
-===========================
-1. Download and install Oracle JRE/JDK Java 1.8 or later (`install instructions here <https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html>`_)
-2. Download the `latest standalone RapidWright release jar file <https://github.com/Xilinx/RapidWright/releases/latest>`_ 
-3. Start the RapidWright Python (`Jython <http://www.jython.org>`_) interpreter by running:
+ * :ref:`Quick Start` -- "Just want to try it out"
+ * :ref:`Automatic Install` -- "Ready to write code"
+ * :ref:`Manual Install` -- "I'm a power user"
 
-.. code-block:: bash
+**Setting up Development Environments**
 
-  $ java -jar rapidwright-2018.2-standalone-lin64.jar # (or whichever jar you downloaded)
-  
-At this point you should have a Python interpreter instance running with most RapidWright classes loaded.  You can test your install by running the following at the prompt:
+ * :ref:`RapidWright Eclipse Setup`
+ * :ref:`RapidWright IntelliJ Setup`
+ * :ref:`RapidWright Jupyter Notebook Kernel Setup`
 
-.. code-block:: python
-
-  >>> DeviceBrowser.main([])
-
-You should see the GUI come up similar to this screenshot:
-
-.. image:: images/DeviceBrowser.png
-	:width: 550px
-	:align: center
-
-If you have gotten to this point, congrats!  Your RapidWright install is correctly configured and you are ready to start experimenting.  
-
-Note that the standalone jar comes with only a very few select devices:
-
-  * AWS-F1: Virtex UltraScale+ VU9P (xcvu9p)
-  * PYNQ-Z1: Zynq 7020 (xc7z020)
-  * Virtex UltraScale VU440 (xcvu440)
-  
-  If you would like to add additional devices, please follow the full setup process below.
-
-  
-Full Installation (Development)
-===================================
-RapidWright is written in Java and should be able to run on most platforms.  However, we currently only test on RedHat 6 or Windows 7 (64-bit).
-
-**Pre-requisites**
-
-1. Oracle JDK Java 1.8 or later (`install instructions here <https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html>`_)
-2. `Git <https://git-scm.com/>`_ source code revision control system
-3. `Vivado Design Suite 2018.2 <https://www.xilinx.com/products/design-tools/vivado.html>`_  (Not essential to run RapidWright, but makes it useful)
-4. (Recommended) An IDE such as `Eclipse <http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2>`_ 
-5. (Optional) `Gradle 4.0 <https://gradle.org/install/>`_ or later (build tool)
-
-Automatic Installer 
---------------------
-The easiest way to get RapidWright setup is to use the automatic installer jar that performs the manual installation automatically.  Make sure you have the JDK and Git on your PATH.
-
-1. Download :download:`rapidwright-installer.jar <files/rapidwright-installer.jar>` to the directory where you would like RapidWright to reside.
-2. From a terminal in that directory, run ``java -jar rapidwright-installer.jar`` (To open a terminal on Windows, search and run 'cmd.exe' from the Start orb)
-3. Use one of the BASH/CSH/BAT scripts created at the end of the install to set the proper environment variables for subsequent invocations of RapidWright.
-4. (Optional) You can setup Eclipse after the automatic install by following :ref:`Setup Eclipse with Existing Repo`.
-
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    
-Manual Installation Steps
----------------------------
-RapidWright source code and data files are hosted on `GitHub <https://github.com/Xilinx/RapidWright>`_.  Here is how to get the necessary files to get started:
-
-1. Use ``git clone https://github.com/Xilinx/RapidWright.git`` to clone the repo, either on the command line or setting up a new project in your IDE.  For a detailed tutorial setting up RapidWright in Eclipse see the :ref:`RapidWright Eclipse Setup` page.
-2. Go to https://github.com/Xilinx/RapidWright/releases and download the latest release files: rapidwright_data.zip and rapidwright_jars.zip.
-3. Expand the two zip files into the root repository directory, there should be a 'jars' and 'data' directory listed there. Make sure to delete previous 'jars' and 'data' directories if present.
-4. Set the environment variable ``RAPIDWRIGHT_PATH=<your_repo_path>``
-5. Be sure to add the compiled Java files and jar files in the jar folder to your ``CLASSPATH`` variable. If using Bash and can delete the unused OS-specific jars in the jars directory, you could add the following to your ``.bashrc`` file:  
-   ``export CLASSPATH=$RAPIDWRIGHT_PATH:$(echo $RAPIDWRIGHT_PATH/jars/*.jar | tr ' ' ':')``
-
-6. Compile the project either through an IDE (such as Eclipse, etc).  You may need to refresh the project to ensure the IDE can see the jars added in step 3.  You can also use Gradle to compile the project using the provided gradle build script. You will need to make sure Gradle is installed and then run: ``gradle build -p $RAPIDWRIGHT_PATH``
-7. A quick test is to try running the DeviceBrowser class with something like: ``java com.xilinx.rapidwright.device.browser.DeviceBrowser``.  You should see the GUI come up similar to this screenshot:
-
-.. image:: images/DeviceBrowser.png
-	:width: 550px
-	:align: center
-
-If you have gotten to this point, congrats!  Your RapidWright install is correctly configured and you are ready to start experimenting.  
-
-At this point if you are familiar enough with FPGAs, Xilinx architecture and nomenclature, feel free to skip to the :ref:`RapidWright Overview` section, otherwise read on.
+   Quick_Start
+   Automatic_Install
+   Manual_Install
+   RapidWright_Eclipse_Setup
+   RapidWright_IntelliJ_Setup 
+   RapidWright_Jupyter_Setup
