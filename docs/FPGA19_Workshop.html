@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RapidWright FPGA 2019 Deep Dive Tutorial &mdash; RapidWright 2018.3.1-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
+    <link rel="prev" title="Create and Use an SLR Bridge" href="Create_and_Use_an_SLR_Bridge.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2018.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RapidWright FPGA 2019 Deep Dive Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supplimentary-materials">Supplimentary Materials:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>RapidWright FPGA 2019 Deep Dive Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/FPGA19_Workshop.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rapidwright-fpga-2019-deep-dive-tutorial">
+<h1>RapidWright FPGA 2019 Deep Dive Tutorial<a class="headerlink" href="#rapidwright-fpga-2019-deep-dive-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Before starting the tutorials, see <a class="reference internal" href="PreImplemented_Modules_Part_I.html#getting-started"><span class="std std-ref">Getting Started</span></a> below to setup your machine.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="8%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Tutorial Segment</strong></th>
+<th class="head">Time</th>
+<th class="head"><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a href="http://localhost:8888/notebooks/HelloWorld.ipynb" target="_blank">Hello, World</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a></td>
+<td>5 mins</td>
+<td>Intro to RapidWright within Jupyter Notebook</td>
+</tr>
+<tr class="row-odd"><td><a href="http://localhost:8888/notebooks/EDIFNetlistFromScratch.ipynb" target="_blank">Create Netlist from Scratch</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a></td>
+<td>10 mins</td>
+<td>How to build a netlist from scratch</td>
+</tr>
+<tr class="row-even"><td><a href="PipelineGeneratorExample.html" target="_blank">Pipeline Generator</a></td>
+<td>15 mins</td>
+<td>How to generate a circuit in RapidWright</td>
+</tr>
+<tr class="row-odd"><td><a href="PreImplemented_Modules_Part_I.html" target="_blank">Pre-implemented Modules: Part I</a></td>
+<td>15 mins</td>
+<td>How to create a pre-implemented module</td>
+</tr>
+<tr class="row-even"><td><a href="PreImplemented_Modules_Part_II.html" target="_blank">Pre-implemented Modules: Part II</a></td>
+<td>15 mins</td>
+<td>How to use and relocate pre-implemented modules</td>
+</tr>
+<tr class="row-odd"><td><a href="http://localhost:8888/notebooks/ProbeRe-router.ipynb" target="_blank">Probe Re-router</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a></td>
+<td>20 mins</td>
+<td>Fast probe routing on existing implementation</td>
+</tr>
+<tr class="row-even"><td><a href="http://localhost:8888/notebooks/SATRouter.ipynb" target="_blank">SAT Router</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a> (Linux only)</td>
+<td>15 mins</td>
+<td>How to use a SAT engine to solve routing congestion</td>
+</tr>
+<tr class="row-odd"><td><a href="Create_and_Use_an_SLR_Bridge.html" target="_blank">Create and Use an SLR Bridge</a></td>
+<td>20 mins</td>
+<td>Combine Vivado and RapidWright generated citcuits</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a> = Jupyter Notebook Tutorial</p>
+<p>These tutorials were given in the <a class="reference external" href="http://isfpga.org/workshops.html">Sunday afternoon session of FPGA 2019 (February 24th)</a>.</p>
+<div class="section" id="supplimentary-materials">
+<h2>Supplimentary Materials:<a class="headerlink" href="#supplimentary-materials" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Slides from the Sunday morning session: <a class="reference download internal" href="_downloads/FPGA19-RapidWright-Presentation.pdf" download=""><code class="xref download docutils literal"><span class="pre">FPGA19-RapidWright-Presentation.pdf</span></code></a></li>
+<li>The invited tutorial paper: <a class="reference download internal" href="_downloads/FPGA19-RapidWright.pdf" download=""><code class="xref download docutils literal"><span class="pre">FPGA19-RapidWright.pdf</span></code></a></li>
+</ul>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Before attempting the tutorials above, please install and/or setup the following tools:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="Automatic_Install.html#automatic-install"><span class="std std-ref">RapidWright 2018.3.1</span></a></li>
+<li><a class="reference external" href="https://www.xilinx.com/support/download.html">Vivado 2018.3</a></li>
+<li><a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">Eclipse</span></a> or <a class="reference internal" href="RapidWright_IntelliJ_Setup.html#rapidwright-intellij-setup"><span class="std std-ref">IntelliJ</span></a> (not required, but mentioned in <a href="PipelineGeneratorExample.html" target="_blank">Pipeline Generator</a>)</li>
+<li><a class="reference internal" href="RapidWright_Jupyter_Setup.html#rapidwright-jupyter-notebook-kernel-setup"><span class="std std-ref">Jupyter Notebook and the RapidWright Kernel</span></a> (for Jupyter Notebook tutorials)</li>
+<li>Download the RapidWright-binder repository by running the following at the command line:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/clavin-xlnx/RapidWright-binder.git
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li>Start the Jupyter notebook server and point it at your RapidWright-binder directory:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter notebook --notebook-dir<span class="o">=</span>RapidWright-binder
+</pre></div>
+</div>
+<p>At this point the above Jupyter notebook tutorial links should open properly.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FAQ.html" class="btn btn-neutral float-right" title="Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Create_and_Use_an_SLR_Bridge.html" class="btn btn-neutral" title="Create and Use an SLR Bridge" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2019, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2018.3.1-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -15,25 +15,43 @@ Step-by-Step Instructions
 1. Make sure Python and Jupyter Notebook is installed following the `directions provided by project Jupyter <https://jupyter.org/index.html>`_.
 2. If running RapidWright from the standalone jar, run: 
 
-	``java -jar rapidwright-2018.3.0-standalone-win64.jar --create_jupyter_kernel``
+.. code-block:: bash
 
-  for all other installs run:
+	java -jar rapidwright-2018.3.0-standalone-win64.jar --create_jupyter_kernel
 
-	``java com.xilinx.rapidwright.util.RapidWright --create_jupyter_kernel``
+for all other installs run:
+
+.. code-block:: bash
+
+	java com.xilinx.rapidwright.util.RapidWright --create_jupyter_kernel
 
 3. Install the Jython 2.7 kernel by running the following at the command line:
 
-	``jupyter kernelspec install <path_to_kernel_file_dir>``
+.. code-block:: bash
 
-	Two other useful commands if you make a mistake and need to undo is:
+	jupyter kernelspec install <path_to_kernel_file_dir>
+
+Two other useful commands if you make a mistake and need to undo is:
+
+To list all the installed kernels, run:
+
+.. code-block:: bash
+
+	jupyter kernelspec list
+
+
+To remove an installed kernel by name (obtained from list command), run:	
+
+.. code-block:: bash
 	
-	``jupyter kernelspec list`` # -- Lists installed kernels
-	
-	``jupyter kernelspec uninstall <kernel_name>`` # -- Removes the installed kernel by name (obtained from list command)
-	
+	jupyter kernelspec uninstall <kernel_name> 
+
+
 4. Run the jupyter notebook server by running:
 
-	``jupyter notebook``
+.. code-block:: bash
+
+	jupyter notebook
 	
 The console output should look similar to the image below.  
 	
@@ -65,6 +83,11 @@ If the Jupyter Notebook directory page does not open automatically (example in s
 	:width: 550px
 	:align: center	
 
+.. code-block:: python
+
+		from com.xilinx.rapidwright.device import Device
+		from com.xilinx.rapidwright.design import Design
+	
 8. The results from executed commands persist from one cell to the next as long as the Jython kernel stays alive and will maintain all state variables.  The "Run" button also creates a new cell below the last one executed.  Now that we have imported some RapidWright libraries, we can use tab completion to see inside objects their visible methods and members.
 	
 .. image:: images/jupyter_notebook_2.png
@@ -77,7 +100,12 @@ If the Jupyter Notebook directory page does not open automatically (example in s
 	:width: 550px
 	:align: center	
 
-11. By going back to the home page, we can find the recently created DCP and select it for download.  
+.. code-block:: python
+		
+		design = Design("HelloWorld",Device.AWS_F1)
+		design.writeCheckpoint(design.getName() + ".dcp")
+	
+11. By going back to the Jupyter Dashboard (click on the Jupyter logo at the top left of the page), we can find the recently created DCP and select it for download.  
 
 .. image:: images/jupyter_notebook_4.png
 	:width: 550px

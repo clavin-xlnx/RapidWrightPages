@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Glossary &mdash; RapidWright 2018.3.0-beta documentation</title>
+  <title>Glossary &mdash; RapidWright 2018.3.1-beta documentation</title>
   
 
   
@@ -40,6 +40,7 @@
   
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Frequently Asked Questions" href="FAQ.html" /> 
@@ -75,7 +76,7 @@
             
             
               <div class="version">
-                2018.3.0
+                2018.3.1
               </div>
             
           
@@ -186,9 +187,13 @@
 <h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
 <dl class="glossary docutils">
 <dt id="term-laguna">Laguna</dt>
-<dd>When a device is composed of multiple die (using <a class="reference internal" href="#term-ssit"><span class="xref std std-term">SSIT</span></a>), CLBs are replaced with Laguna Tiles and Sites to provided dedicated logic to crossing from one die to the next.  Laguna sites contain dedicated RX and TX flip flops that connect to <a class="reference internal" href="#term-sll"><span class="xref std std-term">SLLs</span></a>.</dd>
+<dd>When a device is composed of multiple dies (using <a class="reference internal" href="#term-ssit"><span class="xref std std-term">SSIT</span></a>), CLBs are replaced with Laguna Tiles and Sites to provided dedicated logic to crossing from one die to the next.  Laguna sites contain dedicated RX and TX flip flops that connect to <a class="reference internal" href="#term-sll"><span class="xref std std-term">SLLs</span></a>.</dd>
+<dt id="term-shell">Shell</dt>
+<dd>A static FPGA design that provides a common interface to off-chip resources (DDR, PCIe,…) intended for multiple applications.</dd>
 <dt id="term-sll">SLL</dt>
 <dd>Super long line, these are the wires that cross between dies in a multi-die device (see <a class="reference internal" href="#term-ssit"><span class="xref std std-term">SSIT</span></a>).</dd>
+<dt id="term-slr">SLR</dt>
+<dd>Super logic region, in multi-die devices, each super logic region is one die connected to other die via an interposer.  The routing wires that connect these SLRs are <a class="reference internal" href="#term-sll"><span class="xref std std-term">SLLs</span></a>). Also see <a class="reference internal" href="Xilinx_Architecture.html#slr-super-logic-region"><span class="std std-ref">SLR (Super Logic Region)</span></a>.</dd>
 <dt id="term-ssit">SSIT</dt>
 <dd>Stacked silicon interconnect technology: Xilinx uses an interposer substrate to package multiple FPGA die into a single package.</dd>
 </dl>
@@ -234,7 +239,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2018.3.0-beta',
+            VERSION:'2018.3.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -245,6 +250,8 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
 
   
 

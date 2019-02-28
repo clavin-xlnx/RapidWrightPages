@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright Jupyter Notebook Kernel Setup &mdash; RapidWright 2018.3.0-beta documentation</title>
+  <title>RapidWright Jupyter Notebook Kernel Setup &mdash; RapidWright 2018.3.1-beta documentation</title>
   
 
   
@@ -40,6 +40,7 @@
   
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="FPGA Architecture Basics" href="FPGA_Architecture.html" />
@@ -76,7 +77,7 @@
             
             
               <div class="version">
-                2018.3.0
+                2018.3.1
               </div>
             
           
@@ -210,35 +211,38 @@
 </div>
 <div class="section" id="step-by-step-instructions">
 <h2>Step-by-Step Instructions<a class="headerlink" href="#step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic">
-<li><p class="first">Make sure Python and Jupyter Notebook is installed following the <a class="reference external" href="https://jupyter.org/index.html">directions provided by project Jupyter</a>.</p>
-</li>
-<li><p class="first">If running RapidWright from the standalone jar, run:</p>
-<blockquote>
-<div><p><code class="docutils literal"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">rapidwright-2018.3.0-standalone-win64.jar</span> <span class="pre">--create_jupyter_kernel</span></code></p>
-</div></blockquote>
-</li>
+<ol class="arabic simple">
+<li>Make sure Python and Jupyter Notebook is installed following the <a class="reference external" href="https://jupyter.org/index.html">directions provided by project Jupyter</a>.</li>
+<li>If running RapidWright from the standalone jar, run:</li>
 </ol>
-<blockquote>
-<div><p>for all other installs run:</p>
-<blockquote>
-<div><code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.util.RapidWright</span> <span class="pre">--create_jupyter_kernel</span></code></div></blockquote>
-</div></blockquote>
-<ol class="arabic" start="3">
-<li><p class="first">Install the Jython 2.7 kernel by running the following at the command line:</p>
-<blockquote>
-<div><p><code class="docutils literal"><span class="pre">jupyter</span> <span class="pre">kernelspec</span> <span class="pre">install</span> <span class="pre">&lt;path_to_kernel_file_dir&gt;</span></code></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java -jar rapidwright-2018.3.0-standalone-win64.jar --create_jupyter_kernel
+</pre></div>
+</div>
+<p>for all other installs run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.RapidWright --create_jupyter_kernel
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Install the Jython 2.7 kernel by running the following at the command line:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter kernelspec install &lt;path_to_kernel_file_dir&gt;
+</pre></div>
+</div>
 <p>Two other useful commands if you make a mistake and need to undo is:</p>
-<p><code class="docutils literal"><span class="pre">jupyter</span> <span class="pre">kernelspec</span> <span class="pre">list</span></code> # – Lists installed kernels</p>
-<p><code class="docutils literal"><span class="pre">jupyter</span> <span class="pre">kernelspec</span> <span class="pre">uninstall</span> <span class="pre">&lt;kernel_name&gt;</span></code> # – Removes the installed kernel by name (obtained from list command)</p>
-</div></blockquote>
-</li>
-<li><p class="first">Run the jupyter notebook server by running:</p>
-<blockquote>
-<div><p><code class="docutils literal"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></p>
-</div></blockquote>
-</li>
+<p>To list all the installed kernels, run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter kernelspec list
+</pre></div>
+</div>
+<p>To remove an installed kernel by name (obtained from list command), run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter kernelspec uninstall &lt;kernel_name&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Run the jupyter notebook server by running:</li>
 </ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter notebook
+</pre></div>
+</div>
 <p>The console output should look similar to the image below.</p>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_server.png"><img alt="_images/jupyter_notebook_server.png" class="align-center" src="_images/jupyter_notebook_server.png" style="width: 550px;" /></a>
 <p>If the Jupyter Notebook directory page does not open automatically (example in screen capture below), copy and paste the provided URL into your browser (example URL highlighted in the image above).</p>
@@ -255,6 +259,10 @@
 <li>To get started, try entering some import commands as shown in the screenshot below.  You can then click on the “Run” button to run the code from the cell in the kernel.</li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_1.png"><img alt="_images/jupyter_notebook_1.png" class="align-center" src="_images/jupyter_notebook_1.png" style="width: 550px;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">com.xilinx.rapidwright.device</span> <span class="kn">import</span> <span class="n">Device</span>
+<span class="kn">from</span> <span class="nn">com.xilinx.rapidwright.design</span> <span class="kn">import</span> <span class="n">Design</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="8">
 <li>The results from executed commands persist from one cell to the next as long as the Jython kernel stays alive and will maintain all state variables.  The “Run” button also creates a new cell below the last one executed.  Now that we have imported some RapidWright libraries, we can use tab completion to see inside objects their visible methods and members.</li>
 </ol>
@@ -263,8 +271,12 @@
 <li>For a quick example, we can create an empty design and write out a design checkpoint.  Another way to execute a cell is with the keyboard shortcut CTRL+ENTER.</li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_3.png"><img alt="_images/jupyter_notebook_3.png" class="align-center" src="_images/jupyter_notebook_3.png" style="width: 550px;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="p">(</span><span class="s2">&quot;HelloWorld&quot;</span><span class="p">,</span><span class="n">Device</span><span class="o">.</span><span class="n">AWS_F1</span><span class="p">)</span>
+<span class="n">design</span><span class="o">.</span><span class="n">writeCheckpoint</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.dcp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="11">
-<li>By going back to the home page, we can find the recently created DCP and select it for download.</li>
+<li>By going back to the Jupyter Dashboard (click on the Jupyter logo at the top left of the page), we can find the recently created DCP and select it for download.</li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_4.png"><img alt="_images/jupyter_notebook_4.png" class="align-center" src="_images/jupyter_notebook_4.png" style="width: 550px;" /></a>
 <p>Using Jupyter Notebooks is still a new technology, but will allow for easy demonstration of coding examples and techniques to use RapidWright.  We hope to leverage its infrastructure significantly in the coming future.</p>
@@ -313,7 +325,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2018.3.0-beta',
+            VERSION:'2018.3.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -324,6 +336,8 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
 
   
 

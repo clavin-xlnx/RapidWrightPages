@@ -1,0 +1,181 @@
+======================================
+Create and Use an SLR Bridge
+======================================
+The goal of this tutorial is to combine a RapidWright generated circuit with a Vivado design. 
+
+Background
+=============
+In this example, we implement a 4-to-1 TDM (`Time-division Multiplexing <https://en.wikipedia.org/wiki/Time-division_multiplexing>`_) design that reduces the number of valuable :term:`SLR (Super Logic Region)<SLR>` crossing resources by 4X. SLR crossing resources (super long lines or :term:`SLLs<SLL>`) are inter-die connectivity resources within the package and are often in high demand. RapidWright can generate a highly tuned SLR bridge within seconds as a drop-in implementation (.DCP) capable of running at near-spec performance (~750MHz).  This tutorial will demonstrate how to use such a bridge and maintain high performance in common design flows.
+
+The TDM circuit and its connectivity with a RapidWright SLR bridge is shown in the figure below.  
+
+ .. image:: images/tdm.png
+	:width: 550px
+	:align: center
+
+The TDM circuit switches between 4 low frequency signals (1X CLK) to drive data into the faster clock domain (4X CLK), and vice versa.  The red-dotted line shows the boundary and encompasses the circuit that will be generated directly from RapidWright.  Due to the challenging nature of crossing SLRs, RapidWright has a dedicated circuit generator for SLR crossings that can custom route the clock to avoid hold time issues and minimize inter-SLR delay penalties to provide an implementation that achieves high performance (>750MHz).  	
+
+By taking this approach, greater bandwidth over the SLR boundaries can be achieved and/or minimizing the total number of SLLs used--leaving them available for other applications such as when building a :term:`shell`.
+	
+Getting Started 
+=================
+
+Building the Bridge
+----------------------
+Begin by creating a directory for our work in this tutorial:
+
+.. code-block:: bash
+
+	mkdir bridge_tutorial
+	cd bridge_tutorial
+
+Our first task is to generate an SLR crossing bridge from RapidWright.  RapidWright has a dedicated generator for this purpose called the ``SLRCrossingGenerator`` which can be run from the command line.  To invoke the help/options output of the tool simply run:
+
+.. code-block:: bash
+
+	java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -h
+
+This should produce the following output:
+	
+:: 
+
+	==============================================================================
+	==                        SLR Crossing DCP Generator                        ==
+	==============================================================================
+	This RapidWright program creates a placed and routed DCP that can be 
+	imported into UltraScale+ designs to aid in high speed SLR crossings.  See 
+	RapidWright documentation for more information.
+
+	Option                                   Description                   
+	------                                   -----------                   
+	-?, -h                                   Print Help                    
+	-a [String: Clk input net name]          (default: clk_in)             
+	-b [String: Clock BUFGCE site name]      (default: BUFGCE_X0Y218)      
+	-c [String: Clk net name]                (default: clk)                
+	-d [String: Design Name]                 (default: slr_crosser)        
+	-i [String: Input bus name prefix]       (default: input)              
+	-l [String: Comma separated list of      (default: LAGUNA_X2Y120)      
+	  Laguna sites for each SLR crossing]                                  
+	-n [String: North bus name suffix]       (default: _north)             
+	-o [String: Output DCP File Name]        (default: slr_crosser.dcp)    
+	-p [String: UltraScale+ Part Name]       (default: xcvu9p-flgb2104-2-i)
+	-q [String: Output bus name prefix]      (default: output)             
+	-r [String: INT clk Laguna RX flops]     (default: GCLK_B_0_1)         
+	-s [String: South bus name suffix]       (default: _south)             
+	-t [String: INT clk Laguna TX flops]     (default: GCLK_B_0_0)         
+	-u [String: Clk output net name]         (default: clk_out)            
+	-v [Boolean: Print verbose output]       (default: true)               
+	-w [Integer: SLR crossing bus width]     (default: 512)                
+	-x <Double: Clk period constraint (ns)>                                
+	-y [String: BUFGCE cell instance name]   (default: BUFGCE_inst)        
+	-z [Boolean: Use common centroid]        (default: false)              
+
+As you can see, this generator has several parameterizable options.  In this case, we will want a bridge that provides 32 wires in both directions using a single column of Laguna tiles.  We will use the xcvu7p-flva2104-2-i part for our example and use the far edge Laguna column for our crossing.  As RapidWright must custom route the clock to preserve the carefully tuned leaf clock buffer delays, it must include a BUFGCE instance.  We also specify the location of the BUFG to improve timing reproducibility in the application context. To generate such a bridge run the following at the command line:
+
+.. code-block:: bash
+	
+	java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -l LAGUNA_X20Y120 -b BUFGCE_X1Y80 -w 32 -o slr_crosser_vu7p_32.dcp -p xcvu7p-flva2104-2-i
+
+After several seconds, a new file, ``slr_crosser_vu7p_32.dcp`` should appear in our working directory, let's open it in Vivado to examine what we have created.  
+
+.. code-block:: bash
+
+	vivado slr_crosser_vu7p_32.dcp
+	
+Once open, the device view (``Window->Device``) should look something like this:
+	
+ .. image:: images/slr_bridge.png
+	:width: 550px
+	:align: center
+
+We can also add a timing constraint to test the pre-implemented performance of the bridge with the following Tcl commands:
+
+.. code-block:: tcl
+
+	create_clock -name clk -period 1.333 [get_nets clk]
+	report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+
+We have specified a 750MHz clock constraint (1.333 ns period) and the timing report should show postive slack for both setup and hold.  Close this design in Vivado once you are done (don't save your changes):
+
+.. code-block:: tcl
+
+	close_design
+
+
+Combining the Designs
+-----------------------
+Now that we know we have a correct bridge, we start on our main design.  To do so, we have provided a synthesized version of our TDM circuit where N=32. To open it:
+
+1. Download :download:`synth32_BB.dcp <files/synth32_BB.dcp>` into your ``bridge_tutorial`` directory
+2. Open it in Vivado using the Tcl command:
+
+.. code-block:: tcl
+
+	open_checkpoint synth32_BB.dcp
+
+Look at the Vivado netlist view of the ``synth32_BB.dcp`` design. The SLR Bridge (``crossing`` instance) has been left open as a black box to be populated with our RapidWright bridge implementation, see the screenshot below for reference:
+
+ .. image:: images/slr_bb.png
+	:width: 350px
+	:align: center  
+
+.. note:: For ease of use of this tutorial, we have provided a synthesized circuit with a black box.  However, in common practice, the generated DCP from RapidWright can simply be instantiated in Verilog/VHDL directly and the DCP added to the sources of the project.
+
+To import our SLR bridge, we will use the ``read_checkpoint`` command at the Tcl prompt:
+
+.. code-block:: tcl
+
+	read_checkpoint -cell crossing slr_crosser_vu7p_32.dcp
+
+Note that the netlist icon next to ``crossing`` should change from dark to white.  The black box has now been populated with our custom SLR bridge implementation we just created in RapidWright.  
+
+
+Implementation
+------------------
+We can now proceed to constrain the design and run place and route by running the following script:
+
+1. Download :download:`run_PnR.tcl <files/run_PnR.tcl>` to your ``bridge_tutorial`` directory
+2. Run the Tcl command:
+
+.. code-block:: tcl
+
+	source run_PnR.tcl
+
+Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:
+
+.. include:: files/run_PnR.tcl
+	:literal:
+	
+This can take several minutes (up to 30 minutes inside the tutorial virtual machine).  For those wishing to skip ahead, we have provided our own implementation of the results of the above Tcl commands here: :download:`routed_32.dcp <files/routed_32.dcp>`.  In the Device model view, our implementation looks like this:
+
+ .. image:: images/slr_routed.png
+	:width: 550px
+	:align: center
+
+For additional analysis of timing reports can be performed on the specific paths crossing the SLR and leading up to it by:
+
+1. Downloading :download:`run_timing.tcl <files/run_timing.tcl>` to your ``bridge_tutorial`` directory
+2. Running the Tcl command:
+
+.. code-block:: tcl
+
+	source run_timing.tcl
+
+Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:
+
+.. include:: files/run_timing.tcl
+	:literal:
+
+This will produce several tabs in the ``Timing`` window tab as shown below:	
+	
+ .. image:: images/slr_timing.png
+	:width: 750px
+	:align: center	
+
+The clock constraint for the design is 1.34ns and our implementation met timing with 0.02ns of positive slack, meaning it can be implemented with a 750MHz fast (4X) clock.  This is quite close to the spec of the VU7P which is 775MHz.  
+	
+Conclusion
+--------------
+We have shown how pre-implemented designs can be integrated into existing Vivado design flows to achieve near-spec performance.  
+
+

@@ -39,6 +39,11 @@ Does RapidWright have device timing information?
 =================================================
 No.  Currently, there is no timing information provided in RapidWright.  To run timing, use the ``Design.writeCheckpoint()`` command and load the design in Vivado to report timing.
 
+Does RapidWright support partial reconfiguration (PR)?
+========================================================
+RapidWright does not have specific support for PR, but it can be used to generated designs or partial designs intended to be partially reconfigured.  This can be done by generating designs and then importing them into PR-based projects in Vivado using ``read_checkpoint -cell <cell_name> <dcp_name>``, where the cell is a black box.
+
+
 Is there any published work on RapidWright?
 =============================================
 Yes, we had a paper at `FCCM 2018 <http://fccm.org/2018/program.html#program>`_ (The 26th IEEE International Symposium on Field-Programmable Custom Computing Machines).  A preprint copy of the paper is available here: :download:`FCCM18-RapidWright.pdf <files/FCCM18-RapidWright.pdf>`. The presentation slides are avilable here: :download:`FCCM18-RapidWright-Presentation.pdf <files/FCCM18-RapidWright-Presentation.pdf>`.

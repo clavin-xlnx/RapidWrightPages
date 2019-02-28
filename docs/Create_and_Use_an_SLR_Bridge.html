@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Create and Use an SLR Bridge &mdash; RapidWright 2018.3.1-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RapidWright FPGA 2019 Deep Dive Tutorial" href="FPGA19_Workshop.html" />
+    <link rel="prev" title="Pre-implemented Modules - Part II" href="PreImplemented_Modules_Part_II.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2018.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Create and Use an SLR Bridge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#building-the-bridge">Building the Bridge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#combining-the-designs">Combining the Designs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation">Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>Create and Use an SLR Bridge</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Create_and_Use_an_SLR_Bridge.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="create-and-use-an-slr-bridge">
+<h1>Create and Use an SLR Bridge<a class="headerlink" href="#create-and-use-an-slr-bridge" title="Permalink to this headline">¶</a></h1>
+<p>The goal of this tutorial is to combine a RapidWright generated circuit with a Vivado design.</p>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we implement a 4-to-1 TDM (<a class="reference external" href="https://en.wikipedia.org/wiki/Time-division_multiplexing">Time-division Multiplexing</a>) design that reduces the number of valuable <a class="reference internal" href="Glossary.html#term-slr"><span class="xref std std-term">SLR (Super Logic Region)</span></a> crossing resources by 4X. SLR crossing resources (super long lines or <a class="reference internal" href="Glossary.html#term-sll"><span class="xref std std-term">SLLs</span></a>) are inter-die connectivity resources within the package and are often in high demand. RapidWright can generate a highly tuned SLR bridge within seconds as a drop-in implementation (.DCP) capable of running at near-spec performance (~750MHz).  This tutorial will demonstrate how to use such a bridge and maintain high performance in common design flows.</p>
+<p>The TDM circuit and its connectivity with a RapidWright SLR bridge is shown in the figure below.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/tdm.png"><img alt="_images/tdm.png" class="align-center" src="_images/tdm.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>The TDM circuit switches between 4 low frequency signals (1X CLK) to drive data into the faster clock domain (4X CLK), and vice versa.  The red-dotted line shows the boundary and encompasses the circuit that will be generated directly from RapidWright.  Due to the challenging nature of crossing SLRs, RapidWright has a dedicated circuit generator for SLR crossings that can custom route the clock to avoid hold time issues and minimize inter-SLR delay penalties to provide an implementation that achieves high performance (&gt;750MHz).</p>
+<p>By taking this approach, greater bandwidth over the SLR boundaries can be achieved and/or minimizing the total number of SLLs used–leaving them available for other applications such as when building a <a class="reference internal" href="Glossary.html#term-shell"><span class="xref std std-term">shell</span></a>.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="building-the-bridge">
+<h3>Building the Bridge<a class="headerlink" href="#building-the-bridge" title="Permalink to this headline">¶</a></h3>
+<p>Begin by creating a directory for our work in this tutorial:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir bridge_tutorial
+<span class="nb">cd</span> bridge_tutorial
+</pre></div>
+</div>
+<p>Our first task is to generate an SLR crossing bridge from RapidWright.  RapidWright has a dedicated generator for this purpose called the <code class="docutils literal"><span class="pre">SLRCrossingGenerator</span></code> which can be run from the command line.  To invoke the help/options output of the tool simply run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -h
+</pre></div>
+</div>
+<p>This should produce the following output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>==============================================================================
+==                        SLR Crossing DCP Generator                        ==
+==============================================================================
+This RapidWright program creates a placed and routed DCP that can be
+imported into UltraScale+ designs to aid in high speed SLR crossings.  See
+RapidWright documentation for more information.
+
+Option                                   Description
+------                                   -----------
+-?, -h                                   Print Help
+-a [String: Clk input net name]          (default: clk_in)
+-b [String: Clock BUFGCE site name]      (default: BUFGCE_X0Y218)
+-c [String: Clk net name]                (default: clk)
+-d [String: Design Name]                 (default: slr_crosser)
+-i [String: Input bus name prefix]       (default: input)
+-l [String: Comma separated list of      (default: LAGUNA_X2Y120)
+  Laguna sites for each SLR crossing]
+-n [String: North bus name suffix]       (default: _north)
+-o [String: Output DCP File Name]        (default: slr_crosser.dcp)
+-p [String: UltraScale+ Part Name]       (default: xcvu9p-flgb2104-2-i)
+-q [String: Output bus name prefix]      (default: output)
+-r [String: INT clk Laguna RX flops]     (default: GCLK_B_0_1)
+-s [String: South bus name suffix]       (default: _south)
+-t [String: INT clk Laguna TX flops]     (default: GCLK_B_0_0)
+-u [String: Clk output net name]         (default: clk_out)
+-v [Boolean: Print verbose output]       (default: true)
+-w [Integer: SLR crossing bus width]     (default: 512)
+-x &lt;Double: Clk period constraint (ns)&gt;
+-y [String: BUFGCE cell instance name]   (default: BUFGCE_inst)
+-z [Boolean: Use common centroid]        (default: false)
+</pre></div>
+</div>
+<p>As you can see, this generator has several parameterizable options.  In this case, we will want a bridge that provides 32 wires in both directions using a single column of Laguna tiles.  We will use the xcvu7p-flva2104-2-i part for our example and use the far edge Laguna column for our crossing.  As RapidWright must custom route the clock to preserve the carefully tuned leaf clock buffer delays, it must include a BUFGCE instance.  We also specify the location of the BUFG to improve timing reproducibility in the application context. To generate such a bridge run the following at the command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -l LAGUNA_X20Y120 -b BUFGCE_X1Y80 -w <span class="m">32</span> -o slr_crosser_vu7p_32.dcp -p xcvu7p-flva2104-2-i
+</pre></div>
+</div>
+<p>After several seconds, a new file, <code class="docutils literal"><span class="pre">slr_crosser_vu7p_32.dcp</span></code> should appear in our working directory, let’s open it in Vivado to examine what we have created.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>vivado slr_crosser_vu7p_32.dcp
+</pre></div>
+</div>
+<p>Once open, the device view (<code class="docutils literal"><span class="pre">Window-&gt;Device</span></code>) should look something like this:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/slr_bridge.png"><img alt="_images/slr_bridge.png" class="align-center" src="_images/slr_bridge.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>We can also add a timing constraint to test the pre-implemented performance of the bridge with the following Tcl commands:</p>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">create_clock</span> <span class="o">-</span>name clk <span class="o">-</span>period <span class="mf">1.333</span> <span class="k">[</span><span class="nv">get_nets</span> clk<span class="k">]</span>
+<span class="nv">report_timing_summary</span> <span class="o">-</span>delay_type min_max <span class="o">-</span>report_unconstrained <span class="o">-</span>check_timing_verbose <span class="o">-</span>max_paths <span class="mi">10</span> <span class="o">-</span>input_pins <span class="o">-</span>routable_nets <span class="o">-</span>name timing_1
+</pre></div>
+</div>
+<p>We have specified a 750MHz clock constraint (1.333 ns period) and the timing report should show postive slack for both setup and hold.  Close this design in Vivado once you are done (don’t save your changes):</p>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">close_design</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="combining-the-designs">
+<h3>Combining the Designs<a class="headerlink" href="#combining-the-designs" title="Permalink to this headline">¶</a></h3>
+<p>Now that we know we have a correct bridge, we start on our main design.  To do so, we have provided a synthesized version of our TDM circuit where N=32. To open it:</p>
+<ol class="arabic simple">
+<li>Download <a class="reference download internal" href="_downloads/synth32_BB.dcp" download=""><code class="xref download docutils literal"><span class="pre">synth32_BB.dcp</span></code></a> into your <code class="docutils literal"><span class="pre">bridge_tutorial</span></code> directory</li>
+<li>Open it in Vivado using the Tcl command:</li>
+</ol>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span> synth32_BB.dcp
+</pre></div>
+</div>
+<p>Look at the Vivado netlist view of the <code class="docutils literal"><span class="pre">synth32_BB.dcp</span></code> design. The SLR Bridge (<code class="docutils literal"><span class="pre">crossing</span></code> instance) has been left open as a black box to be populated with our RapidWright bridge implementation, see the screenshot below for reference:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/slr_bb.png"><img alt="_images/slr_bb.png" class="align-center" src="_images/slr_bb.png" style="width: 350px;" /></a>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For ease of use of this tutorial, we have provided a synthesized circuit with a black box.  However, in common practice, the generated DCP from RapidWright can simply be instantiated in Verilog/VHDL directly and the DCP added to the sources of the project.</p>
+</div>
+<p>To import our SLR bridge, we will use the <code class="docutils literal"><span class="pre">read_checkpoint</span></code> command at the Tcl prompt:</p>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">read_checkpoint</span> <span class="o">-</span>cell crossing slr_crosser_vu7p_32.dcp
+</pre></div>
+</div>
+<p>Note that the netlist icon next to <code class="docutils literal"><span class="pre">crossing</span></code> should change from dark to white.  The black box has now been populated with our custom SLR bridge implementation we just created in RapidWright.</p>
+</div>
+<div class="section" id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h3>
+<p>We can now proceed to constrain the design and run place and route by running the following script:</p>
+<ol class="arabic simple">
+<li>Download <a class="reference download internal" href="_downloads/run_PnR.tcl" download=""><code class="xref download docutils literal"><span class="pre">run_PnR.tcl</span></code></a> to your <code class="docutils literal"><span class="pre">bridge_tutorial</span></code> directory</li>
+<li>Run the Tcl command:</li>
+</ol>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nb">source</span> run_PnR.tcl
+</pre></div>
+</div>
+<p>Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Add pblocks</span>
+<span class="n">create_pblock</span> <span class="n">pblock_top</span>
+<span class="n">add_cells_to_pblock</span> <span class="n">pblock_top</span> <span class="p">[</span><span class="n">get_cells</span> <span class="p">[</span><span class="nb">list</span> <span class="n">T_top</span><span class="p">]]</span> <span class="o">-</span><span class="n">clear_locs</span>
+<span class="n">resize_pblock</span> <span class="p">[</span><span class="n">get_pblocks</span> <span class="n">pblock_top</span><span class="p">]</span> <span class="o">-</span><span class="n">add</span> <span class="p">{</span><span class="n">CLOCKREGION_X5Y5</span><span class="p">:</span><span class="n">CLOCKREGION_X5Y5</span><span class="p">}</span>
+<span class="n">create_pblock</span> <span class="n">pblock_bot</span>
+<span class="n">add_cells_to_pblock</span> <span class="n">pblock_bot</span> <span class="p">[</span><span class="n">get_cells</span> <span class="p">[</span><span class="nb">list</span> <span class="n">T_bot</span><span class="p">]]</span> <span class="o">-</span><span class="n">clear_locs</span>
+<span class="n">resize_pblock</span> <span class="p">[</span><span class="n">get_pblocks</span> <span class="n">pblock_bot</span><span class="p">]</span> <span class="o">-</span><span class="n">add</span> <span class="p">{</span><span class="n">CLOCKREGION_X5Y4</span><span class="p">:</span><span class="n">CLOCKREGION_X5Y4</span><span class="p">}</span> 
+<span class="c1"># Implement design and save</span>
+<span class="n">place_design</span>
+<span class="n">route_design</span>
+<span class="n">write_checkpoint</span> <span class="o">-</span><span class="n">force</span> <span class="n">routed_32</span><span class="o">.</span><span class="n">dcp</span>
+</pre></div>
+</div>
+<p>This can take several minutes (up to 30 minutes inside the tutorial virtual machine).  For those wishing to skip ahead, we have provided our own implementation of the results of the above Tcl commands here: <a class="reference download internal" href="_downloads/routed_32.dcp" download=""><code class="xref download docutils literal"><span class="pre">routed_32.dcp</span></code></a>.  In the Device model view, our implementation looks like this:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/slr_routed.png"><img alt="_images/slr_routed.png" class="align-center" src="_images/slr_routed.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>For additional analysis of timing reports can be performed on the specific paths crossing the SLR and leading up to it by:</p>
+<ol class="arabic simple">
+<li>Downloading <a class="reference download internal" href="_downloads/run_timing.tcl" download=""><code class="xref download docutils literal"><span class="pre">run_timing.tcl</span></code></a> to your <code class="docutils literal"><span class="pre">bridge_tutorial</span></code> directory</li>
+<li>Running the Tcl command:</li>
+</ol>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nb">source</span> run_timing.tcl
+</pre></div>
+</div>
+<p>Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># report to GUI</span>
+<span class="n">report_timing_summary</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">report_unconstrained</span> <span class="o">-</span><span class="n">check_timing_verbose</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">routable_nets</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_all</span>
+<span class="n">report_timing</span> <span class="o">-</span><span class="kn">from</span> <span class="p">{</span><span class="o">*/</span><span class="n">input0_north_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_North</span>
+<span class="n">report_timing</span> <span class="o">-</span><span class="kn">from</span> <span class="p">{</span><span class="o">*/</span><span class="n">output0_north_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_North_after</span>
+<span class="n">report_timing</span> <span class="o">-</span><span class="n">to</span> <span class="p">{</span><span class="o">*/</span><span class="n">input0_north_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_North_before</span>
+<span class="n">report_timing</span> <span class="o">-</span><span class="kn">from</span> <span class="p">{</span><span class="o">*/</span><span class="n">input0_south_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_South</span>
+<span class="n">report_timing</span> <span class="o">-</span><span class="kn">from</span> <span class="p">{</span><span class="o">*/</span><span class="n">output0_south_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="nb">min</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_South_after</span>
+<span class="n">report_timing</span> <span class="o">-</span><span class="n">to</span> <span class="p">{</span><span class="o">*/</span><span class="n">input0_south_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_South_before</span>
+</pre></div>
+</div>
+<p>This will produce several tabs in the <code class="docutils literal"><span class="pre">Timing</span></code> window tab as shown below:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/slr_timing.png"><img alt="_images/slr_timing.png" class="align-center" src="_images/slr_timing.png" style="width: 750px;" /></a>
+</div></blockquote>
+<p>The clock constraint for the design is 1.34ns and our implementation met timing with 0.02ns of positive slack, meaning it can be implemented with a 750MHz fast (4X) clock.  This is quite close to the spec of the VU7P which is 775MHz.</p>
+</div>
+<div class="section" id="conclusion">
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h3>
+<p>We have shown how pre-implemented designs can be integrated into existing Vivado design flows to achieve near-spec performance.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FPGA19_Workshop.html" class="btn btn-neutral float-right" title="RapidWright FPGA 2019 Deep Dive Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PreImplemented_Modules_Part_II.html" class="btn btn-neutral" title="Pre-implemented Modules - Part II" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2019, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2018.3.1-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

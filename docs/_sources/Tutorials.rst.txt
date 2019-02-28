@@ -2,10 +2,14 @@ RapidWright Tutorials
 =======================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    SLR_Crosser_DCP_Creator_Tutorial
    IPI_PreImpl_Tutorial
-   
+   PipelineGeneratorExample
+   PreImplemented_Modules_Part_I
+   PreImplemented_Modules_Part_II
+   Create_and_Use_an_SLR_Bridge
+   FPGA19_Workshop
 
-More to come soon!
+

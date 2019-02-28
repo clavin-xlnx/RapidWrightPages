@@ -1,0 +1,88 @@
+===========================================
+RapidWright FPGA 2019 Deep Dive Tutorial
+===========================================
+
+Before starting the tutorials, see :ref:`Getting Started` below to setup your machine.
+
+===================================== ======== ====================================================
+ **Tutorial Segment**                 Time     **Purpose**                                                      
+===================================== ======== ====================================================
+|HelloWorld| |Jup|                     5 mins  Intro to RapidWright within Jupyter Notebook              
+|ScratchNetlist| |Jup|                10 mins  How to build a netlist from scratch 
+|Pipeline|                            15 mins  How to generate a circuit in RapidWright                          
+|PM1|                                 15 mins  How to create a pre-implemented module                           
+|PM2|                                 15 mins  How to use and relocate pre-implemented modules                  
+|Probe| |Jup|                         20 mins  Fast probe routing on existing implementation         
+|SAT| |Jup| (Linux only)              15 mins  How to use a SAT engine to solve routing congestion              
+|SLR|                                 20 mins  Combine Vivado and RapidWright generated citcuits              
+===================================== ======== ====================================================
+
+|Jup| = Jupyter Notebook Tutorial
+
+These tutorials were given in the `Sunday afternoon session of FPGA 2019 (February 24th) <http://isfpga.org/workshops.html>`_.
+
+Supplimentary Materials:
+----------------------------
+
+* Slides from the Sunday morning session: :download:`FPGA19-RapidWright-Presentation.pdf <files/FPGA19-RapidWright-Presentation.pdf>`
+* The invited tutorial paper: :download:`FPGA19-RapidWright.pdf <files/FPGA19-RapidWright.pdf>`
+
+Getting Started
+---------------------------
+
+Before attempting the tutorials above, please install and/or setup the following tools:
+
+1. :ref:`RapidWright 2018.3.1 <Automatic Install>` 
+2. `Vivado 2018.3 <https://www.xilinx.com/support/download.html>`_
+3. :ref:`Eclipse <RapidWright Eclipse Setup>` or :ref:`IntelliJ <RapidWright IntelliJ Setup>` (not required, but mentioned in |Pipeline|)
+4. :ref:`Jupyter Notebook and the RapidWright Kernel <RapidWright Jupyter Notebook Kernel Setup>` (for Jupyter Notebook tutorials)
+5. Download the RapidWright-binder repository by running the following at the command line:
+
+.. code-block:: bash
+
+	git clone https://github.com/clavin-xlnx/RapidWright-binder.git
+	
+6. Start the Jupyter notebook server and point it at your RapidWright-binder directory:
+
+.. code-block:: bash
+
+	jupyter notebook --notebook-dir=RapidWright-binder 
+
+At this point the above Jupyter notebook tutorial links should open properly.
+
+
+.. |HelloWorld| raw:: html
+
+	<a href="http://localhost:8888/notebooks/HelloWorld.ipynb" target="_blank">Hello, World</a>
+
+.. |ScratchNetlist| raw:: html
+
+	<a href="http://localhost:8888/notebooks/EDIFNetlistFromScratch.ipynb" target="_blank">Create Netlist from Scratch</a>
+	
+.. |Pipeline| raw:: html
+
+	<a href="PipelineGeneratorExample.html" target="_blank">Pipeline Generator</a>
+	
+.. |PM1| raw:: html
+
+	<a href="PreImplemented_Modules_Part_I.html" target="_blank">Pre-implemented Modules: Part I</a>
+
+.. |PM2| raw:: html
+
+	<a href="PreImplemented_Modules_Part_II.html" target="_blank">Pre-implemented Modules: Part II</a>
+
+.. |Probe| raw:: html
+
+	<a href="http://localhost:8888/notebooks/ProbeRe-router.ipynb" target="_blank">Probe Re-router</a>
+
+.. |SAT| raw:: html
+
+	<a href="http://localhost:8888/notebooks/SATRouter.ipynb" target="_blank">SAT Router</a>
+
+.. |SLR| raw:: html
+
+	<a href="Create_and_Use_an_SLR_Bridge.html" target="_blank">Create and Use an SLR Bridge</a>
+		
+.. |Jup| image:: images/jupyter.png
+	:width: 25px
+	:target: FPGA19_Workshop.html
