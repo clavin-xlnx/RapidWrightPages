@@ -1,7 +1,7 @@
 ===========================
 Quick Start
 ===========================
-1. Download and install `Oracle JRE/JDK Java 1.8 or later <https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html>`_
+1. Download and install `Oracle JRE/JDK Java 1.8 or later <https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>`_
 2. Download the `latest standalone RapidWright release jar file <https://github.com/Xilinx/RapidWright/releases/latest>`_ 
 
 3. Start the RapidWright Python (`Jython <http://www.jython.org>`_) interpreter by running:

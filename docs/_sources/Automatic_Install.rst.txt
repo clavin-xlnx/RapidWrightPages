@@ -5,7 +5,7 @@ Automatic Install
 What You Need to Get Started
 ==============================
 1. 5GB disk space (4GB after installation).
-2. `Oracle JDK Java 1.8 or later <https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html>`_ (`OpenJDK <https://openjdk.java.net/install/>`_ should also work)
+2. `Oracle JDK Java 1.8 or later <https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>`_ (`OpenJDK <https://openjdk.java.net/install/>`_ should also work)
 3. `Git <https://git-scm.com/>`_ (source revision control system)
 4. If you are running Linux, you may need an older libpng12 library.  For those running Debian/Ubuntu-based distros, try the following:
 
