@@ -25,8 +25,14 @@ Steps to Run
 ================
 
 1. Ensure you have RapidWright correctly setup and/or installed. See the :ref:`Getting Started` page for details.
-2. Run ``java com.xilinx.rapidwright.examples.SLRCrosserGenerator -h``.  This will print all the available options to parameterize the SLR crossing output, example output below:
- 
+2. Run the command below to print available options to parameterize the SLR crossing output
+
+.. code-block:: bash
+
+	java com.xilinx.rapidwright.examples.SLRCrosserGenerator -h
+
+Example output below:	
+
 ::
 
 	==============================================================================
@@ -63,9 +69,13 @@ Steps to Run
 
 3. A default scenario of a single bi-directional crossing of 512 bits is generated at the LAGUNA_X2Y120 site on a VU9P part if no options are provided. The DCP is generated in the current working directory with the name ``slr_crosser.dcp`` unless the ``-o`` option is specified.
 
+
+.. code-block:: bash
+
+	java com.xilinx.rapidwright.examples.SLRCrosserGenerator
+
 ::
- 
-  $ java com.xilinx.rapidwright.examples.SLRCrosserGenerator                                                                                                  
+                                                                                                   
   ==============================================================================
   ==                           SLRCrosserGenerator                            ==
   ==============================================================================

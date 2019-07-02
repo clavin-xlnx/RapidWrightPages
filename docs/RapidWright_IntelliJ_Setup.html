@@ -208,63 +208,29 @@
 <h2>Step-by-Step Instructions<a class="headerlink" href="#step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Make sure you have Java JDK 1.8 (or later) installed: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> Follow the instructions when running the downloaded executable.  Add the <code class="docutils literal"><span class="pre">$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin</span></code> folder to your <code class="docutils literal"><span class="pre">PATH</span></code> environment variable.</li>
-<li>Download Eclipse: <a class="reference external" href="https://www.jetbrains.com/idea/download/">https://www.jetbrains.com/idea/download/</a></li>
-<li>Install IntelliJ using the setup executable.</li>
-<li>Run IntelliJ, and navigate to the main application window.</li>
-<li>Create a new project within IntelliJ under File-&gt;New-&gt;Project from Existing Sources …</li>
+<li>Download IntelliJ: <a class="reference external" href="https://www.jetbrains.com/idea/download/">https://www.jetbrains.com/idea/download/</a></li>
+<li>Install IntelliJ by running the setup executable.</li>
+<li>Start IntelliJ, and naviagate through setting selection (if necessary) to the welcome screen.</li>
+<li>Choose <code class="docutils literal"><span class="pre">Open</span></code> from the Welcome screen and navigate to the <code class="docutils literal"><span class="pre">RapidWright</span></code> directory where RapidWright has been installed, then click <code class="docutils literal"><span class="pre">OK</span></code>.</li>
 </ol>
-<a class="reference internal image-reference" href="_images/clip_image001.png"><img alt="_images/clip_image001.png" class="align-center" src="_images/clip_image001.png" style="width: 497px;" /></a>
+<a class="reference internal image-reference" href="_images/intellij_start.png"><img alt="_images/intellij_start.png" class="align-center" src="_images/intellij_start.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="_images/intellij_open.png"><img alt="_images/intellij_open.png" class="align-center" src="_images/intellij_open.png" style="width: 300px;" /></a>
 <ol class="arabic simple" start="6">
-<li>Choose the location where RapidWright was installed from e.g. running the RapidWright Java-based installer:</li>
+<li>The RapidWright project should open and IntelliJ may indicate that it is indexing the project.  Click on the <code class="docutils literal"><span class="pre">1:Project</span></code> button at the top left sidebar, this will expand the project tree:</li>
 </ol>
-<a class="reference internal image-reference" href="_images/clip_image002.png"><img alt="_images/clip_image002.png" class="align-center" src="_images/clip_image002.png" style="width: 466px;" /></a>
-<p>Please note that e.g. com should be a subdirectory to the directory that is selected.</p>
+<a class="reference internal image-reference" href="_images/intellij_project.png"><img alt="_images/intellij_project.png" class="align-center" src="_images/intellij_project.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="_images/intellij_run_dev_browser.png"><img alt="_images/intellij_run_dev_browser.png" class="align-center" src="_images/intellij_run_dev_browser.png" style="width: 600px;" /></a>
 <ol class="arabic simple" start="7">
-<li>Choose “Create the project from existing sources”.  Click Next to accept:</li>
+<li>Expand the source tree to navigate to the DeviceBrowser class, <code class="docutils literal"><span class="pre">RapidWright/src/com.xilinx.rapidwright/device/browser/DeviceBrowser</span></code> as shown in the screenshot above.</li>
+<li>(If running Linux, skip this step).  In Windows, we need to set the GUI library jar to choose the win64 version instead of the lin64 (the default).  In order to do this, Choose <code class="docutils literal"><span class="pre">File-&gt;Project</span> <span class="pre">Structure...</span></code>, then select <code class="docutils literal"><span class="pre">Libraries</span></code> under <code class="docutils literal"><span class="pre">Project</span> <span class="pre">Settings</span></code> at the top left.  this should produce a list of jar file names in the right window pane.  Use the <code class="docutils literal"><span class="pre">-</span></code> and <code class="docutils literal"><span class="pre">+</span></code> buttons to remove the <code class="docutils literal"><span class="pre">qtjambi-lin64*.jar</span></code> and replace it with the <code class="docutils literal"><span class="pre">qtjambi-win64*.jar</span></code> respectively:</li>
 </ol>
-<a class="reference internal image-reference" href="_images/clip_image003.png"><img alt="_images/clip_image003.png" class="align-center" src="_images/clip_image003.png" style="width: 709px;" /></a>
-<ol class="arabic simple" start="8">
-<li>Specify a project name or use the default.  Click Next to accept:</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image004.png"><img alt="_images/clip_image004.png" class="align-center" src="_images/clip_image004.png" style="width: 707px;" /></a>
+<a class="reference internal image-reference" href="_images/intellij_fix_lib.png"><img alt="_images/intellij_fix_lib.png" class="align-center" src="_images/intellij_fix_lib.png" style="width: 600px;" /></a>
 <ol class="arabic simple" start="9">
-<li>The directory containing source files that are found by the import wizard will be marked.  Click Next to accept:</li>
+<li>You should now be able to run any of the programs in RapidWright in the IntelliJ environment.  For example, right-click on <code class="docutils literal"><span class="pre">DeviceBrowser</span></code> and choose <code class="docutils literal"><span class="pre">Run</span> <span class="pre">DeviceBrowser.main()</span></code> from the menu.  If successful, the DeviceBrowser will run similar to the screenshot below:</li>
 </ol>
-<a class="reference internal image-reference" href="_images/clip_image005.png"><img alt="_images/clip_image005.png" class="align-center" src="_images/clip_image005.png" style="width: 711px;" /></a>
+<a class="reference internal image-reference" href="_images/intellij_running_dev_browser.png"><img alt="_images/intellij_running_dev_browser.png" class="align-center" src="_images/intellij_running_dev_browser.png" style="width: 600px;" /></a>
 <ol class="arabic simple" start="10">
-<li>The jar libraries found by the import wizard will be listed.  Click Next to accept:</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image006.png"><img alt="_images/clip_image006.png" class="align-center" src="_images/clip_image006.png" style="width: 708px;" /></a>
-<ol class="arabic simple" start="11">
-<li>Module dependencies on the jars from the previous step will be marked.  Click Next to accept:</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image007.png"><img alt="_images/clip_image007.png" class="align-center" src="_images/clip_image007.png" style="width: 706px;" /></a>
-<ol class="arabic simple" start="12">
-<li>Please note for this step it is important to select the same version of Java that was used earlier, when the RapidWright command-line installer application was run.  For example, on this particular machine, two options are shown below. Since Java version 10 was used on this machine, when running the command line installer, this was manually selected here.</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image008.png"><img alt="_images/clip_image008.png" class="align-center" src="_images/clip_image008.png" style="width: 706px;" /></a>
-<ol class="arabic simple" start="13">
-<li>The import wizard will lastly search for frameworks, and it will return a message saying that no frameworks were detected.  Click Finish to finalize the project.</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image009.png"><img alt="_images/clip_image009.png" class="align-center" src="_images/clip_image009.png" style="width: 712px;" /></a>
-<ol class="arabic simple" start="14">
-<li>After the project is created, the project files should be visible within the left panel.</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image010.png"><img alt="_images/clip_image010.png" class="align-center" src="_images/clip_image010.png" style="width: 832px;" /></a>
-<ol class="arabic simple" start="15">
-<li>Expand the source folder “com.xilinx.rapidwright” to view the provided example programs. It is recommended at this point to test that the project by running Build-&gt;Build project.  This should complete without any errors, although depending on the version of Java used there might be some warning messages.</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image011.png"><img alt="_images/clip_image011.png" class="align-center" src="_images/clip_image011.png" style="width: 835px;" /></a>
-<ol class="arabic simple" start="16">
-<li>It is also recommended to test the environment by running Lesson1 as below:</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image012.png"><img alt="_images/clip_image012.png" class="align-center" src="_images/clip_image012.png" style="width: 839px;" /></a>
-<ol class="arabic simple" start="17">
-<li>The application will display terminal output within the Run panel as below:</li>
-</ol>
-<a class="reference internal image-reference" href="_images/clip_image013.png"><img alt="_images/clip_image013.png" class="align-center" src="_images/clip_image013.png" style="width: 848px;" /></a>
-<ol class="arabic simple" start="18">
-<li>The IntelliJ environment should be correctly configured at this point, for creating new programs.</li>
+<li>The IntelliJ environment should be correctly configured at this point.  If you have problems, try setting the <code class="docutils literal"><span class="pre">RAPIDWRIGHT_PATH</span></code> environment variable to point to your RapidWright install directory prior to running IntelliJ.</li>
 </ol>
 </div>
 </div>

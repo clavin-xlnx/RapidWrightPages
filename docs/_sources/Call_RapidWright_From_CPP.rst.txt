@@ -111,7 +111,7 @@ Run the following commands to download the example API code, compile it and crea
 .. code-block:: bash
 
 	wget http://www.rapidwright.io/docs/_downloads/RapidWrightAPI.java -O $RAPIDWRIGHT_PATH/src/com/xilinx/rapidwright/examples/RapidWrightAPI.java
-	export CLASSPATH=$RAPIDWRIGHT_PATH:$(find $RAPIDWRIGHT_PATH/jars -name '*.jar' | grep -Ev 'jython|jupyter|win64|jeromq|json|junit' | tr '\n' ':')
+	export CLASSPATH=$RAPIDWRIGHT_PATH/bin:$(find $RAPIDWRIGHT_PATH/jars -name '*.jar' | grep -Ev 'jython|jupyter|win64|jeromq|json|junit' | tr '\n' ':')
 	javac $RAPIDWRIGHT_PATH/src/com/xilinx/rapidwright/examples/RapidWrightAPI.java -d $RAPIDWRIGHT_PATH/bin
 	native-image -cp $CLASSPATH --no-fallback --initialize-at-build-time --shared -H:Name=librapidwright
 

@@ -298,7 +298,7 @@ rm RapidWright/jars/<span class="o">{</span>jython-standalone-2.7.0,jupyter-kern
 </div></blockquote>
 <p>Run the following commands to download the example API code, compile it and create a shared object library using GraalVM:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/RapidWrightAPI.java -O <span class="nv">$RAPIDWRIGHT_PATH</span>/src/com/xilinx/rapidwright/examples/RapidWrightAPI.java
-<span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span><span class="nv">$RAPIDWRIGHT_PATH</span>:<span class="k">$(</span>find <span class="nv">$RAPIDWRIGHT_PATH</span>/jars -name <span class="s1">&#39;*.jar&#39;</span> <span class="p">|</span> grep -Ev <span class="s1">&#39;jython|jupyter|win64|jeromq|json|junit&#39;</span> <span class="p">|</span> tr <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;:&#39;</span><span class="k">)</span>
+<span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span><span class="nv">$RAPIDWRIGHT_PATH</span>/bin:<span class="k">$(</span>find <span class="nv">$RAPIDWRIGHT_PATH</span>/jars -name <span class="s1">&#39;*.jar&#39;</span> <span class="p">|</span> grep -Ev <span class="s1">&#39;jython|jupyter|win64|jeromq|json|junit&#39;</span> <span class="p">|</span> tr <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;:&#39;</span><span class="k">)</span>
 javac <span class="nv">$RAPIDWRIGHT_PATH</span>/src/com/xilinx/rapidwright/examples/RapidWrightAPI.java -d <span class="nv">$RAPIDWRIGHT_PATH</span>/bin
 native-image -cp <span class="nv">$CLASSPATH</span> --no-fallback --initialize-at-build-time --shared -H:Name<span class="o">=</span>librapidwright
 </pre></div>

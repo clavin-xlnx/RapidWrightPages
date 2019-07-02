@@ -12,5 +12,6 @@ RapidWright Tutorials
    Create_and_Use_an_SLR_Bridge
    FPGA19_Workshop
    FCCM19_Workshop
+   FPL19_Tutorial
 
 
