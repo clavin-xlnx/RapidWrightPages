@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Manual Install &mdash; RapidWright 2018.3.3-beta documentation</title>
+  <title>Manual Install &mdash; RapidWright 2019.1.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2018.3.3
+                2019.1.0
               </div>
             
           
@@ -119,6 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
 </ul>
@@ -131,6 +132,10 @@
 			<br/>
 			<center>
 				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
 			</center>
 		</div>
       </div>
@@ -203,7 +208,7 @@
 <li>Expand the two zip files into the root repository directory, there should be a ‘jars’ and ‘data’ directory listed there. Make sure to delete previous ‘jars’ and ‘data’ directories if present.</li>
 <li>Set the environment variable <code class="docutils literal"><span class="pre">RAPIDWRIGHT_PATH=&lt;your_repo_path&gt;</span></code></li>
 <li>Be sure to add the compiled Java files and jar files in the jar folder to your <code class="docutils literal"><span class="pre">CLASSPATH</span></code> variable. If using Bash and can delete the unused OS-specific jars in the jars directory, you could add the following to your <code class="docutils literal"><span class="pre">.bashrc</span></code> file:
-<code class="docutils literal"><span class="pre">export</span> <span class="pre">CLASSPATH=$RAPIDWRIGHT_PATH:$(echo</span> <span class="pre">$RAPIDWRIGHT_PATH/jars/*.jar</span> <span class="pre">|</span> <span class="pre">tr</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">':')</span></code></li>
+<code class="docutils literal"><span class="pre">export</span> <span class="pre">CLASSPATH=$RAPIDWRIGHT_PATH/bin:$(echo</span> <span class="pre">$RAPIDWRIGHT_PATH/jars/*.jar</span> <span class="pre">|</span> <span class="pre">tr</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">':')</span></code></li>
 <li>Compile the project either through an IDE such as Eclipse or IntelliJ (see <a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> or <a class="reference internal" href="RapidWright_IntelliJ_Setup.html#rapidwright-intellij-setup"><span class="std std-ref">RapidWright IntelliJ Setup</span></a>).  You may need to refresh the project to ensure the IDE can see the jars added in step 3.  You can also use Gradle to compile the project using the provided gradle build script. You will need to make sure Gradle is installed and then run: <code class="docutils literal"><span class="pre">gradle</span> <span class="pre">build</span> <span class="pre">-p</span> <span class="pre">$RAPIDWRIGHT_PATH</span></code></li>
 <li>A quick test is to try running the DeviceBrowser class with something like: <code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.device.browser.DeviceBrowser</span></code>.  You should see the GUI come up similar to this screenshot:</li>
 </ol>
@@ -253,7 +258,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2018.3.3-beta',
+            VERSION:'2019.1.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

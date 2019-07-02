@@ -19,7 +19,7 @@ Procedure
 .. code-block:: tcl
 
 	create_project project_1 [pwd]/testBlockStitcher -part xcku040-ffva1156-2-e
-	set_property board_part xilinx.com:kcu105:part0:1.4 [current_project]
+	set_property board_part [lindex [get_boards -filter NAME=~*kcu105*] end] [current_project]
 	set_property target_language VHDL [current_project]
 	create_bd_design "base_mb" -mode batch
 	update_compile_order -fileset sources_1

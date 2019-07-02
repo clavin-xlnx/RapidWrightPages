@@ -25,7 +25,7 @@ What languages does RapidWright support, and how do I interact with them?
 ===========================================================================
 RapidWright is written in Java.  RapidWright is also packaged with a Python interpreter called `Jython <http://www.jython.org>`_ that enables it to run pure Python scripts and code.  We recommend that for more compute intensive work, Java implementations be the language of choice as it will execute faster.  Python is especially useful for interacting with RapidWright in a command-line type fashion.  This allows device and design objects to remain persistent as the user examines their work and choose to make changes on the fly.  
 
-
+For C and C++, we have a tech article (see :ref:`Call RapidWright from C/C++ Using GraalVM`) that describes how you can create a RapidWright shared object library enabling APIs to be called from C or C++ using a compiler framework called `GraalVM <https://www.graalvm.org/>`_.
 
 Why is the framework called RapidWright?
 ===========================================

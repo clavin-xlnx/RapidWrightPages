@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Call RapidWright from C/C++ Using GraalVM &mdash; RapidWright 2019.1.0-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
+    <link rel="prev" title="Tech Articles" href="Tech_Articles.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2019.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Call RapidWright from C/C++ Using GraalVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get-setup">Get Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-a-bridge">Building a Bridge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ready-to-build-a-so-linux-shared-object-library">Ready to Build a <code class="docutils literal"><span class="pre">.so</span></code> (Linux Shared Object Library)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-it-out">Testing it Out</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tech_Articles.html">Tech Articles</a> &raquo;</li>
+        
+      <li>Call RapidWright from C/C++ Using GraalVM</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Call_RapidWright_From_CPP.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="call-rapidwright-from-c-c-using-graalvm">
+<h1>Call RapidWright from C/C++ Using GraalVM<a class="headerlink" href="#call-rapidwright-from-c-c-using-graalvm" title="Permalink to this headline">¶</a></h1>
+<p>Several RapidWright users have wondered about the prospects of using RapidWright in a C or C++ application even though it is written in Java.  Previously, the only option was to use the <a class="reference external" href="https://docs.oracle.com/javase/8/docs/technotes/guides/jni/">Java Native Interface</a> (JNI) and run an instance of a JVM in order to make such communication possible.  However, a new project called <a class="reference external" href="https://www.graalvm.org/">GraalVM</a> provides some exciting new capabilities to Java as it is a universal virtual machine and compiler ecosystem built around the JVM.  It has <a class="reference external" href="https://medium.com/graalvm/graalvm-ten-things-12d9111f307d">several features</a>, but some highlights are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>As GraalVM is a JVM, it comes with new just-in-time compilation technology to run Java faster</li>
+<li>Compile Java applications to native code for fast startup times</li>
+<li>Write Java programs using interpreted languages such as Python, Ruby, JavaScript and also support their C extensions</li>
+<li>Compile Java code as a native shared object library</li>
+</ul>
+</div></blockquote>
+<p>In this article, we’ll focus on that last feature which enables us to package up RapidWright as a shared object library with header files to be called by C/C++ applications.  To get started, we are going to target a Linux environment and use Bash commands for our example (GraalVM is still in the early stages for support in Windows).</p>
+<p>For the impatient, we have provided <a class="reference download internal" href="_downloads/GraalVMExample.tar.gz" download=""><code class="xref download docutils literal"><span class="pre">an</span> <span class="pre">example</span> <span class="pre">tar</span> <span class="pre">ball</span></code></a> with example source code and Makefile to run the entire flow, just run these four commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/GraalVMExample.tar.gz
+tar zxf GraalVMExample.tar.gz
+<span class="nb">cd</span> GraalVMExample
+make
+</pre></div>
+</div>
+<p>For a more indepth explaination of how this all works, see the rest of the article below.</p>
+<div class="section" id="get-setup">
+<h2>Get Setup<a class="headerlink" href="#get-setup" title="Permalink to this headline">¶</a></h2>
+<p>First, navigate to a directory where you would like to install/practice the steps provided in this article.  We’ll need to install GraalVM and use the <a class="reference external" href="https://www.graalvm.org/docs/reference-manual/graal-updater/">GraalVM Updater</a> to install it’s <code class="docutils literal"><span class="pre">native-image</span></code> package:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget https://github.com/oracle/graal/releases/download/vm-19.0.0/graalvm-ce-linux-amd64-19.0.0.tar.gz
+tar zxf graalvm-ce-linux-amd64-19.0.0.tar.gz
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PWD</span>/graalvm-ce-19.0.0/bin:<span class="nv">$PATH</span>
+gu install native-image
+</pre></div>
+</div>
+<p>Next we’ll install RapidWright using the automatic installer and get its source from GitHub:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/rapidwright-installer.jar
+java -jar rapidwright-installer.jar -t -k
+<span class="nb">export</span> <span class="nv">RAPIDWRIGHT_PATH</span><span class="o">=</span><span class="nv">$PWD</span>/RapidWright
+</pre></div>
+</div>
+<p>It turns out that the native compilation feature of GraalVM does not support certain kinds of reflection that are used in Jython, so we need to remove that dependency and associated code in order to create the shared object library:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>rm RapidWright/com/xilinx/rapidwright/util/RapidWright.<span class="o">{</span>java,class<span class="o">}</span>
+rm RapidWright/jars/<span class="o">{</span>jython-standalone-2.7.0,jupyter-kernel-jsr223,jeromq-0.3.6,json,junit-4.12<span class="o">}</span>.jar
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-a-bridge">
+<h2>Building a Bridge<a class="headerlink" href="#building-a-bridge" title="Permalink to this headline">¶</a></h2>
+<p>Now that GraalVM and RapidWright have been installed and prepared, we can focus on building the bridge between Java and our native application.  As Java and C/C++ are fundamentally different languages with differing runtimes, some additional effort is needed to enable cross-language APIs callable from C/C++.  This article provides an example on how to create a few API wrappers for C/C++, however, we refer the reader to the <a class="reference external" href="https://www.graalvm.org/docs/reference-manual/aot-compilation/">GraalVM documentation</a> and <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/index.html?org/graalvm/nativeimage/c/package-summary.html">Javadocs</a> for more advanced usage.</p>
+<p>We will choose a couple RapidWright APIs we would like to make available in C++, they are the Java methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Device.getDevice(String</span> <span class="pre">deviceName)</span></code></li>
+<li><code class="docutils literal"><span class="pre">Device.getTile(int</span> <span class="pre">column,</span> <span class="pre">int</span> <span class="pre">row)</span></code></li>
+</ul>
+</div></blockquote>
+<p>To expose these two APIs to C/C++ using GraalVM, we need to declare two new methods and annotate them with <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/function/CEntryPoint.html">&#64;CEntryPoint</a>.  When annotating methods with <code class="docutils literal"><span class="pre">&#64;CEntryPoint</span></code>, it must meet a few requirements, namely:</p>
+<ol class="arabic simple">
+<li>The Java method must be declared static</li>
+<li>The &#64;CEntryPoint annotation requires the C API name <code class="docutils literal"><span class="pre">(name</span> <span class="pre">=</span> <span class="pre">&quot;functionName&quot;)</span></code></li>
+<li>The first parameter must be an execution context (<a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/IsolateThread.html">IsolateThread</a> or <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/Isolate.html">Isolate</a>)</li>
+<li>All other parameters must be Java primitive values (int, long, char, …), C helper classes (<a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/type/CCharPointer.html">CCharPointer</a>, <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/index.html?org/graalvm/nativeimage/c/type/CIntPointer.html">CIntPointer</a>,…) or a Java enum annotated with <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/constant/CEnumValue.html">&#64;CEnumLookup</a></li>
+</ol>
+<p>Below is an example Java class <a class="reference download internal" href="_downloads/RapidWrightAPI.java" download=""><code class="xref download docutils literal"><span class="pre">RapidWrightAPI.java</span></code></a> that illustrates how these two Java APIs could be implemented to provide the C interface requirements while accessing RapidWright Java functionality. Note that this Java class will need to be compiled with GraalVM as it imports special features from its native-image library.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">com.xilinx.rapidwright.examples</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.IsolateThread</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.function.CEntryPoint</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.type.CCharPointer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.type.CTypeConversion</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.xilinx.rapidwright.device.Device</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RapidWrightAPI</span> <span class="o">{</span>
+
+  <span class="nd">@CEntryPoint</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;loadDevice&quot;</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">loadDevice</span><span class="o">(</span><span class="n">IsolateThread</span> <span class="n">thread</span><span class="o">,</span> <span class="n">CCharPointer</span> <span class="n">deviceName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">devName</span> <span class="o">=</span> <span class="n">CTypeConversion</span><span class="o">.</span><span class="na">toJavaString</span><span class="o">(</span><span class="n">deviceName</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;Loading device &quot;</span> <span class="o">+</span> <span class="n">devName</span> <span class="o">+</span> <span class="s">&quot;...&quot;</span><span class="o">);</span>
+        <span class="n">Device</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="n">devName</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;DONE!&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@CEntryPoint</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;getTileName&quot;</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">CCharPointer</span> <span class="nf">getTileName</span><span class="o">(</span><span class="n">IsolateThread</span> <span class="n">thread</span><span class="o">,</span> <span class="n">CCharPointer</span> <span class="n">deviceName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">row</span><span class="o">,</span> <span class="kt">int</span> <span class="n">column</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">devName</span> <span class="o">=</span> <span class="n">CTypeConversion</span><span class="o">.</span><span class="na">toJavaString</span><span class="o">(</span><span class="n">deviceName</span><span class="o">);</span>
+        <span class="n">Device</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="n">devName</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">CTypeConversion</span><span class="o">.</span><span class="na">toCString</span><span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="na">getTile</span><span class="o">(</span><span class="n">row</span><span class="o">,</span> <span class="n">column</span><span class="o">).</span><span class="na">getName</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">loadDevice()</span></code> API is redundant because the <code class="docutils literal"><span class="pre">getTileName()</span></code> also will load the device if it is not already in memory, this is just to provide second point of illustration.  Also note that GraalVM provides a set of utility methods to convert to and from Java and C types <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/type/CTypeConversion.html">CTypeConversion</a> such as Java Strings to C <code class="docutils literal"><span class="pre">char*</span></code>.</p>
+</div>
+<div class="section" id="ready-to-build-a-so-linux-shared-object-library">
+<h2>Ready to Build a <code class="docutils literal"><span class="pre">.so</span></code> (Linux Shared Object Library)<a class="headerlink" href="#ready-to-build-a-so-linux-shared-object-library" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a few APIs, we can test them out by using GraalVM to compile our example and then create a shared object library and header file as shown in the flow below:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/graal_flow.png"><img alt="_images/graal_flow.png" class="align-center" src="_images/graal_flow.png" style="width: 650px;" /></a>
+</div></blockquote>
+<p>Run the following commands to download the example API code, compile it and create a shared object library using GraalVM:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/RapidWrightAPI.java -O <span class="nv">$RAPIDWRIGHT_PATH</span>/com/xilinx/rapidwright/examples/RapidWrightAPI.java
+<span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span><span class="nv">$RAPIDWRIGHT_PATH</span>:<span class="k">$(</span>find <span class="nv">$RAPIDWRIGHT_PATH</span>/jars -name <span class="s1">&#39;*.jar&#39;</span> <span class="p">|</span> grep -Ev <span class="s1">&#39;jython|jupyter|win64|jeromq|json|junit&#39;</span> <span class="p">|</span> tr <span class="s1">&#39;\n&#39;</span> <span class="s1">&#39;:&#39;</span><span class="k">)</span>
+javac <span class="nv">$RAPIDWRIGHT_PATH</span>/com/xilinx/rapidwright/examples/RapidWrightAPI.java
+native-image -cp <span class="nv">$CLASSPATH</span> --no-fallback --initialize-at-build-time --shared -H:Name<span class="o">=</span>librapidwright
+</pre></div>
+</div>
+<p>If all goes well, you should now have a <code class="docutils literal"><span class="pre">librapidwright.so</span></code> and <code class="docutils literal"><span class="pre">librapidwright.h</span></code> file present in your current directory.</p>
+</div>
+<div class="section" id="testing-it-out">
+<h2>Testing it Out<a class="headerlink" href="#testing-it-out" title="Permalink to this headline">¶</a></h2>
+<p>Now for the fun part, we can create a C or C++ application that will make use of the new RapidWright APIs!  Here’s a <a class="reference download internal" href="_downloads/RapidWrightExample.cpp" download=""><code class="xref download docutils literal"><span class="pre">small</span> <span class="pre">C++</span> <span class="pre">program</span></code></a> that prints out a grid of tile names for a given device:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="c1">// This is the header file created by native-image (Graal)</span>
+<span class="cp">#include</span> <span class="cpf">&lt;librapidwright.h&gt;</span><span class="cp"></span>
+
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// This is some Graal boilerplate code</span>
+  <span class="n">graal_isolate_t</span> <span class="o">*</span><span class="n">isolate</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">graal_isolatethread_t</span> <span class="o">*</span><span class="kr">thread</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">graal_create_isolate</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">isolate</span><span class="p">,</span> <span class="o">&amp;</span><span class="kr">thread</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;graal_create_isolate error</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// End boilerplate</span>
+
+  <span class="kt">int</span> <span class="n">maxRow</span> <span class="o">=</span> <span class="mi">105</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">maxCol</span> <span class="o">=</span> <span class="mi">105</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span> <span class="n">devName</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="c1">// Load the device in RapidWright, the device will be</span>
+  <span class="c1">// persistent in memory until it is unloaded</span>
+  <span class="n">loadDevice</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span> <span class="n">devName</span><span class="p">);</span>
+
+  <span class="c1">// Get tile names based on row/column indices and print out</span>
+  <span class="c1">// the tile names for a few tiles</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">maxRow</span><span class="p">;</span> <span class="n">row</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">maxCol</span><span class="p">;</span> <span class="n">col</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Tile[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">col</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">row</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;] = </span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span>
+        <span class="n">getTileName</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span> <span class="n">devName</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Clean up Graal stuff</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">graal_detach_thread</span><span class="p">(</span><span class="kr">thread</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;graal_detach_thread error</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There is some GraalVM boilerplate before and after we use the APIs in RapidWright, but we can compile this with any C++ compiler.  The program prints out all the tiles in grid between tiles located at (100,100) and (104,104) inclusive, or 25 different tile names.  We can compile and run this program by running the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/RapidWrightExample.cpp
+g++ RapidWrightExample.cpp -I. -L. -lrapidwright
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>.:<span class="nv">$LD_LIBRARY_PATH</span> <span class="o">&amp;&amp;</span> ./a.out xcvu9p
+</pre></div>
+</div>
+<p>If all goes well, you should see the following output:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>Loading device xcvu9p...DONE!
+Tile<span class="o">[</span><span class="m">100</span>,100<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEL_R_X10Y803&quot;</span>
+Tile<span class="o">[</span><span class="m">101</span>,100<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X101Y832&quot;</span>
+Tile<span class="o">[</span><span class="m">102</span>,100<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X102Y832&quot;</span>
+Tile<span class="o">[</span><span class="m">103</span>,100<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEM_X11Y803&quot;</span>
+Tile<span class="o">[</span><span class="m">104</span>,100<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;INT_X11Y803&quot;</span>
+Tile<span class="o">[</span><span class="m">100</span>,101<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEL_R_X10Y802&quot;</span>
+Tile<span class="o">[</span><span class="m">101</span>,101<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X101Y831&quot;</span>
+Tile<span class="o">[</span><span class="m">102</span>,101<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X102Y831&quot;</span>
+Tile<span class="o">[</span><span class="m">103</span>,101<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEM_X11Y802&quot;</span>
+Tile<span class="o">[</span><span class="m">104</span>,101<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;INT_X11Y802&quot;</span>
+Tile<span class="o">[</span><span class="m">100</span>,102<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEL_R_X10Y801&quot;</span>
+Tile<span class="o">[</span><span class="m">101</span>,102<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X101Y830&quot;</span>
+Tile<span class="o">[</span><span class="m">102</span>,102<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X102Y830&quot;</span>
+Tile<span class="o">[</span><span class="m">103</span>,102<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEM_X11Y801&quot;</span>
+Tile<span class="o">[</span><span class="m">104</span>,102<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;INT_X11Y801&quot;</span>
+Tile<span class="o">[</span><span class="m">100</span>,103<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEL_R_X10Y800&quot;</span>
+Tile<span class="o">[</span><span class="m">101</span>,103<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X101Y829&quot;</span>
+Tile<span class="o">[</span><span class="m">102</span>,103<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X102Y829&quot;</span>
+Tile<span class="o">[</span><span class="m">103</span>,103<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEM_X11Y800&quot;</span>
+Tile<span class="o">[</span><span class="m">104</span>,103<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;INT_X11Y800&quot;</span>
+Tile<span class="o">[</span><span class="m">100</span>,104<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEL_R_X10Y799&quot;</span>
+Tile<span class="o">[</span><span class="m">101</span>,104<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X101Y828&quot;</span>
+Tile<span class="o">[</span><span class="m">102</span>,104<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;NULL_X102Y828&quot;</span>
+Tile<span class="o">[</span><span class="m">103</span>,104<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;CLEM_X11Y799&quot;</span>
+Tile<span class="o">[</span><span class="m">104</span>,104<span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;INT_X11Y799&quot;</span>
+</pre></div>
+</div>
+<p>If you have questions or ideas on how to make better use of GraalVM, please post ideas and questions on the <a class="reference external" href="https://groups.google.com/forum/#!forum/rapidwright">RapidWright forum</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FAQ.html" class="btn btn-neutral float-right" title="Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Tech_Articles.html" class="btn btn-neutral" title="Tech Articles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2019, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2019.1.0-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

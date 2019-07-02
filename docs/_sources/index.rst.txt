@@ -18,6 +18,7 @@ RapidWright Documentation
    Implementation_Basics
    PreImplemented_Module_Flow
    Tutorials
+   Tech_Articles
    FAQ
    Glossary
 
