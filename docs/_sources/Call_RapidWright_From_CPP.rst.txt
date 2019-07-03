@@ -113,7 +113,7 @@ Run the following commands to download the example API code, compile it and crea
 	wget http://www.rapidwright.io/docs/_downloads/RapidWrightAPI.java -O $RAPIDWRIGHT_PATH/src/com/xilinx/rapidwright/examples/RapidWrightAPI.java
 	export CLASSPATH=$RAPIDWRIGHT_PATH/bin:$(find $RAPIDWRIGHT_PATH/jars -name '*.jar' | grep -Ev 'jython|jupyter|win64|jeromq|json|junit' | tr '\n' ':')
 	javac $RAPIDWRIGHT_PATH/src/com/xilinx/rapidwright/examples/RapidWrightAPI.java -d $RAPIDWRIGHT_PATH/bin
-	native-image -cp $CLASSPATH --no-fallback --initialize-at-build-time --shared -H:Name=librapidwright
+	native-image --no-server -cp $CLASSPATH --no-fallback --initialize-at-build-time --shared -H:Name=librapidwright
 
 If all goes well, you should now have a ``librapidwright.so`` and ``librapidwright.h`` file present in your current directory.
 	
