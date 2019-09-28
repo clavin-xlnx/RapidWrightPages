@@ -27,35 +27,48 @@ Steps to Run
 
 1. Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.  While we don't provide any IDE "how to" steps within this tutorial, if you do have questions please feel free to ask.
 
-2. If you need to recompile the code, run: ``javac com/xilinx/rapidwright/examples/PipelineGenerator.java`` from within your "<workspace_dir>/RapidWright" subdirectory.  Alternatively, build this example using your IDE.
+2. If you need to recompile the code, run: 
 
-3. After compiling, run: ``java com.xilinx.rapidwright.examples.PipelineGenerator``.  This will generate an output called "pipeline.dcp", containing the placed and routed circuit design.
+::
 
-4. To see a list of available input options specify "-h" as an argument.  Note: the horizontal direction is assigned within the source code, but it can alternatively be changed to vertical within main().  The source code for this example is located in: ``<workspace_dir>/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java``.
+	javac com/src/xilinx/rapidwright/examples/PipelineGenerator.java
+
+from within your "<workspace_dir>/RapidWright" subdirectory.  Alternatively, build this example using your IDE.
+
+3. After compiling, run: 
+
+::
+
+	java com.xilinx.rapidwright.examples.PipelineGenerator
+	
+This will generate an output called "pipeline.dcp", containing the placed and routed circuit design.
+
+4. To see a list of available input options specify "-h" as an argument.  Note: the horizontal direction is assigned within the source code, but it can alternatively be changed to vertical within main().  The source code for this example is located in: ``<workspace_dir>/RapidWright/src/com/xilinx/rapidwright/examples/PipelineGenerator.java``.
  
 ::
 
-   ==============================================================================
-   ==                            Pipeline Generator                            ==
-   ==============================================================================
-   This RapidWright program creates an example pipelined bus as a placed and routed DCP. 
-   See the RapidWright documentation for more information.
+==============================================================================
+==                            Pipeline Generator                            ==
+==============================================================================
+This RapidWright program creates an example pipelined bus as a placed and routed DCP. 
+See the RapidWright documentation for more information.
 
-   Option                                   Description                   
-   ------                                   -----------                   
-   -?, -h                                   Print Help                    
-   -c [String: Clk net name]                (default: clk)                
-   -d [String: Design Name]                 (default: pipeline)           
-   -l [Integer: distance]                   (default: 10)                  
-   -m [Integer: depth]                      (default: 3)                  
-   -n [Integer: width]                      (default: 10)                 
-   -o [String: Output DCP File Name]        (default: pipeline.dcp)       
-   -p [String: Ultrascale/UltraScale+       (default: xcvu3p-ffvc1517-2-e)
-   Part Name]                                                           
-   -s [String: Lower left slice to be       (default: SLICE_X42Y70)     
-   used for pipeline]                                                   
-   -v [Boolean: Print verbose output]       (default: true)               
-   -x [Double: Clk period constraint (ns)]  (default: 1.291)              
+Option                                   Description                   
+------                                   -----------                   
+-?, -h                                   Print Help                    
+-c [String: Clk net name]                (default: clk)                
+-d [String: Design Name]                 (default: pipeline)           
+-l [Integer: distance]                   (default: 10)                 
+-m [Integer: depth]                      (default: 3)                  
+-n [Integer: width]                      (default: 10)                 
+-o [String: Output DCP File Name]        (default: pipeline.dcp)       
+-p [String: Ultrascale/UltraScale+       (default: xcvu3p-ffvc1517-2-e)
+  Part Name]                                                           
+-s [String: Lower left slice to be       (default: SLICE_X42Y70)       
+  used for pipeline]                                                   
+-v [Boolean: Print verbose output]       (default: true)               
+-x [Double: Clk period constraint (ns)]  (default: 1.291)              
+          
 
 
 Example Design
@@ -64,6 +77,13 @@ Example Design
 - Depth = 3 pipeline stages
 - Distance = 10 tiles
 - Direction = horizontal
+
+This can be generated by running the following command: 
+
+:: 
+
+	java com.xilinx.rapidwright.examples.PipelineGenerator -n 10 -m 3 -l 10 -o pipeline.dcp
+
 
 .. image:: images/vivado_pipeline_dcp_schematic.png
 	:width: 710px
@@ -83,7 +103,7 @@ Although each CLB FF letter site contains a pair of flops, as described above, t
 	:align: center
 
 
-Please refer to the example code for more implementation details.  The Java source code for this example is located in: ``<workspace_dir>/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java``.
+Please refer to the example code for more implementation details.  The Java source code for this example is located in: ``<workspace_dir>/RapidWright/src/com/xilinx/rapidwright/examples/PipelineGenerator.java``.
  
 
 This example was designed to illustrate basic functions, and please feel free to modify this example to experiment building other implementations.
