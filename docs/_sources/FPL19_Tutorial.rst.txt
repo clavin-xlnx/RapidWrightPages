@@ -1,69 +1,66 @@
 ===========================================
 RapidWright FPL 2019 Tutorial
 ===========================================
-
-===================================== ======== ====================================================
- **Tutorial Segment**                 Time     **Purpose**                                                      
-===================================== ======== ====================================================
-|HelloWorld| |Jup|                     5 mins  Intro to RapidWright within Jupyter Notebook              
-|ScratchNetlist| |Jup|                10 mins  How to build a netlist from scratch 
-|Pipeline|                            15 mins  How to generate a circuit in RapidWright                          
-|PM1|                                 15 mins  How to create a pre-implemented module                           
-|PM2|                                 15 mins  How to use and relocate pre-implemented modules                  
-|Probe| |Jup|                         20 mins  Fast probe routing on existing implementation         
-|SAT| |Jup|  (Linux only)             15 mins  How to use a SAT engine to solve routing congestion              
-|SLR|                                 20 mins  Combine Vivado and RapidWright generated citcuits              
-|Router| |Jup|                        20 mins  How to build a basic router in RapidWright              
-===================================== ======== ====================================================
-
-|Jup| = Jupyter Notebook Tutorial
-
 **Title:** RapidWright: Enabling Application-optimized FPGA Implementations 
 |br| **Where:** `Vertex building at the UPC/BSC Campus, Barcelona, Spain - FPL 2019 <https://fpl2019.bsc.es/>`_
 |br| **When:**  Thursday, September 12th, 2019, morning half-day 
 |br| **Organizers:** Chris Lavin and Alireza Kaviani
 
-.. |HelloWorld| raw:: html
+What is RapidWright?  
+----------------------
+`RapidWright <http://rapidwright.io>`_ is an open source framework providing a gateway to Vivado’s back-end implementation tools.  It enables a broad range of new capabilities related to FPGA implementation such as:
 
-	<a href="http://localhost:8888/notebooks/HelloWorld.ipynb" target="_blank">Hello, World</a>
+ - Build well-defined placed and routed circuits in seconds
+ - Enables parameterizable placed and routed circuit generators
+ - Reuse and relocate P&R circuits from Vivado
+ - Quickly combines P&R circuits that enable efficient shells and overlays
 
-.. |ScratchNetlist| raw:: html
+Additionally, RapidWright provides a new validation path for FPGA CAD researchers.  New techniques and algorithms can be demonstrated on the latest commercial devices—crisply quantifying their contributions to both industry and academia.
 
-	<a href="http://localhost:8888/notebooks/EDIFNetlistFromScratch.ipynb" target="_blank">Create Netlist from Scratch</a>
+Tutorial Content 
+-------------------
+
+This tutorial will combine presentation and hands-on tutorials.  An overview of RapidWright, its capabilities, and vision for the future will be presented.  For the hands-on portion, attendees will be provided with a USB flash drive and instructions to run the tutorials on their own laptop using a virtual machine.  The hands-on session will consist of 1:1 Q&A while participants work through selected tutorials at their own leisure.  
+
+The list of tutorial topics will include (but are not limited to): 
+ - Building placed and routed circuits from scratch
+ - Creating parameterized, generated circuits
+ - Walk-through of how to build a ~400 instance PicoBlaze accelerator overlay
+ - A fast, non-intrusive ILA (ChipScope) debug probe re-router
+ - Using a SAT engine to resolve routing congestion
+ - How to combine a RapidWright SLR bridge with Vivado-based designs
+
+Attendees of this tutorial can expect to: 
+ 1. Gain a deeper understanding of how to leverage Xilinx architecture
+ 2. Know how to use RapidWright and apply its capabilities in their own designs 
+ 3. Learn about design methodologies that can lead to near-spec performance
+
+RapidWright opens a new path for domain-specific implementation tools that will improve performance and productivity and we invite the community to help us further the potential of FPGA technology. Please join us in Barcelona on September 12th for the RapidWright Tutorial held at FPL!
+
+Details
+---------------
+You can register for the tutorial at the `FPL 2019 website <https://fpl2019.bsc.es/registration>`_.
+
+Attendees will need to bring a laptop that can support the following:
+ - A laptop capable of reading and writing to a USB 3.1 flash drive with a Type A port
+ - Able to install `Virtual Box 6.0.x <https://www.virtualbox.org/wiki/Downloads>`_
+ - Laptop can support a virtual machine with 6GB of RAM (8GB preferred) 
+ - Enable Intel VT / AMD-V (64-bit OS virtualization) in BIOS
+ - If running Linux, you’ll need to install `exFAT <https://en.wikipedia.org/wiki/ExFAT>`_ packages in order to mount the USB flash drive:
+
+.. code-block:: bash
+
+	sudo yum install exfat-utils fuse-exfat # CentOS / RedHat
+	sudo apt install exfat-fuse exfat-utils # Ubuntu / Debian
+
 	
-.. |Pipeline| raw:: html
+Questions? 
+-------------
+Contact organizers:
+ - Chris Lavin - chris.lavin`at`xilinx.com
+ - Alireza Kaviani - alireza.kaviani`at`xilinx.com
 
-	<a href="PipelineGeneratorExample.html" target="_blank">Pipeline Generator</a>
-	
-.. |PM1| raw:: html
-
-	<a href="PreImplemented_Modules_Part_I.html" target="_blank">Pre-implemented Modules: Part I</a>
-
-.. |PM2| raw:: html
-
-	<a href="PreImplemented_Modules_Part_II.html" target="_blank">Pre-implemented Modules: Part II</a>
-
-.. |Probe| raw:: html
-
-	<a href="http://localhost:8888/notebooks/ProbeRe-router.ipynb" target="_blank">Probe Re-router</a>
-
-.. |SAT| raw:: html
-
-	<a href="http://localhost:8888/notebooks/SATRouter.ipynb" target="_blank">SAT Router</a>
-
-.. |SLR| raw:: html
-
-	<a href="Create_and_Use_an_SLR_Bridge.html" target="_blank">Create and Use an SLR Bridge</a>
-
-.. |Router| raw:: html
-
-	<a href="http://localhost:8888/notebooks/BasicRouting.ipynb" target="_blank">Basic Routing</a>
-
-	
-.. |Jup| image:: images/jupyter.png
-	:width: 25px
-	:target: FPGA19_Workshop.html
-
+ 
 .. |br| raw:: html
 
   <br/>

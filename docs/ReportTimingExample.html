@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RapidWright Report Timing Example &mdash; RapidWright 2019.2.0-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Create Placed and Routed DCP to Cross SLR" href="SLR_Crosser_DCP_Creator_Tutorial.html" />
+    <link rel="prev" title="RapidWright Tutorials" href="Tutorials.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2019.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RapidWright Report Timing Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#steps-to-run">Steps to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-output">Example Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compare-with-vivado">Compare with Vivado</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>RapidWright Report Timing Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ReportTimingExample.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rapidwright-report-timing-example">
+<h1>RapidWright Report Timing Example<a class="headerlink" href="#rapidwright-report-timing-example" title="Permalink to this headline">¶</a></h1>
+<p>Reports the critical path within an example design (e.g. “microblaze4.dcp”).</p>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Please see our FPT‘19 paper, “An Open-source Lightweight Timing Model for RapidWright” for background details on our RapidWright Timing Model.</p>
+</div>
+<div class="section" id="steps-to-run">
+<h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Download the example <a class="reference download internal" href="_downloads/microblaze4.dcp" download=""><code class="xref download docutils literal"><span class="pre">microblaze4.dcp</span></code></a> design:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/microblaze4.dcp
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>If you need to recompile the code, run:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>javac src/com/xilinx/rapidwright/examples/ReportTimingExample.java
+</pre></div>
+</div>
+<p>in the <code class="docutils literal"><span class="pre">RapidWright</span></code> directory.  Alternatively, build this example using your IDE.</p>
+<ol class="arabic simple" start="3">
+<li>After compiling, run:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.ReportTimingExample microblaze4.dcp
+</pre></div>
+</div>
+<p>The source code for <code class="docutils literal"><span class="pre">ReportTimingExample.java</span></code> is provided below for easy reference:</p>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">length</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;USAGE: &lt;dcp_file_name&gt;&quot;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">CodePerfTracker</span> <span class="n">t</span> <span class="o">=</span> <span class="n">new</span> <span class="n">CodePerfTracker</span><span class="p">(</span><span class="s2">&quot;Report Timing Example&quot;</span><span class="p">);</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">useGCToTrackMemory</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">Read</span> <span class="ow">in</span> <span class="n">an</span> <span class="n">example</span> <span class="n">placed</span> <span class="ow">and</span> <span class="n">routed</span> <span class="n">DCP</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="s2">&quot;Read DCP&quot;</span><span class="p">);</span>
+    <span class="n">Design</span> <span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="o">.</span><span class="n">readCheckpoint</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">CodePerfTracker</span><span class="o">.</span><span class="n">SILENT</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">Instantiate</span> <span class="ow">and</span> <span class="n">populate</span> <span class="n">the</span> <span class="n">timing</span> <span class="n">manager</span> <span class="k">for</span> <span class="n">the</span> <span class="n">design</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="s2">&quot;Create TimingManager&quot;</span><span class="p">);</span>
+    <span class="n">TimingManager</span> <span class="n">tim</span> <span class="o">=</span> <span class="n">new</span> <span class="n">TimingManager</span><span class="p">(</span><span class="n">design</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">Get</span> <span class="ow">and</span> <span class="nb">print</span> <span class="n">out</span> <span class="n">worst</span> <span class="n">data</span> <span class="n">path</span> <span class="n">delay</span> <span class="ow">in</span> <span class="n">design</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="s2">&quot;Get Max Delay&quot;</span><span class="p">);</span>
+    <span class="n">GraphPath</span><span class="o">&lt;</span><span class="n">TimingVertex</span><span class="p">,</span> <span class="n">TimingEdge</span><span class="o">&gt;</span> <span class="n">criticalPath</span> <span class="o">=</span> <span class="n">tim</span><span class="o">.</span><span class="n">getTimingGraph</span><span class="p">()</span><span class="o">.</span><span class="n">getMaxDelayPath</span><span class="p">();</span>
+
+    <span class="o">//</span> <span class="n">Print</span> <span class="n">runtime</span> <span class="n">summary</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span><span class="o">.</span><span class="n">printSummary</span><span class="p">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Critical path: &quot;</span><span class="o">+</span> <span class="p">((</span><span class="nb">int</span><span class="p">)</span><span class="n">criticalPath</span><span class="o">.</span><span class="n">getWeight</span><span class="p">())</span><span class="o">+</span> <span class="s2">&quot; ps&quot;</span><span class="p">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Path details:&quot;</span><span class="p">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">criticalPath</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="example-output">
+<h2>Example Output<a class="headerlink" href="#example-output" title="Permalink to this headline">¶</a></h2>
+<p>Please refer to the timing library <a class="reference external" href="http://www.rapidwright.io/javadoc/index.html">Javadoc</a> and code for more implementation details.  The Java source code for the timing library is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/timing">RapidWright/src/com/xilinx/rapidwright/timing/</a>.</p>
+<p>Example output using the <code class="docutils literal"><span class="pre">microblaze4.dcp</span></code> design is included below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">==============================================================================</span>
+<span class="o">==</span>                          <span class="n">Report</span> <span class="n">Timing</span> <span class="n">Example</span>                           <span class="o">==</span>
+<span class="o">==============================================================================</span>
+                <span class="n">Read</span> <span class="n">DCP</span><span class="p">:</span>     <span class="mf">2.533</span><span class="n">s</span>    <span class="mf">400.912</span><span class="n">MBs</span>
+    <span class="n">Create</span> <span class="n">TimingManager</span><span class="p">:</span>     <span class="mf">1.294</span><span class="n">s</span>     <span class="mf">19.852</span><span class="n">MBs</span>
+           <span class="n">Get</span> <span class="n">Max</span> <span class="n">Delay</span><span class="p">:</span>     <span class="mf">0.000</span><span class="n">s</span>      <span class="mf">0.000</span><span class="n">MBs</span>
+<span class="o">------------------------------------------------------------------------------</span>
+                 <span class="o">*</span><span class="n">Total</span><span class="o">*</span><span class="p">:</span>     <span class="mf">3.827</span><span class="n">s</span>    <span class="mf">420.764</span><span class="n">MBs</span>
+
+<span class="n">Critical</span> <span class="n">path</span><span class="p">:</span> <span class="mi">1876</span> <span class="n">ps</span>
+
+<span class="n">Path</span> <span class="n">details</span><span class="p">:</span>
+<span class="p">[</span><span class="n">superSource</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">EX_Op2_reg</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span><span class="o">/</span><span class="n">Q</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">EX_Op2_reg</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span><span class="o">/</span><span class="n">Q</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">ALL_Bits</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span><span class="o">.</span><span class="n">ALU_Bit_I1</span><span class="o">/</span><span class="n">Not_Last_Bit</span><span class="o">.</span><span class="n">I_ALU_LUT_V5</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native</span><span class="o">/</span><span class="n">LUT6</span><span class="o">/</span><span class="n">I0</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">ALL_Bits</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span><span class="o">.</span><span class="n">ALU_Bit_I1</span><span class="o">/</span><span class="n">Not_Last_Bit</span><span class="o">.</span><span class="n">I_ALU_LUT_V5</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native</span><span class="o">/</span><span class="n">LUT6</span><span class="o">/</span><span class="n">I0</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">ALL_Bits</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span><span class="o">.</span><span class="n">ALU_Bit_I1</span><span class="o">/</span><span class="n">Not_Last_Bit</span><span class="o">.</span><span class="n">I_ALU_LUT_V5</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native</span><span class="o">/</span><span class="n">LUT6</span><span class="o">/</span><span class="n">O</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">ALL_Bits</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span><span class="o">.</span><span class="n">ALU_Bit_I1</span><span class="o">/</span><span class="n">Not_Last_Bit</span><span class="o">.</span><span class="n">I_ALU_LUT_V5</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native</span><span class="o">/</span><span class="n">LUT6</span><span class="o">/</span><span class="n">O</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Use_Carry_Decoding</span><span class="o">.</span><span class="n">CarryIn_MUXCY</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_CARRY4_CARRY8</span><span class="o">/</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Use_Carry_Decoding</span><span class="o">.</span><span class="n">CarryIn_MUXCY</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_CARRY4_CARRY8</span><span class="o">/</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Use_Carry_Decoding</span><span class="o">.</span><span class="n">CarryIn_MUXCY</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_CARRY4_CARRY8</span><span class="o">/</span><span class="n">CO</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Use_Carry_Decoding</span><span class="o">.</span><span class="n">CarryIn_MUXCY</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_CARRY4_CARRY8</span><span class="o">/</span><span class="n">CO</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">ALL_Bits</span><span class="p">[</span><span class="mi">24</span><span class="p">]</span><span class="o">.</span><span class="n">ALU_Bit_I1</span><span class="o">/</span><span class="n">Not_Last_Bit</span><span class="o">.</span><span class="n">MUXCY_XOR_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_I1_CARRY4_CARRY8</span><span class="o">/</span><span class="n">CI</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">ALL_Bits</span><span class="p">[</span><span class="mi">24</span><span class="p">]</span><span class="o">.</span><span class="n">ALU_Bit_I1</span><span class="o">/</span><span class="n">Not_Last_Bit</span><span class="o">.</span><span class="n">MUXCY_XOR_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_I1_CARRY4_CARRY8</span><span class="o">/</span><span class="n">CI</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">ALL_Bits</span><span class="p">[</span><span class="mi">24</span><span class="p">]</span><span class="o">.</span><span class="n">ALU_Bit_I1</span><span class="o">/</span><span class="n">Not_Last_Bit</span><span class="o">.</span><span class="n">MUXCY_XOR_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_I1_CARRY4_CARRY8</span><span class="o">/</span><span class="n">O</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">ALU_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">ALL_Bits</span><span class="p">[</span><span class="mi">24</span><span class="p">]</span><span class="o">.</span><span class="n">ALU_Bit_I1</span><span class="o">/</span><span class="n">Not_Last_Bit</span><span class="o">.</span><span class="n">MUXCY_XOR_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_I1_CARRY4_CARRY8</span><span class="o">/</span><span class="n">O</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__73</span><span class="o">/</span><span class="n">I0</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__73</span><span class="o">/</span><span class="n">I0</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__73</span><span class="o">/</span><span class="n">O</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__73</span><span class="o">/</span><span class="n">O</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">PreFetch_Buffer_I1</span><span class="o">/</span><span class="n">Instruction_Prefetch_Mux</span><span class="p">[</span><span class="mi">33</span><span class="p">]</span><span class="o">.</span><span class="n">Gen_Instr_DFF</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__33</span><span class="o">/</span><span class="n">I0</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">PreFetch_Buffer_I1</span><span class="o">/</span><span class="n">Instruction_Prefetch_Mux</span><span class="p">[</span><span class="mi">33</span><span class="p">]</span><span class="o">.</span><span class="n">Gen_Instr_DFF</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__33</span><span class="o">/</span><span class="n">I0</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">PreFetch_Buffer_I1</span><span class="o">/</span><span class="n">Instruction_Prefetch_Mux</span><span class="p">[</span><span class="mi">33</span><span class="p">]</span><span class="o">.</span><span class="n">Gen_Instr_DFF</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__33</span><span class="o">/</span><span class="n">O</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">PreFetch_Buffer_I1</span><span class="o">/</span><span class="n">Instruction_Prefetch_Mux</span><span class="p">[</span><span class="mi">33</span><span class="p">]</span><span class="o">.</span><span class="n">Gen_Instr_DFF</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__33</span><span class="o">/</span><span class="n">O</span><span class="o">-&gt;</span><span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">EX_Branch_CMP_Op1_reg</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span><span class="o">/</span><span class="n">D</span><span class="p">,</span>
+ <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">EX_Branch_CMP_Op1_reg</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span><span class="o">/</span><span class="n">D</span><span class="o">-&gt;</span><span class="n">superSink</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">GraphPath&lt;TimingVertex,</span> <span class="pre">TimingEdge&gt;</span></code> object contains a path/set of edges.  From each <code class="docutils literal"><span class="pre">TimingEdge</span></code> you can access the net delay and/or the logic delay values for more detail.</p>
+<p>This example was designed to illustrate the default way to use the timing library to report the critical path and its associated data path delay.</p>
+</div>
+<div class="section" id="compare-with-vivado">
+<h2>Compare with Vivado<a class="headerlink" href="#compare-with-vivado" title="Permalink to this headline">¶</a></h2>
+<p>To compare the output of the RapidWright timing model to Vivado, run the following at the prompt:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>vivado -mode tcl sphinx/files/microblaze4.dcp
+</pre></div>
+</div>
+<p>and then run the following command at the Tcl prompt:</p>
+<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">report_timing</span>
+</pre></div>
+</div>
+<p>In Vivado 2018.3, the timing report shows a data path delay of 1.846 ns (1846 ps).  Which has an error of 30 ps or ~1.6%.  The full Vivado timing report is shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-----------------------------------------------------------------------------------------</span>
+<span class="o">|</span> <span class="n">Tool</span> <span class="n">Version</span>      <span class="p">:</span> <span class="n">Vivado</span> <span class="n">v</span><span class="o">.</span><span class="mf">2018.3</span> <span class="p">(</span><span class="n">lin64</span><span class="p">)</span> <span class="n">Build</span> <span class="mi">2405991</span> <span class="n">Thu</span> <span class="n">Dec</span>  <span class="mi">6</span> <span class="mi">23</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">41</span> <span class="n">MST</span> <span class="mi">2018</span>
+<span class="o">|</span> <span class="n">Date</span>              <span class="p">:</span> <span class="n">Tue</span> <span class="n">Dec</span> <span class="mi">10</span> <span class="mi">18</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">04</span> <span class="mi">2019</span>
+<span class="o">|</span> <span class="n">Host</span>              <span class="p">:</span> <span class="n">xsjclavin40x</span> <span class="n">running</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> <span class="n">CentOS</span> <span class="n">Linux</span> <span class="n">release</span> <span class="mf">7.4</span><span class="o">.</span><span class="mi">1708</span> <span class="p">(</span><span class="n">Core</span><span class="p">)</span>
+<span class="o">|</span> <span class="n">Command</span>           <span class="p">:</span> <span class="n">report_timing</span>
+<span class="o">|</span> <span class="n">Design</span>            <span class="p">:</span> <span class="n">design_1</span>
+<span class="o">|</span> <span class="n">Device</span>            <span class="p">:</span> <span class="n">xcvu3p</span><span class="o">-</span><span class="n">ffvc1517</span>
+<span class="o">|</span> <span class="n">Speed</span> <span class="n">File</span>        <span class="p">:</span> <span class="o">-</span><span class="mi">2</span>  <span class="n">PRODUCTION</span> <span class="mf">1.23</span> <span class="mi">10</span><span class="o">-</span><span class="mi">29</span><span class="o">-</span><span class="mi">2018</span>
+<span class="o">|</span> <span class="n">Temperature</span> <span class="n">Grade</span> <span class="p">:</span> <span class="n">E</span>
+<span class="o">-----------------------------------------------------------------------------------------</span>
+
+<span class="n">Timing</span> <span class="n">Report</span>
+
+<span class="n">Slack</span> <span class="p">(</span><span class="n">MET</span><span class="p">)</span> <span class="p">:</span>             <span class="mf">0.058</span><span class="n">ns</span>  <span class="p">(</span><span class="n">required</span> <span class="n">time</span> <span class="o">-</span> <span class="n">arrival</span> <span class="n">time</span><span class="p">)</span>
+  <span class="n">Source</span><span class="p">:</span>                 <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">EX_Branch_CMP_Op1_reg</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">/</span><span class="n">C</span>
+                            <span class="p">(</span><span class="n">rising</span> <span class="n">edge</span><span class="o">-</span><span class="n">triggered</span> <span class="n">cell</span> <span class="n">FDRE</span> <span class="n">clocked</span> <span class="n">by</span> <span class="n">TS_clk</span>  <span class="p">{</span><span class="n">rise</span><span class="nd">@0</span><span class="o">.</span><span class="mi">000</span><span class="n">ns</span> <span class="n">fall</span><span class="nd">@1</span><span class="o">.</span><span class="mi">000</span><span class="n">ns</span> <span class="n">period</span><span class="o">=</span><span class="mf">2.000</span><span class="n">ns</span><span class="p">})</span>
+  <span class="n">Destination</span><span class="p">:</span>            <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Use_Debug_Logic</span><span class="o">.</span><span class="n">Master_Core</span><span class="o">.</span><span class="n">Debug_Perf</span><span class="o">/</span><span class="n">single_step_count_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">CE</span>
+                            <span class="p">(</span><span class="n">rising</span> <span class="n">edge</span><span class="o">-</span><span class="n">triggered</span> <span class="n">cell</span> <span class="n">FDRE</span> <span class="n">clocked</span> <span class="n">by</span> <span class="n">TS_clk</span>  <span class="p">{</span><span class="n">rise</span><span class="nd">@0</span><span class="o">.</span><span class="mi">000</span><span class="n">ns</span> <span class="n">fall</span><span class="nd">@1</span><span class="o">.</span><span class="mi">000</span><span class="n">ns</span> <span class="n">period</span><span class="o">=</span><span class="mf">2.000</span><span class="n">ns</span><span class="p">})</span>
+  <span class="n">Path</span> <span class="n">Group</span><span class="p">:</span>             <span class="n">TS_clk</span>
+  <span class="n">Path</span> <span class="n">Type</span><span class="p">:</span>              <span class="n">Setup</span> <span class="p">(</span><span class="n">Max</span> <span class="n">at</span> <span class="n">Slow</span> <span class="n">Process</span> <span class="n">Corner</span><span class="p">)</span>
+  <span class="n">Requirement</span><span class="p">:</span>            <span class="mf">2.000</span><span class="n">ns</span>  <span class="p">(</span><span class="n">TS_clk</span> <span class="n">rise</span><span class="nd">@2</span><span class="o">.</span><span class="mi">000</span><span class="n">ns</span> <span class="o">-</span> <span class="n">TS_clk</span> <span class="n">rise</span><span class="nd">@0</span><span class="o">.</span><span class="mi">000</span><span class="n">ns</span><span class="p">)</span>
+  <span class="n">Data</span> <span class="n">Path</span> <span class="n">Delay</span><span class="p">:</span>        <span class="mf">1.846</span><span class="n">ns</span>  <span class="p">(</span><span class="n">logic</span> <span class="mf">0.730</span><span class="n">ns</span> <span class="p">(</span><span class="mf">39.545</span><span class="o">%</span><span class="p">)</span>  <span class="n">route</span> <span class="mf">1.116</span><span class="n">ns</span> <span class="p">(</span><span class="mf">60.455</span><span class="o">%</span><span class="p">))</span>
+  <span class="n">Logic</span> <span class="n">Levels</span><span class="p">:</span>           <span class="mi">7</span>  <span class="p">(</span><span class="n">CARRY8</span><span class="o">=</span><span class="mi">4</span> <span class="n">LUT2</span><span class="o">=</span><span class="mi">1</span> <span class="n">LUT4</span><span class="o">=</span><span class="mi">1</span> <span class="n">LUT6</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">Clock</span> <span class="n">Uncertainty</span><span class="p">:</span>      <span class="mf">0.035</span><span class="n">ns</span>  <span class="p">((</span><span class="n">TSJ</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">TIJ</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">DJ</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">PE</span>
+    <span class="n">Total</span> <span class="n">System</span> <span class="n">Jitter</span>     <span class="p">(</span><span class="n">TSJ</span><span class="p">):</span>    <span class="mf">0.071</span><span class="n">ns</span>
+    <span class="n">Total</span> <span class="n">Input</span> <span class="n">Jitter</span>      <span class="p">(</span><span class="n">TIJ</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+    <span class="n">Discrete</span> <span class="n">Jitter</span>          <span class="p">(</span><span class="n">DJ</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+    <span class="n">Phase</span> <span class="n">Error</span>              <span class="p">(</span><span class="n">PE</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+
+    <span class="n">Location</span>             <span class="n">Delay</span> <span class="nb">type</span>                <span class="n">Incr</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>  <span class="n">Path</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>    <span class="n">Netlist</span> <span class="n">Resource</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+                         <span class="p">(</span><span class="n">clock</span> <span class="n">TS_clk</span> <span class="n">rise</span> <span class="n">edge</span><span class="p">)</span>     <span class="mf">0.000</span>     <span class="mf">0.000</span> <span class="n">r</span>
+                                                      <span class="mf">0.000</span>     <span class="mf">0.000</span> <span class="n">r</span>  <span class="n">Clk_0</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">835</span><span class="p">,</span> <span class="n">unset</span><span class="p">)</span>          <span class="mf">0.000</span>     <span class="mf">0.000</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">Clk</span>
+    <span class="n">SLICE_X75Y108</span>        <span class="n">FDRE</span>                                         <span class="n">r</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">EX_Branch_CMP_Op1_reg</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">/</span><span class="n">C</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+    <span class="n">SLICE_X75Y108</span>        <span class="n">FDRE</span> <span class="p">(</span><span class="n">Prop_DFF2_SLICEL_C_Q</span><span class="p">)</span>
+                                                      <span class="mf">0.081</span>     <span class="mf">0.081</span> <span class="n">f</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">EX_Branch_CMP_Op1_reg</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">/</span><span class="n">Q</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.300</span>     <span class="mf">0.381</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Zero_Detect_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_0</span><span class="p">[</span><span class="mi">21</span><span class="p">]</span>
+    <span class="n">SLICE_X75Y108</span>        <span class="n">LUT6</span> <span class="p">(</span><span class="n">Prop_C6LUT_SLICEL_I2_O</span><span class="p">)</span>
+                                                      <span class="mf">0.088</span>     <span class="mf">0.469</span> <span class="n">r</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Zero_Detect_I</span><span class="o">/</span><span class="n">S0_inferred__3</span><span class="o">/</span><span class="n">i_</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.010</span>     <span class="mf">0.479</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Zero_Detect_I</span><span class="o">/</span><span class="n">Part_Of_Zero_Carry_Start</span><span class="o">/</span><span class="n">lopt_5</span>
+    <span class="n">SLICE_X75Y108</span>        <span class="n">CARRY8</span> <span class="p">(</span><span class="n">Prop_CARRY8_SLICEL_S</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="n">_CO</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+                                                      <span class="mf">0.155</span>     <span class="mf">0.634</span> <span class="n">f</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Zero_Detect_I</span><span class="o">/</span><span class="n">Part_Of_Zero_Carry_Start</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_CARRY4_CARRY8</span><span class="o">/</span><span class="n">CO</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.026</span>     <span class="mf">0.660</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">jump_logic_I1</span><span class="o">/</span><span class="n">MUXCY_JUMP_CARRY2</span><span class="o">/</span><span class="n">jump_carry1</span>
+    <span class="n">SLICE_X75Y109</span>        <span class="n">CARRY8</span> <span class="p">(</span><span class="n">Prop_CARRY8_SLICEL_CI_CO</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                                                      <span class="mf">0.042</span>     <span class="mf">0.702</span> <span class="n">f</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">jump_logic_I1</span><span class="o">/</span><span class="n">MUXCY_JUMP_CARRY2</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_CARRY4_CARRY8</span><span class="o">/</span><span class="n">CO</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.117</span>     <span class="mf">0.819</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">jump_logic_I1</span><span class="o">/</span><span class="n">MUXCY_JUMP_CARRY3</span><span class="o">/</span><span class="n">ex_jump_wanted</span>
+    <span class="n">SLICE_X74Y109</span>        <span class="n">LUT4</span> <span class="p">(</span><span class="n">Prop_D6LUT_SLICEM_I0_O</span><span class="p">)</span>
+                                                      <span class="mf">0.051</span>     <span class="mf">0.870</span> <span class="n">r</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">jump_logic_I1</span><span class="o">/</span><span class="n">MUXCY_JUMP_CARRY3</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_i_1__100</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.025</span>     <span class="mf">0.895</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">mem_wait_on_ready_N_carry_or</span><span class="o">/</span><span class="n">MUXCY_I</span><span class="o">/</span><span class="n">lopt_9</span>
+    <span class="n">SLICE_X74Y109</span>        <span class="n">CARRY8</span> <span class="p">(</span><span class="n">Prop_CARRY8_SLICEM_S</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="n">_CO</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+                                                      <span class="mf">0.163</span>     <span class="mf">1.058</span> <span class="n">r</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">mem_wait_on_ready_N_carry_or</span><span class="o">/</span><span class="n">MUXCY_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_CARRY4_CARRY8</span><span class="o">/</span><span class="n">CO</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.026</span>     <span class="mf">1.084</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">Use_MuxCy</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">OF_Piperun_Stage</span><span class="o">/</span><span class="n">MUXCY_I</span><span class="o">/</span><span class="n">of_PipeRun_carry_5</span>
+    <span class="n">SLICE_X74Y110</span>        <span class="n">CARRY8</span> <span class="p">(</span><span class="n">Prop_CARRY8_SLICEM_CI_CO</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+                                                      <span class="mf">0.099</span>     <span class="mf">1.183</span> <span class="n">r</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Decode_I</span><span class="o">/</span><span class="n">Use_MuxCy</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">OF_Piperun_Stage</span><span class="o">/</span><span class="n">MUXCY_I</span><span class="o">/</span><span class="n">Using_FPGA</span><span class="o">.</span><span class="n">Native_CARRY4_CARRY8</span><span class="o">/</span><span class="n">CO</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">324</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>         <span class="mf">0.472</span>     <span class="mf">1.655</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Use_Debug_Logic</span><span class="o">.</span><span class="n">Master_Core</span><span class="o">.</span><span class="n">Debug_Perf</span><span class="o">/</span><span class="n">of_piperun_for_ce</span>
+    <span class="n">SLICE_X80Y99</span>         <span class="n">LUT2</span> <span class="p">(</span><span class="n">Prop_F6LUT_SLICEM_I1_O</span><span class="p">)</span>
+                                                      <span class="mf">0.051</span>     <span class="mf">1.706</span> <span class="n">r</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Use_Debug_Logic</span><span class="o">.</span><span class="n">Master_Core</span><span class="o">.</span><span class="n">Debug_Perf</span><span class="o">/</span><span class="n">single_step_count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="n">_i_1</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.140</span>     <span class="mf">1.846</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Use_Debug_Logic</span><span class="o">.</span><span class="n">Master_Core</span><span class="o">.</span><span class="n">Debug_Perf</span><span class="o">/</span><span class="n">single_step_count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="n">_i_1_n_0</span>
+    <span class="n">SLICE_X80Y99</span>         <span class="n">FDRE</span>                                         <span class="n">r</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Use_Debug_Logic</span><span class="o">.</span><span class="n">Master_Core</span><span class="o">.</span><span class="n">Debug_Perf</span><span class="o">/</span><span class="n">single_step_count_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">CE</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+
+                         <span class="p">(</span><span class="n">clock</span> <span class="n">TS_clk</span> <span class="n">rise</span> <span class="n">edge</span><span class="p">)</span>     <span class="mf">2.000</span>     <span class="mf">2.000</span> <span class="n">r</span>
+                                                      <span class="mf">0.000</span>     <span class="mf">2.000</span> <span class="n">r</span>  <span class="n">Clk_0</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">835</span><span class="p">,</span> <span class="n">unset</span><span class="p">)</span>          <span class="mf">0.000</span>     <span class="mf">2.000</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Use_Debug_Logic</span><span class="o">.</span><span class="n">Master_Core</span><span class="o">.</span><span class="n">Debug_Perf</span><span class="o">/</span><span class="n">Clk</span>
+    <span class="n">SLICE_X80Y99</span>         <span class="n">FDRE</span>                                         <span class="n">r</span>  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Use_Debug_Logic</span><span class="o">.</span><span class="n">Master_Core</span><span class="o">.</span><span class="n">Debug_Perf</span><span class="o">/</span><span class="n">single_step_count_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">C</span>
+                         <span class="n">clock</span> <span class="n">pessimism</span>              <span class="mf">0.000</span>     <span class="mf">2.000</span>
+                         <span class="n">clock</span> <span class="n">uncertainty</span>           <span class="o">-</span><span class="mf">0.035</span>     <span class="mf">1.965</span>
+    <span class="n">SLICE_X80Y99</span>         <span class="n">FDRE</span> <span class="p">(</span><span class="n">Setup_HFF2_SLICEM_C_CE</span><span class="p">)</span>
+                                                     <span class="o">-</span><span class="mf">0.061</span>     <span class="mf">1.904</span>    <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Use_Debug_Logic</span><span class="o">.</span><span class="n">Master_Core</span><span class="o">.</span><span class="n">Debug_Perf</span><span class="o">/</span><span class="n">single_step_count_reg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="o">-------------------------------------------------------------------</span>
+                         <span class="n">required</span> <span class="n">time</span>                          <span class="mf">1.904</span>
+                         <span class="n">arrival</span> <span class="n">time</span>                          <span class="o">-</span><span class="mf">1.846</span>
+  <span class="o">-------------------------------------------------------------------</span>
+                         <span class="n">slack</span>                                  <span class="mf">0.058</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SLR_Crosser_DCP_Creator_Tutorial.html" class="btn btn-neutral float-right" title="Create Placed and Routed DCP to Cross SLR" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Tutorials.html" class="btn btn-neutral" title="RapidWright Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2019, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2019.2.0-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

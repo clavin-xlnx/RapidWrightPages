@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RapidWright PipelineGeneratorWithRouting Example &mdash; RapidWright 2019.2.0-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pre-implemented Modules - Part I" href="PreImplemented_Modules_Part_I.html" />
+    <link rel="prev" title="RapidWright PipelineGenerator Example" href="PipelineGeneratorExample.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2019.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RapidWright PipelineGeneratorWithRouting Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#steps-to-run">Steps to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-design">Example Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#router-method">Router Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interpreting-program-output">Interpreting Program Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-exercises">Additional Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>RapidWright PipelineGeneratorWithRouting Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/PipelineGeneratorExampleWithRouting.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rapidwright-pipelinegeneratorwithrouting-example">
+<h1>RapidWright PipelineGeneratorWithRouting Example<a class="headerlink" href="#rapidwright-pipelinegeneratorwithrouting-example" title="Permalink to this headline">¶</a></h1>
+<p>As part of the introduction of our new RapidWright timing library, we have extended the Pipeline Generator tutorial to demonstrate how to use our timing library, or at least how one might call our new timing library towards implementing a timing-driven router.</p>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Please see our FPT‘19 paper, “An Open-source Lightweight Timing Model for RapidWright” for background details on our RapidWright Timing Model.  Our model abstracts groups of low level wires and MUXes into an abstraction that we call timing groups (TGs).</p>
+<p>Please note this tutorial does not cover some deeper background details, and it assumes a basic knowledge of routing concepts and the routing resources available within Xilinx devices.   For more background, the tutorial library contains a separate tutorial dedicated on routing, including implementation examples that are depth-based (non-timing driven).  That tutorial includes some device model details specific to RapidWright.  RapidWright also provides an even more substantial depth-based router implementation within its source library (at least more substantial than the dedicated tutorial).</p>
+<p>In this tutorial we further model our router cost function to compare the net delays estimated for different paths as a component of the cost.  However, our cost function, algorithm, and overall implementation are for illustration purposes and have not been optimized for runtime performance or modular design.  Our goal here is merely to present an example of using our timing library for exploring potential routing resources.</p>
+<p>This tutorial and router method are provided in Java, as we are leveraging the circuit generator from the earlier Pipeline Generator tutorial.  In the Pipeline Generator tutorial, we describe a circuit generator that instantiates and connects a 2-D array of flip flops, which represent an n-bit wide bus  pipelined over multiple clock cycles.  For this tutorial, we consider and generate a one-bit wide bus over two cycles (essentially we connect only a pair of flops).  The more interesting aspect is that our pipeline generator has parameters for placement allowing the user to select the distance between flops and a relative direction.</p>
+</div>
+<div class="section" id="steps-to-run">
+<h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.</li>
+<li>If you need to recompile the code, run:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>javac src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java
+</pre></div>
+</div>
+<p>from within your <code class="docutils literal"><span class="pre">RapidWright</span></code> directory.  Alternatively, build this example using your IDE.</p>
+<ol class="arabic simple" start="3">
+<li>After compiling, run:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PipelineGeneratorWithRouting
+</pre></div>
+</div>
+<p>This will generate an output called <code class="docutils literal"><span class="pre">pipeline.dcp</span></code>, containing the placed and routed circuit design.</p>
+<ol class="arabic simple" start="4">
+<li>To see a list of available input options specify “-h” as an argument.  Note: the source code for this example is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/blob/master/src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java">RapidWright/src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java</a>.</li>
+</ol>
+</div>
+<div class="section" id="example-design">
+<h2>Example Design<a class="headerlink" href="#example-design" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Width = 1 bit</li>
+<li>Depth = 2 pipeline stages</li>
+<li>DistanceY = 16 tiles</li>
+<li>DistanceX = 4 tiles</li>
+</ul>
+<p>The logical view of the circuit as a Vivado schematic is shown below (pair of flops).</p>
+<a class="reference internal image-reference" href="_images/PipelineGeneratorWithRoutingLogicalCircuitView.png"><img alt="_images/PipelineGeneratorWithRoutingLogicalCircuitView.png" class="align-center" src="_images/PipelineGeneratorWithRoutingLogicalCircuitView.png" style="width: 1341px;" /></a>
+<p>The selected device is a Xilinx VU3P (UltraScale+ device).  The zoomed out device view in Vivado is shown below, with an example placed and routed circuit in the lower left corner.</p>
+<a class="reference internal image-reference" href="_images/PipelineGeneratorWithRoutingExampleDeviceViewZoomedOut.png"><img alt="_images/PipelineGeneratorWithRoutingExampleDeviceViewZoomedOut.png" class="align-center" src="_images/PipelineGeneratorWithRoutingExampleDeviceViewZoomedOut.png" style="width: 922px;" /></a>
+<p>As discussed, we specify parameters for the distance between flops, and we do this by giving a distanceX and a distanceY change in coordinates.  The example shown here has a diagonal direction.  The screenshot from Vivado below shows a routed implementation having multiple wires shown below in white, connecting from the first flop (lower left) to the second flop (upper right).</p>
+<a class="reference internal image-reference" href="_images/PipelineGeneratorWithRoutingExampleDeviceViewZoomedIn.png"><img alt="_images/PipelineGeneratorWithRoutingExampleDeviceViewZoomedIn.png" class="align-center" src="_images/PipelineGeneratorWithRoutingExampleDeviceViewZoomedIn.png" style="width: 910px;" /></a>
+<p>Please refer to the <a class="reference external" href="https://github.com/Xilinx/RapidWright/blob/master/src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java">example code</a> for more implementation details.</p>
+</div>
+<div class="section" id="router-method">
+<h2>Router Method<a class="headerlink" href="#router-method" title="Permalink to this headline">¶</a></h2>
+<p>In our example router implementation, we have a queue, where we store and are building up candidate next hop locations as well as a set of candidate solutions.  We have a main while loop that iterates extending each candidate closer to the target.  We terminate the loop when we have either: (a) exhausted the candidate next hops as not feasible or (b) when the watchdog timer expires.  The watchdog timer is initialized to 500,000 and counts down.</p>
+<dl class="docutils">
+<dt>Within the while loop:</dt>
+<dd><ol class="first last arabic simple">
+<li>We get the distance in the horizontal and vertical dimensions to our target location.</li>
+<li>We record that we have visited the current TG location.</li>
+<li>If we have reached our target location, then we add the solution to our list of candidate solutions.</li>
+<li>Else, we call the cost function.</li>
+</ol>
+</dd>
+<dt>Within the cost function:</dt>
+<dd><ol class="first last arabic simple">
+<li>We get an array of all potential next hop TGs from our current TG location.</li>
+<li>We consider distance and direction.  We choose the direction in that we have furthest to go.  We choose the distance by selecting from a set of bands: SAME, NEAR, MID, or FAR.  These are defined within the code.</li>
+<li>We use the filter function with distance and direction band to filter our array of potential next hops to the relevant distance and direction.</li>
+<li>We compute an artificial cost that has a component for the distance remaining to the target and also the delay so far.</li>
+<li><dl class="first docutils">
+<dt>For each potential next hop TG:</dt>
+<dd><ol class="first last loweralpha">
+<li>We store the delays within a table.</li>
+<li>We keep track of the history of moving from the current TG to the next hop TG.</li>
+<li>We add the next hop TG to the queue.</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+<dt>After while loop terminates:</dt>
+<dd><ol class="first last arabic simple">
+<li>We select the solution with lowest delay cost.</li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="interpreting-program-output">
+<h2>Interpreting Program Output<a class="headerlink" href="#interpreting-program-output" title="Permalink to this headline">¶</a></h2>
+<p>We print the TGs for the chosen solution.  This printout includes the nodes included by each TG and the wires included by each node.  Please feel free to skip over the low level details.</p>
+<p>Last, after routing, if “verbose2” is set to true, then we open the Design with the TimingModel to find the critical path within the completed design.  This computes a more accurate timing estimate according to our model.  It will print a list of TGs that have delay.  It will show net delay and logic delay, and sum them for the total datapath delay.</p>
+<p>Mainly we are showing from a current TG, how to get to the next hop and how to see TG delays.  Our printed messages shows some example TGs as well as the low level individual wires that have been abstracted away from the user having to consider by using the TGs.</p>
+<p>This example was designed to illustrate basic functions, and please feel free to modify this example to experiment building other implementations.</p>
+</div>
+<div class="section" id="additional-exercises">
+<h2>Additional Exercises<a class="headerlink" href="#additional-exercises" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Try other values for distanceX and distanceY.</li>
+<li>Try modifying the PipelineGeneratorWithRouting to use the RapidWright built-in depth-based (non-timing driven) router to compare the results.</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PreImplemented_Modules_Part_I.html" class="btn btn-neutral float-right" title="Pre-implemented Modules - Part I" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PipelineGeneratorExample.html" class="btn btn-neutral" title="RapidWright PipelineGenerator Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2019, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2019.2.0-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

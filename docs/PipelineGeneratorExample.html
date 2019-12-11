@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright PipelineGenerator Example &mdash; RapidWright 2019.1.2-beta documentation</title>
+  <title>RapidWright PipelineGenerator Example &mdash; RapidWright 2019.2.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.1.2
+                2019.2.0
               </div>
             
           
@@ -232,31 +232,18 @@
 <h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.  While we don’t provide any IDE “how to” steps within this tutorial, if you do have questions please feel free to ask.</li>
-<li>If you need to recompile the code, run:</li>
+<li>If you need to recompile the code, run: <code class="docutils literal"><span class="pre">javac</span> <span class="pre">com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code> from within your “&lt;workspace_dir&gt;/RapidWright” subdirectory.  Alternatively, build this example using your IDE.</li>
+<li>After compiling, run: <code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.examples.PipelineGenerator</span></code>.  This will generate an output called “pipeline.dcp”, containing the placed and routed circuit design.</li>
+<li>To see a list of available input options specify “-h” as an argument.  Note: the horizontal direction is assigned within the source code, but it can alternatively be changed to vertical within main().  The source code for this example is located in: <code class="docutils literal"><span class="pre">&lt;workspace_dir&gt;/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</li>
 </ol>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">javac</span> <span class="n">com</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">xilinx</span><span class="o">/</span><span class="n">rapidwright</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">PipelineGenerator</span><span class="o">.</span><span class="n">java</span>
-</pre></div>
-</div>
-<p>from within your “&lt;workspace_dir&gt;/RapidWright” subdirectory.  Alternatively, build this example using your IDE.</p>
-<ol class="arabic simple" start="3">
-<li>After compiling, run:</li>
-</ol>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">java</span> <span class="n">com</span><span class="o">.</span><span class="n">xilinx</span><span class="o">.</span><span class="n">rapidwright</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">PipelineGenerator</span>
-</pre></div>
-</div>
-<p>This will generate an output called “pipeline.dcp”, containing the placed and routed circuit design.</p>
-<ol class="arabic simple" start="4">
-<li>To see a list of available input options specify “-h” as an argument.  Note: the horizontal direction is assigned within the source code, but it can alternatively be changed to vertical within main().  The source code for this example is located in: <code class="docutils literal"><span class="pre">&lt;workspace_dir&gt;/RapidWright/src/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</li>
-</ol>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">==============================================================================</span>
-<span class="o">==</span>                            <span class="n">Pipeline</span> <span class="n">Generator</span>                            <span class="o">==</span>
-<span class="o">==============================================================================</span>
-</pre></div>
-</div>
-<p>This RapidWright program creates an example pipelined bus as a placed and routed DCP.
-See the RapidWright documentation for more information.</p>
-<p>Option                                   Description
-——                                   ———–
+<div class="highlight-default"><div class="highlight"><pre><span></span>==============================================================================
+==                            Pipeline Generator                            ==
+==============================================================================
+This RapidWright program creates an example pipelined bus as a placed and routed DCP.
+See the RapidWright documentation for more information.
+
+Option                                   Description
+------                                   -----------
 -?, -h                                   Print Help
 -c [String: Clk net name]                (default: clk)
 -d [String: Design Name]                 (default: pipeline)
@@ -264,15 +251,14 @@ See the RapidWright documentation for more information.</p>
 -m [Integer: depth]                      (default: 3)
 -n [Integer: width]                      (default: 10)
 -o [String: Output DCP File Name]        (default: pipeline.dcp)
--p [String: Ultrascale/UltraScale+       (default: xcvu3p-ffvc1517-2-e)</p>
-<blockquote>
-<div>Part Name]</div></blockquote>
-<dl class="docutils">
-<dt>-s [String: Lower left slice to be       (default: SLICE_X42Y70)</dt>
-<dd>used for pipeline]</dd>
-</dl>
-<p>-v [Boolean: Print verbose output]       (default: true)
--x [Double: Clk period constraint (ns)]  (default: 1.291)</p>
+-p [String: Ultrascale/UltraScale+       (default: xcvu3p-ffvc1517-2-e)
+Part Name]
+-s [String: Lower left slice to be       (default: SLICE_X42Y70)
+used for pipeline]
+-v [Boolean: Print verbose output]       (default: true)
+-x [Double: Clk period constraint (ns)]  (default: 1.291)
+</pre></div>
+</div>
 </div>
 <div class="section" id="example-design">
 <h2>Example Design<a class="headerlink" href="#example-design" title="Permalink to this headline">¶</a></h2>
@@ -282,16 +268,12 @@ See the RapidWright documentation for more information.</p>
 <li>Distance = 10 tiles</li>
 <li>Direction = horizontal</li>
 </ul>
-<p>This can be generated by running the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">java</span> <span class="n">com</span><span class="o">.</span><span class="n">xilinx</span><span class="o">.</span><span class="n">rapidwright</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">PipelineGenerator</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="o">-</span><span class="n">m</span> <span class="mi">3</span> <span class="o">-</span><span class="n">l</span> <span class="mi">10</span> <span class="o">-</span><span class="n">o</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">dcp</span>
-</pre></div>
-</div>
 <a class="reference internal image-reference" href="_images/vivado_pipeline_dcp_schematic.png"><img alt="_images/vivado_pipeline_dcp_schematic.png" class="align-center" src="_images/vivado_pipeline_dcp_schematic.png" style="width: 710px;" /></a>
 <a class="reference internal image-reference" href="_images/vivado_pipeline_dcp_device_view_horizontal.png"><img alt="_images/vivado_pipeline_dcp_device_view_horizontal.png" class="align-center" src="_images/vivado_pipeline_dcp_device_view_horizontal.png" style="width: 1215px;" /></a>
 <p>The above screenshot show the device view, zoomed in on the placed and routed circuit.  This circuit consists of three pairs of slices, using the &lt;horizontal&gt; spacing distance of &lt;10&gt; tiles.</p>
 <p>Although each CLB FF letter site contains a pair of flops, as described above, this example only makes use of the first flop in each pair, as a demo.  This means that the lower slice for each of the pairs uses eight flops, and the upper slice uses two flops to satisfy the &lt;width&gt; request of ten bits.  This was done intentionally towards setting up an example that could be easily modified to use both of the flops in the pair.  The screenshot below shows a zoomed in view of the lower slice.</p>
 <a class="reference internal image-reference" href="_images/vivado_pipeline_dcp_device_view_zoomed.png"><img alt="_images/vivado_pipeline_dcp_device_view_zoomed.png" class="align-center" src="_images/vivado_pipeline_dcp_device_view_zoomed.png" style="width: 496px;" /></a>
-<p>Please refer to the example code for more implementation details.  The Java source code for this example is located in: <code class="docutils literal"><span class="pre">&lt;workspace_dir&gt;/RapidWright/src/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</p>
+<p>Please refer to the example code for more implementation details.  The Java source code for this example is located in: <code class="docutils literal"><span class="pre">&lt;workspace_dir&gt;/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</p>
 <p>This example was designed to illustrate basic functions, and please feel free to modify this example to experiment building other implementations.</p>
 </div>
 <div class="section" id="additional-exercises">
@@ -349,7 +331,7 @@ See the RapidWright documentation for more information.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.1.2-beta',
+            VERSION:'2019.2.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

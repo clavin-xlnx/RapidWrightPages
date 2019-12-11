@@ -11,6 +11,7 @@ Getting Started
 **Setting up Development Environments**
 
  * :ref:`RapidWright Eclipse Setup`
+ * :ref:`RapidWright IntelliJ Setup`
  * :ref:`RapidWright Jupyter Notebook Kernel Setup`
 
 .. toctree::
@@ -21,4 +22,5 @@ Getting Started
    Automatic_Install
    Manual_Install
    RapidWright_Eclipse_Setup
+   RapidWright_IntelliJ_Setup 
    RapidWright_Jupyter_Setup

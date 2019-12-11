@@ -93,25 +93,8 @@ Most classes inherit from ``EDIFName``.  EDIF has peculiar naming rules and prov
 
 Several classes also inherit from ``EDIFPropertyObject`` (which also inherits from ``EDIFName``). ``EDIFPropertyObject`` endows objects with the ability to store properties which are key/value pairs.  Properties are a mapping between an ``EDIFName`` object and a ``EDIFPropertyObject``.  These properties can contain key programmable information such as LUT equations or attributes specific to BEL sites.  
 
-One behavior that has been updated since RapidWright 2019.1.2 is the support of what are called macro primitives.  Macro primitives are those primitives that get expanded into native primitives on loading of an EDIF file or DCP.  By default, Vivado exapands these macro primitives on loading of an EDIF file and collapses them when writing them out.  This is a common occurance for most designs and is detected by log output with messages such as:
+ 
 
-::
-
-  INFO: [Project 1-111] Unisim Transformation Summary:
-    A total of 1 instances were transformed.
-    LUT6_2 => LUT6_2 (LUT5, LUT6): 1 instances
-
-  
-In this case a LUT6_2 macro primitive is expanded into a LUT5 and LUT6 instance as shown in the netlist schematic view below:
-
-.. figure:: images/lut6_2.png
-	:width: 300px
-	:align: center
-	
-	Snapshot of the Vivado netlist viewer with an instance of a LUT6_2
-	
-When writing out EDIF, Vivado collapses the LUT6_2 into a primitive so the internals are no longer present.  RapidWright follows this same convention. 
-  
 
 Design Package (Physical Netlist)
 ==================================

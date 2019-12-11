@@ -14,4 +14,5 @@ com.xilinx.rapidwright.placer.blockplacer
 com.xilinx.rapidwright.placer.handplacer
 com.xilinx.rapidwright.router
 com.xilinx.rapidwright.tests
+com.xilinx.rapidwright.timing
 com.xilinx.rapidwright.util

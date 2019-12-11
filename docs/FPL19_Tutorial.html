@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright FPL 2019 Tutorial &mdash; RapidWright 2019.1.2-beta documentation</title>
+  <title>RapidWright FPL 2019 Tutorial &mdash; RapidWright 2019.2.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.1.2
+                2019.2.0
               </div>
             
           
@@ -119,7 +119,13 @@
 <li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">RapidWright FPL 2019 Tutorial</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RapidWright FPL 2019 Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-rapidwright">What is RapidWright?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tutorial-content">Tutorial Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#details">Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#questions">Questions?</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
@@ -204,62 +210,77 @@
             
   <div class="section" id="rapidwright-fpl-2019-tutorial">
 <h1>RapidWright FPL 2019 Tutorial<a class="headerlink" href="#rapidwright-fpl-2019-tutorial" title="Permalink to this headline">¶</a></h1>
-<table border="1" class="docutils">
-<colgroup>
-<col width="38%" />
-<col width="8%" />
-<col width="54%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"><strong>Tutorial Segment</strong></th>
-<th class="head">Time</th>
-<th class="head"><strong>Purpose</strong></th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><a href="http://localhost:8888/notebooks/HelloWorld.ipynb" target="_blank">Hello, World</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a></td>
-<td>5 mins</td>
-<td>Intro to RapidWright within Jupyter Notebook</td>
-</tr>
-<tr class="row-odd"><td><a href="http://localhost:8888/notebooks/EDIFNetlistFromScratch.ipynb" target="_blank">Create Netlist from Scratch</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a></td>
-<td>10 mins</td>
-<td>How to build a netlist from scratch</td>
-</tr>
-<tr class="row-even"><td><a href="PipelineGeneratorExample.html" target="_blank">Pipeline Generator</a></td>
-<td>15 mins</td>
-<td>How to generate a circuit in RapidWright</td>
-</tr>
-<tr class="row-odd"><td><a href="PreImplemented_Modules_Part_I.html" target="_blank">Pre-implemented Modules: Part I</a></td>
-<td>15 mins</td>
-<td>How to create a pre-implemented module</td>
-</tr>
-<tr class="row-even"><td><a href="PreImplemented_Modules_Part_II.html" target="_blank">Pre-implemented Modules: Part II</a></td>
-<td>15 mins</td>
-<td>How to use and relocate pre-implemented modules</td>
-</tr>
-<tr class="row-odd"><td><a href="http://localhost:8888/notebooks/ProbeRe-router.ipynb" target="_blank">Probe Re-router</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a></td>
-<td>20 mins</td>
-<td>Fast probe routing on existing implementation</td>
-</tr>
-<tr class="row-even"><td><a href="http://localhost:8888/notebooks/SATRouter.ipynb" target="_blank">SAT Router</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a>  (Linux only)</td>
-<td>15 mins</td>
-<td>How to use a SAT engine to solve routing congestion</td>
-</tr>
-<tr class="row-odd"><td><a href="Create_and_Use_an_SLR_Bridge.html" target="_blank">Create and Use an SLR Bridge</a></td>
-<td>20 mins</td>
-<td>Combine Vivado and RapidWright generated citcuits</td>
-</tr>
-<tr class="row-even"><td><a href="http://localhost:8888/notebooks/BasicRouting.ipynb" target="_blank">Basic Routing</a> <a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a></td>
-<td>20 mins</td>
-<td>How to build a basic router in RapidWright</td>
-</tr>
-</tbody>
-</table>
-<p><a class="reference external" href="FPGA19_Workshop.html"><img alt="Jup" src="_images/jupyter.png" style="width: 25px;" /></a> = Jupyter Notebook Tutorial</p>
 <p><strong>Title:</strong> RapidWright: Enabling Application-optimized FPGA Implementations
 <br/> <strong>Where:</strong> <a class="reference external" href="https://fpl2019.bsc.es/">Vertex building at the UPC/BSC Campus, Barcelona, Spain - FPL 2019</a>
 <br/> <strong>When:</strong>  Thursday, September 12th, 2019, morning half-day
 <br/> <strong>Organizers:</strong> Chris Lavin and Alireza Kaviani</p>
+<div class="section" id="what-is-rapidwright">
+<h2>What is RapidWright?<a class="headerlink" href="#what-is-rapidwright" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://rapidwright.io">RapidWright</a> is an open source framework providing a gateway to Vivado’s back-end implementation tools.  It enables a broad range of new capabilities related to FPGA implementation such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Build well-defined placed and routed circuits in seconds</li>
+<li>Enables parameterizable placed and routed circuit generators</li>
+<li>Reuse and relocate P&amp;R circuits from Vivado</li>
+<li>Quickly combines P&amp;R circuits that enable efficient shells and overlays</li>
+</ul>
+</div></blockquote>
+<p>Additionally, RapidWright provides a new validation path for FPGA CAD researchers.  New techniques and algorithms can be demonstrated on the latest commercial devices—crisply quantifying their contributions to both industry and academia.</p>
+</div>
+<div class="section" id="tutorial-content">
+<h2>Tutorial Content<a class="headerlink" href="#tutorial-content" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial will combine presentation and hands-on tutorials.  An overview of RapidWright, its capabilities, and vision for the future will be presented.  For the hands-on portion, attendees will be provided with a USB flash drive and instructions to run the tutorials on their own laptop using a virtual machine.  The hands-on session will consist of 1:1 Q&amp;A while participants work through selected tutorials at their own leisure.</p>
+<dl class="docutils">
+<dt>The list of tutorial topics will include (but are not limited to):</dt>
+<dd><ul class="first last simple">
+<li>Building placed and routed circuits from scratch</li>
+<li>Creating parameterized, generated circuits</li>
+<li>Walk-through of how to build a ~400 instance PicoBlaze accelerator overlay</li>
+<li>A fast, non-intrusive ILA (ChipScope) debug probe re-router</li>
+<li>Using a SAT engine to resolve routing congestion</li>
+<li>How to combine a RapidWright SLR bridge with Vivado-based designs</li>
+</ul>
+</dd>
+<dt>Attendees of this tutorial can expect to:</dt>
+<dd><ol class="first last arabic simple">
+<li>Gain a deeper understanding of how to leverage Xilinx architecture</li>
+<li>Know how to use RapidWright and apply its capabilities in their own designs</li>
+<li>Learn about design methodologies that can lead to near-spec performance</li>
+</ol>
+</dd>
+</dl>
+<p>RapidWright opens a new path for domain-specific implementation tools that will improve performance and productivity and we invite the community to help us further the potential of FPGA technology. Please join us in Barcelona on September 12th for the RapidWright Tutorial held at FPL!</p>
+</div>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<p>You can register for the tutorial at the <a class="reference external" href="https://fpl2019.bsc.es/registration">FPL 2019 website</a>.</p>
+<dl class="docutils">
+<dt>Attendees will need to bring a laptop that can support the following:</dt>
+<dd><ul class="first last simple">
+<li>A laptop capable of reading and writing to a USB 3.1 flash drive with a Type A port</li>
+<li>Able to install <a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">Virtual Box 6.0.x</a></li>
+<li>Laptop can support a virtual machine with 6GB of RAM (8GB preferred)</li>
+<li>Enable Intel VT / AMD-V (64-bit OS virtualization) in BIOS</li>
+<li>If running Linux, you’ll need to install <a class="reference external" href="https://en.wikipedia.org/wiki/ExFAT">exFAT</a> packages in order to mount the USB flash drive:</li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo yum install exfat-utils fuse-exfat <span class="c1"># CentOS / RedHat</span>
+sudo apt install exfat-fuse exfat-utils <span class="c1"># Ubuntu / Debian</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="questions">
+<h2>Questions?<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Contact organizers:</dt>
+<dd><ul class="first last simple">
+<li>Chris Lavin - chris.lavin`at`xilinx.com</li>
+<li>Alireza Kaviani - alireza.kaviani`at`xilinx.com</li>
+</ul>
+</dd>
+</dl>
+</div>
 </div>
 
 
@@ -304,7 +325,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.1.2-beta',
+            VERSION:'2019.2.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
