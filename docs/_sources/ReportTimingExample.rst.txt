@@ -109,7 +109,7 @@ To compare the output of the RapidWright timing model to Vivado, run the followi
 
 .. code-block:: bash
 
-    vivado -mode tcl sphinx/files/microblaze4.dcp
+    vivado -mode tcl microblaze4.dcp
 
 and then run the following command at the Tcl prompt:
 
