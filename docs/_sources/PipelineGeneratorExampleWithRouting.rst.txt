@@ -7,7 +7,10 @@ As part of the introduction of our new RapidWright timing library, we have exten
 
 Background
 ===============================
-Please see our FPT'19 paper, "An Open-source Lightweight Timing Model for RapidWright" for background details on our RapidWright Timing Model.  Our model abstracts groups of low level wires and MUXes into an abstraction that we call timing groups (TGs).
+Please see our FPT'19 paper, :download:`"An Open-source Lightweight
+Timing Model for RapidWright" <files/FPT19-TimingModel.pdf>`
+(:download:`Presentation <files/FPT19-TimingModel-Presentation.pdf>`)
+for background details on our RapidWright Timing Model. Our model abstracts groups of low level wires and MUXes into an abstraction that we call timing groups (TGs).
 
 Please note this tutorial does not cover some deeper background details, and it assumes a basic knowledge of routing concepts and the routing resources available within Xilinx devices.   For more background, the tutorial library contains a separate tutorial dedicated on routing, including implementation examples that are depth-based (non-timing driven).  That tutorial includes some device model details specific to RapidWright.  RapidWright also provides an even more substantial depth-based router implementation within its source library (at least more substantial than the dedicated tutorial).  
 

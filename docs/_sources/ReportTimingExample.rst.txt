@@ -7,7 +7,9 @@ Reports the critical path within an example design (e.g. "microblaze4.dcp").
 Background
 ===============================
 
-Please see our FPT'19 paper, "An Open-source Lightweight Timing Model for RapidWright" for background details on our RapidWright Timing Model.
+Please see our FPT'19 paper, :download:`"An Open-source Lightweight
+Timing Model for RapidWright" <files/FPT19-TimingModel.pdf>`
+(:download:`Presentation <files/FPT19-TimingModel-Presentation.pdf>`) for background details on our RapidWright Timing Model.
 
 Steps to Run
 ===============================
