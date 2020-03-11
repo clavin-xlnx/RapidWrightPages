@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pre-implemented Modules - Part I &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>Pre-implemented Modules - Part I &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -44,7 +44,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Pre-implemented Modules - Part II" href="PreImplemented_Modules_Part_II.html" />
-    <link rel="prev" title="RapidWright PipelineGenerator Example" href="PipelineGeneratorExample.html" /> 
+    <link rel="prev" title="RapidWright PipelineGeneratorWithRouting Example" href="PipelineGeneratorExampleWithRouting.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -111,9 +111,11 @@
 <li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Pre-implemented Modules - Part I</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
@@ -213,9 +215,9 @@
             
   <div class="section" id="pre-implemented-modules-part-i">
 <h1>Pre-implemented Modules - Part I<a class="headerlink" href="#pre-implemented-modules-part-i" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt><em>“If you were plowing a field, which would you rather use: two strong oxen or 1024 chickens?”</em></dt>
-<dd>– <a class="reference external" href="https://en.wikipedia.org/wiki/Seymour_Cray">Seymour Cray</a></dd>
+<dl class="simple">
+<dt><em>“If you were plowing a field, which would you rather use: two strong oxen or 1024 chickens?”</em></dt><dd><p>– <a class="reference external" href="https://en.wikipedia.org/wiki/Seymour_Cray">Seymour Cray</a></p>
+</dd>
 </dl>
 <p>This tutorial has two parts. In this first part, we illustrate how you can create pre-implemented modules tailored to fit your architecture.  In the second part of this tutorial, we show how the modules can be used and replicated as part of a design. At a high level, we will complete three tasks in Part I:</p>
 <p><a class="reference internal" href="#design-utilization-analysis"><span class="std std-ref">1. Design Utilization Analysis</span></a>: Examine a synthesized PicoBlaze module and identify its footprint. <br />
@@ -235,22 +237,22 @@
 <p>For convenience, we have provided a synthesized, out-of-context PicoBlaze design as a starting point DCP. This was built using the <a class="reference external" href="https://www.xilinx.com/products/intellectual-property/picoblaze.html#design">reference RTL for PicoBlaze available from Xilinx.com</a>. To get started, let’s do the following:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Open a terminal and create a new directory called <code class="docutils literal"><span class="pre">picoblaze</span></code>.</li>
+<li><p>Open a terminal and create a new directory called <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code>.</p></li>
 </ol>
 </div></blockquote>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir picoblaze
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir picoblaze
 <span class="nb">cd</span> picoblaze
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>Download <a class="reference download internal" href="_downloads/picoblaze_synth.dcp" download=""><code class="xref download docutils literal"><span class="pre">picoblaze_synth.dcp</span></code></a> to your new <code class="docutils literal"><span class="pre">picoblaze</span></code> directory and open it in Vivado.</li>
+<li><p>Download <a class="reference download internal" download="" href="_downloads/5a02b8933ca49642b0aefa9726427ffa/picoblaze_synth.dcp"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_synth.dcp</span></code></a> to your new <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code> directory and open it in Vivado.</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>vivado picoblaze_synth.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado picoblaze_synth.dcp
 </pre></div>
 </div>
 <div class="section" id="design-utilization-analysis">
 <h3>1. Design Utilization Analysis<a class="headerlink" href="#design-utilization-analysis" title="Permalink to this headline">¶</a></h3>
-<p>Once the design has been loaded in Vivado, let’s get the utilization report by choosing <code class="docutils literal"><span class="pre">Reports-&gt;Report</span> <span class="pre">Utilization...</span></code> then click <code class="docutils literal"><span class="pre">OK</span></code> at the window prompt.  A report window similar to the one below will open:</p>
+<p>Once the design has been loaded in Vivado, let’s get the utilization report by choosing <code class="docutils literal notranslate"><span class="pre">Reports-&gt;Report</span> <span class="pre">Utilization...</span></code> then click <code class="docutils literal notranslate"><span class="pre">OK</span></code> at the window prompt.  A report window similar to the one below will open:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/util_report.png"><img alt="_images/util_report.png" class="align-center" src="_images/util_report.png" style="width: 550px;" /></a>
 </div></blockquote>
@@ -258,23 +260,23 @@
 <img alt="_images/eqn1.png" class="align-center" src="_images/eqn1.png" />
 <p>So, in the absolute best case, we could squeeze a PicoBlaze into 15 UltraScale SLICEs.  To attempt this, we would create a pblock (area constraint) that would force the placer to only use 15 SLICEs and 1 Block RAM tile.  A block RAM tile is 5 SLICEs tall in the UltraScale architecture, so we would need 3 nearby columns of SLICEs in order to make a compact rectangle.  If we tried to use 2 SLICE columns instead of three, our SLICE footprint height would be 8 (ceiling(15/2)) which would not stride well with the 5 SLICE height of the block RAM.</p>
 <p>To create the pblock, run the following Tcl constraints:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">create_pblock</span> pblock_1
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_pblock</span> pblock_1
 <span class="nv">resize_pblock</span> pblock_1 <span class="o">-</span>add <span class="k">{</span><span class="nv">SLICE_X27Y60</span><span class="o">:</span>SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span>
 <span class="nv">add_cells_to_pblock</span> pblock_1 <span class="o">-</span>top
 <span class="nv">set_property</span> CONTAIN_ROUTING <span class="mi">1</span> <span class="k">[</span><span class="nv">get_pblocks</span> pblock_1<span class="k">]</span>
 </pre></div>
 </div>
-<p>Note that we also use the <code class="docutils literal"><span class="pre">CONTAIN_ROUTING</span></code> property on the pblock of the PicoBlaze.  This will ensure that the implementation is more amenable to relocation (can be more densely packed) later.  Without this attribute, the routing will not be very reusable as it will be allowed to spread out far around the rectangle of the pblock.  Once the pblock is created, it should look like this:</p>
+<p>Note that we also use the <code class="docutils literal notranslate"><span class="pre">CONTAIN_ROUTING</span></code> property on the pblock of the PicoBlaze.  This will ensure that the implementation is more amenable to relocation (can be more densely packed) later.  Without this attribute, the routing will not be very reusable as it will be allowed to spread out far around the rectangle of the pblock.  Once the pblock is created, it should look like this:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pico_pblock.png"><img alt="_images/pico_pblock.png" class="align-center" src="_images/pico_pblock.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>We will also need to add a timing constraint to push implementation to get the best performance possible.  In order to push the tools, we should be choose a target frequency that will push the tools just beyond their capacity to achieve timing closure.  To begin, we’ll add a 400MHz clock constraint and also provide a skew estimation target for the clock buffer to provide a more accurate timing estimation:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">create_clock</span> <span class="o">-</span>period <span class="mf">2.5</span> <span class="o">-</span>name clk <span class="o">-</span>waveform <span class="k">{</span><span class="nv">0.000</span> <span class="mf">1.25</span><span class="k">}</span> <span class="k">[</span><span class="nv">get_ports</span> clk<span class="k">]</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_clock</span> <span class="o">-</span>period <span class="mf">2.5</span> <span class="o">-</span>name clk <span class="o">-</span>waveform <span class="k">{</span><span class="nv">0.000</span> <span class="mf">1.25</span><span class="k">}</span> <span class="k">[</span><span class="nv">get_ports</span> clk<span class="k">]</span>
 <span class="nv">set_property</span> HD.CLK_SRC BUFGCTRL_X0Y2 <span class="k">[</span><span class="nv">get_ports</span> clk<span class="k">]</span>
 </pre></div>
 </div>
-<p>By running <code class="docutils literal"><span class="pre">place_design</span></code> we can gauge the feasibility of using this footprint size for implementation (spoiler… this will not fit). The placer will report the errors similar to the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span> <span class="p">[</span><span class="n">Place</span> <span class="mi">30</span><span class="o">-</span><span class="mi">488</span><span class="p">]</span> <span class="n">Failed</span> <span class="n">to</span> <span class="n">commit</span> <span class="mi">4</span> <span class="n">instances</span><span class="p">:</span>
+<p>By running <code class="docutils literal notranslate"><span class="pre">place_design</span></code> we can gauge the feasibility of using this footprint size for implementation (spoiler… this will not fit). The placer will report the errors similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span> <span class="p">[</span><span class="n">Place</span> <span class="mi">30</span><span class="o">-</span><span class="mi">488</span><span class="p">]</span> <span class="n">Failed</span> <span class="n">to</span> <span class="n">commit</span> <span class="mi">4</span> <span class="n">instances</span><span class="p">:</span>
 <span class="n">processor</span><span class="o">/</span><span class="n">reset_lut</span><span class="o">/</span><span class="n">LUT6</span> <span class="k">with</span> <span class="n">block</span> <span class="n">Id</span><span class="p">:</span> <span class="mi">119</span> <span class="p">(</span><span class="n">LUT</span><span class="p">)</span> <span class="n">at</span> <span class="n">SLICE_X85Y150</span>
 <span class="n">processor</span><span class="o">/</span><span class="n">reset_lut</span><span class="o">/</span><span class="n">LUT6</span> <span class="k">with</span> <span class="n">block</span> <span class="n">Id</span><span class="p">:</span> <span class="mi">119</span> <span class="p">(</span><span class="n">LUT</span><span class="p">)</span> <span class="n">at</span> <span class="n">SLICE_X85Y150</span>
 <span class="n">processor</span><span class="o">/</span><span class="n">reset_lut</span><span class="o">/</span><span class="n">LUT6</span> <span class="k">with</span> <span class="n">block</span> <span class="n">Id</span><span class="p">:</span> <span class="mi">119</span> <span class="p">(</span><span class="n">LUT</span><span class="p">)</span> <span class="n">at</span> <span class="n">SLICE_X85Y150</span>
@@ -282,19 +284,19 @@
 </pre></div>
 </div>
 <p>It turns out the logic is packed too tightly into the area.  Another way to gauge logic density would be to check the pblock statistics by selecting the pblock in Vivado by running the Tcl command:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">select_objects</span> <span class="k">[</span><span class="nv">get_pblocks</span> pblock_1<span class="k">]</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">select_objects</span> <span class="k">[</span><span class="nv">get_pblocks</span> pblock_1<span class="k">]</span>
 </pre></div>
 </div>
-<p>Then choosing the <code class="docutils literal"><span class="pre">Statistics</span></code> tab of <code class="docutils literal"><span class="pre">Pblock</span> <span class="pre">Properties</span></code>, which would have something similar to that below:</p>
+<p>Then choosing the <code class="docutils literal notranslate"><span class="pre">Statistics</span></code> tab of <code class="docutils literal notranslate"><span class="pre">Pblock</span> <span class="pre">Properties</span></code>, which would have something similar to that below:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pico_pblock_stats.png"><img alt="_images/pico_pblock_stats.png" class="align-center" src="_images/pico_pblock_stats.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>A quick analysis shows that we are attempting to use ~96% of the LUTs in that area which is unlikely to place correctly.  Again, since BRAM tiles are stacked vertically, we must grow horizontally to ensure that we can step and repeat without blocking access to other BRAMs with used SLICEs.  Using the mouse, you can stretch/grow the pblock by grabbing the edge of the pblock shape and pushing it out.  Alternatively, you could run the following Tcl command:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">resize_pblock</span> pblock_1 <span class="o">-</span>add <span class="k">{</span><span class="nv">SLICE_X26Y60</span><span class="o">:</span>SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span> <span class="o">-</span>remove <span class="k">{</span><span class="nv">SLICE_X27Y60</span><span class="o">:</span>SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span> <span class="o">-</span>locs keep_all
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">resize_pblock</span> pblock_1 <span class="o">-</span>add <span class="k">{</span><span class="nv">SLICE_X26Y60</span><span class="o">:</span>SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span> <span class="o">-</span>remove <span class="k">{</span><span class="nv">SLICE_X27Y60</span><span class="o">:</span>SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span> <span class="o">-</span>locs keep_all
 </pre></div>
 </div>
 <p>To validate our new footprint, we can run the Tcl command:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">place_design</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">place_design</span>
 </pre></div>
 </div>
 <p>again to see if we can get things to fit.  This time, Vivado should successfully place the design.</p>
@@ -306,21 +308,21 @@
 <div><a class="reference internal image-reference" href="_images/colored_tile_columns.png"><img alt="_images/colored_tile_columns.png" class="align-center" src="_images/colored_tile_columns.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>Tiles of the same type have all of the same logic and local interconnect and are repetitive in their respective columns.  The main constraint for the PicoBlaze is a block RAM and we can leverage RapidWright to help us analyze the fabric to find the most repeated tile column patterns adjacent to block RAMs.  To do this, in our terminal open the RapidWright Python interpreter by running:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.RapidWright
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.RapidWright
 </pre></div>
 </div>
-<p>Then in the terminal we can use a class called <code class="docutils literal"><span class="pre">TileColumnPattern</span></code> to analyze the fabric and create a map of all the tile patterns in the device.  We can do this by running:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="n">getDevice</span><span class="p">(</span><span class="s2">&quot;xcvu3p-ffvc1517-2-i&quot;</span><span class="p">)</span>
+<p>Then in the terminal we can use a class called <code class="docutils literal notranslate"><span class="pre">TileColumnPattern</span></code> to analyze the fabric and create a map of all the tile patterns in the device.  We can do this by running:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="n">getDevice</span><span class="p">(</span><span class="s2">&quot;xcvu3p-ffvc1517-2-i&quot;</span><span class="p">)</span>
 <span class="n">colMap</span> <span class="o">=</span> <span class="n">TileColumnPattern</span><span class="o">.</span><span class="n">genColumnPatternMap</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>After a few seconds it will create a map where the keys are a sequence of tile type names (a tile column pattern) and values are a list of fabric tile column indices where the keyed tile column pattern begins.  As a simple example, we can filter the map down to a pattern of 1 BRAM to find out how many BRAM columns exist in the device:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">filtered</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">BRAM</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">colMap</span><span class="o">.</span><span class="n">entrySet</span><span class="p">()))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filtered</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">BRAM</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">colMap</span><span class="o">.</span><span class="n">entrySet</span><span class="p">()))</span>
 <span class="k">print</span> <span class="n">filtered</span>
 </pre></div>
 </div>
 <p>The output should look like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">BRAM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">268</span><span class="p">,</span> <span class="mi">331</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">396</span><span class="p">,</span> <span class="mi">471</span><span class="p">,</span> <span class="mi">534</span><span class="p">,</span> <span class="mi">571</span><span class="p">,</span> <span class="mi">594</span><span class="p">]]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">BRAM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">268</span><span class="p">,</span> <span class="mi">331</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">396</span><span class="p">,</span> <span class="mi">471</span><span class="p">,</span> <span class="mi">534</span><span class="p">,</span> <span class="mi">571</span><span class="p">,</span> <span class="mi">594</span><span class="p">]]</span>
 </pre></div>
 </div>
 <p>In this example, we have a tile column pattern length of 1, a BRAM tile.  The BRAM appears in tile columns indices 75, 97, 137, … as shown in the image below:</p>
@@ -329,18 +331,18 @@
 </div></blockquote>
 <p>Note that the tile column numbers appear much higher than what would be expected based on the number of visible columns.  This is expected as there are several tile columns not necessarily shown in the Vivado GUI, but RapidWright is able to filter and account for the non-visible tiles.  Now, for our pattern, we need to filter the map down to only include those keys that:</p>
 <ol class="arabic simple">
-<li>Have 1 BRAM column</li>
-<li>Have 4 SLICE (CLB) columns</li>
+<li><p>Have 1 BRAM column</p></li>
+<li><p>Have 4 SLICE (CLB) columns</p></li>
 </ol>
 <p>To do this, we can run the following code that will print out the patterns we are interested in and sort them by most number of instances first:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">filtered</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">BRAM</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">DSP</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">5</span><span class="p">,</span> <span class="n">colMap</span><span class="o">.</span><span class="n">entrySet</span><span class="p">()))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filtered</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">BRAM</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">DSP</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">5</span><span class="p">,</span> <span class="n">colMap</span><span class="o">.</span><span class="n">entrySet</span><span class="p">()))</span>
 <span class="n">filtered</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="n">pprint</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The output should look like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">CLEM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">265</span><span class="p">,</span> <span class="mi">328</span><span class="p">,</span> <span class="mi">337</span><span class="p">,</span> <span class="mi">468</span><span class="p">,</span> <span class="mi">531</span><span class="p">,</span> <span class="mi">568</span><span class="p">],</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">CLEM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">265</span><span class="p">,</span> <span class="mi">328</span><span class="p">,</span> <span class="mi">337</span><span class="p">,</span> <span class="mi">468</span><span class="p">,</span> <span class="mi">531</span><span class="p">,</span> <span class="mi">568</span><span class="p">],</span>
  <span class="p">[</span><span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">93</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">262</span><span class="p">,</span> <span class="mi">334</span><span class="p">,</span> <span class="mi">465</span><span class="p">],</span>
  <span class="p">[</span><span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">391</span><span class="p">],</span>
  <span class="p">[</span><span class="n">CLEM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">68</span><span class="p">,</span> <span class="mi">186</span><span class="p">,</span> <span class="mi">389</span><span class="p">],</span>
@@ -354,12 +356,12 @@
  <span class="p">[</span><span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM_R</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">594</span><span class="p">]]</span>
 </pre></div>
 </div>
-<p>Our first pattern match (<code class="docutils literal"><span class="pre">[CLEM,</span> <span class="pre">CLEL_R,</span> <span class="pre">BRAM,</span> <span class="pre">CLEL_R,</span> <span class="pre">CLEM]</span></code>) is the most common with 8 instances in the fabric (we can determine this by there being 8 indices in the value array).  To help visualize the pattern, here is the first instance (index 94) outlined in the previous floorplan view above with the highlighted tiles:</p>
+<p>Our first pattern match (<code class="docutils literal notranslate"><span class="pre">[CLEM,</span> <span class="pre">CLEL_R,</span> <span class="pre">BRAM,</span> <span class="pre">CLEL_R,</span> <span class="pre">CLEM]</span></code>) is the most common with 8 instances in the fabric (we can determine this by there being 8 indices in the value array).  To help visualize the pattern, here is the first instance (index 94) outlined in the previous floorplan view above with the highlighted tiles:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pico_pattern.png"><img alt="_images/pico_pattern.png" class="align-center" src="_images/pico_pattern.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>The second match is a juxtaposition of the first pattern and covers the same columns (note the indices are very close to those of the first). The third, forth and fifth are also juxtapositions of each other but cover a unique set of BRAM columns not covered and one of them will cover 3 more unique BRAM columns.  Therefore, the final BRAM column 594, can be covered by the 6th, 7th, 11th or 12th pattern.  For this tutorial, we will use the following three patterns:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">CLEM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">265</span><span class="p">,</span> <span class="mi">328</span><span class="p">,</span> <span class="mi">337</span><span class="p">,</span> <span class="mi">468</span><span class="p">,</span> <span class="mi">531</span><span class="p">,</span> <span class="mi">568</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">CLEM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">265</span><span class="p">,</span> <span class="mi">328</span><span class="p">,</span> <span class="mi">337</span><span class="p">,</span> <span class="mi">468</span><span class="p">,</span> <span class="mi">531</span><span class="p">,</span> <span class="mi">568</span><span class="p">]</span>
 <span class="p">[</span><span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">391</span><span class="p">]</span>
 <span class="p">[</span><span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM_R</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">588</span><span class="p">]</span>
 </pre></div>
@@ -369,9 +371,9 @@
 <h3>3. PBlock Selections<a class="headerlink" href="#pblock-selections" title="Permalink to this headline">¶</a></h3>
 <p>Now that we have identified the tile column patterns for our PicoBlaze to be implemented, we must select actual locations on the fabric to produce our replicate-able implementation.  A few architectural considerations to take into account when deciding the set of pblocks to use for an implementation are:</p>
 <ol class="arabic simple">
-<li>Laguna tiles: In multi-SLR devices, some SLICEs along the top and bottom clock region rows are replaced with SLR-crossing resources called Laguna tiles.  These tiles cause discontinuities in the regularity of the fabric and can require special handling when creating pre-implemented modules.  To best handle them, special instantiations in the neighborhood of laguna tiles will be needed to achieve coverage in those regions.</li>
-<li>Device edge: Around the edge of a device or SLR, the regular routing patterns have U-turn interconnect.  These U-turns actually make routing easier around the edge of the device, however, if you hope to create a pre-implemented module, they must be a separate implementation if the pre-implemented module is to include routing.</li>
-<li>Clock region edge: Another routing edge case relates to clock region edges.  If timing is especially critical, some routes, even though a pblock using <code class="docutils literal"><span class="pre">CONTAIN_ROUTING=1</span></code> at the edge of the clock region is turned on, can have side loads that differ from other instances that can be just enough larger to missing timing if a pre-implemented module is created at a non-edge location.  In Vivado, these side loads can be seen by clicking the settings (gear icon) at the top right of the device window and turning on <code class="docutils literal"><span class="pre">Device-&gt;Nets-&gt;Used</span> <span class="pre">Stub</span></code> as shown in the screenshot below.</li>
+<li><p>Laguna tiles: In multi-SLR devices, some SLICEs along the top and bottom clock region rows are replaced with SLR-crossing resources called Laguna tiles.  These tiles cause discontinuities in the regularity of the fabric and can require special handling when creating pre-implemented modules.  To best handle them, special instantiations in the neighborhood of laguna tiles will be needed to achieve coverage in those regions.</p></li>
+<li><p>Device edge: Around the edge of a device or SLR, the regular routing patterns have U-turn interconnect.  These U-turns actually make routing easier around the edge of the device, however, if you hope to create a pre-implemented module, they must be a separate implementation if the pre-implemented module is to include routing.</p></li>
+<li><p>Clock region edge: Another routing edge case relates to clock region edges.  If timing is especially critical, some routes, even though a pblock using <code class="docutils literal notranslate"><span class="pre">CONTAIN_ROUTING=1</span></code> at the edge of the clock region is turned on, can have side loads that differ from other instances that can be just enough larger to missing timing if a pre-implemented module is created at a non-edge location.  In Vivado, these side loads can be seen by clicking the settings (gear icon) at the top right of the device window and turning on <code class="docutils literal notranslate"><span class="pre">Device-&gt;Nets-&gt;Used</span> <span class="pre">Stub</span></code> as shown in the screenshot below.</p></li>
 </ol>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/used_stubs.png"><img alt="_images/used_stubs.png" class="align-center" src="_images/used_stubs.png" style="width: 250px;" /></a>
@@ -383,51 +385,51 @@
 <p>As this PicoBlaze instance moves around the fabric, if the used stubs ever cross a clock region boundary, their timing will be increased slightly and can cause the pre-implemented module to close timing at a slightly lower frequency (0 to 5%).  To avoid this problem, one can pre-implement the replicated circuit at both the top and bottom edges of a clock region so that the worst case timing is already factored in. The top or bottom implementation can then be used throughout the middle of a clock region without affecting its timing characteristics negatively.</p>
 <p>Heterogeneous architectures can become an obstacle to relocatability, however, with the proper pblock selection, full coverage can be achieved.  For simplicity of this tutorial, we will work around these issues by ignoring clock region timing edge effects and not using areas next to Laguna and SLR edges.  Ultimately, we must do the following to create re-usable pblocks:</p>
 <ol class="arabic simple">
-<li>Decide on the number of instances required for the desired coverage</li>
-<li>Identify the proper origin of the pblock(s)</li>
-<li>Correctly calculate the pblock ranges by capturing all resource coordinate systems</li>
+<li><p>Decide on the number of instances required for the desired coverage</p></li>
+<li><p>Identify the proper origin of the pblock(s)</p></li>
+<li><p>Correctly calculate the pblock ranges by capturing all resource coordinate systems</p></li>
 </ol>
 <p>To make things simple, we will only use three pblocks to achieve complete coverage in the center three clock region rows.</p>
 <p>Next, we can use the Vivado Device view of an already open instance of the PicoBlaze design to help us visually locate our pblock origins.</p>
 <p>For our first pblock, we can select the bottom of a middle clock region with an instance of the first pattern:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">CLEM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">265</span><span class="p">,</span> <span class="mi">328</span><span class="p">,</span> <span class="mi">337</span><span class="p">,</span> <span class="mi">468</span><span class="p">,</span> <span class="mi">531</span><span class="p">,</span> <span class="mi">568</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">CLEM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">BRAM</span><span class="p">,</span> <span class="n">CLEL_R</span><span class="p">,</span> <span class="n">CLEM</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">94</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">265</span><span class="p">,</span> <span class="mi">328</span><span class="p">,</span> <span class="mi">337</span><span class="p">,</span> <span class="mi">468</span><span class="p">,</span> <span class="mi">531</span><span class="p">,</span> <span class="mi">568</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>The first instance column is 94, meaning the pattern begins with tile types CLEM in column 94, for example, in RapidWright we can query the device for a tile in that column:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">device</span><span class="o">.</span><span class="n">getTile</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">94</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">device</span><span class="o">.</span><span class="n">getTile</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">94</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Which returns:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CLEM_X9Y299</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CLEM_X9Y299</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Notice that we used a row index of 1 (0 is the edge of the device) but that the Y coordinate is 299.  The row/column coordinate system has an origin at the top left (North West) corner of the device whereas the X/Y coordinate system.</p>
+<p class="admonition-title">Note</p>
+<p>Notice that we used a row index of 1 (0 is the edge of the device) but that the Y coordinate is 299.  The row/column coordinate system has an origin at the top left (North West) corner of the device whereas the X/Y coordinate system.</p>
 </div>
-<p>As we expect, the tile type is CLEM.  We must now create a pblock that captures the pattern on the edge of a middle clock region.  By subtracting 60 (the number of SLICEs in a clock region), we arrive at tile <code class="docutils literal"><span class="pre">CLEM_X9Y239</span></code>. We can select this tile in Vivado by running the Tcl command:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">select_objects</span> <span class="k">[</span><span class="nv">get_tiles</span> CLEM_X9Y239<span class="k">]</span>
+<p>As we expect, the tile type is CLEM.  We must now create a pblock that captures the pattern on the edge of a middle clock region.  By subtracting 60 (the number of SLICEs in a clock region), we arrive at tile <code class="docutils literal notranslate"><span class="pre">CLEM_X9Y239</span></code>. We can select this tile in Vivado by running the Tcl command:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">select_objects</span> <span class="k">[</span><span class="nv">get_tiles</span> CLEM_X9Y239<span class="k">]</span>
 </pre></div>
 </div>
 <p>then using the toolbar button for pblock creation, we can use the mouse to create an outlined rectangular region that includes 20 SLICEs and 1 RAMB36 as shown in the screenshot below:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/drag_pblock.png"><img alt="_images/drag_pblock.png" class="align-center" src="_images/drag_pblock.png" style="width: 550px;" /></a>
 </div></blockquote>
-<p>A confirmation window will pop up, make sure all the <cite>Grids</cite> are selected then click <code class="docutils literal"><span class="pre">OK</span></code>.  By using this technique, we can be assured to get the proper ranges for both BRAM and SLICEs in our pblock.  To get the created pblock ranges, run the Tcl command:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">get_property</span> GRID_RANGES <span class="k">[</span><span class="nv">get_selected_objects</span><span class="k">]</span>
+<p>A confirmation window will pop up, make sure all the <cite>Grids</cite> are selected then click <code class="docutils literal notranslate"><span class="pre">OK</span></code>.  By using this technique, we can be assured to get the proper ranges for both BRAM and SLICEs in our pblock.  To get the created pblock ranges, run the Tcl command:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">get_property</span> GRID_RANGES <span class="k">[</span><span class="nv">get_selected_objects</span><span class="k">]</span>
 </pre></div>
 </div>
 <p>This should print:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RAMB36_X1Y47</span><span class="p">:</span><span class="n">RAMB36_X1Y47</span> <span class="n">RAMB18_X1Y94</span><span class="p">:</span><span class="n">RAMB18_X1Y95</span> <span class="n">SLICE_X13Y235</span><span class="p">:</span><span class="n">SLICE_X16Y239</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RAMB36_X1Y47</span><span class="p">:</span><span class="n">RAMB36_X1Y47</span> <span class="n">RAMB18_X1Y94</span><span class="p">:</span><span class="n">RAMB18_X1Y95</span> <span class="n">SLICE_X13Y235</span><span class="p">:</span><span class="n">SLICE_X16Y239</span>
 </pre></div>
 </div>
 <p>This is our first pblock.  We can repeat this process for the other two patterns to get the following list of pblocks:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RAMB36_X1Y47</span><span class="p">:</span><span class="n">RAMB36_X1Y47</span> <span class="n">RAMB18_X1Y94</span><span class="p">:</span><span class="n">RAMB18_X1Y95</span> <span class="n">SLICE_X13Y235</span><span class="p">:</span><span class="n">SLICE_X16Y239</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RAMB36_X1Y47</span><span class="p">:</span><span class="n">RAMB36_X1Y47</span> <span class="n">RAMB18_X1Y94</span><span class="p">:</span><span class="n">RAMB18_X1Y95</span> <span class="n">SLICE_X13Y235</span><span class="p">:</span><span class="n">SLICE_X16Y239</span>
 <span class="n">RAMB36_X0Y47</span><span class="p">:</span><span class="n">RAMB36_X0Y47</span> <span class="n">RAMB18_X0Y94</span><span class="p">:</span><span class="n">RAMB18_X0Y95</span> <span class="n">SLICE_X7Y235</span><span class="p">:</span><span class="n">SLICE_X10Y239</span>
 <span class="n">RAMB36_X11Y47</span><span class="p">:</span><span class="n">RAMB36_X11Y47</span> <span class="n">RAMB18_X11Y94</span><span class="p">:</span><span class="n">RAMB18_X11Y95</span> <span class="n">SLICE_X157Y235</span><span class="p">:</span><span class="n">SLICE_X160Y239</span>
 </pre></div>
 </div>
-<p>Now store these three pblocks in a text file (or <a class="reference download internal" href="_downloads/picoblaze_pblocks.txt" download=""><code class="xref download docutils literal"><span class="pre">download</span> <span class="pre">the</span> <span class="pre">one</span> <span class="pre">we</span> <span class="pre">have</span> <span class="pre">already</span> <span class="pre">created</span></code></a>) called <code class="docutils literal"><span class="pre">picoblaze_pblocks.txt</span></code> in our <code class="docutils literal"><span class="pre">picoblaze</span></code> directory.  With these three pblocks, we are ready to move on to full implementation of these modules.       Please continue with <a class="reference internal" href="PreImplemented_Modules_Part_II.html#pre-implemented-modules-part-ii"><span class="std std-ref">Pre-implemented Modules - Part II</span></a>.</p>
+<p>Now store these three pblocks in a text file (or <a class="reference download internal" download="" href="_downloads/8188d247ca9acc325ff0f8ad3c7a59e7/picoblaze_pblocks.txt"><code class="xref download docutils literal notranslate"><span class="pre">download</span> <span class="pre">the</span> <span class="pre">one</span> <span class="pre">we</span> <span class="pre">have</span> <span class="pre">already</span> <span class="pre">created</span></code></a>) called <code class="docutils literal notranslate"><span class="pre">picoblaze_pblocks.txt</span></code> in our <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code> directory.  With these three pblocks, we are ready to move on to full implementation of these modules.       Please continue with <a class="reference internal" href="PreImplemented_Modules_Part_II.html#pre-implemented-modules-part-ii"><span class="std std-ref">Pre-implemented Modules - Part II</span></a>.</p>
 </div>
 </div>
 </div>
@@ -443,7 +445,7 @@
         <a href="PreImplemented_Modules_Part_II.html" class="btn btn-neutral float-right" title="Pre-implemented Modules - Part II" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="PipelineGeneratorExample.html" class="btn btn-neutral" title="RapidWright PipelineGenerator Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="PipelineGeneratorExampleWithRouting.html" class="btn btn-neutral" title="RapidWright PipelineGeneratorWithRouting Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -452,7 +454,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -474,7 +476,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -485,6 +487,7 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

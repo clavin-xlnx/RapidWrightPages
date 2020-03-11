@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>FPGA Architecture Basics &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>FPGA Architecture Basics &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -203,14 +203,15 @@
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#fpga-architecture-basics" id="id8">FPGA Architecture Basics</a><ul>
-<li><a class="reference internal" href="#what-is-an-fpga" id="id9">What is an FPGA?</a></li>
-<li><a class="reference internal" href="#cpu-vs-fpga" id="id10">CPU vs. FPGA</a></li>
-<li><a class="reference internal" href="#lookup-tables-luts" id="id11">Lookup Tables (LUTs)</a></li>
-<li><a class="reference internal" href="#state-elements" id="id12">State Elements</a></li>
-<li><a class="reference internal" href="#carry-chains" id="id13">Carry Chains</a></li>
-<li><a class="reference internal" href="#dsp-blocks" id="id14">DSP Blocks</a></li>
-<li><a class="reference internal" href="#block-rams" id="id15">Block RAMs</a></li>
+<li><p><a class="reference internal" href="#fpga-architecture-basics" id="id8">FPGA Architecture Basics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-is-an-fpga" id="id9">What is an FPGA?</a></p></li>
+<li><p><a class="reference internal" href="#cpu-vs-fpga" id="id10">CPU vs. FPGA</a></p></li>
+<li><p><a class="reference internal" href="#lookup-tables-luts" id="id11">Lookup Tables (LUTs)</a></p></li>
+<li><p><a class="reference internal" href="#state-elements" id="id12">State Elements</a></p></li>
+<li><p><a class="reference internal" href="#carry-chains" id="id13">Carry Chains</a></p></li>
+<li><p><a class="reference internal" href="#dsp-blocks" id="id14">DSP Blocks</a></p></li>
+<li><p><a class="reference internal" href="#block-rams" id="id15">Block RAMs</a></p></li>
 </ul>
 </li>
 </ul>
@@ -225,17 +226,17 @@
 <p>A central processing unit (CPU or just processor) follows the Von Neumann compute-based architecture as illustrated in the figure below.</p>
 <div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="_images/cpu.png"><img alt="_images/cpu.png" src="_images/cpu.png" style="width: 540px;" /></a>
-<p class="caption"><span class="caption-text">Basic Von Neumann Processing Model for CPUs (Source: <a class="reference external" href="https://commons.wikimedia.org/wiki/File:ABasicComputer.gif">Labtron, Creative Commons</a>).</span></p>
+<p class="caption"><span class="caption-text">Basic Von Neumann Processing Model for CPUs (Source: <a class="reference external" href="https://commons.wikimedia.org/wiki/File:ABasicComputer.gif">Labtron, Creative Commons</a>).</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <p>A control unit driven by instructions fetched from memory drives the flow of input data through the processor’s registers and logic producing outputs.  The data paths, instruction set, register counts and memory interface are all fixed at the time of fabrication of the CPU.  That is, they are unchanging attributes of the processor and cannot be customized later.</p>
 <p>In stark contrast to the CPU architecture, an FPGA has highly configurable logic and data paths.  This is enabled by a bit-wise, fine-grained architectural model to realize computation.  In order to better understand how FPGAs work, it is beneficial to comprehend their atomic units of computation.  Although modern FPGAs have a wide variety of components, at their heart is a large array of replicated programmable look-up tables (LUTs), flip-flops (or registers) and programmable wires called interconnect as seen in the figures below.</p>
 <div class="figure align-center" id="id4">
 <a class="reference internal image-reference" href="_images/logic_array.png"><img alt="_images/logic_array.png" src="_images/logic_array.png" style="width: 540px;" /></a>
-<p class="caption"><span class="caption-text">Hypothetical FPGA logic array of LUTs, flip flops and programmable wires (interconnect)</span></p>
+<p class="caption"><span class="caption-text">Hypothetical FPGA logic array of LUTs, flip flops and programmable wires (interconnect)</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-center" id="id5">
 <a class="reference internal image-reference" href="_images/logic_array_closeup.png"><img alt="_images/logic_array_closeup.png" src="_images/logic_array_closeup.png" style="width: 540px;" /></a>
-<p class="caption"><span class="caption-text">Close up view of replicated tiles of the logic array and interconnect</span></p>
+<p class="caption"><span class="caption-text">Close up view of replicated tiles of the logic array and interconnect</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="lookup-tables-luts">
@@ -243,7 +244,7 @@
 <p>At the heart of configurable logic in FPGAs, lies a basic atomic unit of computation, a lookup table or LUT.  A LUT has a single bit output that is calculated based on the input signal values and the configurable table (or memory) entries as shown in the figure below.</p>
 <div class="figure align-center" id="id6">
 <a class="reference internal image-reference" href="_images/luts.png"><img alt="_images/luts.png" src="_images/luts.png" style="width: 540px;" /></a>
-<p class="caption"><span class="caption-text">(a) Truth table relationship of a LUT (b) Diagram of logical behaviour of a LUT</span></p>
+<p class="caption"><span class="caption-text">(a) Truth table relationship of a LUT (b) Diagram of logical behaviour of a LUT</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>Although mainstream FPGAs typically use 6-input LUTs, this example illustrates a 3-input LUT for simplicity but the principle of operation is the same.</p>
 <p>LUTs are typically constructed using an N:1 multiplexer (shown in green in Figure 4b) and an Nx1-bit memory (shown in blue).   The example in the figure above is a LUT where N=8.  The number of inputs of a LUT is calculated as the log base 2 of N.</p>
@@ -251,7 +252,7 @@
 A LUT can implement any Boolean logic equation limited only by the number of inputs of the LUT’s size.  This characteristic is illustrated in the figure below.  LUTs are commonly chained or combined in series to implement larger Boolean equations.</p>
 <div class="figure align-center" id="id7">
 <a class="reference internal image-reference" href="_images/lut_functions.png"><img alt="_images/lut_functions.png" src="_images/lut_functions.png" style="width: 540px;" /></a>
-<p class="caption"><span class="caption-text">Examples of several (but not all) logic functions a LUT can potentially implement</span></p>
+<p class="caption"><span class="caption-text">Examples of several (but not all) logic functions a LUT can potentially implement</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 <p>In some devices, some of the LUTs have additional functionality then enable them to act as small RAMs.  These RAMs can be chained together to build larger RAMs as well.</p>
 </div>
@@ -298,7 +299,7 @@ A LUT can implement any Boolean logic equation limited only by the number of inp
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -320,7 +321,7 @@ A LUT can implement any Boolean logic equation limited only by the number of inp
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -331,6 +332,7 @@ A LUT can implement any Boolean logic equation limited only by the number of inp
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

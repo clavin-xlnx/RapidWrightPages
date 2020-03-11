@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Implementation Basics &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>Implementation Basics &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -208,9 +208,10 @@
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#implementation-basics" id="id1">Implementation Basics</a><ul>
-<li><a class="reference internal" href="#placement" id="id2">Placement</a></li>
-<li><a class="reference internal" href="#routing" id="id3">Routing</a></li>
+<li><p><a class="reference internal" href="#implementation-basics" id="id1">Implementation Basics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#placement" id="id2">Placement</a></p></li>
+<li><p><a class="reference internal" href="#routing" id="id3">Routing</a></p></li>
 </ul>
 </li>
 </ul>
@@ -222,33 +223,33 @@
 <div class="section" id="bel-placement">
 <h3>BEL Placement<a class="headerlink" href="#bel-placement" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Reliable automatic BEL placement in RapidWright is still a work in progress and care should be taken when attempting this capability.</p>
+<p class="admonition-title">Note</p>
+<p>Reliable automatic BEL placement in RapidWright is still a work in progress and care should be taken when attempting this capability.</p>
 </div>
 <p>Creating correct BEL placements is quite tricky as several factors must be taken into consideration when placing a cell onto a BEL site.  Some questions one might need to ask when placing a cell onto a BEL site are:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Is the BEL site already occupied and are all pins map-able to the surrounding BEL connections?</li>
-<li>Are all of the cell connections routable within the site and interconnect?</li>
-<li>Are the clock and set/reset domains compatible with those already used within the site or are there resources available to route alternatives?</li>
-<li>Does this cell depend on any dedicated inter-site wires (such as carry chains or DSP cascades) that are not available?</li>
+<li><p>Is the BEL site already occupied and are all pins map-able to the surrounding BEL connections?</p></li>
+<li><p>Are all of the cell connections routable within the site and interconnect?</p></li>
+<li><p>Are the clock and set/reset domains compatible with those already used within the site or are there resources available to route alternatives?</p></li>
+<li><p>Does this cell depend on any dedicated inter-site wires (such as carry chains or DSP cascades) that are not available?</p></li>
 </ol>
 </div></blockquote>
 <p>Placing a cell correctly can necessitate updates to the design in the following categories:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Mapping of a <code class="docutils literal"><span class="pre">Cell</span></code> object to a <code class="docutils literal"><span class="pre">BEL</span></code> in RapidWright</li>
-<li>Pin mappings between the logical and physical cell pins must be added and/or routed within the site (conditions will vary).</li>
-<li>Use of one or more SitePIPs as part of routing the site (stored in the respective <code class="docutils literal"><span class="pre">SiteInst</span></code>)</li>
+<li><p>Mapping of a <code class="docutils literal notranslate"><span class="pre">Cell</span></code> object to a <code class="docutils literal notranslate"><span class="pre">BEL</span></code> in RapidWright</p></li>
+<li><p>Pin mappings between the logical and physical cell pins must be added and/or routed within the site (conditions will vary).</p></li>
+<li><p>Use of one or more SitePIPs as part of routing the site (stored in the respective <code class="docutils literal notranslate"><span class="pre">SiteInst</span></code>)</p></li>
 </ol>
 </div></blockquote>
 <p>Generic pin mappings are assigned when a cell is created and placed.  However, these mappings may need to be adjusted based on the context.</p>
-<p>A SitePIP configures a routing BEL to propagate a signal from one of its inputs to its output pin.  SitePIPs must be turned on in the respective <code class="docutils literal"><span class="pre">SiteInst</span></code> when a cell is placed onto a BEL as the common convention in Vivado is to always leave the site in a legally routed state.</p>
+<p>A SitePIP configures a routing BEL to propagate a signal from one of its inputs to its output pin.  SitePIPs must be turned on in the respective <code class="docutils literal notranslate"><span class="pre">SiteInst</span></code> when a cell is placed onto a BEL as the common convention in Vivado is to always leave the site in a legally routed state.</p>
 </div>
 <div class="section" id="site-placement">
 <h3>Site Placement<a class="headerlink" href="#site-placement" title="Permalink to this headline">¶</a></h3>
-<p>Within RapidWright, it can be straightforward to move a <code class="docutils literal"><span class="pre">SiteInst</span></code> from one site to another.  An example of how to relocate a site instance from one location to another is shown below:</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Design</span><span class="o">.</span><span class="na">readCheckpoint</span><span class="o">(</span><span class="s">&quot;example.dcp&quot;</span><span class="o">);</span>
+<p>Within RapidWright, it can be straightforward to move a <code class="docutils literal notranslate"><span class="pre">SiteInst</span></code> from one site to another.  An example of how to relocate a site instance from one location to another is shown below:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Design</span><span class="o">.</span><span class="na">readCheckpoint</span><span class="o">(</span><span class="s">&quot;example.dcp&quot;</span><span class="o">);</span>
 <span class="n">SiteInstance</span> <span class="n">si</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="na">getSiteInstanceFromSiteName</span><span class="o">(</span><span class="s">&quot;SLICE_X0Y0&quot;</span><span class="o">);</span>
 <span class="n">si</span><span class="o">.</span><span class="na">place</span><span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="na">getDevice</span><span class="o">().</span><span class="na">getSite</span><span class="o">(</span><span class="s">&quot;SLICE_X1Y1&quot;</span><span class="o">));</span>
 </pre></div>
@@ -257,7 +258,7 @@
 </div>
 <div class="section" id="module-placement">
 <h3>Module Placement<a class="headerlink" href="#module-placement" title="Permalink to this headline">¶</a></h3>
-<p>One of RapidWright’s unique capabilities is providing another level of hierarchy in implementation.  Through the <code class="docutils literal"><span class="pre">Module</span></code> and <code class="docutils literal"><span class="pre">ModuleInstance</span></code> classes, a complex cell can be replicated and/or relocated across the device.  When a pre-implemented module is created for a device, all valid locations are pre-calculated and stored for the anchor site within the <code class="docutils literal"><span class="pre">Module</span></code>.  Therefore, placement of a <code class="docutils literal"><span class="pre">ModuleInstance</span></code> is simply selecting one of the valid anchor sites and applying it.</p>
+<p>One of RapidWright’s unique capabilities is providing another level of hierarchy in implementation.  Through the <code class="docutils literal notranslate"><span class="pre">Module</span></code> and <code class="docutils literal notranslate"><span class="pre">ModuleInstance</span></code> classes, a complex cell can be replicated and/or relocated across the device.  When a pre-implemented module is created for a device, all valid locations are pre-calculated and stored for the anchor site within the <code class="docutils literal notranslate"><span class="pre">Module</span></code>.  Therefore, placement of a <code class="docutils literal notranslate"><span class="pre">ModuleInstance</span></code> is simply selecting one of the valid anchor sites and applying it.</p>
 </div>
 </div>
 <div class="section" id="routing">
@@ -265,7 +266,7 @@
 <p>In Vivado, there is roughly three different types of routing: intra-site, inter-site and clock routing.  This section provides a brief overview of each.</p>
 <div class="section" id="site-intra-site-routing">
 <h3>Site (Intra-site) Routing<a class="headerlink" href="#site-intra-site-routing" title="Permalink to this headline">¶</a></h3>
-<p>When a cell is placed onto a BEL, typical Vivado convention is to route the intra-site net portions immediately after.  Routing a site implies mapping the physical net to site wires and site PIPs.  In RapidWright, some of this intra-site routing happens when the cell is placed and there are a few methods that can also help finish intra-site routing in special cases.  <code class="docutils literal"><span class="pre">SiteInst.routeIntraSiteNet()</span></code> will attempt to route one BELPin to another for intra-site nets.  <code class="docutils literal"><span class="pre">SiteInst.routeSite()</span></code> will attempt to route all the nets that pertain to the site.</p>
+<p>When a cell is placed onto a BEL, typical Vivado convention is to route the intra-site net portions immediately after.  Routing a site implies mapping the physical net to site wires and site PIPs.  In RapidWright, some of this intra-site routing happens when the cell is placed and there are a few methods that can also help finish intra-site routing in special cases.  <code class="docutils literal notranslate"><span class="pre">SiteInst.routeIntraSiteNet()</span></code> will attempt to route one BELPin to another for intra-site nets.  <code class="docutils literal notranslate"><span class="pre">SiteInst.routeSite()</span></code> will attempt to route all the nets that pertain to the site.</p>
 </div>
 <div class="section" id="interconnect-inter-site-routing">
 <h3>Interconnect (Inter-site) Routing<a class="headerlink" href="#interconnect-inter-site-routing" title="Permalink to this headline">¶</a></h3>
@@ -299,7 +300,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -321,7 +322,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -332,6 +333,7 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

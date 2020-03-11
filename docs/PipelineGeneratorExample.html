@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright PipelineGenerator Example &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>RapidWright PipelineGenerator Example &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Pre-implemented Modules - Part I" href="PreImplemented_Modules_Part_I.html" />
+    <link rel="next" title="RapidWright PipelineGeneratorWithRouting Example" href="PipelineGeneratorExampleWithRouting.html" />
     <link rel="prev" title="Build an IP Integrator Design with Pre-Implemented Blocks" href="IPI_PreImpl_Tutorial.html" /> 
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -111,6 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">RapidWright PipelineGenerator Example</a><ul>
@@ -121,6 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#additional-exercises">Additional Exercises</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
@@ -215,10 +217,10 @@
 <div class="section" id="input-parameters">
 <h2>Input Parameters<a class="headerlink" href="#input-parameters" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Width (bits)</li>
-<li>Depth (pipeline stages)</li>
-<li>Distance (tiles)</li>
-<li>Direction (horizontal or vertical)</li>
+<li><p>Width (bits)</p></li>
+<li><p>Depth (pipeline stages)</p></li>
+<li><p>Distance (tiles)</p></li>
+<li><p>Direction (horizontal or vertical)</p></li>
 </ul>
 </div>
 <div class="section" id="background">
@@ -231,12 +233,12 @@
 <div class="section" id="steps-to-run">
 <h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.  While we don’t provide any IDE “how to” steps within this tutorial, if you do have questions please feel free to ask.</li>
-<li>If you need to recompile the code, run: <code class="docutils literal"><span class="pre">javac</span> <span class="pre">com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code> from within your “&lt;workspace_dir&gt;/RapidWright” subdirectory.  Alternatively, build this example using your IDE.</li>
-<li>After compiling, run: <code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.examples.PipelineGenerator</span></code>.  This will generate an output called “pipeline.dcp”, containing the placed and routed circuit design.</li>
-<li>To see a list of available input options specify “-h” as an argument.  Note: the horizontal direction is assigned within the source code, but it can alternatively be changed to vertical within main().  The source code for this example is located in: <code class="docutils literal"><span class="pre">&lt;workspace_dir&gt;/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</li>
+<li><p>Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.  While we don’t provide any IDE “how to” steps within this tutorial, if you do have questions please feel free to ask.</p></li>
+<li><p>If you need to recompile the code, run: <code class="docutils literal notranslate"><span class="pre">javac</span> <span class="pre">com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code> from within your “&lt;workspace_dir&gt;/RapidWright” subdirectory.  Alternatively, build this example using your IDE.</p></li>
+<li><p>After compiling, run: <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.examples.PipelineGenerator</span></code>.  This will generate an output called “pipeline.dcp”, containing the placed and routed circuit design.</p></li>
+<li><p>To see a list of available input options specify “-h” as an argument.  Note: the horizontal direction is assigned within the source code, but it can alternatively be changed to vertical within main().  The source code for this example is located in: <code class="docutils literal notranslate"><span class="pre">&lt;workspace_dir&gt;/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</p></li>
 </ol>
-<div class="highlight-default"><div class="highlight"><pre><span></span>==============================================================================
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>==============================================================================
 ==                            Pipeline Generator                            ==
 ==============================================================================
 This RapidWright program creates an example pipelined bus as a placed and routed DCP.
@@ -263,28 +265,28 @@ used for pipeline]
 <div class="section" id="example-design">
 <h2>Example Design<a class="headerlink" href="#example-design" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Width = 10 bits</li>
-<li>Depth = 3 pipeline stages</li>
-<li>Distance = 10 tiles</li>
-<li>Direction = horizontal</li>
+<li><p>Width = 10 bits</p></li>
+<li><p>Depth = 3 pipeline stages</p></li>
+<li><p>Distance = 10 tiles</p></li>
+<li><p>Direction = horizontal</p></li>
 </ul>
 <a class="reference internal image-reference" href="_images/vivado_pipeline_dcp_schematic.png"><img alt="_images/vivado_pipeline_dcp_schematic.png" class="align-center" src="_images/vivado_pipeline_dcp_schematic.png" style="width: 710px;" /></a>
 <a class="reference internal image-reference" href="_images/vivado_pipeline_dcp_device_view_horizontal.png"><img alt="_images/vivado_pipeline_dcp_device_view_horizontal.png" class="align-center" src="_images/vivado_pipeline_dcp_device_view_horizontal.png" style="width: 1215px;" /></a>
 <p>The above screenshot show the device view, zoomed in on the placed and routed circuit.  This circuit consists of three pairs of slices, using the &lt;horizontal&gt; spacing distance of &lt;10&gt; tiles.</p>
 <p>Although each CLB FF letter site contains a pair of flops, as described above, this example only makes use of the first flop in each pair, as a demo.  This means that the lower slice for each of the pairs uses eight flops, and the upper slice uses two flops to satisfy the &lt;width&gt; request of ten bits.  This was done intentionally towards setting up an example that could be easily modified to use both of the flops in the pair.  The screenshot below shows a zoomed in view of the lower slice.</p>
 <a class="reference internal image-reference" href="_images/vivado_pipeline_dcp_device_view_zoomed.png"><img alt="_images/vivado_pipeline_dcp_device_view_zoomed.png" class="align-center" src="_images/vivado_pipeline_dcp_device_view_zoomed.png" style="width: 496px;" /></a>
-<p>Please refer to the example code for more implementation details.  The Java source code for this example is located in: <code class="docutils literal"><span class="pre">&lt;workspace_dir&gt;/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</p>
+<p>Please refer to the example code for more implementation details.  The Java source code for this example is located in: <code class="docutils literal notranslate"><span class="pre">&lt;workspace_dir&gt;/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</p>
 <p>This example was designed to illustrate basic functions, and please feel free to modify this example to experiment building other implementations.</p>
 </div>
 <div class="section" id="additional-exercises">
 <h2>Additional Exercises<a class="headerlink" href="#additional-exercises" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Try modifying the PipelineGenerator to use all 16 flip flops in an UltraScale slice, this will lead to a more compact usage of CLBs at the potential expense of greater routing congestion.</li>
+<li><p>Try modifying the PipelineGenerator to use all 16 flip flops in an UltraScale slice, this will lead to a more compact usage of CLBs at the potential expense of greater routing congestion.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/pipelinegenerator_using_all_16_flops.png"><img alt="_images/pipelinegenerator_using_all_16_flops.png" class="align-center" src="_images/pipelinegenerator_using_all_16_flops.png" style="width: 583px;" /></a>
 <p>Hint: When using all sixteen flops or designs with higher bit widths, the minimum distance should be at least 10 tiles for routing.</p>
 <ol class="arabic simple" start="2">
-<li>This example of a PipelineGenerator is ideal for creating a long haul pipelined bus connection at high speed.  This would be useful in connecting two modules physically distant on a device but need to communicate at high speed.  Currently, the implementation can only pipeline in a single plane (horizontal or vertical).  Modify the example such that it can pipeline both vertically and horizontally.</li>
+<li><p>This example of a PipelineGenerator is ideal for creating a long haul pipelined bus connection at high speed.  This would be useful in connecting two modules physically distant on a device but need to communicate at high speed.  Currently, the implementation can only pipeline in a single plane (horizontal or vertical).  Modify the example such that it can pipeline both vertically and horizontally.</p></li>
 </ol>
 </div>
 </div>
@@ -297,7 +299,7 @@ used for pipeline]
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="PreImplemented_Modules_Part_I.html" class="btn btn-neutral float-right" title="Pre-implemented Modules - Part I" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="PipelineGeneratorExampleWithRouting.html" class="btn btn-neutral float-right" title="RapidWright PipelineGeneratorWithRouting Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="IPI_PreImpl_Tutorial.html" class="btn btn-neutral" title="Build an IP Integrator Design with Pre-Implemented Blocks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -309,7 +311,7 @@ used for pipeline]
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -331,7 +333,7 @@ used for pipeline]
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -342,6 +344,7 @@ used for pipeline]
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pre-implemented Modules - Part II &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>Pre-implemented Modules - Part II &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -111,9 +111,11 @@
 <li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Pre-implemented Modules - Part II</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#implementation-optimization">1. Implementation Optimization</a></li>
@@ -209,22 +211,22 @@
             
   <div class="section" id="pre-implemented-modules-part-ii">
 <h1>Pre-implemented Modules - Part II<a class="headerlink" href="#pre-implemented-modules-part-ii" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt><em>“If you were plowing a field, which would you rather use: two strong oxen or 1024 chickens?”</em></dt>
-<dd>– <a class="reference external" href="https://en.wikipedia.org/wiki/Seymour_Cray">Seymour Cray</a></dd>
+<dl class="simple">
+<dt><em>“If you were plowing a field, which would you rather use: two strong oxen or 1024 chickens?”</em></dt><dd><p>– <a class="reference external" href="https://en.wikipedia.org/wiki/Seymour_Cray">Seymour Cray</a></p>
+</dd>
 </dl>
 <p>This tutorial has two parts. In the first part, we showed how you can create pre-implemented modules tailored to fit your architecture.  In this second part of the tutorial, we show how to assemble the PicoBlaze instances into a programmable overlay.  To accomplish this, we will perform the following tasks:</p>
 <p><a class="reference internal" href="#implementation-optimization"><span class="std std-ref">1. Implementation Optimization</span></a>: Use RapidWright and Vivado to get the best PicoBlaze implementations. <br />
 <a class="reference internal" href="#building-the-overlay"><span class="std std-ref">2. Building the Overlay</span></a>: Replicate and stitch our pre-implemented PicoBlazes into an overlay. <br /></p>
 <div class="section" id="implementation-optimization">
 <h2>1. Implementation Optimization<a class="headerlink" href="#implementation-optimization" title="Permalink to this headline">¶</a></h2>
-<p>From <a class="reference internal" href="PreImplemented_Modules_Part_I.html#pre-implemented-modules-part-i"><span class="std std-ref">Pre-implemented Modules - Part I</span></a>, we finished by creating three pblocks to be used for our PicoBlaze implementation. Now that we know what our three pblock sizes are, we can use <code class="docutils literal"><span class="pre">PerformanceExplorer</span></code>, a tool provided with RapidWright, to help us explore implementation performance of each of these instances.  The <code class="docutils literal"><span class="pre">PerformanceExplorer</span></code> is able to parallelize many different runs of place and route using different directives and also sweep clock uncertainty to explore the solution space.  By leveraging Vivado and RapidWright’s <code class="docutils literal"><span class="pre">PerformanceExplorer</span></code>, we are able to capture the best implementation runs for reuse.</p>
-<p>The RapidWright <code class="docutils literal"><span class="pre">PerformanceExplorer</span></code> can be run directly from the command line:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.PerformanceExplorer -h
+<p>From <a class="reference internal" href="PreImplemented_Modules_Part_I.html#pre-implemented-modules-part-i"><span class="std std-ref">Pre-implemented Modules - Part I</span></a>, we finished by creating three pblocks to be used for our PicoBlaze implementation. Now that we know what our three pblock sizes are, we can use <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code>, a tool provided with RapidWright, to help us explore implementation performance of each of these instances.  The <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> is able to parallelize many different runs of place and route using different directives and also sweep clock uncertainty to explore the solution space.  By leveraging Vivado and RapidWright’s <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code>, we are able to capture the best implementation runs for reuse.</p>
+<p>The RapidWright <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> can be run directly from the command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.PerformanceExplorer -h
 </pre></div>
 </div>
 <p>which prints help and options detail:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>==============================================================================
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>==============================================================================
 ==                         DCP Performance Explorer                         ==
 ==============================================================================
 This RapidWright program will place and route the same DCP in a variety of
@@ -259,101 +261,101 @@ Option (* = required)                    Description
   job when run locally]
 </pre></div>
 </div>
-<p>To run <code class="docutils literal"><span class="pre">PerformanceExplorer</span></code> for our PicoBlaze design and three selected pblocks, we would run the following at the command line (where <a class="reference download internal" href="_downloads/picoblaze_pblocks.txt" download=""><code class="xref download docutils literal"><span class="pre">picoblaze_pblocks.txt</span></code></a> the pblock file from <a class="reference internal" href="PreImplemented_Modules_Part_I.html#pre-implemented-modules-part-i"><span class="std std-ref">Part I</span></a>):</p>
+<p>To run <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> for our PicoBlaze design and three selected pblocks, we would run the following at the command line (where <a class="reference download internal" download="" href="_downloads/8188d247ca9acc325ff0f8ad3c7a59e7/picoblaze_pblocks.txt"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_pblocks.txt</span></code></a> the pblock file from <a class="reference internal" href="PreImplemented_Modules_Part_I.html#pre-implemented-modules-part-i"><span class="std std-ref">Part I</span></a>):</p>
 <div class="admonition danger">
-<p class="first admonition-title">Danger</p>
-<p class="last"><strong>DO NOT USE THIS IN A TUTORIAL VIRTUAL MACHINE</strong>, it will crash the VM.  <code class="docutils literal"><span class="pre">PerformanceExplorer</span></code> is best used with a compute cluster (such as <a class="reference external" href="https://en.wikipedia.org/wiki/Platform_LSF">LSF</a>).  It can be used on a single workstation, but, the number of parallel runs combined with their length can quickly add up to days of compute time.</p>
+<p class="admonition-title">Danger</p>
+<p><strong>DO NOT USE THIS IN A TUTORIAL VIRTUAL MACHINE</strong>, it will crash the VM.  <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> is best used with a compute cluster (such as <a class="reference external" href="https://en.wikipedia.org/wiki/Platform_LSF">LSF</a>).  It can be used on a single workstation, but, the number of parallel runs combined with their length can quickly add up to days of compute time.</p>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># DON&#39;T RUN THIS IN A TUTORIAL VIRTUAL MACHINE</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># DON&#39;T RUN THIS IN A TUTORIAL VIRTUAL MACHINE</span>
 java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.dcp -t <span class="m">2</span>.85 -b picoblaze_pblocks.txt
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">PerformanceExplorer</span></code> will then create a unique directory and launch a Vivado run for each unique job specification.  There are four main parameters by which a job can be specified:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> will then create a unique directory and launch a Vivado run for each unique job specification.  There are four main parameters by which a job can be specified:</p>
 <ol class="arabic simple">
-<li>Placer Directive (<code class="docutils literal"><span class="pre">place_design</span> <span class="pre">-directive</span></code> option)</li>
-<li>Router Directive (<code class="docutils literal"><span class="pre">route_design</span> <span class="pre">-directive</span></code> option)</li>
-<li>Clock Uncertainty (applied before placement, then removed before routing)</li>
-<li>PBlock (optional)</li>
+<li><p>Placer Directive (<code class="docutils literal notranslate"><span class="pre">place_design</span> <span class="pre">-directive</span></code> option)</p></li>
+<li><p>Router Directive (<code class="docutils literal notranslate"><span class="pre">route_design</span> <span class="pre">-directive</span></code> option)</p></li>
+<li><p>Clock Uncertainty (applied before placement, then removed before routing)</p></li>
+<li><p>PBlock (optional)</p></li>
 </ol>
-<p>In our run of <code class="docutils literal"><span class="pre">PerformanceExplorer</span></code> above, we have the following set:</p>
+<p>In our run of <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> above, we have the following set:</p>
 <ol class="arabic simple">
-<li>[Default, Explore]</li>
-<li>[Default, Explore]</li>
-<li>[-0.100, -0.075, -0.050, -0.025. 0.0, 0.025, 0.050, 0.075, 0.100, 0.125, 0.150, 0.175, 0.200, 0.225, 0.250]</li>
-<li>[pblock0, pblock1, pblock2]</li>
+<li><p>[Default, Explore]</p></li>
+<li><p>[Default, Explore]</p></li>
+<li><p>[-0.100, -0.075, -0.050, -0.025. 0.0, 0.025, 0.050, 0.075, 0.100, 0.125, 0.150, 0.175, 0.200, 0.225, 0.250]</p></li>
+<li><p>[pblock0, pblock1, pblock2]</p></li>
 </ol>
-<p>This yields a total of 2 x 2 x 15 x 3 = 180 runs.  On a single workstation, this would take several hours depending on the number of parallel cores used (defaults to half the number of CPU cores, use <code class="docutils literal"><span class="pre">-z</span></code> option to specific core count).  To avoid this lengthy step in the tutorial, we provide histograms of the results and best implementations here:</p>
+<p>This yields a total of 2 x 2 x 15 x 3 = 180 runs.  On a single workstation, this would take several hours depending on the number of parallel cores used (defaults to half the number of CPU cores, use <code class="docutils literal notranslate"><span class="pre">-z</span></code> option to specific core count).  To avoid this lengthy step in the tutorial, we provide histograms of the results and best implementations here:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/picoblaze_histogram.png"><img alt="_images/picoblaze_histogram.png" class="align-center" src="_images/picoblaze_histogram.png" style="width: 550px;" /></a>
 </div></blockquote>
-<p>It seems Vivado was able to get the best performance from pblock0 which is the one with the floorplan that occurs most often.  Although the histograms provide a view of what was achieved across 60 runs for each pblock, we really only care about the best results as those are what we move on with to the next step. For those curious, full performance results can be downloaded here: <a class="reference download internal" href="_downloads/picoblaze_results.xlsx" download=""><code class="xref download docutils literal"><span class="pre">picoblaze_results.xlsx</span></code></a>.</p>
-<table border="1" class="docutils">
+<p>It seems Vivado was able to get the best performance from pblock0 which is the one with the floorplan that occurs most often.  Although the histograms provide a view of what was achieved across 60 runs for each pblock, we really only care about the best results as those are what we move on with to the next step. For those curious, full performance results can be downloaded here: <a class="reference download internal" download="" href="_downloads/43d13c4fc55ab634766db53732a13be7/picoblaze_results.xlsx"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_results.xlsx</span></code></a>.</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="19%" />
-<col width="42%" />
-<col width="40%" />
+<col style="width: 19%" />
+<col style="width: 42%" />
+<col style="width: 40%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">PBlock</th>
-<th class="head">WNS (2.850ns period)</th>
-<th class="head">Max Operating Freq.</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>PBlock</p></th>
+<th class="head"><p>WNS (2.850ns period)</p></th>
+<th class="head"><p>Max Operating Freq.</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>pblock0</td>
-<td>0.300ns</td>
-<td>392MHz</td>
+<tbody>
+<tr class="row-even"><td><p>pblock0</p></td>
+<td><p>0.300ns</p></td>
+<td><p>392MHz</p></td>
 </tr>
-<tr class="row-odd"><td>pblock1</td>
-<td>0.178ns</td>
-<td>374MHz</td>
+<tr class="row-odd"><td><p>pblock1</p></td>
+<td><p>0.178ns</p></td>
+<td><p>374MHz</p></td>
 </tr>
-<tr class="row-even"><td>pblock2</td>
-<td>0.207ns</td>
-<td>378MHz</td>
+<tr class="row-even"><td><p>pblock2</p></td>
+<td><p>0.207ns</p></td>
+<td><p>378MHz</p></td>
 </tr>
 </tbody>
 </table>
-<p>Download the best placed and routed implementations here: <a class="reference download internal" href="_downloads/picoblaze_best.zip" download=""><code class="xref download docutils literal"><span class="pre">picoblaze_best.zip</span></code></a> into your <code class="docutils literal"><span class="pre">picoblaze</span></code> directory then unzip the file:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>unzip picoblaze_best.zip
+<p>Download the best placed and routed implementations here: <a class="reference download internal" download="" href="_downloads/bbf790302fd65b3823084b3886258e42/picoblaze_best.zip"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_best.zip</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code> directory then unzip the file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip picoblaze_best.zip
 </pre></div>
 </div>
 </div>
 <div class="section" id="building-the-overlay">
 <h2>2. Building the Overlay<a class="headerlink" href="#building-the-overlay" title="Permalink to this headline">¶</a></h2>
-<p>Each PicoBlaze instance has a set of 4, 8-bit input ports <code class="docutils literal"><span class="pre">{a,b,c,d}</span></code> and 4, 8-bit output ports <code class="docutils literal"><span class="pre">{w,x,y,z}</span></code>.  Our array of PicoBlaze instances will create columns on top of BRAM sites.  The inter-module connectivity pattern for each column of PicoBlaze instances will follow this pattern:</p>
+<p>Each PicoBlaze instance has a set of 4, 8-bit input ports <code class="docutils literal notranslate"><span class="pre">{a,b,c,d}</span></code> and 4, 8-bit output ports <code class="docutils literal notranslate"><span class="pre">{w,x,y,z}</span></code>.  Our array of PicoBlaze instances will create columns on top of BRAM sites.  The inter-module connectivity pattern for each column of PicoBlaze instances will follow this pattern:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pico_connectivity.png"><img alt="_images/pico_connectivity.png" class="align-center" src="_images/pico_connectivity.png" style="width: 550px;" /></a>
 </div></blockquote>
-<p>For each column, there will be one 8-bit top-level input that will drive any inputs that don’t have matching connecting instances.  There will be one 8-top level output driven by the top PicoBlaze’s output <code class="docutils literal"><span class="pre">z</span></code>, all other outputs without matching connecting instances will be left unconnected.</p>
-<p>RapidWright Java code to instantiate and place the three PicoBlaze pre-implemented modules and stitch them together is found in <code class="docutils literal"><span class="pre">RapidWright/com/xilinx/rapidwright/examples/PicoBlazeArray.java</span></code>.  This can be run at the command line with the following command:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PicoBlazeArray
+<p>For each column, there will be one 8-bit top-level input that will drive any inputs that don’t have matching connecting instances.  There will be one 8-top level output driven by the top PicoBlaze’s output <code class="docutils literal notranslate"><span class="pre">z</span></code>, all other outputs without matching connecting instances will be left unconnected.</p>
+<p>RapidWright Java code to instantiate and place the three PicoBlaze pre-implemented modules and stitch them together is found in <code class="docutils literal notranslate"><span class="pre">RapidWright/com/xilinx/rapidwright/examples/PicoBlazeArray.java</span></code>.  This can be run at the command line with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PicoBlazeArray
 </pre></div>
 </div>
 <p>Without any parameters, we get a simple usage message:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">USAGE</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">pblock</span> <span class="n">dcp</span> <span class="n">directory</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">part</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">output_dcp</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">--</span><span class="n">no_hand_placer</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USAGE</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">pblock</span> <span class="n">dcp</span> <span class="n">directory</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">part</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">output_dcp</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">--</span><span class="n">no_hand_placer</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>To run, we must provide the path to the directory where our pblock DCPs are located, the target device part name and an output DCP name:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PicoBlazeArray <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span> xcvu3p-ffvc1517-2-i picoblaze_array.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PicoBlazeArray <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span> xcvu3p-ffvc1517-2-i picoblaze_array.dcp
 </pre></div>
 </div>
-<p>The program will read each of the pblock DCPs and stitch them together, printing out runtime numbers for each step.  By default, the program will open the <code class="docutils literal"><span class="pre">HandPlacer</span></code> to enable the user to examine the placed PicoBlazes (you can skip the hand placer by adding <code class="docutils literal"><span class="pre">--no_hand_placer</span></code> as the last argument).  Here is a screenshot of the tool:</p>
+<p>The program will read each of the pblock DCPs and stitch them together, printing out runtime numbers for each step.  By default, the program will open the <code class="docutils literal notranslate"><span class="pre">HandPlacer</span></code> to enable the user to examine the placed PicoBlazes (you can skip the hand placer by adding <code class="docutils literal notranslate"><span class="pre">--no_hand_placer</span></code> as the last argument).  Here is a screenshot of the tool:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pico_hand_placer.png"><img alt="_images/pico_hand_placer.png" class="align-center" src="_images/pico_hand_placer.png" style="width: 550px;" /></a>
 </div></blockquote>
-<p>You can zoom in/out using the scroll wheel of your mouse (or <code class="docutils literal"><span class="pre">Ctrl</span></code> + <code class="docutils literal"><span class="pre">-</span></code> to Zoom Out and <code class="docutils literal"><span class="pre">Ctrl</span></code> + <code class="docutils literal"><span class="pre">=</span></code> to Zoom In) and can move the pre-implemented PicoBlaze instances if you wish to change any of their placement.  As you move the blocks, you’ll notice two things.  First, the color of the block will change depending on its contextual location:</p>
+<p>You can zoom in/out using the scroll wheel of your mouse (or <code class="docutils literal notranslate"><span class="pre">Ctrl</span></code> + <code class="docutils literal notranslate"><span class="pre">-</span></code> to Zoom Out and <code class="docutils literal notranslate"><span class="pre">Ctrl</span></code> + <code class="docutils literal notranslate"><span class="pre">=</span></code> to Zoom In) and can move the pre-implemented PicoBlaze instances if you wish to change any of their placement.  As you move the blocks, you’ll notice two things.  First, the color of the block will change depending on its contextual location:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Green = Valid Placement</li>
-<li>Orange = Valid Placement but overlapping</li>
-<li>Red = Invalid Placement</li>
+<li><p>Green = Valid Placement</p></li>
+<li><p>Orange = Valid Placement but overlapping</p></li>
+<li><p>Red = Invalid Placement</p></li>
 </ul>
 <a class="reference internal image-reference" href="_images/pico_hand_placer2.png"><img alt="_images/pico_hand_placer2.png" class="align-center" src="_images/pico_hand_placer2.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>You’ll also notice colored lines that appear as you drag the blocks.  These lines show high-level connectivity of the blocks to other blocks.  The thicker the lines, the more tightly connected it is to its neighbors.  If you choose to change the placement, its results will automatically be saved.  Close the Hand Placer window, and the program will write out a placed and routed PicoBlaze array DCP.</p>
-<p>Close any existing DCPs that are open in Vivado and open our new <code class="docutils literal"><span class="pre">picoblaze_array.dcp</span></code>:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">close_design</span>
+<p>Close any existing DCPs that are open in Vivado and open our new <code class="docutils literal notranslate"><span class="pre">picoblaze_array.dcp</span></code>:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">close_design</span>
 <span class="nv">open_checkpoint</span> picoblaze_array.dcp
 </pre></div>
 </div>
@@ -362,12 +364,12 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 <div><a class="reference internal image-reference" href="_images/pico_array.png"><img alt="_images/pico_array.png" class="align-center" src="_images/pico_array.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>To finalize the design, we simply need to update the clock tree, route the interconnections between PicoBlaze instances and check timing.  This can be performed with the following Tcl commands:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">update_clock_routing</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">update_clock_routing</span>
 <span class="nv">route_design</span>
 <span class="nv">report_timing_summary</span> <span class="o">-</span>delay_type min_max <span class="o">-</span>report_unconstrained <span class="o">-</span>check_timing_verbose <span class="o">-</span>max_paths <span class="mi">10</span> <span class="o">-</span>input_pins <span class="o">-</span>routable_nets <span class="o">-</span>name timing_1
 </pre></div>
 </div>
-<p>Once we are done, we should get a fully routed implementation that looks similar to this (or you can download our result here <a class="reference download internal" href="_downloads/picoblaze_array_routed.dcp" download=""><code class="xref download docutils literal"><span class="pre">picoblaze_array_routed.dcp</span></code></a>):</p>
+<p>Once we are done, we should get a fully routed implementation that looks similar to this (or you can download our result here <a class="reference download internal" download="" href="_downloads/b4f972696a3e853e7890a41cfffbdec1/picoblaze_array_routed.dcp"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_array_routed.dcp</span></code></a>):</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pico_array_routed.png"><img alt="_images/pico_array_routed.png" class="align-center" src="_images/pico_array_routed.png" style="width: 550px;" /></a>
 </div></blockquote>
@@ -381,10 +383,10 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
 <p>Although building an array of PicoBlaze microcontrollers probably won’t be used as the next architecture for deep learning acclerators or crypto miners, it has demonstrated how RapidWright and Vivado can be used together to achieve some interesting architectural structures in FPGA fabric.  Specifically we have shown:</p>
 <ol class="arabic simple">
-<li><strong>PBlock / Area Constraint Analysis</strong> - Getting the area constraint to the right footprint size</li>
-<li><strong>Tile Column Pattern Analysis</strong> - Picking the right patterns for maximum placement coverage</li>
-<li><strong>Performance Exploration</strong> - Using RapidWright and Vivado to find and harvest the best implementations</li>
-<li><strong>Overlay Construction</strong> - Using RapidWright to <cite>copy &amp; paste</cite> implementations and stitch them together</li>
+<li><p><strong>PBlock / Area Constraint Analysis</strong> - Getting the area constraint to the right footprint size</p></li>
+<li><p><strong>Tile Column Pattern Analysis</strong> - Picking the right patterns for maximum placement coverage</p></li>
+<li><p><strong>Performance Exploration</strong> - Using RapidWright and Vivado to find and harvest the best implementations</p></li>
+<li><p><strong>Overlay Construction</strong> - Using RapidWright to <cite>copy &amp; paste</cite> implementations and stitch them together</p></li>
 </ol>
 </div>
 </div>
@@ -409,7 +411,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -431,7 +433,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -442,6 +444,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

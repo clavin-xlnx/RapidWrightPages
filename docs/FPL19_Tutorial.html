@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright FPL 2019 Tutorial &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>RapidWright FPL 2019 Tutorial &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -111,9 +111,11 @@
 <li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
@@ -219,10 +221,10 @@
 <p><a class="reference external" href="http://rapidwright.io">RapidWright</a> is an open source framework providing a gateway to Vivado’s back-end implementation tools.  It enables a broad range of new capabilities related to FPGA implementation such as:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Build well-defined placed and routed circuits in seconds</li>
-<li>Enables parameterizable placed and routed circuit generators</li>
-<li>Reuse and relocate P&amp;R circuits from Vivado</li>
-<li>Quickly combines P&amp;R circuits that enable efficient shells and overlays</li>
+<li><p>Build well-defined placed and routed circuits in seconds</p></li>
+<li><p>Enables parameterizable placed and routed circuit generators</p></li>
+<li><p>Reuse and relocate P&amp;R circuits from Vivado</p></li>
+<li><p>Quickly combines P&amp;R circuits that enable efficient shells and overlays</p></li>
 </ul>
 </div></blockquote>
 <p>Additionally, RapidWright provides a new validation path for FPGA CAD researchers.  New techniques and algorithms can be demonstrated on the latest commercial devices—crisply quantifying their contributions to both industry and academia.</p>
@@ -230,22 +232,20 @@
 <div class="section" id="tutorial-content">
 <h2>Tutorial Content<a class="headerlink" href="#tutorial-content" title="Permalink to this headline">¶</a></h2>
 <p>This tutorial will combine presentation and hands-on tutorials.  An overview of RapidWright, its capabilities, and vision for the future will be presented.  For the hands-on portion, attendees will be provided with a USB flash drive and instructions to run the tutorials on their own laptop using a virtual machine.  The hands-on session will consist of 1:1 Q&amp;A while participants work through selected tutorials at their own leisure.</p>
-<dl class="docutils">
-<dt>The list of tutorial topics will include (but are not limited to):</dt>
-<dd><ul class="first last simple">
-<li>Building placed and routed circuits from scratch</li>
-<li>Creating parameterized, generated circuits</li>
-<li>Walk-through of how to build a ~400 instance PicoBlaze accelerator overlay</li>
-<li>A fast, non-intrusive ILA (ChipScope) debug probe re-router</li>
-<li>Using a SAT engine to resolve routing congestion</li>
-<li>How to combine a RapidWright SLR bridge with Vivado-based designs</li>
+<dl class="simple">
+<dt>The list of tutorial topics will include (but are not limited to):</dt><dd><ul class="simple">
+<li><p>Building placed and routed circuits from scratch</p></li>
+<li><p>Creating parameterized, generated circuits</p></li>
+<li><p>Walk-through of how to build a ~400 instance PicoBlaze accelerator overlay</p></li>
+<li><p>A fast, non-intrusive ILA (ChipScope) debug probe re-router</p></li>
+<li><p>Using a SAT engine to resolve routing congestion</p></li>
+<li><p>How to combine a RapidWright SLR bridge with Vivado-based designs</p></li>
 </ul>
 </dd>
-<dt>Attendees of this tutorial can expect to:</dt>
-<dd><ol class="first last arabic simple">
-<li>Gain a deeper understanding of how to leverage Xilinx architecture</li>
-<li>Know how to use RapidWright and apply its capabilities in their own designs</li>
-<li>Learn about design methodologies that can lead to near-spec performance</li>
+<dt>Attendees of this tutorial can expect to:</dt><dd><ol class="arabic simple">
+<li><p>Gain a deeper understanding of how to leverage Xilinx architecture</p></li>
+<li><p>Know how to use RapidWright and apply its capabilities in their own designs</p></li>
+<li><p>Learn about design methodologies that can lead to near-spec performance</p></li>
 </ol>
 </dd>
 </dl>
@@ -254,29 +254,27 @@
 <div class="section" id="details">
 <h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
 <p>You can register for the tutorial at the <a class="reference external" href="https://fpl2019.bsc.es/registration">FPL 2019 website</a>.</p>
-<dl class="docutils">
-<dt>Attendees will need to bring a laptop that can support the following:</dt>
-<dd><ul class="first last simple">
-<li>A laptop capable of reading and writing to a USB 3.1 flash drive with a Type A port</li>
-<li>Able to install <a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">Virtual Box 6.0.x</a></li>
-<li>Laptop can support a virtual machine with 6GB of RAM (8GB preferred)</li>
-<li>Enable Intel VT / AMD-V (64-bit OS virtualization) in BIOS</li>
-<li>If running Linux, you’ll need to install <a class="reference external" href="https://en.wikipedia.org/wiki/ExFAT">exFAT</a> packages in order to mount the USB flash drive:</li>
+<dl class="simple">
+<dt>Attendees will need to bring a laptop that can support the following:</dt><dd><ul class="simple">
+<li><p>A laptop capable of reading and writing to a USB 3.1 flash drive with a Type A port</p></li>
+<li><p>Able to install <a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">Virtual Box 6.0.x</a></p></li>
+<li><p>Laptop can support a virtual machine with 6GB of RAM (8GB preferred)</p></li>
+<li><p>Enable Intel VT / AMD-V (64-bit OS virtualization) in BIOS</p></li>
+<li><p>If running Linux, you’ll need to install <a class="reference external" href="https://en.wikipedia.org/wiki/ExFAT">exFAT</a> packages in order to mount the USB flash drive:</p></li>
 </ul>
 </dd>
 </dl>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo yum install exfat-utils fuse-exfat <span class="c1"># CentOS / RedHat</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum install exfat-utils fuse-exfat <span class="c1"># CentOS / RedHat</span>
 sudo apt install exfat-fuse exfat-utils <span class="c1"># Ubuntu / Debian</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="questions">
 <h2>Questions?<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Contact organizers:</dt>
-<dd><ul class="first last simple">
-<li>Chris Lavin - chris.lavin`at`xilinx.com</li>
-<li>Alireza Kaviani - alireza.kaviani`at`xilinx.com</li>
+<dl class="simple">
+<dt>Contact organizers:</dt><dd><ul class="simple">
+<li><p>Chris Lavin - chris.lavin`at`xilinx.com</p></li>
+<li><p>Alireza Kaviani - alireza.kaviani`at`xilinx.com</p></li>
 </ul>
 </dd>
 </dl>
@@ -303,7 +301,7 @@ sudo apt install exfat-fuse exfat-utils <span class="c1"># Ubuntu / Debian</span
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -325,7 +323,7 @@ sudo apt install exfat-fuse exfat-utils <span class="c1"># Ubuntu / Debian</span
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -336,6 +334,7 @@ sudo apt install exfat-fuse exfat-utils <span class="c1"># Ubuntu / Debian</span
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

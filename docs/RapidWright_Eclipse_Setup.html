@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright Eclipse Setup &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>RapidWright Eclipse Setup &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -208,27 +208,27 @@
 <div class="section" id="eclipse-step-by-step-instructions">
 <h2>Eclipse Step-by-Step Instructions<a class="headerlink" href="#eclipse-step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Make sure you have Java JDK 1.8 (or later) installed: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> Follow the instructions when running the downloaded executable.  Add the <code class="docutils literal"><span class="pre">$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin</span></code> folder to your <code class="docutils literal"><span class="pre">PATH</span></code> environment variable.</li>
-<li>Download Eclipse: <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2</a></li>
-<li>Install Eclipse by extracting the archive into a desired folder on your computer</li>
-<li>Run Eclipse (you may want to add the executable to your path)</li>
-<li>In Eclipse, choose the File-&gt;Import… menu option.  This will bring up a dialog, choose the Git/Projects from Git option as shown in the screenshot below (click Next):</li>
+<li><p>Make sure you have Java JDK 1.8 (or later) installed: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> Follow the instructions when running the downloaded executable.  Add the <code class="docutils literal notranslate"><span class="pre">$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin</span></code> folder to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable.</p></li>
+<li><p>Download Eclipse: <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2</a></p></li>
+<li><p>Install Eclipse by extracting the archive into a desired folder on your computer</p></li>
+<li><p>Run Eclipse (you may want to add the executable to your path)</p></li>
+<li><p>In Eclipse, choose the File-&gt;Import… menu option.  This will bring up a dialog, choose the Git/Projects from Git option as shown in the screenshot below (click Next):</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ImportProject.png"><img alt="_images/ImportProject.png" class="align-center" src="_images/ImportProject.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="6">
-<li>Choose Clone URI and click Next:</li>
+<li><p>Choose Clone URI and click Next:</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/CloneURI.png"><img alt="_images/CloneURI.png" class="align-center" src="_images/CloneURI.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="7">
-<li>Copy and paste <code class="docutils literal"><span class="pre">https://github.com/Xilinx/RapidWright.git</span></code> into the URI box as shown below.  The Host and Repository path fields should automatically be populated.  Enter user and password (if applicable).</li>
+<li><p>Copy and paste <code class="docutils literal notranslate"><span class="pre">https://github.com/Xilinx/RapidWright.git</span></code> into the URI box as shown below.  The Host and Repository path fields should automatically be populated.  Enter user and password (if applicable).</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/URI.png"><img alt="_images/URI.png" class="align-center" src="_images/URI.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="8">
-<li>Choose the master branch, click next:</li>
+<li><p>Choose the master branch, click next:</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/BranchSelection.png"><img alt="_images/BranchSelection.png" class="align-center" src="_images/BranchSelection.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="9">
-<li>Choose the location of where you want Eclipse to put your RapidWright workspace.  Preferably, you should choose a workspace directory with any other Eclipse projects such as <code class="docutils literal"><span class="pre">/home/user/workspace/RapidWright</span></code>.  Click next to have Eclipse clone the repo into your workspace.</li>
+<li><p>Choose the location of where you want Eclipse to put your RapidWright workspace.  Preferably, you should choose a workspace directory with any other Eclipse projects such as <code class="docutils literal notranslate"><span class="pre">/home/user/workspace/RapidWright</span></code>.  Click next to have Eclipse clone the repo into your workspace.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ProjectLocation.png"><img alt="_images/ProjectLocation.png" class="align-center" src="_images/ProjectLocation.png" style="width: 550px;" /></a>
 </div>
@@ -236,35 +236,35 @@
 <h2>Setup Eclipse with Existing Repo<a class="headerlink" href="#setup-eclipse-with-existing-repo" title="Permalink to this headline">¶</a></h2>
 <p>If you already have the RapidWright repository checked out, you can import it into an Eclipse workspace by following these steps (you can skip to Step 5 if you already have Eclipse installed and open)</p>
 <ol class="arabic simple">
-<li>Make sure you have Java JDK 1.8 (or later) installed: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> Follow the instructions when running the downloaded executable.  Add the <code class="docutils literal"><span class="pre">$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin</span></code> folder to your <code class="docutils literal"><span class="pre">PATH</span></code> environment variable.</li>
-<li>Download Eclipse: <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2</a></li>
-<li>Install Eclipse by extracting the archive into a desired folder on your computer</li>
-<li>Run Eclipse (you may want to add the executable to your path)</li>
-<li>In Eclipse, choose the File-&gt;Import… menu option.  This will bring up a dialog, choose the Git/Projects from Git option as shown in the screenshot below (click Next):</li>
+<li><p>Make sure you have Java JDK 1.8 (or later) installed: <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a> Follow the instructions when running the downloaded executable.  Add the <code class="docutils literal notranslate"><span class="pre">$(YOUR_JDK_INSTALL_LOCATION)/jdk1.x.x_x/bin</span></code> folder to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable.</p></li>
+<li><p>Download Eclipse: <a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2</a></p></li>
+<li><p>Install Eclipse by extracting the archive into a desired folder on your computer</p></li>
+<li><p>Run Eclipse (you may want to add the executable to your path)</p></li>
+<li><p>In Eclipse, choose the File-&gt;Import… menu option.  This will bring up a dialog, choose the Git/Projects from Git option as shown in the screenshot below (click Next):</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ImportExistingGitProject.png"><img alt="_images/ImportExistingGitProject.png" class="align-center" src="_images/ImportExistingGitProject.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="6">
-<li>Choose ‘Existing local repository’, then click Next</li>
+<li><p>Choose ‘Existing local repository’, then click Next</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ImportExistingGitProject2.png"><img alt="_images/ImportExistingGitProject2.png" class="align-center" src="_images/ImportExistingGitProject2.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="7">
-<li>Select the existing repository by clicking the ‘Add…’ button</li>
+<li><p>Select the existing repository by clicking the ‘Add…’ button</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ImportExistingGitProject3.png"><img alt="_images/ImportExistingGitProject3.png" class="align-center" src="_images/ImportExistingGitProject3.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="8">
-<li>Enter the location of the repository in the ‘Directory:’ text box, check the box next to the name of the repo once it appears in the lower window. Click ‘Finish’ and then ‘Next’ on the previous window.</li>
+<li><p>Enter the location of the repository in the ‘Directory:’ text box, check the box next to the name of the repo once it appears in the lower window. Click ‘Finish’ and then ‘Next’ on the previous window.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ImportExistingGitProject4.png"><img alt="_images/ImportExistingGitProject4.png" class="align-center" src="_images/ImportExistingGitProject4.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="9">
-<li>On the Wizard selection window, choose ‘Import existing projects’.  Then, click ‘Next’.</li>
+<li><p>On the Wizard selection window, choose ‘Import existing projects’.  Then, click ‘Next’.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ImportExistingGitProject5.png"><img alt="_images/ImportExistingGitProject5.png" class="align-center" src="_images/ImportExistingGitProject5.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="10">
-<li>Finally, click ‘Finish’ to finalize the import.</li>
+<li><p>Finally, click ‘Finish’ to finalize the import.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ImportExistingGitProject6.png"><img alt="_images/ImportExistingGitProject6.png" class="align-center" src="_images/ImportExistingGitProject6.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="11">
-<li>Eclipse will then import the project, compile all the source and it should look similar to the screenshot below:</li>
+<li><p>Eclipse will then import the project, compile all the source and it should look similar to the screenshot below:</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/ImportExistingGitProject7.png"><img alt="_images/ImportExistingGitProject7.png" class="align-center" src="_images/ImportExistingGitProject7.png" style="width: 750px;" /></a>
 </div>
@@ -290,7 +290,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -312,7 +312,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -323,6 +323,7 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright Report Timing Example &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>RapidWright Report Timing Example &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -215,34 +215,34 @@
 <p>Reports the critical path within an example design (e.g. “microblaze4.dcp”).</p>
 <div class="section" id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
-<p>Please see our FPT‘19 paper, <a class="reference download internal" href="_downloads/FPT19-TimingModel.pdf" download=""><code class="xref download docutils literal"><span class="pre">&quot;An</span> <span class="pre">Open-source</span> <span class="pre">Lightweight</span>
+<p>Please see our FPT‘19 paper, <a class="reference download internal" download="" href="_downloads/cf26778447e5d2f4a71de84d0b83d98e/FPT19-TimingModel.pdf"><code class="xref download docutils literal notranslate"><span class="pre">&quot;An</span> <span class="pre">Open-source</span> <span class="pre">Lightweight</span>
 <span class="pre">Timing</span> <span class="pre">Model</span> <span class="pre">for</span> <span class="pre">RapidWright&quot;</span></code></a>
-(<a class="reference download internal" href="_downloads/FPT19-TimingModel-Presentation.pdf" download=""><code class="xref download docutils literal"><span class="pre">Presentation</span></code></a>) for background details on our RapidWright Timing Model.</p>
+(<a class="reference download internal" download="" href="_downloads/984b913379f4fcd771f876e83ce254df/FPT19-TimingModel-Presentation.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Presentation</span></code></a>) for background details on our RapidWright Timing Model.</p>
 </div>
 <div class="section" id="steps-to-run">
 <h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Download the example <a class="reference download internal" href="_downloads/microblaze4.dcp" download=""><code class="xref download docutils literal"><span class="pre">microblaze4.dcp</span></code></a> design:</li>
+<li><p>Download the example <a class="reference download internal" download="" href="_downloads/5d2e79149a23766ae4e3c8958327c26c/microblaze4.dcp"><code class="xref download docutils literal notranslate"><span class="pre">microblaze4.dcp</span></code></a> design:</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/microblaze4.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/microblaze4.dcp
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>If you need to recompile the code, run:</li>
+<li><p>If you need to recompile the code, run:</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>javac src/com/xilinx/rapidwright/examples/ReportTimingExample.java
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>javac src/com/xilinx/rapidwright/examples/ReportTimingExample.java
 </pre></div>
 </div>
-<p>in the <code class="docutils literal"><span class="pre">RapidWright</span></code> directory.  Alternatively, build this example using your IDE.</p>
+<p>in the <code class="docutils literal notranslate"><span class="pre">RapidWright</span></code> directory.  Alternatively, build this example using your IDE.</p>
 <ol class="arabic simple" start="3">
-<li>After compiling, run:</li>
+<li><p>After compiling, run:</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.ReportTimingExample microblaze4.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.ReportTimingExample microblaze4.dcp
 </pre></div>
 </div>
-<p>The source code for <code class="docutils literal"><span class="pre">ReportTimingExample.java</span></code> is provided below for easy reference:</p>
+<p>The source code for <code class="docutils literal notranslate"><span class="pre">ReportTimingExample.java</span></code> is provided below for easy reference:</p>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">length</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;USAGE: &lt;dcp_file_name&gt;&quot;</span><span class="p">);</span>
         <span class="k">return</span><span class="p">;</span>
@@ -275,8 +275,8 @@
 <div class="section" id="example-output">
 <h2>Example Output<a class="headerlink" href="#example-output" title="Permalink to this headline">¶</a></h2>
 <p>Please refer to the timing library <a class="reference external" href="http://www.rapidwright.io/javadoc/index.html">Javadoc</a> and code for more implementation details.  The Java source code for the timing library is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/timing">RapidWright/src/com/xilinx/rapidwright/timing/</a>.</p>
-<p>Example output using the <code class="docutils literal"><span class="pre">microblaze4.dcp</span></code> design is included below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">==============================================================================</span>
+<p>Example output using the <code class="docutils literal notranslate"><span class="pre">microblaze4.dcp</span></code> design is included below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">==============================================================================</span>
 <span class="o">==</span>                          <span class="n">Report</span> <span class="n">Timing</span> <span class="n">Example</span>                           <span class="o">==</span>
 <span class="o">==============================================================================</span>
                 <span class="n">Read</span> <span class="n">DCP</span><span class="p">:</span>     <span class="mf">2.533</span><span class="n">s</span>    <span class="mf">400.912</span><span class="n">MBs</span>
@@ -303,21 +303,21 @@
  <span class="n">microblaze_0</span><span class="o">/</span><span class="n">U0</span><span class="o">/</span><span class="n">MicroBlaze_Core_I</span><span class="o">/</span><span class="n">Performance</span><span class="o">.</span><span class="n">Core</span><span class="o">/</span><span class="n">Data_Flow_I</span><span class="o">/</span><span class="n">Operand_Select_I</span><span class="o">/</span><span class="n">EX_Branch_CMP_Op1_reg</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span><span class="o">/</span><span class="n">D</span><span class="o">-&gt;</span><span class="n">superSink</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">GraphPath&lt;TimingVertex,</span> <span class="pre">TimingEdge&gt;</span></code> object contains a path/set of edges.  From each <code class="docutils literal"><span class="pre">TimingEdge</span></code> you can access the net delay and/or the logic delay values for more detail.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">GraphPath&lt;TimingVertex,</span> <span class="pre">TimingEdge&gt;</span></code> object contains a path/set of edges.  From each <code class="docutils literal notranslate"><span class="pre">TimingEdge</span></code> you can access the net delay and/or the logic delay values for more detail.</p>
 <p>This example was designed to illustrate the default way to use the timing library to report the critical path and its associated data path delay.</p>
 </div>
 <div class="section" id="compare-with-vivado">
 <h2>Compare with Vivado<a class="headerlink" href="#compare-with-vivado" title="Permalink to this headline">¶</a></h2>
 <p>To compare the output of the RapidWright timing model to Vivado, run the following at the prompt:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>vivado -mode tcl microblaze4.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado -mode tcl microblaze4.dcp
 </pre></div>
 </div>
 <p>and then run the following command at the Tcl prompt:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">report_timing</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">report_timing</span>
 </pre></div>
 </div>
 <p>In Vivado 2018.3, the timing report shows a data path delay of 1.846 ns (1846 ps).  Which has an error of 30 ps or ~1.6%.  The full Vivado timing report is shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-----------------------------------------------------------------------------------------</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-----------------------------------------------------------------------------------------</span>
 <span class="o">|</span> <span class="n">Tool</span> <span class="n">Version</span>      <span class="p">:</span> <span class="n">Vivado</span> <span class="n">v</span><span class="o">.</span><span class="mf">2018.3</span> <span class="p">(</span><span class="n">lin64</span><span class="p">)</span> <span class="n">Build</span> <span class="mi">2405991</span> <span class="n">Thu</span> <span class="n">Dec</span>  <span class="mi">6</span> <span class="mi">23</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">41</span> <span class="n">MST</span> <span class="mi">2018</span>
 <span class="o">|</span> <span class="n">Date</span>              <span class="p">:</span> <span class="n">Tue</span> <span class="n">Dec</span> <span class="mi">10</span> <span class="mi">18</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">04</span> <span class="mi">2019</span>
 <span class="o">|</span> <span class="n">Host</span>              <span class="p">:</span> <span class="n">xsjclavin40x</span> <span class="n">running</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> <span class="n">CentOS</span> <span class="n">Linux</span> <span class="n">release</span> <span class="mf">7.4</span><span class="o">.</span><span class="mi">1708</span> <span class="p">(</span><span class="n">Core</span><span class="p">)</span>
@@ -418,7 +418,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -440,7 +440,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -451,6 +451,7 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

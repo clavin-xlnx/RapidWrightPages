@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Manual Install &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>Manual Install &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -203,14 +203,14 @@
 <h1>Manual Install<a class="headerlink" href="#manual-install" title="Permalink to this headline">¶</a></h1>
 <p>RapidWright source code and data files are hosted on <a class="reference external" href="https://github.com/Xilinx/RapidWright">GitHub</a>.  Here is how to get the necessary files to get started:</p>
 <ol class="arabic simple">
-<li>Use <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/Xilinx/RapidWright.git</span></code> to clone the repo, either on the command line or setting up a new project in your IDE.  For a detailed tutorial setting up RapidWright in Eclipse see the <a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> page.</li>
-<li>Go to <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases">https://github.com/Xilinx/RapidWright/releases</a> and download the latest release files: rapidwright_data.zip and rapidwright_jars.zip.</li>
-<li>Expand the two zip files into the root repository directory, there should be a ‘jars’ and ‘data’ directory listed there. Make sure to delete previous ‘jars’ and ‘data’ directories if present.</li>
-<li>Set the environment variable <code class="docutils literal"><span class="pre">RAPIDWRIGHT_PATH=&lt;your_repo_path&gt;</span></code></li>
-<li>Be sure to add the compiled Java files and jar files in the jar folder to your <code class="docutils literal"><span class="pre">CLASSPATH</span></code> variable. If using Bash and can delete the unused OS-specific jars in the jars directory, you could add the following to your <code class="docutils literal"><span class="pre">.bashrc</span></code> file:
-<code class="docutils literal"><span class="pre">export</span> <span class="pre">CLASSPATH=$RAPIDWRIGHT_PATH/bin:$(echo</span> <span class="pre">$RAPIDWRIGHT_PATH/jars/*.jar</span> <span class="pre">|</span> <span class="pre">tr</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">':')</span></code></li>
-<li>Compile the project either through an IDE such as Eclipse or IntelliJ (see <a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> or <a class="reference internal" href="RapidWright_IntelliJ_Setup.html#rapidwright-intellij-setup"><span class="std std-ref">RapidWright IntelliJ Setup</span></a>).  You may need to refresh the project to ensure the IDE can see the jars added in step 3.  You can also use Gradle to compile the project using the provided gradle build script. You will need to make sure Gradle is installed and then run: <code class="docutils literal"><span class="pre">gradle</span> <span class="pre">build</span> <span class="pre">-p</span> <span class="pre">$RAPIDWRIGHT_PATH</span></code></li>
-<li>A quick test is to try running the DeviceBrowser class with something like: <code class="docutils literal"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.device.browser.DeviceBrowser</span></code>.  You should see the GUI come up similar to this screenshot:</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/Xilinx/RapidWright.git</span></code> to clone the repo, either on the command line or setting up a new project in your IDE.  For a detailed tutorial setting up RapidWright in Eclipse see the <a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> page.</p></li>
+<li><p>Go to <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases">https://github.com/Xilinx/RapidWright/releases</a> and download the latest release files: rapidwright_data.zip and rapidwright_jars.zip.</p></li>
+<li><p>Expand the two zip files into the root repository directory, there should be a ‘jars’ and ‘data’ directory listed there. Make sure to delete previous ‘jars’ and ‘data’ directories if present.</p></li>
+<li><p>Set the environment variable <code class="docutils literal notranslate"><span class="pre">RAPIDWRIGHT_PATH=&lt;your_repo_path&gt;</span></code></p></li>
+<li><p>Be sure to add the compiled Java files and jar files in the jar folder to your <code class="docutils literal notranslate"><span class="pre">CLASSPATH</span></code> variable. If using Bash and can delete the unused OS-specific jars in the jars directory, you could add the following to your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file:
+<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">CLASSPATH=$RAPIDWRIGHT_PATH/bin:$(echo</span> <span class="pre">$RAPIDWRIGHT_PATH/jars/*.jar</span> <span class="pre">|</span> <span class="pre">tr</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">':')</span></code></p></li>
+<li><p>Compile the project either through an IDE such as Eclipse or IntelliJ (see <a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> or <a class="reference internal" href="RapidWright_IntelliJ_Setup.html#rapidwright-intellij-setup"><span class="std std-ref">RapidWright IntelliJ Setup</span></a>).  You may need to refresh the project to ensure the IDE can see the jars added in step 3.  You can also use Gradle to compile the project using the provided gradle build script. You will need to make sure Gradle is installed and then run: <code class="docutils literal notranslate"><span class="pre">gradle</span> <span class="pre">build</span> <span class="pre">-p</span> <span class="pre">$RAPIDWRIGHT_PATH</span></code></p></li>
+<li><p>A quick test is to try running the DeviceBrowser class with something like: <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.device.browser.DeviceBrowser</span></code>.  You should see the GUI come up similar to this screenshot:</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/DeviceBrowser.png"><img alt="_images/DeviceBrowser.png" class="align-center" src="_images/DeviceBrowser.png" style="width: 550px;" /></a>
 <p>If you have gotten to this point, congrats!  Your RapidWright install is correctly configured and you are ready to start experimenting.</p>
@@ -236,7 +236,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -258,7 +258,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -269,6 +269,7 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

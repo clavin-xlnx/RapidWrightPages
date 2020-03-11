@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright PipelineGeneratorWithRouting Example &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>RapidWright PipelineGeneratorWithRouting Example &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -217,9 +217,9 @@
 <p>As part of the introduction of our new RapidWright timing library, we have extended the Pipeline Generator tutorial to demonstrate how to use our timing library, or at least how one might call our new timing library towards implementing a timing-driven router.</p>
 <div class="section" id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
-<p>Please see our FPT‘19 paper, <a class="reference download internal" href="_downloads/FPT19-TimingModel.pdf" download=""><code class="xref download docutils literal"><span class="pre">&quot;An</span> <span class="pre">Open-source</span> <span class="pre">Lightweight</span>
+<p>Please see our FPT‘19 paper, <a class="reference download internal" download="" href="_downloads/cf26778447e5d2f4a71de84d0b83d98e/FPT19-TimingModel.pdf"><code class="xref download docutils literal notranslate"><span class="pre">&quot;An</span> <span class="pre">Open-source</span> <span class="pre">Lightweight</span>
 <span class="pre">Timing</span> <span class="pre">Model</span> <span class="pre">for</span> <span class="pre">RapidWright&quot;</span></code></a>
-(<a class="reference download internal" href="_downloads/FPT19-TimingModel-Presentation.pdf" download=""><code class="xref download docutils literal"><span class="pre">Presentation</span></code></a>)
+(<a class="reference download internal" download="" href="_downloads/984b913379f4fcd771f876e83ce254df/FPT19-TimingModel-Presentation.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Presentation</span></code></a>)
 for background details on our RapidWright Timing Model. Our model abstracts groups of low level wires and MUXes into an abstraction that we call timing groups (TGs).</p>
 <p>Please note this tutorial does not cover some deeper background details, and it assumes a basic knowledge of routing concepts and the routing resources available within Xilinx devices.   For more background, the tutorial library contains a separate tutorial dedicated on routing, including implementation examples that are depth-based (non-timing driven).  That tutorial includes some device model details specific to RapidWright.  RapidWright also provides an even more substantial depth-based router implementation within its source library (at least more substantial than the dedicated tutorial).</p>
 <p>In this tutorial we further model our router cost function to compare the net delays estimated for different paths as a component of the cost.  However, our cost function, algorithm, and overall implementation are for illustration purposes and have not been optimized for runtime performance or modular design.  Our goal here is merely to present an example of using our timing library for exploring potential routing resources.</p>
@@ -228,31 +228,31 @@ for background details on our RapidWright Timing Model. Our model abstracts grou
 <div class="section" id="steps-to-run">
 <h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.</li>
-<li>If you need to recompile the code, run:</li>
+<li><p>Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.</p></li>
+<li><p>If you need to recompile the code, run:</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>javac src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>javac src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java
 </pre></div>
 </div>
-<p>from within your <code class="docutils literal"><span class="pre">RapidWright</span></code> directory.  Alternatively, build this example using your IDE.</p>
+<p>from within your <code class="docutils literal notranslate"><span class="pre">RapidWright</span></code> directory.  Alternatively, build this example using your IDE.</p>
 <ol class="arabic simple" start="3">
-<li>After compiling, run:</li>
+<li><p>After compiling, run:</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PipelineGeneratorWithRouting
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PipelineGeneratorWithRouting
 </pre></div>
 </div>
-<p>This will generate an output called <code class="docutils literal"><span class="pre">pipeline.dcp</span></code>, containing the placed and routed circuit design.</p>
+<p>This will generate an output called <code class="docutils literal notranslate"><span class="pre">pipeline.dcp</span></code>, containing the placed and routed circuit design.</p>
 <ol class="arabic simple" start="4">
-<li>To see a list of available input options specify “-h” as an argument.  Note: the source code for this example is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/blob/master/src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java">RapidWright/src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java</a>.</li>
+<li><p>To see a list of available input options specify “-h” as an argument.  Note: the source code for this example is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/blob/master/src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java">RapidWright/src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java</a>.</p></li>
 </ol>
 </div>
 <div class="section" id="example-design">
 <h2>Example Design<a class="headerlink" href="#example-design" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Width = 1 bit</li>
-<li>Depth = 2 pipeline stages</li>
-<li>DistanceY = 16 tiles</li>
-<li>DistanceX = 4 tiles</li>
+<li><p>Width = 1 bit</p></li>
+<li><p>Depth = 2 pipeline stages</p></li>
+<li><p>DistanceY = 16 tiles</p></li>
+<li><p>DistanceX = 4 tiles</p></li>
 </ul>
 <p>The logical view of the circuit as a Vivado schematic is shown below (pair of flops).</p>
 <a class="reference internal image-reference" href="_images/PipelineGeneratorWithRoutingLogicalCircuitView.png"><img alt="_images/PipelineGeneratorWithRoutingLogicalCircuitView.png" class="align-center" src="_images/PipelineGeneratorWithRoutingLogicalCircuitView.png" style="width: 1341px;" /></a>
@@ -265,36 +265,32 @@ for background details on our RapidWright Timing Model. Our model abstracts grou
 <div class="section" id="router-method">
 <h2>Router Method<a class="headerlink" href="#router-method" title="Permalink to this headline">¶</a></h2>
 <p>In our example router implementation, we have a queue, where we store and are building up candidate next hop locations as well as a set of candidate solutions.  We have a main while loop that iterates extending each candidate closer to the target.  We terminate the loop when we have either: (a) exhausted the candidate next hops as not feasible or (b) when the watchdog timer expires.  The watchdog timer is initialized to 500,000 and counts down.</p>
-<dl class="docutils">
-<dt>Within the while loop:</dt>
-<dd><ol class="first last arabic simple">
-<li>We get the distance in the horizontal and vertical dimensions to our target location.</li>
-<li>We record that we have visited the current TG location.</li>
-<li>If we have reached our target location, then we add the solution to our list of candidate solutions.</li>
-<li>Else, we call the cost function.</li>
+<dl class="simple">
+<dt>Within the while loop:</dt><dd><ol class="arabic simple">
+<li><p>We get the distance in the horizontal and vertical dimensions to our target location.</p></li>
+<li><p>We record that we have visited the current TG location.</p></li>
+<li><p>If we have reached our target location, then we add the solution to our list of candidate solutions.</p></li>
+<li><p>Else, we call the cost function.</p></li>
 </ol>
 </dd>
-<dt>Within the cost function:</dt>
-<dd><ol class="first last arabic simple">
-<li>We get an array of all potential next hop TGs from our current TG location.</li>
-<li>We consider distance and direction.  We choose the direction in that we have furthest to go.  We choose the distance by selecting from a set of bands: SAME, NEAR, MID, or FAR.  These are defined within the code.</li>
-<li>We use the filter function with distance and direction band to filter our array of potential next hops to the relevant distance and direction.</li>
-<li>We compute an artificial cost that has a component for the distance remaining to the target and also the delay so far.</li>
-<li><dl class="first docutils">
-<dt>For each potential next hop TG:</dt>
-<dd><ol class="first last loweralpha">
-<li>We store the delays within a table.</li>
-<li>We keep track of the history of moving from the current TG to the next hop TG.</li>
-<li>We add the next hop TG to the queue.</li>
+<dt>Within the cost function:</dt><dd><ol class="arabic simple">
+<li><p>We get an array of all potential next hop TGs from our current TG location.</p></li>
+<li><p>We consider distance and direction.  We choose the direction in that we have furthest to go.  We choose the distance by selecting from a set of bands: SAME, NEAR, MID, or FAR.  These are defined within the code.</p></li>
+<li><p>We use the filter function with distance and direction band to filter our array of potential next hops to the relevant distance and direction.</p></li>
+<li><p>We compute an artificial cost that has a component for the distance remaining to the target and also the delay so far.</p></li>
+<li><dl class="simple">
+<dt>For each potential next hop TG:</dt><dd><ol class="loweralpha simple">
+<li><p>We store the delays within a table.</p></li>
+<li><p>We keep track of the history of moving from the current TG to the next hop TG.</p></li>
+<li><p>We add the next hop TG to the queue.</p></li>
 </ol>
 </dd>
 </dl>
 </li>
 </ol>
 </dd>
-<dt>After while loop terminates:</dt>
-<dd><ol class="first last arabic simple">
-<li>We select the solution with lowest delay cost.</li>
+<dt>After while loop terminates:</dt><dd><ol class="arabic simple">
+<li><p>We select the solution with lowest delay cost.</p></li>
 </ol>
 </dd>
 </dl>
@@ -309,8 +305,8 @@ for background details on our RapidWright Timing Model. Our model abstracts grou
 <div class="section" id="additional-exercises">
 <h2>Additional Exercises<a class="headerlink" href="#additional-exercises" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Try other values for distanceX and distanceY.</li>
-<li>Try modifying the PipelineGeneratorWithRouting to use the RapidWright built-in depth-based (non-timing driven) router to compare the results.</li>
+<li><p>Try other values for distanceX and distanceY.</p></li>
+<li><p>Try modifying the PipelineGeneratorWithRouting to use the RapidWright built-in depth-based (non-timing driven) router to compare the results.</p></li>
 </ol>
 </div>
 </div>
@@ -335,7 +331,7 @@ for background details on our RapidWright Timing Model. Our model abstracts grou
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -357,7 +353,7 @@ for background details on our RapidWright Timing Model. Our model abstracts grou
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -368,6 +364,7 @@ for background details on our RapidWright Timing Model. Our model abstracts grou
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

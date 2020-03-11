@@ -96,7 +96,7 @@ Example output below:
  
 4. Open the DCP using Vivado to view the design.  It should look similar to the annotated screenshot below:
  
-.. figure:: images/SLR_crossing.png
+.. figure:: images/SLR_Crossing.png
 	:width: 550px
 	:align: center
 	
@@ -140,7 +140,7 @@ Optionally, you can open the DCP in Vivado and write out the netlist as EDIF, Ve
 
 The resultant DCP should look similar to the following in Vivado:
 
-.. figure:: images/Full_SLR_crossing.png
+.. figure:: images/Full_SLR_Crossing.png
 	:width: 550px
 	:align: center
 	

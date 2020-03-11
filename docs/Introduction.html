@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Introduction &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>Introduction &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -200,11 +200,12 @@
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#introduction" id="id4">Introduction</a><ul>
-<li><a class="reference internal" href="#what-is-rapidwright" id="id5">What is RapidWright?</a></li>
-<li><a class="reference internal" href="#why-rapidwright" id="id6">Why RapidWright?</a></li>
-<li><a class="reference internal" href="#what-about-rapidsmith" id="id7">What about RapidSmith?</a></li>
-<li><a class="reference internal" href="#vivado-and-rapidwright" id="id8">Vivado and RapidWright</a></li>
+<li><p><a class="reference internal" href="#introduction" id="id4">Introduction</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-is-rapidwright" id="id5">What is RapidWright?</a></p></li>
+<li><p><a class="reference internal" href="#why-rapidwright" id="id6">Why RapidWright?</a></p></li>
+<li><p><a class="reference internal" href="#what-about-rapidsmith" id="id7">What about RapidSmith?</a></p></li>
+<li><p><a class="reference internal" href="#vivado-and-rapidwright" id="id8">Vivado and RapidWright</a></p></li>
 </ul>
 </li>
 </ul>
@@ -217,17 +218,17 @@ modern Xilinx FPGA and SoC designs.  It compliments <a class="reference external
 developers with capabilities such as:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Fast loading accurate device model views for all Vivado-supported
-Xilinx devices (<a class="reference external" href="https://www.xilinx.com/products/silicon-devices/fpga.html">Series 7</a>, <a class="reference external" href="https://www.xilinx.com/about/generation-ahead-16nm.html">UltraScale™</a>, and <a class="reference external" href="https://www.xilinx.com/about/generation-ahead-16nm.html">UltraScale+™</a>)</li>
-<li>Reads and writes unencrypted Vivado Design Checkpoint files (.dcp)</li>
-<li>Hundreds of APIs to help build customized solutions to a wide variety
-of implementation challenges</li>
-<li>Examples of how to pre-implement (pre-place and pre-route) IP, relocate such blocks and compose pre-implemented blocks together</li>
+<li><p>Fast loading accurate device model views for all Vivado-supported
+Xilinx devices (<a class="reference external" href="https://www.xilinx.com/products/silicon-devices/fpga.html">Series 7</a>, <a class="reference external" href="https://www.xilinx.com/about/generation-ahead-16nm.html">UltraScale™</a>, and <a class="reference external" href="https://www.xilinx.com/about/generation-ahead-16nm.html">UltraScale+™</a>)</p></li>
+<li><p>Reads and writes unencrypted Vivado Design Checkpoint files (.dcp)</p></li>
+<li><p>Hundreds of APIs to help build customized solutions to a wide variety
+of implementation challenges</p></li>
+<li><p>Examples of how to pre-implement (pre-place and pre-route) IP, relocate such blocks and compose pre-implemented blocks together</p></li>
 </ul>
 </div></blockquote>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">RapidWright is not an official product from Xilinx and designs created or derived from it are not warranted. Please see <a class="reference external" href="https://github.com/Xilinx/RapidWright/blob/master/LICENSE.TXT">LICENSE.TXT</a> for full details.</p>
+<p class="admonition-title">Note</p>
+<p>RapidWright is not an official product from Xilinx and designs created or derived from it are not warranted. Please see <a class="reference external" href="https://github.com/Xilinx/RapidWright/blob/master/LICENSE.TXT">LICENSE.TXT</a> for full details.</p>
 </div>
 </div>
 <div class="section" id="why-rapidwright">
@@ -242,13 +243,13 @@ status quo of how we develop and interact with FPGAs.</p>
 <p>RapidWright’s mission is to:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Facilitate rapid creation of custom design implementation
-solutions for FPGAs</li>
-<li>Foster an ecosystem of research and development in academia and
-industry</li>
-<li>Be fast, efficient, light-weight and easy-to-use</li>
-<li>Serve as a platform that can grow into an open source FPGA
-implementation flow (future work)</li>
+<li><p>Facilitate rapid creation of custom design implementation
+solutions for FPGAs</p></li>
+<li><p>Foster an ecosystem of research and development in academia and
+industry</p></li>
+<li><p>Be fast, efficient, light-weight and easy-to-use</p></li>
+<li><p>Serve as a platform that can grow into an open source FPGA
+implementation flow (future work)</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -260,7 +261,7 @@ Xilinx devices, specifically those supported under ISE.  RapidSmith is
 dependent on the Xilinx Design Language (XDL) which was discontinued
 in Vivado.  Therefore, RapidSmith doesn’t work with newer devices
 supported exclusively in Vivado (although some valiant efforts have
-been made to bridge the gap <a class="footnote-reference" href="#white-thesis" id="id2">[1]</a>, <a class="footnote-reference" href="#townsend-thesis" id="id3">[2]</a>).</p>
+been made to bridge the gap <a class="footnote-reference brackets" href="#white-thesis" id="id2">1</a>, <a class="footnote-reference brackets" href="#townsend-thesis" id="id3">2</a>).</p>
 <p>RapidWright has been significantly overhauled from its parent
 RapidSmith code.  The FPGA device model is cleaner, more data rich, is faster, more memory efficient and adds several insights
 and capabilities from the Vivado design paradigm.  A distinguishing
@@ -275,26 +276,22 @@ designs.</p>
 implementing designs for Xilinx FPGAs and SoCs. Vivado provides both a GUI environment and a Tcl scripting interface to control the various tools and steps involved in development.  The Tcl scripting interface is quite powerful in that it provides users with hundreds of commands to manipulate their design.  However, despite the breadth of functionality that the Tcl interface offers, it does have some shortcomings.</p>
 <blockquote>
 <div><ul class="simple">
-<li>First, some tasks that a user would want to complete using Tcl constructs and commands takes an inordinate amount of runtime making the task infeasible, especially for large designs.  For example, attempting to import routing information via Tcl commands for a full design can take several hours or days.</li>
-<li>Second, constructing large, complex operations out of Tcl commands can be inefficient due to its interpreted nature.  Many users would also prefer a more mainstream object oriented language with wider support for developing solutions.</li>
-<li>Lastly, if the user wants a particular capability that is not available in the provided library of Tcl commands in Vivado, there is generally no alternative.</li>
+<li><p>First, some tasks that a user would want to complete using Tcl constructs and commands takes an inordinate amount of runtime making the task infeasible, especially for large designs.  For example, attempting to import routing information via Tcl commands for a full design can take several hours or days.</p></li>
+<li><p>Second, constructing large, complex operations out of Tcl commands can be inefficient due to its interpreted nature.  Many users would also prefer a more mainstream object oriented language with wider support for developing solutions.</p></li>
+<li><p>Lastly, if the user wants a particular capability that is not available in the provided library of Tcl commands in Vivado, there is generally no alternative.</p></li>
 </ul>
 </div></blockquote>
 <p>RapidWright addresses these shortcomings by providing a means to import, modify and export Vivado-based designs independent of the Tcl interface.  It achieves this capability by providing APIs that can read and write design checkpoint files (Vivado’s design file format) into and out of the RapidWright framework as illustrated below.</p>
 <a class="reference internal image-reference" href="_images/vivado_dcps.png"><img alt="_images/vivado_dcps.png" class="align-center" src="_images/vivado_dcps.png" style="width: 550px;" /></a>
 <p>RapidWright includes a compact, fast-loading device model and hundreds of APIs to help manipulate implementations.  These capabilities will enable users to develop new implementation strategies and capabilities that have not been available previously in Vivado. We believe RapidWright provides a foundational framework that opens the door for innovation in the FPGA CAD space.</p>
-<table class="docutils footnote" frame="void" id="white-thesis" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>White, Brad S., “Tincr: Integrating Custom CAD Tool Frameworks with the Xilinx Vivado Design Suite” (2014). All Theses and Dissertations. 4338. <a class="reference external" href="http://scholarsarchive.byu.edu/etd/4338">http://scholarsarchive.byu.edu/etd/4338</a></td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="townsend-thesis" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>Townsend, Thomas James, “Vivado Design Interface: Enabling CAD-Tool Design for Next Generation Xilinx FPGA Devices” (2017). All Theses and Dissertations. 6492. <a class="reference external" href="http://scholarsarchive.byu.edu/etd/6492">http://scholarsarchive.byu.edu/etd/6492</a></td></tr>
-</tbody>
-</table>
+<dl class="footnote brackets">
+<dt class="label" id="white-thesis"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>White, Brad S., “Tincr: Integrating Custom CAD Tool Frameworks with the Xilinx Vivado Design Suite” (2014). All Theses and Dissertations. 4338. <a class="reference external" href="http://scholarsarchive.byu.edu/etd/4338">http://scholarsarchive.byu.edu/etd/4338</a></p>
+</dd>
+<dt class="label" id="townsend-thesis"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Townsend, Thomas James, “Vivado Design Interface: Enabling CAD-Tool Design for Next Generation Xilinx FPGA Devices” (2017). All Theses and Dissertations. 6492. <a class="reference external" href="http://scholarsarchive.byu.edu/etd/6492">http://scholarsarchive.byu.edu/etd/6492</a></p>
+</dd>
+</dl>
 </div>
 </div>
 
@@ -318,7 +315,7 @@ implementing designs for Xilinx FPGAs and SoCs. Vivado provides both a GUI envir
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -340,7 +337,7 @@ implementing designs for Xilinx FPGAs and SoCs. Vivado provides both a GUI envir
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -351,6 +348,7 @@ implementing designs for Xilinx FPGAs and SoCs. Vivado provides both a GUI envir
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

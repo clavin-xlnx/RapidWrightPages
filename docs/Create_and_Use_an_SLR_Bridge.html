@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Create and Use an SLR Bridge &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>Create and Use an SLR Bridge &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -111,9 +111,11 @@
 <li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Create and Use an SLR Bridge</a><ul>
@@ -230,16 +232,16 @@
 <div class="section" id="building-the-bridge">
 <h3>Building the Bridge<a class="headerlink" href="#building-the-bridge" title="Permalink to this headline">¶</a></h3>
 <p>Begin by creating a directory for our work in this tutorial:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir bridge_tutorial
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir bridge_tutorial
 <span class="nb">cd</span> bridge_tutorial
 </pre></div>
 </div>
-<p>Our first task is to generate an SLR crossing bridge from RapidWright.  RapidWright has a dedicated generator for this purpose called the <code class="docutils literal"><span class="pre">SLRCrossingGenerator</span></code> which can be run from the command line.  To invoke the help/options output of the tool simply run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -h
+<p>Our first task is to generate an SLR crossing bridge from RapidWright.  RapidWright has a dedicated generator for this purpose called the <code class="docutils literal notranslate"><span class="pre">SLRCrossingGenerator</span></code> which can be run from the command line.  To invoke the help/options output of the tool simply run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -h
 </pre></div>
 </div>
 <p>This should produce the following output:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>==============================================================================
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>==============================================================================
 ==                        SLR Crossing DCP Generator                        ==
 ==============================================================================
 This RapidWright program creates a placed and routed DCP that can be
@@ -272,24 +274,24 @@ Option                                   Description
 </pre></div>
 </div>
 <p>As you can see, this generator has several parameterizable options.  In this case, we will want a bridge that provides 32 wires in both directions using a single column of Laguna tiles.  We will use the xcvu7p-flva2104-2-i part for our example and use the far edge Laguna column for our crossing.  As RapidWright must custom route the clock to preserve the carefully tuned leaf clock buffer delays, it must include a BUFGCE instance.  We also specify the location of the BUFG to improve timing reproducibility in the application context. To generate such a bridge run the following at the command line:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -l LAGUNA_X20Y120 -b BUFGCE_X1Y80 -w <span class="m">32</span> -o slr_crosser_vu7p_32.dcp -p xcvu7p-flva2104-2-i
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -l LAGUNA_X20Y120 -b BUFGCE_X1Y80 -w <span class="m">32</span> -o slr_crosser_vu7p_32.dcp -p xcvu7p-flva2104-2-i
 </pre></div>
 </div>
-<p>After several seconds, a new file, <code class="docutils literal"><span class="pre">slr_crosser_vu7p_32.dcp</span></code> should appear in our working directory, let’s open it in Vivado to examine what we have created.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>vivado slr_crosser_vu7p_32.dcp
+<p>After several seconds, a new file, <code class="docutils literal notranslate"><span class="pre">slr_crosser_vu7p_32.dcp</span></code> should appear in our working directory, let’s open it in Vivado to examine what we have created.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado slr_crosser_vu7p_32.dcp
 </pre></div>
 </div>
-<p>Once open, the device view (<code class="docutils literal"><span class="pre">Window-&gt;Device</span></code>) should look something like this:</p>
+<p>Once open, the device view (<code class="docutils literal notranslate"><span class="pre">Window-&gt;Device</span></code>) should look something like this:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/slr_bridge.png"><img alt="_images/slr_bridge.png" class="align-center" src="_images/slr_bridge.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>We can also add a timing constraint to test the pre-implemented performance of the bridge with the following Tcl commands:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">create_clock</span> <span class="o">-</span>name clk <span class="o">-</span>period <span class="mf">1.333</span> <span class="k">[</span><span class="nv">get_nets</span> clk<span class="k">]</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_clock</span> <span class="o">-</span>name clk <span class="o">-</span>period <span class="mf">1.333</span> <span class="k">[</span><span class="nv">get_nets</span> clk<span class="k">]</span>
 <span class="nv">report_timing_summary</span> <span class="o">-</span>delay_type min_max <span class="o">-</span>report_unconstrained <span class="o">-</span>check_timing_verbose <span class="o">-</span>max_paths <span class="mi">10</span> <span class="o">-</span>input_pins <span class="o">-</span>routable_nets <span class="o">-</span>name timing_1
 </pre></div>
 </div>
 <p>We have specified a 750MHz clock constraint (1.333 ns period) and the timing report should show postive slack for both setup and hold.  Close this design in Vivado once you are done (don’t save your changes):</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">close_design</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">close_design</span>
 </pre></div>
 </div>
 </div>
@@ -297,38 +299,38 @@ Option                                   Description
 <h3>Combining the Designs<a class="headerlink" href="#combining-the-designs" title="Permalink to this headline">¶</a></h3>
 <p>Now that we know we have a correct bridge, we start on our main design.  To do so, we have provided a synthesized version of our TDM circuit where N=32. To open it:</p>
 <ol class="arabic simple">
-<li>Download <a class="reference download internal" href="_downloads/synth32_BB.dcp" download=""><code class="xref download docutils literal"><span class="pre">synth32_BB.dcp</span></code></a> into your <code class="docutils literal"><span class="pre">bridge_tutorial</span></code> directory</li>
-<li>Open it in Vivado using the Tcl command:</li>
+<li><p>Download <a class="reference download internal" download="" href="_downloads/6bb152cbcb2bf16aff721c639c0008ca/synth32_BB.dcp"><code class="xref download docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
+<li><p>Open it in Vivado using the Tcl command:</p></li>
 </ol>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span> synth32_BB.dcp
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span> synth32_BB.dcp
 </pre></div>
 </div>
-<p>Look at the Vivado netlist view of the <code class="docutils literal"><span class="pre">synth32_BB.dcp</span></code> design. The SLR Bridge (<code class="docutils literal"><span class="pre">crossing</span></code> instance) has been left open as a black box to be populated with our RapidWright bridge implementation, see the screenshot below for reference:</p>
+<p>Look at the Vivado netlist view of the <code class="docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code> design. The SLR Bridge (<code class="docutils literal notranslate"><span class="pre">crossing</span></code> instance) has been left open as a black box to be populated with our RapidWright bridge implementation, see the screenshot below for reference:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/slr_bb.png"><img alt="_images/slr_bb.png" class="align-center" src="_images/slr_bb.png" style="width: 350px;" /></a>
 </div></blockquote>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">For ease of use of this tutorial, we have provided a synthesized circuit with a black box.  However, in common practice, the generated DCP from RapidWright can simply be instantiated in Verilog/VHDL directly and the DCP added to the sources of the project.</p>
+<p class="admonition-title">Note</p>
+<p>For ease of use of this tutorial, we have provided a synthesized circuit with a black box.  However, in common practice, the generated DCP from RapidWright can simply be instantiated in Verilog/VHDL directly and the DCP added to the sources of the project.</p>
 </div>
-<p>To import our SLR bridge, we will use the <code class="docutils literal"><span class="pre">read_checkpoint</span></code> command at the Tcl prompt:</p>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nv">read_checkpoint</span> <span class="o">-</span>cell crossing slr_crosser_vu7p_32.dcp
+<p>To import our SLR bridge, we will use the <code class="docutils literal notranslate"><span class="pre">read_checkpoint</span></code> command at the Tcl prompt:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">read_checkpoint</span> <span class="o">-</span>cell crossing slr_crosser_vu7p_32.dcp
 </pre></div>
 </div>
-<p>Note that the netlist icon next to <code class="docutils literal"><span class="pre">crossing</span></code> should change from dark to white.  The black box has now been populated with our custom SLR bridge implementation we just created in RapidWright.</p>
+<p>Note that the netlist icon next to <code class="docutils literal notranslate"><span class="pre">crossing</span></code> should change from dark to white.  The black box has now been populated with our custom SLR bridge implementation we just created in RapidWright.</p>
 </div>
 <div class="section" id="implementation">
 <h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h3>
 <p>We can now proceed to constrain the design and run place and route by running the following script:</p>
 <ol class="arabic simple">
-<li>Download <a class="reference download internal" href="_downloads/run_PnR.tcl" download=""><code class="xref download docutils literal"><span class="pre">run_PnR.tcl</span></code></a> to your <code class="docutils literal"><span class="pre">bridge_tutorial</span></code> directory</li>
-<li>Run the Tcl command:</li>
+<li><p>Download <a class="reference download internal" download="" href="_downloads/6b6c1701f8f539fd026a12129c1362e7/run_PnR.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_PnR.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
+<li><p>Run the Tcl command:</p></li>
 </ol>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nb">source</span> run_PnR.tcl
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> run_PnR.tcl
 </pre></div>
 </div>
 <p>Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Add pblocks</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add pblocks</span>
 <span class="n">create_pblock</span> <span class="n">pblock_top</span>
 <span class="n">add_cells_to_pblock</span> <span class="n">pblock_top</span> <span class="p">[</span><span class="n">get_cells</span> <span class="p">[</span><span class="nb">list</span> <span class="n">T_top</span><span class="p">]]</span> <span class="o">-</span><span class="n">clear_locs</span>
 <span class="n">resize_pblock</span> <span class="p">[</span><span class="n">get_pblocks</span> <span class="n">pblock_top</span><span class="p">]</span> <span class="o">-</span><span class="n">add</span> <span class="p">{</span><span class="n">CLOCKREGION_X5Y5</span><span class="p">:</span><span class="n">CLOCKREGION_X5Y5</span><span class="p">}</span>
@@ -341,20 +343,20 @@ Option                                   Description
 <span class="n">write_checkpoint</span> <span class="o">-</span><span class="n">force</span> <span class="n">routed_32</span><span class="o">.</span><span class="n">dcp</span>
 </pre></div>
 </div>
-<p>This can take several minutes (up to 30 minutes inside the tutorial virtual machine).  For those wishing to skip ahead, we have provided our own implementation of the results of the above Tcl commands here: <a class="reference download internal" href="_downloads/routed_32.dcp" download=""><code class="xref download docutils literal"><span class="pre">routed_32.dcp</span></code></a>.  In the Device model view, our implementation looks like this:</p>
+<p>This can take several minutes (up to 30 minutes inside the tutorial virtual machine).  For those wishing to skip ahead, we have provided our own implementation of the results of the above Tcl commands here: <a class="reference download internal" download="" href="_downloads/705e4436fffd38abeec119f6156d4dd5/routed_32.dcp"><code class="xref download docutils literal notranslate"><span class="pre">routed_32.dcp</span></code></a>.  In the Device model view, our implementation looks like this:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/slr_routed.png"><img alt="_images/slr_routed.png" class="align-center" src="_images/slr_routed.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>For additional analysis of timing reports can be performed on the specific paths crossing the SLR and leading up to it by:</p>
 <ol class="arabic simple">
-<li>Downloading <a class="reference download internal" href="_downloads/run_timing.tcl" download=""><code class="xref download docutils literal"><span class="pre">run_timing.tcl</span></code></a> to your <code class="docutils literal"><span class="pre">bridge_tutorial</span></code> directory</li>
-<li>Running the Tcl command:</li>
+<li><p>Downloading <a class="reference download internal" download="" href="_downloads/e01ea89492476a91a6f9ec34a0d1fbf1/run_timing.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_timing.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
+<li><p>Running the Tcl command:</p></li>
 </ol>
-<div class="highlight-tcl"><div class="highlight"><pre><span></span><span class="nb">source</span> run_timing.tcl
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> run_timing.tcl
 </pre></div>
 </div>
 <p>Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># report to GUI</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># report to GUI</span>
 <span class="n">report_timing_summary</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">report_unconstrained</span> <span class="o">-</span><span class="n">check_timing_verbose</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">routable_nets</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_all</span>
 <span class="n">report_timing</span> <span class="o">-</span><span class="kn">from</span> <span class="p">{</span><span class="o">*/</span><span class="n">input0_north_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_North</span>
 <span class="n">report_timing</span> <span class="o">-</span><span class="kn">from</span> <span class="p">{</span><span class="o">*/</span><span class="n">output0_north_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_North_after</span>
@@ -364,7 +366,7 @@ Option                                   Description
 <span class="n">report_timing</span> <span class="o">-</span><span class="n">to</span> <span class="p">{</span><span class="o">*/</span><span class="n">input0_south_reg</span><span class="o">*</span><span class="p">}</span> <span class="o">-</span><span class="n">delay_type</span> <span class="n">min_max</span> <span class="o">-</span><span class="n">max_paths</span> <span class="mi">10</span> <span class="o">-</span><span class="n">sort_by</span> <span class="n">group</span> <span class="o">-</span><span class="n">input_pins</span> <span class="o">-</span><span class="n">name</span> <span class="n">timing_South_before</span>
 </pre></div>
 </div>
-<p>This will produce several tabs in the <code class="docutils literal"><span class="pre">Timing</span></code> window tab as shown below:</p>
+<p>This will produce several tabs in the <code class="docutils literal notranslate"><span class="pre">Timing</span></code> window tab as shown below:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/slr_timing.png"><img alt="_images/slr_timing.png" class="align-center" src="_images/slr_timing.png" style="width: 750px;" /></a>
 </div></blockquote>
@@ -397,7 +399,7 @@ Option                                   Description
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -419,7 +421,7 @@ Option                                   Description
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -430,6 +432,7 @@ Option                                   Description
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 

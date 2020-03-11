@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright Jupyter Notebook Kernel Setup &mdash; RapidWright 2019.2.0-beta documentation</title>
+  <title>RapidWright Jupyter Notebook Kernel Setup &mdash; RapidWright 2019.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2019.2.0
+                2019.2.1
               </div>
             
           
@@ -209,43 +209,43 @@
 <div class="section" id="pre-requisites">
 <h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>RapidWright 2018.3.0 or above</li>
-<li><a class="reference external" href="https://www.python.org">Python</a> and <a class="reference external" href="https://jupyter.org/index.html">Jupyter Notebook</a>, see <a class="reference external" href="https://jupyter.org/install.html">installation details here</a>.</li>
-<li>A web browser</li>
+<li><p>RapidWright 2018.3.0 or above</p></li>
+<li><p><a class="reference external" href="https://www.python.org">Python</a> and <a class="reference external" href="https://jupyter.org/index.html">Jupyter Notebook</a>, see <a class="reference external" href="https://jupyter.org/install.html">installation details here</a>.</p></li>
+<li><p>A web browser</p></li>
 </ol>
 </div>
 <div class="section" id="step-by-step-instructions">
 <h2>Step-by-Step Instructions<a class="headerlink" href="#step-by-step-instructions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Make sure Python and Jupyter Notebook is installed following the <a class="reference external" href="https://jupyter.org/index.html">directions provided by project Jupyter</a>.</li>
-<li>If running RapidWright from the standalone jar, run:</li>
+<li><p>Make sure Python and Jupyter Notebook is installed following the <a class="reference external" href="https://jupyter.org/index.html">directions provided by project Jupyter</a>.</p></li>
+<li><p>If running RapidWright from the standalone jar, run:</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java -jar rapidwright-2018.3.0-standalone-win64.jar --create_jupyter_kernel
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java -jar rapidwright-2018.3.0-standalone-win64.jar --create_jupyter_kernel
 </pre></div>
 </div>
 <p>for all other installs run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.RapidWright --create_jupyter_kernel
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.RapidWright --create_jupyter_kernel
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li>Install the Jython 2.7 kernel by running the following at the command line:</li>
+<li><p>Install the Jython 2.7 kernel by running the following at the command line:</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter kernelspec install &lt;path_to_kernel_file_dir&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter kernelspec install &lt;path_to_kernel_file_dir&gt;
 </pre></div>
 </div>
 <p>Two other useful commands if you make a mistake and need to undo is:</p>
 <p>To list all the installed kernels, run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter kernelspec list
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter kernelspec list
 </pre></div>
 </div>
 <p>To remove an installed kernel by name (obtained from list command), run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter kernelspec uninstall &lt;kernel_name&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter kernelspec uninstall &lt;kernel_name&gt;
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
-<li>Run the jupyter notebook server by running:</li>
+<li><p>Run the jupyter notebook server by running:</p></li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>jupyter notebook
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter notebook
 </pre></div>
 </div>
 <p>The console output should look similar to the image below.</p>
@@ -253,35 +253,35 @@
 <p>If the Jupyter Notebook directory page does not open automatically (example in screen capture below), copy and paste the provided URL into your browser (example URL highlighted in the image above).</p>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_start.png"><img alt="_images/jupyter_notebook_start.png" class="align-center" src="_images/jupyter_notebook_start.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="5">
-<li>Create a new notebook by clicking on the new button and selecting ‘Jython 2.7’ from the drop down menu as shown in the screenshot below:</li>
+<li><p>Create a new notebook by clicking on the new button and selecting ‘Jython 2.7’ from the drop down menu as shown in the screenshot below:</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_new.png"><img alt="_images/jupyter_notebook_new.png" class="align-center" src="_images/jupyter_notebook_new.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="6">
-<li>In the new notebook, you’ll see a long rectangular box where you can enter code.  This is called a cell.</li>
+<li><p>In the new notebook, you’ll see a long rectangular box where you can enter code.  This is called a cell.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_0.png"><img alt="_images/jupyter_notebook_0.png" class="align-center" src="_images/jupyter_notebook_0.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="7">
-<li>To get started, try entering some import commands as shown in the screenshot below.  You can then click on the “Run” button to run the code from the cell in the kernel.</li>
+<li><p>To get started, try entering some import commands as shown in the screenshot below.  You can then click on the “Run” button to run the code from the cell in the kernel.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_1.png"><img alt="_images/jupyter_notebook_1.png" class="align-center" src="_images/jupyter_notebook_1.png" style="width: 550px;" /></a>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">com.xilinx.rapidwright.device</span> <span class="kn">import</span> <span class="n">Device</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">com.xilinx.rapidwright.device</span> <span class="kn">import</span> <span class="n">Device</span>
 <span class="kn">from</span> <span class="nn">com.xilinx.rapidwright.design</span> <span class="kn">import</span> <span class="n">Design</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="8">
-<li>The results from executed commands persist from one cell to the next as long as the Jython kernel stays alive and will maintain all state variables.  The “Run” button also creates a new cell below the last one executed.  Now that we have imported some RapidWright libraries, we can use tab completion to see inside objects their visible methods and members.</li>
+<li><p>The results from executed commands persist from one cell to the next as long as the Jython kernel stays alive and will maintain all state variables.  The “Run” button also creates a new cell below the last one executed.  Now that we have imported some RapidWright libraries, we can use tab completion to see inside objects their visible methods and members.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_2.png"><img alt="_images/jupyter_notebook_2.png" class="align-center" src="_images/jupyter_notebook_2.png" style="width: 550px;" /></a>
 <ol class="arabic simple" start="10">
-<li>For a quick example, we can create an empty design and write out a design checkpoint.  Another way to execute a cell is with the keyboard shortcut CTRL+ENTER.</li>
+<li><p>For a quick example, we can create an empty design and write out a design checkpoint.  Another way to execute a cell is with the keyboard shortcut CTRL+ENTER.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_3.png"><img alt="_images/jupyter_notebook_3.png" class="align-center" src="_images/jupyter_notebook_3.png" style="width: 550px;" /></a>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="p">(</span><span class="s2">&quot;HelloWorld&quot;</span><span class="p">,</span><span class="n">Device</span><span class="o">.</span><span class="n">AWS_F1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="p">(</span><span class="s2">&quot;HelloWorld&quot;</span><span class="p">,</span><span class="n">Device</span><span class="o">.</span><span class="n">AWS_F1</span><span class="p">)</span>
 <span class="n">design</span><span class="o">.</span><span class="n">writeCheckpoint</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.dcp&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="11">
-<li>By going back to the Jupyter Dashboard (click on the Jupyter logo at the top left of the page), we can find the recently created DCP and select it for download.</li>
+<li><p>By going back to the Jupyter Dashboard (click on the Jupyter logo at the top left of the page), we can find the recently created DCP and select it for download.</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/jupyter_notebook_4.png"><img alt="_images/jupyter_notebook_4.png" class="align-center" src="_images/jupyter_notebook_4.png" style="width: 550px;" /></a>
 <p>Using Jupyter Notebooks is still a new technology, but will allow for easy demonstration of coding examples and techniques to use RapidWright.  We hope to leverage its infrastructure significantly in the coming future.</p>
@@ -308,7 +308,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2019, Xilinx, Inc.
+        &copy; Copyright 2018-2020, Xilinx, Inc.
 
     </p>
   </div>
@@ -330,7 +330,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2019.2.0-beta',
+            VERSION:'2019.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -341,6 +341,7 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
       <script type="text/javascript" src="_static/copybutton.js"></script>
 
