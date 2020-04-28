@@ -109,6 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
@@ -119,7 +120,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#what-languages-does-rapidwright-support-and-how-do-i-interact-with-them">What languages does RapidWright support, and how do I interact with them?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-is-the-framework-called-rapidwright">Why is the framework called RapidWright?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#can-rapidwright-generate-bitstreams">Can RapidWright generate bitstreams?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#does-rapidwright-have-device-timing-information">Does RapidWright have device timing information?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#does-rapidwright-provide-device-timing-information">Does RapidWright provide device timing information?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#does-rapidwright-support-partial-reconfiguration-pr">Does RapidWright support partial reconfiguration (PR)?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#is-there-any-published-work-on-rapidwright">Is there any published work on RapidWright?</a></li>
 </ul>
@@ -230,9 +231,9 @@
 <h2>Can RapidWright generate bitstreams?<a class="headerlink" href="#can-rapidwright-generate-bitstreams" title="Permalink to this headline">¶</a></h2>
 <p>No. There is currently no bitstream information in RapidWright.  Any designs will need to be put back into Vivado for DRC and bitstream generation.</p>
 </div>
-<div class="section" id="does-rapidwright-have-device-timing-information">
-<h2>Does RapidWright have device timing information?<a class="headerlink" href="#does-rapidwright-have-device-timing-information" title="Permalink to this headline">¶</a></h2>
-<p>No.  Currently, there is no timing information provided in RapidWright.  To run timing, use the <code class="docutils literal notranslate"><span class="pre">Design.writeCheckpoint()</span></code> command and load the design in Vivado to report timing.</p>
+<div class="section" id="does-rapidwright-provide-device-timing-information">
+<h2>Does RapidWright provide device timing information?<a class="headerlink" href="#does-rapidwright-provide-device-timing-information" title="Permalink to this headline">¶</a></h2>
+<p>RapidWright now includes a lightweight timing model for UltraScale+ devices (see <a class="reference internal" href="ReportTimingExample.html#rapidwright-report-timing-example"><span class="std std-ref">RapidWright Report Timing Example</span></a>).  For other devices, timing results can be obtained by exporting a design using the <code class="docutils literal notranslate"><span class="pre">Design.writeCheckpoint()</span></code> command and loading the design in Vivado to report timing.</p>
 </div>
 <div class="section" id="does-rapidwright-support-partial-reconfiguration-pr">
 <h2>Does RapidWright support partial reconfiguration (PR)?<a class="headerlink" href="#does-rapidwright-support-partial-reconfiguration-pr" title="Permalink to this headline">¶</a></h2>
@@ -240,7 +241,7 @@
 </div>
 <div class="section" id="is-there-any-published-work-on-rapidwright">
 <h2>Is there any published work on RapidWright?<a class="headerlink" href="#is-there-any-published-work-on-rapidwright" title="Permalink to this headline">¶</a></h2>
-<p>Yes, we had a paper at <a class="reference external" href="http://fccm.org/2018/program.html#program">FCCM 2018</a> (The 26th IEEE International Symposium on Field-Programmable Custom Computing Machines).  A preprint copy of the paper is available here: <a class="reference download internal" download="" href="_downloads/ba6c3a2f111b835c0e91e90884c0d55e/FCCM18-RapidWright.pdf"><code class="xref download docutils literal notranslate"><span class="pre">FCCM18-RapidWright.pdf</span></code></a>. The presentation slides are avilable here: <a class="reference download internal" download="" href="_downloads/080a2440b10bc05dfc71f5fa36addd65/FCCM18-RapidWright-Presentation.pdf"><code class="xref download docutils literal notranslate"><span class="pre">FCCM18-RapidWright-Presentation.pdf</span></code></a>.</p>
+<p>Yes, we had a paper at <a class="reference external" href="http://fccm.org/2018/program.html#program">FCCM 2018</a> (The 26th IEEE International Symposium on Field-Programmable Custom Computing Machines).  A preprint copy of the paper is available here: <a class="reference download internal" download="" href="_downloads/89ed843db836423844cc0e61fc34fd1d/FCCM18-RapidWright.pdf"><code class="xref download docutils literal notranslate"><span class="pre">FCCM18-RapidWright.pdf</span></code></a>. The presentation slides are avilable here: <a class="reference download internal" download="" href="_downloads/d119c510997f905ae5a8ab6c944d9aad/FCCM18-RapidWright-Presentation.pdf"><code class="xref download docutils literal notranslate"><span class="pre">FCCM18-RapidWright-Presentation.pdf</span></code></a>.</p>
 </div>
 </div>
 

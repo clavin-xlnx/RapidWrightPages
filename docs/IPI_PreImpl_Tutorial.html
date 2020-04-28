@@ -109,6 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
@@ -237,7 +238,7 @@ instantiate_example_design -design base_mb base_mb
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>An XDC (Xilinx Design Constraints) file will be required for this design.  Please download <a class="reference download internal" download="" href="_downloads/59b76fac5fc8fc23b7f3cede155e07fe/base_mb.xdc"><code class="xref download docutils literal notranslate"><span class="pre">base_mb.xdc</span></code></a> amd put it into the root of your project directory (<code class="docutils literal notranslate"><span class="pre">[pwd]/testBlockStitcher</span></code>). The XDC file is required for the RapidWright flow because IP Integrator and the OOC flow may not communicate all necessary information and the RapidWright block stitcher will need to instantiate most of the IOBs automatically.</p></li>
+<li><p>An XDC (Xilinx Design Constraints) file will be required for this design.  Please download <a class="reference download internal" download="" href="_downloads/c0215185a05fbba7a92f62d3a763a33d/base_mb.xdc"><code class="xref download docutils literal notranslate"><span class="pre">base_mb.xdc</span></code></a> amd put it into the root of your project directory (<code class="docutils literal notranslate"><span class="pre">[pwd]/testBlockStitcher</span></code>). The XDC file is required for the RapidWright flow because IP Integrator and the OOC flow may not communicate all necessary information and the RapidWright block stitcher will need to instantiate most of the IOBs automatically.</p></li>
 <li><p>To run the RapidWright pre-implemented block flow, you will need to source rapidwright.tcl, add the XDC from above to the project and run the flow with the following Tcl commands:</p></li>
 </ol>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span>cd [pwd]/testBlockStitcher

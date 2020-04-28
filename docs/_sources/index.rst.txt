@@ -16,6 +16,7 @@ RapidWright Documentation
    RapidWright_Overview
    Design_Checkpoints
    Implementation_Basics
+   Papers
    PreImplemented_Module_Flow
    Tutorials
    Tech_Articles
