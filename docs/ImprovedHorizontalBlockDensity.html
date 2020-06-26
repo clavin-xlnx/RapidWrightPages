@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Improved Horizontal Block Density &mdash; RapidWright 2019.2.2-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2019.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Improved Horizontal Block Density</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ImprovedHorizontalBlockDensity.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="improved-horizontal-block-density">
+<h1><a class="toc-backref" href="#id1">Improved Horizontal Block Density</a><a class="headerlink" href="#improved-horizontal-block-density" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#improved-horizontal-block-density" id="id1">Improved Horizontal Block Density</a></p>
+<ul>
+<li><p><a class="reference internal" href="#when-to-use-the-algorithm" id="id2">When to use the algorithm?</a></p></li>
+<li><p><a class="reference internal" href="#what-are-the-additional-features" id="id3">What are the additional features?</a></p></li>
+<li><p><a class="reference internal" href="#how-to-use-it" id="id4">How to use it?</a></p></li>
+<li><p><a class="reference internal" href="#how-is-it-implemented" id="id5">How is it implemented?</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This page aims to describe the algorithm for increasing horizontal
+block density during placement. It first motivates the need for such
+an algorithm and then describes implementation details.</p>
+<div class="section" id="when-to-use-the-algorithm">
+<h2><a class="toc-backref" href="#id2">When to use the algorithm?</a><a class="headerlink" href="#when-to-use-the-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>The horizontal block density algorithm is not always needed but can be
+useful in designs with high utilization. If the block design has many
+IP instances which would use most of the device resources, then such
+an algorithm to spread the modules across the design is beneficial.</p>
+<p>Additionally, the algorithm was developed with the rapid prototyping
+flow in mind. It is meant to improve quality of results when the flow is
+automated (no user-provided pblocks or input).</p>
+<p>The images below contrast the impact of this algorithm before (left) and
+after (right) its application.</p>
+<p><a class="reference internal" href="_images/without_horiz.png"><img alt="pic1" class="align-middle" src="_images/without_horiz.png" style="width: 300px;" /></a>         <a class="reference internal" href="_images/with_horiz.png"><img alt="pic2" class="align-middle" src="_images/with_horiz.png" style="width: 300px;" /></a></p>
+</div>
+<div class="section" id="what-are-the-additional-features">
+<h2><a class="toc-backref" href="#id3">What are the additional features?</a><a class="headerlink" href="#what-are-the-additional-features" title="Permalink to this headline">¶</a></h2>
+<p>At the beginning of the RapidWright flow, each module is assigned a
+pblock. This step has a significant impact on the quality of the full
+design placement. During block placement, the pre-implemented modules
+are placed using a simulated annealing algorithm, essentially, they are
+moved around continuously on the device to find the placement
+with the minimum wire length. However, this process of “moving around”
+the pre-implemented modules is not as trivial as it sounds. The moved
+module expects the same resources on the new position. Thus, a module
+cannot be moved anywhere on the device. If many modules have pblocks
+on the same device columns, they will likely be placed on the same
+columns during placement. Consequently, some device columns become
+crowded, while others are not occupied at all. The goal of the
+“Horizontal Block Density” algorithm is to avoid this scenario.</p>
+<p>To explain in greater detail the aspects of this algorithm, we should
+first consider the original algorithm. When RapidWright chooses pblock
+constraints for a module, it first checks its resource
+requirements. It then selects a <a class="reference internal" href="Glossary.html#term-tile-pattern"><span class="xref std std-term">Tile Pattern</span></a> that fulfills
+these requirements. Usually the structure of a device is not uniform,
+meaning that some tile patterns appear more often than others. If we place
+our pblock on a tile pattern that repeats often on the device, it will be
+easier to move it around during placement. RapidWright takes this into
+account when selecting a tile pattern for a module. However, if many
+modules use the same resource types, it is highly probable that they
+will use the same patterns. Thus, some tile columns will be used by many
+modules, while others will have a lower usage.</p>
+<p>The new algorithm checks which patterns are already used by other
+modules and tries to place the new one on free resources. Each time a
+module is assigned a pblock, these constraints are written in a
+file. Because tile patterns can repeat, all the corresponding columns are
+written, not only the first occurrence of the pattern. Additionally,
+the number of IP instances is appended. This is important in order to
+be able to estimate how many resources are left free for a certain
+pattern. When a new module is processed, it first reads this
+constraints file. Afterwards, it selects the most frequent pattern
+with the freest resources.</p>
+</div>
+<div class="section" id="how-to-use-it">
+<h2><a class="toc-backref" href="#id4">How to use it?</a><a class="headerlink" href="#how-to-use-it" title="Permalink to this headline">¶</a></h2>
+<p>If an environment variable called <code class="docutils literal notranslate"><span class="pre">GLOBAL_PBLOCK</span></code> is set, the
+algorithm considers that the user wants to use the horizontal block
+density algorithm. Thus, by setting this variable, the new algorithm
+is employed automatically. As the name suggests, this variable will
+point to a file where all the pblock constraints will be written. If
+you want to instruct the algorithm to avoid certain columns, you can
+insert in the file some pblocks using those patterns. Otherwise, it
+can simply be an empty file. Removing this variable disables the
+algorithm.</p>
+</div>
+<div class="section" id="how-is-it-implemented">
+<h2><a class="toc-backref" href="#id5">How is it implemented?</a><a class="headerlink" href="#how-is-it-implemented" title="Permalink to this headline">¶</a></h2>
+<p>In order to accomplish the desired functionality, the following
+methods were added:</p>
+<p><code class="docutils literal notranslate"><span class="pre">getAlreadyGenPBlocks()</span></code> - This method simply reads the already
+existent pblock constraints (used by other modules) and stores them in
+a map.</p>
+<p><code class="docutils literal notranslate"><span class="pre">createAllPBlocks()</span></code> - This method creates a map having all
+occurrences of a given pattern, not only the first one. This is useful
+in order to compute correctly the free resources for a given
+pattern. It returns a map with all possible pblocks for a certain
+pattern.</p>
+<p><code class="docutils literal notranslate"><span class="pre">checkFreeResources()</span></code> - This method takes as input one pblock
+(multiple if pattern repeats) and checks whether this is already used
+by other IPs and how many free resources (= rows) are left.</p>
+<p><code class="docutils literal notranslate"><span class="pre">getSitePBlock()</span></code> - This was added to support 7 series devices when
+selecting a Site. The site is selected based on device, tile type &amp;
+whether it is the left or the right margin of the pblock</p>
+<p>The core of the algorithm is inside the <code class="docutils literal notranslate"><span class="pre">generatePBlockFromReport()</span></code>
+method. The flow in the beginning, computing feasible patterns
+(=enough resources), is the same. After that, a variable called
+<code class="docutils literal notranslate"><span class="pre">doHorizDens()</span></code> checks if horizontal density algorithm is desired or
+not. If yes, it goes through the algorithm and then returns to the
+caller method. If this is not the case, it simply continues running
+the original flow. The new algorithm first reads the global
+constraints file and creates a map with already used patterns
+(<code class="docutils literal notranslate"><span class="pre">getAlreadyGenPBlocks()</span></code> method). It actually creates more maps,
+for the left, right, upper and lower pblock margins. It then generates
+an ordered map called <code class="docutils literal notranslate"><span class="pre">storeBestPattern()</span></code>, which stores the feasible
+patterns depending on the number of free resources. In order to
+compute free resources for a given patter, the <code class="docutils literal notranslate"><span class="pre">createAllPBlocks()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">checkFreeResources()</span></code> are used. The flow then goes through the
+<code class="docutils literal notranslate"><span class="pre">storeBestPattern()</span></code> ordered map and creates the pblock constraints
+(only the amount requested by the user).</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2020, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2019.2.2-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

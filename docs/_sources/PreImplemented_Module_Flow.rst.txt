@@ -145,6 +145,9 @@ One of the techniques used by the PBlockGenerator is to identify the most common
 
 Expectations for performance should be muted as the prioritization for the pblock generator is to produce a pblock that won't cause place and route to fail and lacks knowledge of the particular context of the design where the block may be destined.  For this purpose, it is highly recommended that any performance critical block or design use the implementation guide file as a way to better optimize the pblock for a particular application.
 
+Additional research and development work has been made by providing an
+improved horizontal block density algorithm described in :ref:`Improved Horizontal Block Density`.
+
 Block Placer
 ==============
 The Block Placer (found in the class ``BlockPlacer2`` of the package ``placer.blockplacer``), uses a simple simulated annealing schedule to place the blocks on to the fabric.  The cost function is a function of total wire length between blocks.  Again, like the pblock generator, the block placer attempts to produce valid results, with less emphasis on performance. 

@@ -19,3 +19,6 @@ Glossary
 		
 	Shell
 		A static FPGA design that provides a common interface to off-chip resources (DDR, PCIe,...) intended for multiple applications.
+
+	Tile Pattern
+	        A sequence of tile types. For example, the 7 series device family have four types of CLB tiles (CLBLL_L, CLBLL_R, CLBM_R, CLBM_L). A PBlock can cover several tile columns, thus spaning several heterogeneous tile types. If the logic implemented within the pblock is relocated on the device, it must use the same tile pattern, meaning sequence of CLB tile types must match.

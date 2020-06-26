@@ -1,0 +1,135 @@
+===================================
+Improved Horizontal Block Density
+===================================
+.. contents:: Table of Contents
+   :depth: 2
+
+This page aims to describe the algorithm for increasing horizontal
+block density during placement. It first motivates the need for such
+an algorithm and then describes implementation details.
+
+
+When to use the algorithm?
+=========================== 
+
+The horizontal block density algorithm is not always needed but can be
+useful in designs with high utilization. If the block design has many
+IP instances which would use most of the device resources, then such
+an algorithm to spread the modules across the design is beneficial.
+
+Additionally, the algorithm was developed with the rapid prototyping
+flow in mind. It is meant to improve quality of results when the flow is
+automated (no user-provided pblocks or input).
+
+The images below contrast the impact of this algorithm before (left) and
+after (right) its application.
+
+
+|pic1|         |pic2|
+
+.. |pic1| image:: images/without_horiz.png
+	:width: 300px
+	:align: middle
+
+.. |pic2| image:: images/with_horiz.png
+	:width: 300px
+	:align: middle
+
+What are the additional features?
+===================================
+
+At the beginning of the RapidWright flow, each module is assigned a
+pblock. This step has a significant impact on the quality of the full
+design placement. During block placement, the pre-implemented modules
+are placed using a simulated annealing algorithm, essentially, they are
+moved around continuously on the device to find the placement
+with the minimum wire length. However, this process of "moving around"
+the pre-implemented modules is not as trivial as it sounds. The moved
+module expects the same resources on the new position. Thus, a module
+cannot be moved anywhere on the device. If many modules have pblocks
+on the same device columns, they will likely be placed on the same
+columns during placement. Consequently, some device columns become
+crowded, while others are not occupied at all. The goal of the
+"Horizontal Block Density" algorithm is to avoid this scenario.
+
+To explain in greater detail the aspects of this algorithm, we should
+first consider the original algorithm. When RapidWright chooses pblock
+constraints for a module, it first checks its resource
+requirements. It then selects a :term:`Tile Pattern` that fulfills
+these requirements. Usually the structure of a device is not uniform,
+meaning that some tile patterns appear more often than others. If we place
+our pblock on a tile pattern that repeats often on the device, it will be
+easier to move it around during placement. RapidWright takes this into
+account when selecting a tile pattern for a module. However, if many
+modules use the same resource types, it is highly probable that they
+will use the same patterns. Thus, some tile columns will be used by many
+modules, while others will have a lower usage.
+
+The new algorithm checks which patterns are already used by other
+modules and tries to place the new one on free resources. Each time a
+module is assigned a pblock, these constraints are written in a
+file. Because tile patterns can repeat, all the corresponding columns are
+written, not only the first occurrence of the pattern. Additionally,
+the number of IP instances is appended. This is important in order to
+be able to estimate how many resources are left free for a certain
+pattern. When a new module is processed, it first reads this
+constraints file. Afterwards, it selects the most frequent pattern
+with the freest resources.
+
+
+How to use it?
+===============
+
+If an environment variable called ``GLOBAL_PBLOCK`` is set, the
+algorithm considers that the user wants to use the horizontal block
+density algorithm. Thus, by setting this variable, the new algorithm
+is employed automatically. As the name suggests, this variable will
+point to a file where all the pblock constraints will be written. If
+you want to instruct the algorithm to avoid certain columns, you can
+insert in the file some pblocks using those patterns. Otherwise, it
+can simply be an empty file. Removing this variable disables the
+algorithm.
+
+
+How is it implemented?
+======================= 
+
+In order to accomplish the desired functionality, the following
+methods were added:
+
+``getAlreadyGenPBlocks()`` - This method simply reads the already
+existent pblock constraints (used by other modules) and stores them in
+a map.
+
+``createAllPBlocks()`` - This method creates a map having all
+occurrences of a given pattern, not only the first one. This is useful
+in order to compute correctly the free resources for a given
+pattern. It returns a map with all possible pblocks for a certain
+pattern.
+
+``checkFreeResources()`` - This method takes as input one pblock
+(multiple if pattern repeats) and checks whether this is already used
+by other IPs and how many free resources (= rows) are left.
+
+``getSitePBlock()`` - This was added to support 7 series devices when
+selecting a Site. The site is selected based on device, tile type &
+whether it is the left or the right margin of the pblock
+
+The core of the algorithm is inside the ``generatePBlockFromReport()``
+method. The flow in the beginning, computing feasible patterns
+(=enough resources), is the same. After that, a variable called
+``doHorizDens()`` checks if horizontal density algorithm is desired or
+not. If yes, it goes through the algorithm and then returns to the
+caller method. If this is not the case, it simply continues running
+the original flow. The new algorithm first reads the global
+constraints file and creates a map with already used patterns
+(``getAlreadyGenPBlocks()`` method). It actually creates more maps,
+for the left, right, upper and lower pblock margins. It then generates
+an ordered map called ``storeBestPattern()``, which stores the feasible
+patterns depending on the number of free resources. In order to
+compute free resources for a given patter, the ``createAllPBlocks()``
+and ``checkFreeResources()`` are used. The flow then goes through the
+``storeBestPattern()`` ordered map and creates the pblock constraints
+(only the amount requested by the user).
+
+
