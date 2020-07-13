@@ -114,10 +114,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Build an IP Integrator Design with Pre-Implemented Blocks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#procedure">Procedure</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
@@ -210,69 +207,10 @@
             
   <div class="section" id="build-an-ip-integrator-design-with-pre-implemented-blocks">
 <h1>Build an IP Integrator Design with Pre-Implemented Blocks<a class="headerlink" href="#build-an-ip-integrator-design-with-pre-implemented-blocks" title="Permalink to this headline">¶</a></h1>
-<dl class="simple">
-<dt>What You’ll Need to Get Started:</dt><dd><ul class="simple">
-<li><p>Vivado 2018.2 or later</p></li>
-<li><p>RapidWright 2018.2.2 or later</p></li>
-</ul>
-</dd>
-</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial uses the Tcl script <code class="docutils literal notranslate"><span class="pre">rapidwright.tcl</span></code> found in RapidWright.  If you are using a standalone jar, you can extract the rapidwright.tcl (and other device/data) by running <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">&lt;standalone.jar&gt;</span> <span class="pre">--unpack_data</span></code> and setting the environment variable RAPIDWRIGHT_PATH to the standalone jar location.</p>
-</div>
-<p>This tutorial will provides an example design and execution of the rapid prototyping flow found on the page <a class="reference internal" href="PreImplemented_Module_Flow.html#a-pre-implemented-module-flow"><span class="std std-ref">A Pre-implemented Module Flow</span></a>.  It begins by creating an example MicroBlaze design in IP Integrator (IPI) and showing how RapidWright can pre-implement the blocks of the design, place them and route them.  This tutorial is just a demonstration example and is still under development.</p>
-<div class="section" id="procedure">
-<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple" start="0">
-<li><p>Before running Vivado, be sure to make sure that your CLASSPATH environment variable is set properly (see <a class="reference internal" href="Manual_Install.html#manual-install"><span class="std std-ref">Manual Install</span></a>, steps 4 and 5).  If using the standalone jar, just set CLASSPATH=&lt;path_to_standalone_jar&gt;.</p></li>
-<li><p>To generate an example placed and routed MicroBlaze design, run the following Tcl commands in your Vivado’s Tcl prompt:</p></li>
-</ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span>create_project project_1 [pwd]/testBlockStitcher -part xcku040-ffva1156-2-e
-set_property board_part [lindex [get_boards -filter NAME=~*kcu105*] end] [current_project]
-set_property target_language VHDL [current_project]
-create_bd_design &quot;base_mb&quot; -mode batch
-update_compile_order -fileset sources_1
-update_compile_order -fileset sim_1
-instantiate_example_design -design base_mb base_mb
-</pre></div>
-</div>
-<ol class="arabic simple" start="2">
-<li><p>An XDC (Xilinx Design Constraints) file will be required for this design.  Please download <a class="reference download internal" download="" href="_downloads/c0215185a05fbba7a92f62d3a763a33d/base_mb.xdc"><code class="xref download docutils literal notranslate"><span class="pre">base_mb.xdc</span></code></a> amd put it into the root of your project directory (<code class="docutils literal notranslate"><span class="pre">[pwd]/testBlockStitcher</span></code>). The XDC file is required for the RapidWright flow because IP Integrator and the OOC flow may not communicate all necessary information and the RapidWright block stitcher will need to instantiate most of the IOBs automatically.</p></li>
-<li><p>To run the RapidWright pre-implemented block flow, you will need to source rapidwright.tcl, add the XDC from above to the project and run the flow with the following Tcl commands:</p></li>
-</ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span>cd [pwd]/testBlockStitcher
-# Download base_mb.xdc into this directory
-add_files -fileset constrs_1 -norecurse [pwd]/base_mb.xdc
-source ${env(RAPIDWRIGHT_PATH)}/tcl/rapidwright.tcl
-rapid_compile_ipi
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have run this tutorial with previous versions of RapidWright, please backup your cache (if needed) run the RapidWright Tcl command <code class="docutils literal notranslate"><span class="pre">ultra_clear_cache</span></code> to reset the cache as some state in the cache is used differently.</p>
-</div>
-<p>This Tcl procedure will invoke Vivado to generate, synthesize, area constrain, place and route the various IPs out-of-context in the IPI design.  Unless you set the environment variable <code class="docutils literal notranslate"><span class="pre">IP_CACHE_PATH</span></code>, the IP and pre-implemented block cache defaults to <code class="docutils literal notranslate"><span class="pre">$HOME/blockCache</span></code>.  If the cache is empty, it will take several minutes to pre-implement each block.  However, this process will eventually conclude with the design being fully stitched together in the <code class="docutils literal notranslate"><span class="pre">BlockStitcher</span></code> class in RapidWright and ultimately produce a fully placed (partially routed) DCP (the RapidWright router could be used to route the inter-block connections, but has a few outstanding issues so it is currently disabled).</p>
-<ol class="arabic simple" start="4">
-<li><p>Once the pre-implemented block flow is complete, you can test its recompilation speed by re-running:</p></li>
-</ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">rapid_compile_ipi</span>
-</pre></div>
-</div>
-<p>This should complete in less than a minute.  Any connectivity changes to the design or adding blocks that have already been stored in the cache should always compile in less than a minute.</p>
-<ol class="arabic simple" start="5">
-<li><p>The stitched and placed RapidWright-produced DCP should be in the root directory of the project with the name <code class="docutils literal notranslate"><span class="pre">base_mb_placed.dcp</span></code>.  This design can then be opened in Vivado by running the Tcl command:</p></li>
-</ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span> .<span class="o">/</span>base_mb_placed.dcp
-</pre></div>
-</div>
-<ol class="arabic simple" start="6">
-<li><p>To finalize the implementation, <code class="docutils literal notranslate"><span class="pre">route_design</span></code> can be run to finish the design.</p></li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The automatic block placer and router in RapidWright are still under development and although they can run quickly, their quality still needs to be improved.  We recommend using the an implementation guide file (see <a class="reference internal" href="PreImplemented_Module_Flow.html#implementation-guide-file"><span class="std std-ref">Implementation Guide File</span></a>). An IGF file directs the flow on how the blocks/IPs should be pre-implemented by specifying pblocks for the IPs and placement locations for the instances.  The BlockStitcher will automatically generate an example IGF called <code class="docutils literal notranslate"><span class="pre">base_mb.igf.example</span></code> in root directory of the project.</p>
-</div>
+<p>This tutorial has been retired and efforts are being made to
+replace it replace/refresh it with a more stable example.</p>
 </div>
 </div>
 
