@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Call RapidWright from C/C++ Using GraalVM &mdash; RapidWright 2020.1.6-beta documentation</title>
+  <title>Call RapidWright from C/C++ Using GraalVM &mdash; RapidWright 2020.2.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2020.1.6
+                2020.2.0
               </div>
             
           
@@ -213,7 +213,7 @@
 </ul>
 </div></blockquote>
 <p>In this article, we’ll focus on that last feature which enables us to package up RapidWright as a shared object library with header files to be called by C/C++ applications.  To get started, we are going to target a Linux environment and use Bash commands for our example (GraalVM is still in the early stages for support in Windows).</p>
-<p>For the impatient, we have provided <a class="reference download internal" download="" href="_downloads/a2dab8b1663fa2a1d1d23ed7a123f102/GraalVMExample.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">an</span> <span class="pre">example</span> <span class="pre">tar</span> <span class="pre">ball</span></code></a> with example source code and Makefile to run the entire flow, just run these four commands:</p>
+<p>For the impatient, we have provided <a class="reference download internal" download="" href="_downloads/920a717501e0cb0d129a581fd9ad4e03/GraalVMExample.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">an</span> <span class="pre">example</span> <span class="pre">tar</span> <span class="pre">ball</span></code></a> with example source code and Makefile to run the entire flow, just run these four commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/GraalVMExample.tar.gz
 tar zxf GraalVMExample.tar.gz
 <span class="nb">cd</span> GraalVMExample
@@ -260,7 +260,7 @@ rm RapidWright/jars/<span class="o">{</span>jython-standalone-2.7.0,jupyter-kern
 <li><p>The first parameter must be an execution context (<a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/IsolateThread.html">IsolateThread</a> or <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/Isolate.html">Isolate</a>)</p></li>
 <li><p>All other parameters must be Java primitive values (int, long, char, …), C helper classes (<a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/type/CCharPointer.html">CCharPointer</a>, <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/index.html?org/graalvm/nativeimage/c/type/CIntPointer.html">CIntPointer</a>,…) or a Java enum annotated with <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/constant/CEnumValue.html">&#64;CEnumLookup</a></p></li>
 </ol>
-<p>Below is an example Java class <a class="reference download internal" download="" href="_downloads/0b34be6ea351c0c6a52dcd258910de29/RapidWrightAPI.java"><code class="xref download docutils literal notranslate"><span class="pre">RapidWrightAPI.java</span></code></a> that illustrates how these two Java APIs could be implemented to provide the C interface requirements while accessing RapidWright Java functionality. Note that this Java class will need to be compiled with GraalVM as it imports special features from its native-image library.</p>
+<p>Below is an example Java class <a class="reference download internal" download="" href="_downloads/7d82c621d0b815f4250ca7091bed963c/RapidWrightAPI.java"><code class="xref download docutils literal notranslate"><span class="pre">RapidWrightAPI.java</span></code></a> that illustrates how these two Java APIs could be implemented to provide the C interface requirements while accessing RapidWright Java functionality. Note that this Java class will need to be compiled with GraalVM as it imports special features from its native-image library.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">com.xilinx.rapidwright.examples</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.IsolateThread</span><span class="o">;</span>
@@ -308,7 +308,7 @@ native-image --no-server -cp <span class="nv">$CLASSPATH</span> --no-fallback --
 </div>
 <div class="section" id="testing-it-out">
 <h2>Testing it Out<a class="headerlink" href="#testing-it-out" title="Permalink to this headline">¶</a></h2>
-<p>Now for the fun part, we can create a C or C++ application that will make use of the new RapidWright APIs!  Here’s a <a class="reference download internal" download="" href="_downloads/96de5440b5faced837ff0d51786e894b/RapidWrightExample.cpp"><code class="xref download docutils literal notranslate"><span class="pre">small</span> <span class="pre">C++</span> <span class="pre">program</span></code></a> that prints out a grid of tile names for a given device:</p>
+<p>Now for the fun part, we can create a C or C++ application that will make use of the new RapidWright APIs!  Here’s a <a class="reference download internal" download="" href="_downloads/d1fbd451faec03995956936e97ab88ed/RapidWrightExample.cpp"><code class="xref download docutils literal notranslate"><span class="pre">small</span> <span class="pre">C++</span> <span class="pre">program</span></code></a> that prints out a grid of tile names for a given device:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 <span class="c1">// This is the header file created by native-image (Graal)</span>
 <span class="cp">#include</span> <span class="cpf">&lt;librapidwright.h&gt;</span><span class="cp"></span>
@@ -434,7 +434,7 @@ Tile<span class="o">[</span><span class="m">104</span>,104<span class="o">]</spa
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2020.1.6-beta',
+            VERSION:'2020.2.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

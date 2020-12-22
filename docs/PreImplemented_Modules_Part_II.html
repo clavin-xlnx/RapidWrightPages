@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pre-implemented Modules - Part II &mdash; RapidWright 2020.1.6-beta documentation</title>
+  <title>Pre-implemented Modules - Part II &mdash; RapidWright 2020.2.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2020.1.6
+                2020.2.0
               </div>
             
           
@@ -262,7 +262,7 @@ Option (* = required)                    Description
   job when run locally]
 </pre></div>
 </div>
-<p>To run <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> for our PicoBlaze design and three selected pblocks, we would run the following at the command line (where <a class="reference download internal" download="" href="_downloads/70fa515b3d0fda742bd200fae86b79b4/picoblaze_pblocks.txt"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_pblocks.txt</span></code></a> the pblock file from <a class="reference internal" href="PreImplemented_Modules_Part_I.html#pre-implemented-modules-part-i"><span class="std std-ref">Part I</span></a>):</p>
+<p>To run <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> for our PicoBlaze design and three selected pblocks, we would run the following at the command line (where <a class="reference download internal" download="" href="_downloads/8188d247ca9acc325ff0f8ad3c7a59e7/picoblaze_pblocks.txt"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_pblocks.txt</span></code></a> the pblock file from <a class="reference internal" href="PreImplemented_Modules_Part_I.html#pre-implemented-modules-part-i"><span class="std std-ref">Part I</span></a>):</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p><strong>DO NOT USE THIS IN A TUTORIAL VIRTUAL MACHINE</strong>, it will crash the VM.  <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> is best used with a compute cluster (such as <a class="reference external" href="https://en.wikipedia.org/wiki/Platform_LSF">LSF</a>).  It can be used on a single workstation, but, the number of parallel runs combined with their length can quickly add up to days of compute time.</p>
@@ -289,7 +289,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/picoblaze_histogram.png"><img alt="_images/picoblaze_histogram.png" class="align-center" src="_images/picoblaze_histogram.png" style="width: 550px;" /></a>
 </div></blockquote>
-<p>It seems Vivado was able to get the best performance from pblock0 which is the one with the floorplan that occurs most often.  Although the histograms provide a view of what was achieved across 60 runs for each pblock, we really only care about the best results as those are what we move on with to the next step. For those curious, full performance results can be downloaded here: <a class="reference download internal" download="" href="_downloads/34dec95d66b5ee5adf6327eebf32151a/picoblaze_results.xlsx"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_results.xlsx</span></code></a>.</p>
+<p>It seems Vivado was able to get the best performance from pblock0 which is the one with the floorplan that occurs most often.  Although the histograms provide a view of what was achieved across 60 runs for each pblock, we really only care about the best results as those are what we move on with to the next step. For those curious, full performance results can be downloaded here: <a class="reference download internal" download="" href="_downloads/43d13c4fc55ab634766db53732a13be7/picoblaze_results.xlsx"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_results.xlsx</span></code></a>.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 19%" />
@@ -317,7 +317,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 </tr>
 </tbody>
 </table>
-<p>Download the best placed and routed implementations here: <a class="reference download internal" download="" href="_downloads/5ef392068b149046ee5d10a123a378e8/picoblaze_best.zip"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_best.zip</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code> directory then unzip the file:</p>
+<p>Download the best placed and routed implementations here: <a class="reference download internal" download="" href="_downloads/bbf790302fd65b3823084b3886258e42/picoblaze_best.zip"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_best.zip</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code> directory then unzip the file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip picoblaze_best.zip
 </pre></div>
 </div>
@@ -370,7 +370,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 <span class="nv">report_timing_summary</span> <span class="o">-</span>delay_type min_max <span class="o">-</span>report_unconstrained <span class="o">-</span>check_timing_verbose <span class="o">-</span>max_paths <span class="mi">10</span> <span class="o">-</span>input_pins <span class="o">-</span>routable_nets <span class="o">-</span>name timing_1
 </pre></div>
 </div>
-<p>Once we are done, we should get a fully routed implementation that looks similar to this (or you can download our result here <a class="reference download internal" download="" href="_downloads/1ac6f93c413b0ac6731e2e2ab4289cc6/picoblaze_array_routed.dcp"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_array_routed.dcp</span></code></a>):</p>
+<p>Once we are done, we should get a fully routed implementation that looks similar to this (or you can download our result here <a class="reference download internal" download="" href="_downloads/b4f972696a3e853e7890a41cfffbdec1/picoblaze_array_routed.dcp"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_array_routed.dcp</span></code></a>):</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pico_array_routed.png"><img alt="_images/pico_array_routed.png" class="align-center" src="_images/pico_array_routed.png" style="width: 550px;" /></a>
 </div></blockquote>
@@ -434,7 +434,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2020.1.6-beta',
+            VERSION:'2020.2.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
