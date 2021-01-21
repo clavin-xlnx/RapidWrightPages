@@ -150,11 +150,12 @@ Example Usages: Modify User State Bits
   public static void main(String[] args) {
     Design design = Design.readCheckpoint(args[0]);
     Bitstream bitstream = Bitstream.readBitstream(args[1]);
-        
+    ConfigArray configArray = bitstream.configureArray();
+
     // Changes the initialization of the FF to 1
     Cell cell = design.getCell("myFF");
     cell.getProperty("INIT").setValue("1");
-    ConfigureBitstream.updateUserStateBits(bitstream.getConfigArray(), null, cell);
+    ConfigureBitstream.updateUserStateBits(configArray, null, cell);
     bitstream.updatePacketsFromConfigArray();
         
     design.writeCheckpoint(args[2]);
@@ -172,7 +173,7 @@ Example Usages: Find and Print the Frames of a Placed Cell
   public static void main(String[] args) {
     Design design = Design.readCheckpoint(args[0]);
     Bitstream bitstream = Bitstream.readBitstream(args[1]);
-    ConfigArray configArray = bitstream.getConfigArray();
+    ConfigArray configArray = bitstream.configureArray();
         
     // Find Configuration Block of a resource and print frames
     Cell cell = design.getCell("myFF");
