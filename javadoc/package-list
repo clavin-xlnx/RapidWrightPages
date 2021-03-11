@@ -10,6 +10,7 @@ com.xilinx.rapidwright.edif
 com.xilinx.rapidwright.examples
 com.xilinx.rapidwright.examples.tilebrowser
 com.xilinx.rapidwright.gui
+com.xilinx.rapidwright.interchange
 com.xilinx.rapidwright.ipi
 com.xilinx.rapidwright.placer.blockplacer
 com.xilinx.rapidwright.placer.handplacer
