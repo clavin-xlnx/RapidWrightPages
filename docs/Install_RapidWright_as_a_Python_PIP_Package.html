@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using RapidWright Directly in Python 3 &mdash; RapidWright 2020.2.4-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
+    <link rel="prev" title="Call RapidWright from C/C++ Using GraalVM" href="Call_RapidWright_From_CPP.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2020.2.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Call_RapidWright_From_CPP.html">Call RapidWright from C/C++ Using GraalVM</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Using RapidWright Directly in Python 3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-virtual-environments">Python Virtual Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-a-virtual-python-environment">Setting up a Virtual Python Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-rapidwright-in-the-virtual-environment">Running RapidWright in the Virtual Environment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tech_Articles.html">Tech Articles</a> &raquo;</li>
+        
+      <li>Using RapidWright Directly in Python 3</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Install_RapidWright_as_a_Python_PIP_Package.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-rapidwright-directly-in-python-3">
+<h1>Using RapidWright Directly in Python 3<a class="headerlink" href="#using-rapidwright-directly-in-python-3" title="Permalink to this headline">¶</a></h1>
+<p>Although RapidWright is written in Java, there is significant interest
+to access it from Python.  Python has many features that make it a
+great choice for rapid prototyping and scripting solutions.  In fact,
+RapidWright ships with <a class="reference external" href="https://www.jython.org/">Jython</a> (Python
+implemented in Java) to provide an authentic Python experience.</p>
+<p>Despite RapidWright’s Jython integration, for real-world Python
+development, the world has mostly transitioned to Python 3 and depend
+on packages that have native implementations which are incompatible
+with Jython. This has generally excluded RapidWright (with the
+exclusion of the experimental <a class="reference external" href="https://www.graalvm.org/reference-manual/python/">GraalVM’s Python</a>) from working
+directly with Python 3.</p>
+<p>However, there is a Python package called <a class="reference external" href="https://jpype.readthedocs.io/en/latest/">JPype</a> that enable Python to call
+Java packages directly as if they were native APIs. This tutorial
+shows you how RapidWright can take advantage of this package to use
+RapidWright directly in your Python projects.</p>
+<div class="section" id="python-virtual-environments">
+<h2>Python Virtual Environments<a class="headerlink" href="#python-virtual-environments" title="Permalink to this headline">¶</a></h2>
+<p>A highly recommeneded way to develop in Python is to use <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">Virtual
+Environments</a>.  Python
+Virtual Environments allow you to isolate your Python modules and
+installation from the default system installation.  As each project can
+have a variety of specific needs and version dependencies, having a
+dedicated Virtual Environment per project can make for a smoother
+development experience and minimize conflicts.</p>
+</div>
+<div class="section" id="pre-requisites">
+<h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Python 3</p></li>
+<li><p>Java 1.8 or later</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="setting-up-a-virtual-python-environment">
+<h2>Setting up a Virtual Python Environment<a class="headerlink" href="#setting-up-a-virtual-python-environment" title="Permalink to this headline">¶</a></h2>
+<p>The Python module used to create a virtual environment is called
+<code class="docutils literal notranslate"><span class="pre">venv</span></code>.  For more details about configuring a virtual
+environment, please refer to the <code class="docutils literal notranslate"><span class="pre">`venv</span></code> documentation
+&lt;<a class="reference external" href="https://www.graalvm.org/reference-manual/python/">https://www.graalvm.org/reference-manual/python/</a>&gt;`_. The default
+settings of a virtual environment can be set up with the following
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv venv
+</pre></div>
+</div>
+<p>This will create a directory called <code class="docutils literal notranslate"><span class="pre">venv</span></code> which will
+contain the essential ingredients for a Python interpreter and its
+environment.  To activate the virtual environment, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> venv/bin/activate
+</pre></div>
+</div>
+<p>or on Windows, run:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>venv\Scripts\activate
+</pre></div>
+</div>
+<p>In either case your terminal prompt should now have a prefix
+<code class="docutils literal notranslate"><span class="pre">(venv)</span></code>.  To leave or deactivate the virtual environment,
+simply run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>deactivate
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-rapidwright-in-the-virtual-environment">
+<h2>Running RapidWright in the Virtual Environment<a class="headerlink" href="#running-rapidwright-in-the-virtual-environment" title="Permalink to this headline">¶</a></h2>
+<p>Now that the virtual environment is setup, we can begin to configure
+it to our liking and not have to worry about conflicts with other
+projects or the existing system install.  To use RapidWright, we need
+the <code class="docutils literal notranslate"><span class="pre">Jpype1</span></code> package installed and this can be done by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install JPype1
+</pre></div>
+</div>
+<p>Next, we need a copy of RapidWright to use.  The easiest way to get
+RapidWright is to download the stand-alone jar file from the <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/latest">latest
+release</a>, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/Xilinx/RapidWright/releases/download/v2020.2.4-beta/rapidwright-2020.2.4-standalone-lin64.jar
+</pre></div>
+</div>
+<p>We can create a boilerplate script that will setup JPype1 and make
+RapidWright available:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jpype</span>
+<span class="kn">import</span> <span class="nn">jpype.imports</span>
+<span class="kn">from</span> <span class="nn">jpype.types</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">jpype</span><span class="o">.</span><span class="n">startJVM</span><span class="p">(</span><span class="n">classpath</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rapidwright-2020.2.4-standalone-lin64.jar&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>If we save these commands above in <cite>rapidwright.py</cite> and then run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -i rapidwright.py
+</pre></div>
+</div>
+<p>At this point, you’ll get a prompt and can import java classes to
+allow you to access any RapidWright Java API:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">com.xilinx.rapidwright.device</span> <span class="kn">import</span> <span class="n">Device</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="n">getDevice</span><span class="p">(</span><span class="n">Device</span><span class="o">.</span><span class="n">AWS_F1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>At this point you can also get tab-completion on the Java classes, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span>
+<span class="go">device.AWS_F1                         device.getClass(                      device.getSLRByConfigOrderIndex(</span>
+<span class="go">device.DEVICE_FILE_VERSION            device.getClockRegion(                device.getSLRs(</span>
+<span class="go">device.FRAMEWORK_NAME                 device.getClockRegionFromTile(        device.getSeries(</span>
+<span class="go">device.FRAMEWORK_NAME_AND_VERSION     device.getClockRegions(               device.getSite(</span>
+<span class="go">device.KCU105                         device.getColumns(                    device.getSiteFromPackagePin(</span>
+<span class="go">device.PYNQ_Z1                        device.getDevice(                     device.getSitePin(</span>
+<span class="go">device.QUIET_MESSAGE                  device.getDeviceName(                 device.getSiteTypeCount(</span>
+<span class="go">device.RAPIDWRIGHT_MINOR_VERSION      device.getDeviceVersion(              device.getTile(</span>
+<span class="go">device.RAPIDWRIGHT_QUARTER_VERSION    device.getFamilyType(                 device.getTileTypeCount(</span>
+<span class="go">device.RAPIDWRIGHT_VERSION            device.getMasterSLR(                  device.getTiles(</span>
+<span class="go">device.RAPIDWRIGHT_YEAR_VERSION       device.getName(                       device.getWire(</span>
+<span class="go">device.RW_QUIET_MESSAGE               device.getNode(                       device.hashCode(</span>
+<span class="go">device.a(                             device.getNumOfClockRegionRows(       device.notify(</span>
+<span class="go">device.equals(                        device.getNumOfClockRegionsColumns(   device.notifyAll(</span>
+<span class="go">device.getActivePackage(              device.getNumOfSLRs(                  device.quietReflectiveAccessWarning(</span>
+<span class="go">device.getAllCompatibleSites(         device.getPIP(                        device.releaseDeviceReferences(</span>
+<span class="go">device.getAllSitesOfType(             device.getPackage(                    device.setActivePackage(</span>
+<span class="go">device.getAllTiles(                   device.getPackages(                   device.toString(</span>
+<span class="go">device.getArchitecture(               device.getRows(                       device.wait(</span>
+<span class="go">device.getAvailableDevices(           device.getSLR(</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Which is quite handy.  Object return types are translated for
+primitive types (int, String, …), but Java objects are preserved and
+can be accessed via APIs as well:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+<span class="go">&#39;xcvu9p&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">getTiles</span><span class="p">()</span>
+<span class="go">&lt;java array &#39;com.xilinx.rapidwright.device.Tile[][]&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Although there is limited interaction, you can also run RapidWright
+GUI applications from Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">com.xilinx.rapidwright.device.browser</span> <span class="kn">import</span> <span class="n">DeviceBrowser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DeviceBrowser</span><span class="o">.</span><span class="n">main</span><span class="p">([])</span>
+</pre></div>
+</div>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/DeviceBrowserFromPython.png"><img alt="_images/DeviceBrowserFromPython.png" src="_images/DeviceBrowserFromPython.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Screen capture of RapidWright’s Device Browser called from Python</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>We expect this integration capability with Python to help increase
+RapidWright’s applicability to a wider number of projects.  There are
+more opportunities for integration as well, so stay tuned!</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FAQ.html" class="btn btn-neutral float-right" title="Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Call_RapidWright_From_CPP.html" class="btn btn-neutral" title="Call RapidWright from C/C++ Using GraalVM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2021, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2020.2.4-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

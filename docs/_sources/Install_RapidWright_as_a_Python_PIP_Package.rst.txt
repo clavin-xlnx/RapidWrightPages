@@ -1,0 +1,181 @@
+=========================================
+Using RapidWright Directly in Python 3
+=========================================
+
+Although RapidWright is written in Java, there is significant interest
+to access it from Python.  Python has many features that make it a
+great choice for rapid prototyping and scripting solutions.  In fact,
+RapidWright ships with `Jython <https://www.jython.org/>`_ (Python
+implemented in Java) to provide an authentic Python experience.
+
+Despite RapidWright's Jython integration, for real-world Python
+development, the world has mostly transitioned to Python 3 and depend
+on packages that have native implementations which are incompatible
+with Jython. This has generally excluded RapidWright (with the
+exclusion of the experimental `GraalVM's Python
+<https://www.graalvm.org/reference-manual/python/>`_) from working
+directly with Python 3.
+
+However, there is a Python package called `JPype
+<https://jpype.readthedocs.io/en/latest/>`_ that enable Python to call
+Java packages directly as if they were native APIs. This tutorial
+shows you how RapidWright can take advantage of this package to use
+RapidWright directly in your Python projects.
+
+
+Python Virtual Environments 
+==============================
+
+A highly recommeneded way to develop in Python is to use `Virtual
+Environments <https://docs.python.org/3/tutorial/venv.html>`_.  Python
+Virtual Environments allow you to isolate your Python modules and
+installation from the default system installation.  As each project can
+have a variety of specific needs and version dependencies, having a
+dedicated Virtual Environment per project can make for a smoother
+development experience and minimize conflicts.
+
+
+Pre-requisites
+===============
+  - Python 3
+  - Java 1.8 or later
+
+
+Setting up a Virtual Python Environment
+======================================== 
+
+The Python module used to create a virtual environment is called
+``venv``.  For more details about configuring a virtual
+environment, please refer to the ```venv`` documentation
+<https://www.graalvm.org/reference-manual/python/>`_. The default
+settings of a virtual environment can be set up with the following
+command:
+
+.. code-block:: bash
+
+	python3 -m venv venv
+
+This will create a directory called ``venv`` which will
+contain the essential ingredients for a Python interpreter and its
+environment.  To activate the virtual environment, run:
+
+.. code-block:: bash
+
+	source venv/bin/activate
+
+or on Windows, run:
+
+.. code-block:: bat
+
+	venv\Scripts\activate
+
+In either case your terminal prompt should now have a prefix
+``(venv)``.  To leave or deactivate the virtual environment,
+simply run:
+
+.. code-block:: bash
+
+	deactivate
+
+
+Running RapidWright in the Virtual Environment
+===================================================
+Now that the virtual environment is setup, we can begin to configure
+it to our liking and not have to worry about conflicts with other
+projects or the existing system install.  To use RapidWright, we need
+the ``Jpype1`` package installed and this can be done by running:
+
+.. code-block:: bash
+
+	pip install JPype1
+
+Next, we need a copy of RapidWright to use.  The easiest way to get
+RapidWright is to download the stand-alone jar file from the `latest
+release <https://github.com/Xilinx/RapidWright/releases/latest>`_, for example: 
+
+.. code-block:: bash
+
+	wget https://github.com/Xilinx/RapidWright/releases/download/v2020.2.4-beta/rapidwright-2020.2.4-standalone-lin64.jar
+
+We can create a boilerplate script that will setup JPype1 and make
+RapidWright available:
+
+.. code-block:: python
+
+	import jpype
+	import jpype.imports
+	from jpype.types import *
+
+	jpype.startJVM(classpath=["rapidwright-2020.2.4-standalone-lin64.jar"])
+  
+If we save these commands above in `rapidwright.py` and then run:
+
+.. code-block:: bash
+
+	python -i rapidwright.py
+
+At this point, you'll get a prompt and can import java classes to
+allow you to access any RapidWright Java API:
+
+.. code-block:: python
+
+	from com.xilinx.rapidwright.device import Device
+	device = Device.getDevice(Device.AWS_F1)
+
+At this point you can also get tab-completion on the Java classes, for example:
+	
+.. code-block:: python
+
+	>>> device.
+	device.AWS_F1                         device.getClass(                      device.getSLRByConfigOrderIndex(
+	device.DEVICE_FILE_VERSION            device.getClockRegion(                device.getSLRs(
+	device.FRAMEWORK_NAME                 device.getClockRegionFromTile(        device.getSeries(
+	device.FRAMEWORK_NAME_AND_VERSION     device.getClockRegions(               device.getSite(
+	device.KCU105                         device.getColumns(                    device.getSiteFromPackagePin(
+	device.PYNQ_Z1                        device.getDevice(                     device.getSitePin(
+	device.QUIET_MESSAGE                  device.getDeviceName(                 device.getSiteTypeCount(
+	device.RAPIDWRIGHT_MINOR_VERSION      device.getDeviceVersion(              device.getTile(
+	device.RAPIDWRIGHT_QUARTER_VERSION    device.getFamilyType(                 device.getTileTypeCount(
+	device.RAPIDWRIGHT_VERSION            device.getMasterSLR(                  device.getTiles(
+	device.RAPIDWRIGHT_YEAR_VERSION       device.getName(                       device.getWire(
+	device.RW_QUIET_MESSAGE               device.getNode(                       device.hashCode(
+	device.a(                             device.getNumOfClockRegionRows(       device.notify(
+	device.equals(                        device.getNumOfClockRegionsColumns(   device.notifyAll(
+	device.getActivePackage(              device.getNumOfSLRs(                  device.quietReflectiveAccessWarning(
+	device.getAllCompatibleSites(         device.getPIP(                        device.releaseDeviceReferences(
+	device.getAllSitesOfType(             device.getPackage(                    device.setActivePackage(
+	device.getAllTiles(                   device.getPackages(                   device.toString(
+	device.getArchitecture(               device.getRows(                       device.wait(
+	device.getAvailableDevices(           device.getSLR(                        
+	>>> device.
+	
+Which is quite handy.  Object return types are translated for
+primitive types (int, String, ...), but Java objects are preserved and
+can be accessed via APIs as well:
+
+.. code-block:: python
+
+	>>> device.getName()
+	'xcvu9p'
+	>>> device.getTiles()
+	<java array 'com.xilinx.rapidwright.device.Tile[][]'>
+
+
+Although there is limited interaction, you can also run RapidWright
+GUI applications from Python:
+
+.. code-block:: python
+
+	>>> from com.xilinx.rapidwright.device.browser import DeviceBrowser
+	>>> DeviceBrowser.main([])
+
+.. figure:: images/DeviceBrowserFromPython.png
+	:width: 550px
+	:align: center
+	
+	Screen capture of RapidWright's Device Browser called from Python
+
+
+We expect this integration capability with Python to help increase
+RapidWright's applicability to a wider number of projects.  There are
+more opportunities for integration as well, so stay tuned!
