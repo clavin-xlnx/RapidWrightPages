@@ -153,4 +153,9 @@ A module instance quite simply is an instance of a module.  RapidWright supports
 
 A module instance will typically have one of its site instances selected as what is called an 'anchor'.  The anchor site instance is a common reference point by which all other site instances and nets in the instance can be referenced.  This is useful for determining if a potential location on the fabric is compatible with the module instance for placement.  
 
-The ``Module`` and ``ModuleInst`` concept is not available in Vivado or the DCP file format.  If these constructs are used in a RapidWright design they will be 'flattened' when written out as a DCP.
+The ``Module`` and ``ModuleInst`` concept is not available in Vivado.
+However, if a design in RapidWright is written out without being
+flattened (See ``Design.flattenDesign()``), RapidWright will save
+module metadata in the DCP and the modules and instances can be
+reloaded if the DCP is reloaded in RapidWright.  If the DCP is read by
+Vivado and then written back out, the module metadata will be lost.

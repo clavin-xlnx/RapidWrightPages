@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright Overview &mdash; RapidWright 2020.2.5-beta documentation</title>
+  <title>RapidWright Overview &mdash; RapidWright 2020.2.6-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2020.2.5
+                2020.2.6
               </div>
             
           
@@ -347,7 +347,12 @@
 <h3>Module Instance<a class="headerlink" href="#module-instance" title="Permalink to this headline">¶</a></h3>
 <p>A module instance quite simply is an instance of a module.  RapidWright supports module instances in a design using the <code class="docutils literal notranslate"><span class="pre">ModuleInst</span></code> class in the <code class="docutils literal notranslate"><span class="pre">design</span></code> package.  Module instances have a unique name within the design and as each module has a collection of <code class="docutils literal notranslate"><span class="pre">SiteInst</span></code> and <code class="docutils literal notranslate"><span class="pre">Net</span></code> objects, these containers are prefixed hierarchically with the module instance name.  For example, if a module had a <code class="docutils literal notranslate"><span class="pre">SiteInst</span></code> named “SLICE_X2Y2” and a <code class="docutils literal notranslate"><span class="pre">Net</span></code> named <code class="docutils literal notranslate"><span class="pre">data_ready</span></code>, a newly created module instance named “fred” would have counterpart <code class="docutils literal notranslate"><span class="pre">SiteInst</span></code> and <code class="docutils literal notranslate"><span class="pre">Net</span></code> objects called “fred/SLICE_X2Y2” and “fred/data_ready”.</p>
 <p>A module instance will typically have one of its site instances selected as what is called an ‘anchor’.  The anchor site instance is a common reference point by which all other site instances and nets in the instance can be referenced.  This is useful for determining if a potential location on the fabric is compatible with the module instance for placement.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Module</span></code> and <code class="docutils literal notranslate"><span class="pre">ModuleInst</span></code> concept is not available in Vivado or the DCP file format.  If these constructs are used in a RapidWright design they will be ‘flattened’ when written out as a DCP.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Module</span></code> and <code class="docutils literal notranslate"><span class="pre">ModuleInst</span></code> concept is not available in Vivado.
+However, if a design in RapidWright is written out without being
+flattened (See <code class="docutils literal notranslate"><span class="pre">Design.flattenDesign()</span></code>), RapidWright will save
+module metadata in the DCP and the modules and instances can be
+reloaded if the DCP is reloaded in RapidWright.  If the DCP is read by
+Vivado and then written back out, the module metadata will be lost.</p>
 </div>
 </div>
 </div>
@@ -394,7 +399,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2020.2.5-beta',
+            VERSION:'2020.2.6-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
