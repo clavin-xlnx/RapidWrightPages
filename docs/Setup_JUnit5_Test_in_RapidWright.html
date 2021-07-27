@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setup JUnit 5 Tests in RapidWright &mdash; RapidWright 2020.2.7-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="FAQ.html" />
+    <link rel="prev" title="Using RapidWright Directly in Python 3" href="Install_RapidWright_as_a_Python_PIP_Package.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2020.2.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Call_RapidWright_From_CPP.html">Call RapidWright from C/C++ Using GraalVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Install_RapidWright_as_a_Python_PIP_Package.html">Using RapidWright Directly in Python 3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Setup JUnit 5 Tests in RapidWright</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-tests">Running the Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#writing-testcases">Writing Testcases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameterized-tests">Parameterized Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rapidwright-specific-considerations">RapidWright-specific Considerations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tech_Articles.html">Tech Articles</a> &raquo;</li>
+        
+      <li>Setup JUnit 5 Tests in RapidWright</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Setup_JUnit5_Test_in_RapidWright.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setup-junit-5-tests-in-rapidwright">
+<h1>Setup JUnit 5 Tests in RapidWright<a class="headerlink" href="#setup-junit-5-tests-in-rapidwright" title="Permalink to this headline">¶</a></h1>
+<p>RapidWright uses JUnit 5 for Unit Testing. This article aims to give an overview about how to run tests, as well as how to write your own.</p>
+<div class="section" id="running-the-tests">
+<h2>Running the Tests<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h2>
+<p>All testcases are located in the <code class="docutils literal notranslate"><span class="pre">test/</span></code> directory. JUnit does not need a central list of testcases. Instead, it searches the directory for all classes that contain tests. Tests are marked by annotations (see later). After builing a list of all tests, it executes them one by one.</p>
+<p>To run the tests via Gradle, use the task <code class="docutils literal notranslate"><span class="pre">test</span></code> or <code class="docutils literal notranslate"><span class="pre">build</span></code> (which depends on <code class="docutils literal notranslate"><span class="pre">test</span></code>). After running the tests, Gradle will output the results both as an HTML document in <code class="docutils literal notranslate"><span class="pre">build/reports/tests/test</span></code> and as JUnit-internal XML in <code class="docutils literal notranslate"><span class="pre">build/test-results/test</span></code>. Note that Gradle knows whether the input to the tests changed and will not rerun them if they are up to date.</p>
+<p>There is integration for JUnit in all major IDEs. When loading RapidWright into your IDE, you should set <code class="docutils literal notranslate"><span class="pre">test</span></code> as source directory for tests. Your IDE should allow you to run all the tests or choose a single class to run.</p>
+</div>
+<div class="section" id="writing-testcases">
+<h2>Writing Testcases<a class="headerlink" href="#writing-testcases" title="Permalink to this headline">¶</a></h2>
+<p>JUnit uses Annotations to tag methods as testcases. While there are more specialized annotations, most testcases will be tagged with the annotation <code class="docutils literal notranslate"><span class="pre">&#64;Test</span></code> (from the <code class="docutils literal notranslate"><span class="pre">org.junit.jupiter.api</span></code> package).</p>
+<p>A test class with a single (empty) test method might look like this:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Assertions</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyTestClass</span> <span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Test methods should be <code class="docutils literal notranslate"><span class="pre">public</span></code> and cannot be <code class="docutils literal notranslate"><span class="pre">static</span></code> and not have parameters. JUnit will create an instance of the class, so the class cannot have any constructor parameters.</p>
+<p>Testcases communicate failures by throwing an exception. JUnit will then mark it accordingly. Instead of using an <code class="docutils literal notranslate"><span class="pre">if</span></code> to check for something and then manually creating an exception, you can use the <code class="docutils literal notranslate"><span class="pre">Assertions</span></code> class (from the package <code class="docutils literal notranslate"><span class="pre">org.junit.jupiter.api</span></code>). It offers convenience methods for often used checks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">assertEquals</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assertArrayEquals</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assertNotEquals</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assertSame</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>All these methods have a parameter for an expected value and an actual value. Optionally, a message parameter can be passed to explain what part of the test encountered an error.</p>
+<p>A very simple test to check that addition works as expected might look like this:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Assertions</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyTestClass</span> <span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Assertions</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parameterized-tests">
+<h2>Parameterized Tests<a class="headerlink" href="#parameterized-tests" title="Permalink to this headline">¶</a></h2>
+<p>Normal test methods do not have parameters. If you want to run the same test on a range of data, you can use a loop. However, once the test fails for one set of data, the whole testcase execution is over. Data after the first failure will not be run.</p>
+<p>JUnit allows parameters on testcases. They are marked with <code class="docutils literal notranslate"><span class="pre">&#64;ParameterizedTest</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&#64;Test</span></code>. The annotation has an optional parameter (<code class="docutils literal notranslate"><span class="pre">name</span></code>) that allows you to override the generated test’s name to make it more descriptive.</p>
+<p>You need to specify a source for values for these parameters. One option is use a separate method that return a <code class="docutils literal notranslate"><span class="pre">Collection&lt;Arguments&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">Stream&lt;Arguments&gt;</span></code>. One instance of <code class="docutils literal notranslate"><span class="pre">Arguments</span></code> describes one invocation of the testcase method. The value source is specified as another annotation (here: <code class="docutils literal notranslate"><span class="pre">&#64;MethodSource</span></code>).</p>
+<p>A simple example that calls <code class="docutils literal notranslate"><span class="pre">testNonzero(int</span> <span class="pre">i)</span></code> on all numbers from 1 to 10:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.stream.IntStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.Stream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Assertions</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.params.ParameterizedTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.params.provider.Arguments</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.params.provider.MethodSource</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyTestClass</span> <span class="o">{</span>
+    <span class="nd">@ParameterizedTest</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Check that {0} is nonzero&quot;</span><span class="o">)</span>
+    <span class="nd">@MethodSource</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testNonzero</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Assertions</span><span class="o">.</span><span class="na">assertNotEquals</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">Arguments</span><span class="o">&gt;</span> <span class="nf">testNonzero</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">IntStream</span><span class="o">.</span><span class="na">rangeClosed</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">).</span><span class="na">mapToObj</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">Arguments</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rapidwright-specific-considerations">
+<h2>RapidWright-specific Considerations<a class="headerlink" href="#rapidwright-specific-considerations" title="Permalink to this headline">¶</a></h2>
+<p>RapidWright’s tests are automatically run on Github Actions. There are
+rather strict restrictions in terms of maximum memory (7GB) and some
+parts of RapidWright can exceed that limit. You should keep this limitation in mind while writing testcases:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Testcases should be limited to a single <code class="docutils literal notranslate"><span class="pre">Device</span></code>. If you have to use multiple Devices, take care that only one Device is referenced at the same time.</p></li>
+<li><p>When instantiating a <code class="docutils literal notranslate"><span class="pre">Design</span></code>, use a small <code class="docutils literal notranslate"><span class="pre">Device</span></code> for it.</p></li>
+</ul>
+</div></blockquote>
+<p>In the past, there were issues with files being left open after using them. To catch problems like this, there is an JUnit extension that compares the list of open files before and after a testcase. It will fail the testcase if there are changes. You can apply it to a testcase by adding the <code class="docutils literal notranslate"><span class="pre">&#64;CheckOpenFiles</span></code> annotation (from the <code class="docutils literal notranslate"><span class="pre">com.xilinx.rapidwright.checker</span></code> package) to the method.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FAQ.html" class="btn btn-neutral float-right" title="Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Install_RapidWright_as_a_Python_PIP_Package.html" class="btn btn-neutral" title="Using RapidWright Directly in Python 3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2021, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2020.2.7-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+=========================================
+Setup JUnit 5 Tests in RapidWright
+=========================================
+
+RapidWright uses JUnit 5 for Unit Testing. This article aims to give an overview about how to run tests, as well as how to write your own.
+
+Running the Tests
+------------------
+
+All testcases are located in the ``test/`` directory. JUnit does not need a central list of testcases. Instead, it searches the directory for all classes that contain tests. Tests are marked by annotations (see later). After builing a list of all tests, it executes them one by one.
+
+To run the tests via Gradle, use the task ``test`` or ``build`` (which depends on ``test``). After running the tests, Gradle will output the results both as an HTML document in ``build/reports/tests/test`` and as JUnit-internal XML in ``build/test-results/test``. Note that Gradle knows whether the input to the tests changed and will not rerun them if they are up to date.
+
+There is integration for JUnit in all major IDEs. When loading RapidWright into your IDE, you should set ``test`` as source directory for tests. Your IDE should allow you to run all the tests or choose a single class to run.
+
+Writing Testcases
+------------------
+
+JUnit uses Annotations to tag methods as testcases. While there are more specialized annotations, most testcases will be tagged with the annotation ``@Test`` (from the ``org.junit.jupiter.api`` package).
+
+A test class with a single (empty) test method might look like this:
+
+.. code-block:: java
+
+  import org.junit.jupiter.api.Assertions;
+  import org.junit.jupiter.api.Test;
+  public class MyTestClass {
+      @Test
+      public void test() {
+          
+      }
+  }
+  
+
+Test methods should be ``public`` and cannot be ``static`` and not have parameters. JUnit will create an instance of the class, so the class cannot have any constructor parameters.
+
+Testcases communicate failures by throwing an exception. JUnit will then mark it accordingly. Instead of using an ``if`` to check for something and then manually creating an exception, you can use the ``Assertions`` class (from the package ``org.junit.jupiter.api``). It offers convenience methods for often used checks:
+
+ - ``assertEquals``
+ - ``assertArrayEquals``
+ - ``assertNotEquals``
+ - ``assertSame``
+
+All these methods have a parameter for an expected value and an actual value. Optionally, a message parameter can be passed to explain what part of the test encountered an error.
+
+A very simple test to check that addition works as expected might look like this:
+
+
+.. code-block:: java
+
+  import org.junit.jupiter.api.Assertions;
+  import org.junit.jupiter.api.Test;
+  public class MyTestClass {
+      @Test
+      public void test() {
+          Assertions.assertEquals(2, 1 + 1);
+      }
+  }
+
+
+Parameterized Tests
+-------------------
+
+Normal test methods do not have parameters. If you want to run the same test on a range of data, you can use a loop. However, once the test fails for one set of data, the whole testcase execution is over. Data after the first failure will not be run.
+
+JUnit allows parameters on testcases. They are marked with ``@ParameterizedTest`` instead of ``@Test``. The annotation has an optional parameter (``name``) that allows you to override the generated test's name to make it more descriptive.
+
+You need to specify a source for values for these parameters. One option is use a separate method that return a ``Collection<Arguments>`` or ``Stream<Arguments>``. One instance of ``Arguments`` describes one invocation of the testcase method. The value source is specified as another annotation (here: ``@MethodSource``).
+
+A simple example that calls ``testNonzero(int i)`` on all numbers from 1 to 10:
+
+
+.. code-block:: java
+
+  import java.util.stream.IntStream;
+  import java.util.stream.Stream;
+  import org.junit.jupiter.api.Assertions;
+  import org.junit.jupiter.params.ParameterizedTest;
+  import org.junit.jupiter.params.provider.Arguments;
+  import org.junit.jupiter.params.provider.MethodSource;
+  
+  public class MyTestClass {
+      @ParameterizedTest(name = "Check that {0} is nonzero")
+      @MethodSource()
+      public void testNonzero(int i) {
+          Assertions.assertNotEquals(0, i);
+      }
+  
+      public static Stream<Arguments> testNonzero() {
+          return IntStream.rangeClosed(1, 10).mapToObj(i -> Arguments.of(i));
+      }
+  }
+
+
+
+RapidWright-specific Considerations
+-----------------------------------
+
+RapidWright's tests are automatically run on Github Actions. There are
+rather strict restrictions in terms of maximum memory (7GB) and some
+parts of RapidWright can exceed that limit. You should keep this limitation in mind while writing testcases:
+
+ - Testcases should be limited to a single ``Device``. If you have to use multiple Devices, take care that only one Device is referenced at the same time.
+ - When instantiating a ``Design``, use a small ``Device`` for it.
+
+In the past, there were issues with files being left open after using them. To catch problems like this, there is an JUnit extension that compares the list of open files before and after a testcase. It will fail the testcase if there are changes. You can apply it to a testcase by adding the ``@CheckOpenFiles`` annotation (from the ``com.xilinx.rapidwright.checker`` package) to the method.
