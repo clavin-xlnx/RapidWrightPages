@@ -7,3 +7,4 @@ Tech Articles
    Call_RapidWright_From_CPP
    Install_RapidWright_as_a_Python_PIP_Package
    Setup_JUnit5_Test_in_RapidWright
+   RapidWright_Data_Files

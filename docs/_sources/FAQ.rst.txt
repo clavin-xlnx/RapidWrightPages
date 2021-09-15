@@ -8,7 +8,14 @@ RapidWright is able to read any unencrypted design files.  If a design/DCP has b
 
 However, sometimes without explicitly invoking encryption, Vivado will encrypt the EDIF file present in a DCP automatically (it is quite common).  To enable reading the DCP within RapidWright, load the DCP in Vivado and then create a similarly named EDIF file (mydesign.dcp --> mydesign.edf) by running the command ``write_edif mydesign.edf``.  This will generate an unencrypted EDIF file (only if encryption is turned off and the design does not contain any encrypted IPs) that RapidWright can recognize and load in with the rest of the DCP.
 
-RapidWright comes with a small utility called ``ReplaceEDIFInDCP`` that can avoid the use of two files for situations that may require that convenience.
+RapidWright comes with a small utility called ``ReplaceEDIFInDCP``
+that can avoid the use of two files for situations that may require
+that convenience.
+
+New in 2021.1.0, RapidWright can now invoke Vivado automatically to
+call ``write_edif`` on the DCP attempting to be loaded at runtime.
+However, a compatible Vivado version must be on the PATH of the
+RapidWright program at runtime. 
 
 Can RapidWright be used for designs targeting the AWS F1 platform?
 ====================================================================

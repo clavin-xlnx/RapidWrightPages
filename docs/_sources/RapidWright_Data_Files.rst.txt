@@ -1,0 +1,35 @@
+===========================
+RapidWright Data Files
+===========================
+.. contents:: Table of Contents
+   :depth: 2
+
+In order to support the set of Xilinx devices and their corresponding
+data models in RapidWright, data files are used to access that
+information.  These data files are completely separate from Vivado but
+are included with each release.  As of RapidWright 2021.1.0, there are
+currently two ways to obtain these files:
+
+1. The conventional method is a one-time download of the
+   ``rapidwright_data.zip`` file associated with each release.
+2. If the user chooses not to download the zip file in option #1,
+   RapidWright is now equiped for data file on-demand delivery via
+   cloud access (requires an Internet connection at runtime).  
+
+All of the code involved in downloading and checking for data files is
+in the open source portion of RapidWright.  Most of the code is found
+in ``com.xilinx.rapidwright.util.FileTools``.  All data files are
+specified by an MD5 checksum with a master list checked in at
+``src/com/xilinx/rapidwright/util/DataVersions.java``.  When
+the user calls an API that requires a RapidWright data file, it will
+check the local file MD5 against the ``DataVersions.java`` to ensure
+they match.  RapidWright caches the current data file's MD5 by
+creating a small file alongside the data file with a ``.md5``
+extension for speed.  If the file is missing or doesn't match that
+expected MD5, it will attempt to download the file.  This will happen
+behind the scenes transparent to the user with the exception that the
+first time call will take a bit longer since it is downloading the
+file.  
+
+If desired, a user can turn off the on-demand data file download
+feature by calling ``FileTools.setOverrideDataFileDownload(true)``.
