@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Call RapidWright from C/C++ Using GraalVM &mdash; RapidWright 2021.1.0-beta documentation</title>
+  <title>Call RapidWright from C/C++ Using GraalVM &mdash; RapidWright 2021.1.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2021.1.0
+                2021.1.1
               </div>
             
           
@@ -265,32 +265,32 @@ rm RapidWright/jars/<span class="o">{</span>jython-standalone-2.7.0,jupyter-kern
 <li><p>All other parameters must be Java primitive values (int, long, char, …), C helper classes (<a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/type/CCharPointer.html">CCharPointer</a>, <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/index.html?org/graalvm/nativeimage/c/type/CIntPointer.html">CIntPointer</a>,…) or a Java enum annotated with <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/constant/CEnumValue.html">&#64;CEnumLookup</a></p></li>
 </ol>
 <p>Below is an example Java class <a class="reference download internal" download="" href="_downloads/0b34be6ea351c0c6a52dcd258910de29/RapidWrightAPI.java"><code class="xref download docutils literal notranslate"><span class="pre">RapidWrightAPI.java</span></code></a> that illustrates how these two Java APIs could be implemented to provide the C interface requirements while accessing RapidWright Java functionality. Note that this Java class will need to be compiled with GraalVM as it imports special features from its native-image library.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">com.xilinx.rapidwright.examples</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">com.xilinx.rapidwright.examples</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.IsolateThread</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.function.CEntryPoint</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.type.CCharPointer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.type.CTypeConversion</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.IsolateThread</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.function.CEntryPoint</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.type.CCharPointer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.graalvm.nativeimage.c.type.CTypeConversion</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">com.xilinx.rapidwright.device.Device</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.xilinx.rapidwright.device.Device</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RapidWrightAPI</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RapidWrightAPI</span> <span class="p">{</span>
 
-  <span class="nd">@CEntryPoint</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;loadDevice&quot;</span><span class="o">)</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">loadDevice</span><span class="o">(</span><span class="n">IsolateThread</span> <span class="n">thread</span><span class="o">,</span> <span class="n">CCharPointer</span> <span class="n">deviceName</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">devName</span> <span class="o">=</span> <span class="n">CTypeConversion</span><span class="o">.</span><span class="na">toJavaString</span><span class="o">(</span><span class="n">deviceName</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;Loading device &quot;</span> <span class="o">+</span> <span class="n">devName</span> <span class="o">+</span> <span class="s">&quot;...&quot;</span><span class="o">);</span>
-        <span class="n">Device</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="n">devName</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;DONE!&quot;</span><span class="o">);</span>
-  <span class="o">}</span>
+  <span class="nd">@CEntryPoint</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;loadDevice&quot;</span><span class="p">)</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">loadDevice</span><span class="p">(</span><span class="n">IsolateThread</span> <span class="n">thread</span><span class="p">,</span> <span class="n">CCharPointer</span> <span class="n">deviceName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">devName</span> <span class="o">=</span> <span class="n">CTypeConversion</span><span class="p">.</span><span class="na">toJavaString</span><span class="p">(</span><span class="n">deviceName</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;Loading device &quot;</span> <span class="o">+</span> <span class="n">devName</span> <span class="o">+</span> <span class="s">&quot;...&quot;</span><span class="p">);</span>
+        <span class="n">Device</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Device</span><span class="p">.</span><span class="na">getDevice</span><span class="p">(</span><span class="n">devName</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;DONE!&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  <span class="nd">@CEntryPoint</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;getTileName&quot;</span><span class="o">)</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="n">CCharPointer</span> <span class="nf">getTileName</span><span class="o">(</span><span class="n">IsolateThread</span> <span class="n">thread</span><span class="o">,</span> <span class="n">CCharPointer</span> <span class="n">deviceName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">row</span><span class="o">,</span> <span class="kt">int</span> <span class="n">column</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">devName</span> <span class="o">=</span> <span class="n">CTypeConversion</span><span class="o">.</span><span class="na">toJavaString</span><span class="o">(</span><span class="n">deviceName</span><span class="o">);</span>
-        <span class="n">Device</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="n">devName</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">CTypeConversion</span><span class="o">.</span><span class="na">toCString</span><span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="na">getTile</span><span class="o">(</span><span class="n">row</span><span class="o">,</span> <span class="n">column</span><span class="o">).</span><span class="na">getName</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
-  <span class="o">}</span>
-<span class="o">}</span>
+  <span class="nd">@CEntryPoint</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;getTileName&quot;</span><span class="p">)</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">CCharPointer</span> <span class="nf">getTileName</span><span class="p">(</span><span class="n">IsolateThread</span> <span class="n">thread</span><span class="p">,</span> <span class="n">CCharPointer</span> <span class="n">deviceName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">row</span><span class="p">,</span> <span class="kt">int</span> <span class="n">column</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">devName</span> <span class="o">=</span> <span class="n">CTypeConversion</span><span class="p">.</span><span class="na">toJavaString</span><span class="p">(</span><span class="n">deviceName</span><span class="p">);</span>
+        <span class="n">Device</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Device</span><span class="p">.</span><span class="na">getDevice</span><span class="p">(</span><span class="n">devName</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">CTypeConversion</span><span class="p">.</span><span class="na">toCString</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="na">getTile</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">).</span><span class="na">getName</span><span class="p">()).</span><span class="na">get</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">loadDevice()</span></code> API is redundant because the <code class="docutils literal notranslate"><span class="pre">getTileName()</span></code> also will load the device if it is not already in memory, this is just to provide second point of illustration.  Also note that GraalVM provides a set of utility methods to convert to and from Java and C types <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/type/CTypeConversion.html">CTypeConversion</a> such as Java Strings to C <code class="docutils literal notranslate"><span class="pre">char*</span></code>.</p>
@@ -313,48 +313,48 @@ native-image --no-server -cp <span class="nv">$CLASSPATH</span> --no-fallback --
 <div class="section" id="testing-it-out">
 <h2>Testing it Out<a class="headerlink" href="#testing-it-out" title="Permalink to this headline">¶</a></h2>
 <p>Now for the fun part, we can create a C or C++ application that will make use of the new RapidWright APIs!  Here’s a <a class="reference download internal" download="" href="_downloads/96de5440b5faced837ff0d51786e894b/RapidWrightExample.cpp"><code class="xref download docutils literal notranslate"><span class="pre">small</span> <span class="pre">C++</span> <span class="pre">program</span></code></a> that prints out a grid of tile names for a given device:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 <span class="c1">// This is the header file created by native-image (Graal)</span>
-<span class="cp">#include</span> <span class="cpf">&lt;librapidwright.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;librapidwright.h&gt;</span><span class="cp"></span>
 
-<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// This is some Graal boilerplate code</span>
-  <span class="n">graal_isolate_t</span> <span class="o">*</span><span class="n">isolate</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="n">graal_isolatethread_t</span> <span class="o">*</span><span class="kr">thread</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// This is some Graal boilerplate code</span>
+<span class="w">  </span><span class="n">graal_isolate_t</span><span class="w"> </span><span class="o">*</span><span class="n">isolate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">graal_isolatethread_t</span><span class="w"> </span><span class="o">*</span><span class="kr">thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="n">graal_create_isolate</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">isolate</span><span class="p">,</span> <span class="o">&amp;</span><span class="kr">thread</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;graal_create_isolate error</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// End boilerplate</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">graal_create_isolate</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">isolate</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="kr">thread</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;graal_create_isolate error</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// End boilerplate</span>
 
-  <span class="kt">int</span> <span class="n">maxRow</span> <span class="o">=</span> <span class="mi">105</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">maxCol</span> <span class="o">=</span> <span class="mi">105</span><span class="p">;</span>
-  <span class="kt">char</span> <span class="o">*</span> <span class="n">devName</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">maxRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">105</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">maxCol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">105</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">devName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
 
-  <span class="c1">// Load the device in RapidWright, the device will be</span>
-  <span class="c1">// persistent in memory until it is unloaded</span>
-  <span class="n">loadDevice</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span> <span class="n">devName</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// Load the device in RapidWright, the device will be</span>
+<span class="w">  </span><span class="c1">// persistent in memory until it is unloaded</span>
+<span class="w">  </span><span class="n">loadDevice</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span><span class="w"> </span><span class="n">devName</span><span class="p">);</span><span class="w"></span>
 
-  <span class="c1">// Get tile names based on row/column indices and print out</span>
-  <span class="c1">// the tile names for a few tiles</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">maxRow</span><span class="p">;</span> <span class="n">row</span><span class="o">++</span><span class="p">){</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">maxCol</span><span class="p">;</span> <span class="n">col</span><span class="o">++</span><span class="p">){</span>
-          <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Tile[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">col</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">row</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;] = </span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span>
-        <span class="n">getTileName</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span> <span class="n">devName</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-        <span class="p">}</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="c1">// Get tile names based on row/column indices and print out</span>
+<span class="w">  </span><span class="c1">// the tile names for a few tiles</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxRow</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxCol</span><span class="p">;</span><span class="w"> </span><span class="n">col</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">          </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Tile[&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;] = </span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"></span>
+<span class="w">        </span><span class="n">getTileName</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span><span class="w"> </span><span class="n">devName</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="c1">// Clean up Graal stuff</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">graal_detach_thread</span><span class="p">(</span><span class="kr">thread</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;graal_detach_thread error</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="c1">// Clean up Graal stuff</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">graal_detach_thread</span><span class="p">(</span><span class="kr">thread</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;graal_detach_thread error</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>There is some GraalVM boilerplate before and after we use the APIs in RapidWright, but we can compile this with any C++ compiler.  The program prints out all the tiles in grid between tiles located at (100,100) and (104,104) inclusive, or 25 different tile names.  We can compile and run this program by running the following:</p>
@@ -438,7 +438,7 @@ Tile<span class="o">[</span><span class="m">104</span>,104<span class="o">]</spa
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2021.1.0-beta',
+            VERSION:'2021.1.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

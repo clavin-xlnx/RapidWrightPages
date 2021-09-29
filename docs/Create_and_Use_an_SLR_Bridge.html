@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Create and Use an SLR Bridge &mdash; RapidWright 2021.1.0-beta documentation</title>
+  <title>Create and Use an SLR Bridge &mdash; RapidWright 2021.1.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2021.1.0
+                2021.1.1
               </div>
             
           
@@ -288,8 +288,8 @@ Option                                   Description
 <div><a class="reference internal image-reference" href="_images/slr_bridge.png"><img alt="_images/slr_bridge.png" class="align-center" src="_images/slr_bridge.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>We can also add a timing constraint to test the pre-implemented performance of the bridge with the following Tcl commands:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_clock</span> <span class="o">-</span>name clk <span class="o">-</span>period <span class="mf">1.333</span> <span class="k">[</span><span class="nv">get_nets</span> clk<span class="k">]</span>
-<span class="nv">report_timing_summary</span> <span class="o">-</span>delay_type min_max <span class="o">-</span>report_unconstrained <span class="o">-</span>check_timing_verbose <span class="o">-</span>max_paths <span class="mi">10</span> <span class="o">-</span>input_pins <span class="o">-</span>routable_nets <span class="o">-</span>name timing_1
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_clock</span><span class="w"> </span><span class="o">-</span>name<span class="w"> </span>clk<span class="w"> </span><span class="o">-</span>period<span class="w"> </span><span class="mf">1.333</span><span class="w"> </span><span class="k">[</span><span class="nv">get_nets</span><span class="w"> </span>clk<span class="k">]</span>
+<span class="nv">report_timing_summary</span><span class="w"> </span><span class="o">-</span>delay_type<span class="w"> </span>min_max<span class="w"> </span><span class="o">-</span>report_unconstrained<span class="w"> </span><span class="o">-</span>check_timing_verbose<span class="w"> </span><span class="o">-</span>max_paths<span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">-</span>input_pins<span class="w"> </span><span class="o">-</span>routable_nets<span class="w"> </span><span class="o">-</span>name<span class="w"> </span>timing_1
 </pre></div>
 </div>
 <p>We have specified a 750MHz clock constraint (1.333 ns period) and the timing report should show postive slack for both setup and hold.  Close this design in Vivado once you are done (don’t save your changes):</p>
@@ -304,7 +304,7 @@ Option                                   Description
 <li><p>Download <a class="reference download internal" download="" href="_downloads/afbabe02346074849b7f1b49f9fd261e/synth32_BB.dcp"><code class="xref download docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
 <li><p>Open it in Vivado using the Tcl command:</p></li>
 </ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span> synth32_BB.dcp
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span><span class="w"> </span>synth32_BB.dcp
 </pre></div>
 </div>
 <p>Look at the Vivado netlist view of the <code class="docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code> design. The SLR Bridge (<code class="docutils literal notranslate"><span class="pre">crossing</span></code> instance) has been left open as a black box to be populated with our RapidWright bridge implementation, see the screenshot below for reference:</p>
@@ -316,7 +316,7 @@ Option                                   Description
 <p>For ease of use of this tutorial, we have provided a synthesized circuit with a black box.  However, in common practice, the generated DCP from RapidWright can simply be instantiated in Verilog/VHDL directly and the DCP added to the sources of the project.</p>
 </div>
 <p>To import our SLR bridge, we will use the <code class="docutils literal notranslate"><span class="pre">read_checkpoint</span></code> command at the Tcl prompt:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">read_checkpoint</span> <span class="o">-</span>cell crossing slr_crosser_vu7p_32.dcp
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">read_checkpoint</span><span class="w"> </span><span class="o">-</span>cell<span class="w"> </span>crossing<span class="w"> </span>slr_crosser_vu7p_32.dcp
 </pre></div>
 </div>
 <p>Note that the netlist icon next to <code class="docutils literal notranslate"><span class="pre">crossing</span></code> should change from dark to white.  The black box has now been populated with our custom SLR bridge implementation we just created in RapidWright.</p>
@@ -328,7 +328,7 @@ Option                                   Description
 <li><p>Download <a class="reference download internal" download="" href="_downloads/7f96689af5112e25ed01875abf915a3c/run_PnR.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_PnR.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
 <li><p>Run the Tcl command:</p></li>
 </ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> run_PnR.tcl
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>run_PnR.tcl
 </pre></div>
 </div>
 <p>Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:</p>
@@ -354,7 +354,7 @@ Option                                   Description
 <li><p>Downloading <a class="reference download internal" download="" href="_downloads/13fcd549011eef56cd7faea7a95ad360/run_timing.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_timing.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
 <li><p>Running the Tcl command:</p></li>
 </ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> run_timing.tcl
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>run_timing.tcl
 </pre></div>
 </div>
 <p>Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:</p>
@@ -423,7 +423,7 @@ Option                                   Description
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2021.1.0-beta',
+            VERSION:'2021.1.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

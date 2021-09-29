@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pre-implemented Modules - Part I &mdash; RapidWright 2021.1.0-beta documentation</title>
+  <title>Pre-implemented Modules - Part I &mdash; RapidWright 2021.1.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2021.1.0
+                2021.1.1
               </div>
             
           
@@ -262,10 +262,10 @@
 <img alt="_images/eqn1.png" class="align-center" src="_images/eqn1.png" />
 <p>So, in the absolute best case, we could squeeze a PicoBlaze into 15 UltraScale SLICEs.  To attempt this, we would create a pblock (area constraint) that would force the placer to only use 15 SLICEs and 1 Block RAM tile.  A block RAM tile is 5 SLICEs tall in the UltraScale architecture, so we would need 3 nearby columns of SLICEs in order to make a compact rectangle.  If we tried to use 2 SLICE columns instead of three, our SLICE footprint height would be 8 (ceiling(15/2)) which would not stride well with the 5 SLICE height of the block RAM.</p>
 <p>To create the pblock, run the following Tcl constraints:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_pblock</span> pblock_1
-<span class="nv">resize_pblock</span> pblock_1 <span class="o">-</span>add <span class="k">{</span><span class="nv">SLICE_X27Y60</span><span class="o">:</span>SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span>
-<span class="nv">add_cells_to_pblock</span> pblock_1 <span class="o">-</span>top
-<span class="nv">set_property</span> CONTAIN_ROUTING <span class="mi">1</span> <span class="k">[</span><span class="nv">get_pblocks</span> pblock_1<span class="k">]</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_pblock</span><span class="w"> </span>pblock_1
+<span class="nv">resize_pblock</span><span class="w"> </span>pblock_1<span class="w"> </span><span class="o">-</span>add<span class="w"> </span><span class="k">{</span><span class="nv">SLICE_X27Y60</span><span class="o">:</span>SLICE_X29Y64<span class="w"> </span>RAMB18_X2Y24:RAMB18_X2Y25<span class="w"> </span>RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span>
+<span class="nv">add_cells_to_pblock</span><span class="w"> </span>pblock_1<span class="w"> </span><span class="o">-</span>top
+<span class="nv">set_property</span><span class="w"> </span>CONTAIN_ROUTING<span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pblocks</span><span class="w"> </span>pblock_1<span class="k">]</span>
 </pre></div>
 </div>
 <p>Note that we also use the <code class="docutils literal notranslate"><span class="pre">CONTAIN_ROUTING</span></code> property on the pblock of the PicoBlaze.  This will ensure that the implementation is more amenable to relocation (can be more densely packed) later.  Without this attribute, the routing will not be very reusable as it will be allowed to spread out far around the rectangle of the pblock.  Once the pblock is created, it should look like this:</p>
@@ -273,8 +273,8 @@
 <div><a class="reference internal image-reference" href="_images/pico_pblock.png"><img alt="_images/pico_pblock.png" class="align-center" src="_images/pico_pblock.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>We will also need to add a timing constraint to push implementation to get the best performance possible.  In order to push the tools, we should be choose a target frequency that will push the tools just beyond their capacity to achieve timing closure.  To begin, we’ll add a 400MHz clock constraint and also provide a skew estimation target for the clock buffer to provide a more accurate timing estimation:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_clock</span> <span class="o">-</span>period <span class="mf">2.5</span> <span class="o">-</span>name clk <span class="o">-</span>waveform <span class="k">{</span><span class="nv">0.000</span> <span class="mf">1.25</span><span class="k">}</span> <span class="k">[</span><span class="nv">get_ports</span> clk<span class="k">]</span>
-<span class="nv">set_property</span> HD.CLK_SRC BUFGCTRL_X0Y2 <span class="k">[</span><span class="nv">get_ports</span> clk<span class="k">]</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">create_clock</span><span class="w"> </span><span class="o">-</span>period<span class="w"> </span><span class="mf">2.5</span><span class="w"> </span><span class="o">-</span>name<span class="w"> </span>clk<span class="w"> </span><span class="o">-</span>waveform<span class="w"> </span><span class="k">{</span><span class="nv">0.000</span><span class="w"> </span><span class="mf">1.25</span><span class="k">}</span><span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span>clk<span class="k">]</span>
+<span class="nv">set_property</span><span class="w"> </span>HD.CLK_SRC<span class="w"> </span>BUFGCTRL_X0Y2<span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span>clk<span class="k">]</span>
 </pre></div>
 </div>
 <p>By running <code class="docutils literal notranslate"><span class="pre">place_design</span></code> we can gauge the feasibility of using this footprint size for implementation (spoiler… this will not fit). The placer will report the errors similar to the following:</p>
@@ -286,7 +286,7 @@
 </pre></div>
 </div>
 <p>It turns out the logic is packed too tightly into the area.  Another way to gauge logic density would be to check the pblock statistics by selecting the pblock in Vivado by running the Tcl command:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">select_objects</span> <span class="k">[</span><span class="nv">get_pblocks</span> pblock_1<span class="k">]</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">select_objects</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pblocks</span><span class="w"> </span>pblock_1<span class="k">]</span>
 </pre></div>
 </div>
 <p>Then choosing the <code class="docutils literal notranslate"><span class="pre">Statistics</span></code> tab of <code class="docutils literal notranslate"><span class="pre">Pblock</span> <span class="pre">Properties</span></code>, which would have something similar to that below:</p>
@@ -294,7 +294,7 @@
 <div><a class="reference internal image-reference" href="_images/pico_pblock_stats.png"><img alt="_images/pico_pblock_stats.png" class="align-center" src="_images/pico_pblock_stats.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>A quick analysis shows that we are attempting to use ~96% of the LUTs in that area which is unlikely to place correctly.  Again, since BRAM tiles are stacked vertically, we must grow horizontally to ensure that we can step and repeat without blocking access to other BRAMs with used SLICEs.  Using the mouse, you can stretch/grow the pblock by grabbing the edge of the pblock shape and pushing it out.  Alternatively, you could run the following Tcl command:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">resize_pblock</span> pblock_1 <span class="o">-</span>add <span class="k">{</span><span class="nv">SLICE_X26Y60</span><span class="o">:</span>SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span> <span class="o">-</span>remove <span class="k">{</span><span class="nv">SLICE_X27Y60</span><span class="o">:</span>SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span> <span class="o">-</span>locs keep_all
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">resize_pblock</span><span class="w"> </span>pblock_1<span class="w"> </span><span class="o">-</span>add<span class="w"> </span><span class="k">{</span><span class="nv">SLICE_X26Y60</span><span class="o">:</span>SLICE_X29Y64<span class="w"> </span>RAMB18_X2Y24:RAMB18_X2Y25<span class="w"> </span>RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span><span class="w"> </span><span class="o">-</span>remove<span class="w"> </span><span class="k">{</span><span class="nv">SLICE_X27Y60</span><span class="o">:</span>SLICE_X29Y64<span class="w"> </span>RAMB18_X2Y24:RAMB18_X2Y25<span class="w"> </span>RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span><span class="w"> </span><span class="o">-</span>locs<span class="w"> </span>keep_all
 </pre></div>
 </div>
 <p>To validate our new footprint, we can run the Tcl command:</p>
@@ -320,7 +320,7 @@
 </div>
 <p>After a few seconds it will create a map where the keys are a sequence of tile type names (a tile column pattern) and values are a list of fabric tile column indices where the keyed tile column pattern begins.  As a simple example, we can filter the map down to a pattern of 1 BRAM to find out how many BRAM columns exist in the device:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filtered</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">BRAM</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">colMap</span><span class="o">.</span><span class="n">entrySet</span><span class="p">()))</span>
-<span class="k">print</span> <span class="n">filtered</span>
+<span class="nb">print</span> <span class="n">filtered</span>
 </pre></div>
 </div>
 <p>The output should look like this:</p>
@@ -338,7 +338,7 @@
 </ol>
 <p>To do this, we can run the following code that will print out the patterns we are interested in and sort them by most number of instances first:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filtered</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">BRAM</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">TileTypeEnum</span><span class="o">.</span><span class="n">DSP</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">5</span><span class="p">,</span> <span class="n">colMap</span><span class="o">.</span><span class="n">entrySet</span><span class="p">()))</span>
-<span class="n">filtered</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">filtered</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="n">pprint</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
 </pre></div>
@@ -410,7 +410,7 @@
 <p>Notice that we used a row index of 1 (0 is the edge of the device) but that the Y coordinate is 299.  The row/column coordinate system has an origin at the top left (North West) corner of the device whereas the X/Y coordinate system.</p>
 </div>
 <p>As we expect, the tile type is CLEM.  We must now create a pblock that captures the pattern on the edge of a middle clock region.  By subtracting 60 (the number of SLICEs in a clock region), we arrive at tile <code class="docutils literal notranslate"><span class="pre">CLEM_X9Y239</span></code>. We can select this tile in Vivado by running the Tcl command:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">select_objects</span> <span class="k">[</span><span class="nv">get_tiles</span> CLEM_X9Y239<span class="k">]</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">select_objects</span><span class="w"> </span><span class="k">[</span><span class="nv">get_tiles</span><span class="w"> </span>CLEM_X9Y239<span class="k">]</span>
 </pre></div>
 </div>
 <p>then using the toolbar button for pblock creation, we can use the mouse to create an outlined rectangular region that includes 20 SLICEs and 1 RAMB36 as shown in the screenshot below:</p>
@@ -418,7 +418,7 @@
 <div><a class="reference internal image-reference" href="_images/drag_pblock.png"><img alt="_images/drag_pblock.png" class="align-center" src="_images/drag_pblock.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>A confirmation window will pop up, make sure all the <cite>Grids</cite> are selected then click <code class="docutils literal notranslate"><span class="pre">OK</span></code>.  By using this technique, we can be assured to get the proper ranges for both BRAM and SLICEs in our pblock.  To get the created pblock ranges, run the Tcl command:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">get_property</span> GRID_RANGES <span class="k">[</span><span class="nv">get_selected_objects</span><span class="k">]</span>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">get_property</span><span class="w"> </span>GRID_RANGES<span class="w"> </span><span class="k">[</span><span class="nv">get_selected_objects</span><span class="k">]</span>
 </pre></div>
 </div>
 <p>This should print:</p>
@@ -478,7 +478,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2021.1.0-beta',
+            VERSION:'2021.1.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright Overview &mdash; RapidWright 2021.1.0-beta documentation</title>
+  <title>RapidWright Overview &mdash; RapidWright 2021.1.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2021.1.0
+                2021.1.1
               </div>
             
           
@@ -222,12 +222,12 @@
 <h2><a class="toc-backref" href="#id6">Device Package</a><a class="headerlink" href="#device-package" title="Permalink to this headline">¶</a></h2>
 <p>The device package contains the classes that correspond to constructs in the hardware and/or silicon devices.  The most prominent and important class in this package is aptly named the <code class="docutils literal notranslate"><span class="pre">Device</span></code> class.  The <code class="docutils literal notranslate"><span class="pre">Device</span></code> class represents a specific product family member (xcku040, for example) but does not carry package, speed grade or temperature grade information.  These additional unique attributes are captured in the <code class="docutils literal notranslate"><span class="pre">Package</span></code> class.  When a specific device is combined with its package and grade information, this uniquely identifies a Xilinx part, represented by the <code class="docutils literal notranslate"><span class="pre">Part</span></code> class.</p>
 <p>Most of the details of managing speed grades, packages, temperature are most commonly dealt with by using a string to uniquely identify a part is by using a String of the part name.  RapidWright automatically interprets all valid and supported Xilinx devices by part name and can correctly load a device if that information is included or not.  For example, the following lines of code all load the same device, even though the part name is slightly different:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Device</span> <span class="n">device</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040&quot;</span><span class="o">);</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040-fbva676-2&quot;</span><span class="o">);</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040ffva1156&quot;</span><span class="o">);</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040-sfva784-1LV-i&quot;</span><span class="o">);</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="na">getDevice</span><span class="o">(</span><span class="s">&quot;xcku040ffva1156-2&quot;</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Device</span> <span class="n">device</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">.</span><span class="na">getDevice</span><span class="p">(</span><span class="s">&quot;xcku040&quot;</span><span class="p">);</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">.</span><span class="na">getDevice</span><span class="p">(</span><span class="s">&quot;xcku040-fbva676-2&quot;</span><span class="p">);</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">.</span><span class="na">getDevice</span><span class="p">(</span><span class="s">&quot;xcku040ffva1156&quot;</span><span class="p">);</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">.</span><span class="na">getDevice</span><span class="p">(</span><span class="s">&quot;xcku040-sfva784-1LV-i&quot;</span><span class="p">);</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">.</span><span class="na">getDevice</span><span class="p">(</span><span class="s">&quot;xcku040ffva1156-2&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Device</span></code> class maintains a singleton map to avoid loading the same device more than once.  Devices files are stored in <code class="docutils literal notranslate"><span class="pre">com.xilinx.rapidwright.util.FileTools.DEVICE_FOLDER_NAME</span></code> and are provided by the maintainers of the RapidWright project, typically refreshed with each production release of Vivado (2017.3, 2017.4, 2018.1, …).  A significant amount of information is stored in the device files and so they are highly compressed to avoid consuming excessive disk space.</p>
@@ -293,12 +293,12 @@
 <p>RapidWright reads, represents and writes logical netlist information in the EDIF format and the EDIF package is written to explicitly accommodate this need.  It was written with Vivado-generated EDIF in mind and may not support every corner case of the EDIF 2 0 0 specification.</p>
 <p>Parsing EDIF is performed by the <code class="docutils literal notranslate"><span class="pre">EDIFParser</span></code> class.  EDIF is normally handled when reading or writing a DCP, but it can be parsed/exported independently as follows:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// Read in my_edif_file.edf</span>
-<span class="n">EDIFParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EDIFParser</span><span class="o">(</span><span class="s">&quot;my_edif_file.edf&quot;</span><span class="o">);</span>
-<span class="n">EDIFNetlist</span> <span class="n">netlist</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">parseEDIFNetlist</span><span class="o">();</span>
+<span class="n">EDIFParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EDIFParser</span><span class="p">(</span><span class="s">&quot;my_edif_file.edf&quot;</span><span class="p">);</span>
+<span class="n">EDIFNetlist</span> <span class="n">netlist</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="na">parseEDIFNetlist</span><span class="p">();</span>
 <span class="c1">// Work some netlist magic...</span>
 <span class="c1">// ...</span>
 <span class="c1">// Now write it out</span>
-<span class="n">netlist</span><span class="o">.</span><span class="na">exportEDIF</span><span class="o">(</span><span class="s">&quot;my_edif_file_post_rapidwright.edf&quot;</span><span class="o">);</span>
+<span class="n">netlist</span><span class="p">.</span><span class="na">exportEDIF</span><span class="p">(</span><span class="s">&quot;my_edif_file_post_rapidwright.edf&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">EDIFNetlist</span></code> is the top level class that contains the netlist and cell libraries.  All EDIF-related objects have EDIF has a class name prefix. The <code class="docutils literal notranslate"><span class="pre">EDIFNetlist</span></code> keeps a reference to the top cell which is wrapped in the <code class="docutils literal notranslate"><span class="pre">EDIFDesign</span></code> class.  It also maintains a top cell instance reference that is generated when the file is loaded.</p>
@@ -399,7 +399,7 @@ Vivado and then written back out, the module metadata will be lost.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2021.1.0-beta',
+            VERSION:'2021.1.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

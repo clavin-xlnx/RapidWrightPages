@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Design Checkpoints &mdash; RapidWright 2021.1.0-beta documentation</title>
+  <title>Design Checkpoints &mdash; RapidWright 2021.1.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2021.1.0
+                2021.1.1
               </div>
             
           
@@ -233,13 +233,13 @@
 </ul>
 </div></blockquote>
 <p>Here are a few ways to read/write a design checkpoint in RapidWright:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="o">.</span><span class="na">readCheckpoint</span><span class="o">(</span><span class="s">&quot;my_design_routed.dcp&quot;</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="s">&quot;my_design_routed.dcp&quot;</span><span class="p">);</span>
 <span class="c1">// or if the EDIF inside the DCP is encrypted because of source references,</span>
 <span class="c1">//   you can alternatively supply a separate EDIF</span>
-<span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="o">.</span><span class="na">readCheckpoint</span><span class="o">(</span><span class="s">&quot;my_design_routed.dcp&quot;</span><span class="o">,</span> <span class="s">&quot;my_design_edif.edf&quot;</span><span class="o">);</span>
+<span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="s">&quot;my_design_routed.dcp&quot;</span><span class="p">,</span> <span class="s">&quot;my_design_edif.edf&quot;</span><span class="p">);</span>
 
 <span class="c1">// To write out a design</span>
-<span class="n">design</span><span class="o">.</span><span class="na">writeCheckpoint</span><span class="o">(</span><span class="s">&quot;my_design_post_rapidwright.dcp&quot;</span><span class="o">);</span>
+<span class="n">design</span><span class="p">.</span><span class="na">writeCheckpoint</span><span class="p">(</span><span class="s">&quot;my_design_post_rapidwright.dcp&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The interface that enables RapidWright to read and write checkpoints is handled by the RapidWright API Library in the provided rapidwright-api-library-&lt;ver&gt;.jar.  The APIs in this tool are used in the Design class with readCheckpoint() and writeCheckpoint().  Note that it is licensed separately from the rest of RapidWright under a modified Xilinx EULA. Also note that RapidWright is not an official product from Xilinx and designs created or derived from it are not warranted. Please see <a class="reference external" href="https://github.com/Xilinx/RapidWright/blob/master/LICENSE.TXT">LICENSE.TXT</a> for full details.</p>
@@ -288,7 +288,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2021.1.0-beta',
+            VERSION:'2021.1.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

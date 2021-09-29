@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pre-implemented Modules - Part II &mdash; RapidWright 2021.1.0-beta documentation</title>
+  <title>Pre-implemented Modules - Part II &mdash; RapidWright 2021.1.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2021.1.0
+                2021.1.1
               </div>
             
           
@@ -358,7 +358,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 <p>You’ll also notice colored lines that appear as you drag the blocks.  These lines show high-level connectivity of the blocks to other blocks.  The thicker the lines, the more tightly connected it is to its neighbors.  If you choose to change the placement, its results will automatically be saved.  Close the Hand Placer window, and the program will write out a placed and routed PicoBlaze array DCP.</p>
 <p>Close any existing DCPs that are open in Vivado and open our new <code class="docutils literal notranslate"><span class="pre">picoblaze_array.dcp</span></code>:</p>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">close_design</span>
-<span class="nv">open_checkpoint</span> picoblaze_array.dcp
+<span class="nv">open_checkpoint</span><span class="w"> </span>picoblaze_array.dcp
 </pre></div>
 </div>
 <p>Once the design opens in Vivado, we find that RapidWright has “copied and pasted” our PicoBlaze 396 times in the center clock region rows of the VU3P as shown in the screenshot below:</p>
@@ -368,7 +368,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 <p>To finalize the design, we simply need to update the clock tree, route the interconnections between PicoBlaze instances and check timing.  This can be performed with the following Tcl commands:</p>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">update_clock_routing</span>
 <span class="nv">route_design</span>
-<span class="nv">report_timing_summary</span> <span class="o">-</span>delay_type min_max <span class="o">-</span>report_unconstrained <span class="o">-</span>check_timing_verbose <span class="o">-</span>max_paths <span class="mi">10</span> <span class="o">-</span>input_pins <span class="o">-</span>routable_nets <span class="o">-</span>name timing_1
+<span class="nv">report_timing_summary</span><span class="w"> </span><span class="o">-</span>delay_type<span class="w"> </span>min_max<span class="w"> </span><span class="o">-</span>report_unconstrained<span class="w"> </span><span class="o">-</span>check_timing_verbose<span class="w"> </span><span class="o">-</span>max_paths<span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">-</span>input_pins<span class="w"> </span><span class="o">-</span>routable_nets<span class="w"> </span><span class="o">-</span>name<span class="w"> </span>timing_1
 </pre></div>
 </div>
 <p>Once we are done, we should get a fully routed implementation that looks similar to this (or you can download our result here <a class="reference download internal" download="" href="_downloads/1ac6f93c413b0ac6731e2e2ab4289cc6/picoblaze_array_routed.dcp"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_array_routed.dcp</span></code></a>):</p>
@@ -435,7 +435,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2021.1.0-beta',
+            VERSION:'2021.1.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
