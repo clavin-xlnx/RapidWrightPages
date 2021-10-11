@@ -359,7 +359,7 @@ and each block is a list of configuration frames.</p>
   <span class="c1">// Changes the initialization of the FF to 1</span>
   <span class="n">Cell</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">design</span><span class="p">.</span><span class="na">getCell</span><span class="p">(</span><span class="s">&quot;myFF&quot;</span><span class="p">);</span>
   <span class="n">cell</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&quot;INIT&quot;</span><span class="p">).</span><span class="na">setValue</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">);</span>
-  <span class="n">ConfigureBitstream</span><span class="p">.</span><span class="na">updateUserStateBits</span><span class="p">(</span><span class="n">configArray</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="n">cell</span><span class="p">);</span>
+  <span class="n">configArray</span><span class="p">.</span><span class="na">updateUserStateBits</span><span class="p">(</span><span class="n">cell</span><span class="p">);</span>
   <span class="n">bitstream</span><span class="p">.</span><span class="na">updatePacketsFromConfigArray</span><span class="p">();</span>
 
   <span class="n">design</span><span class="p">.</span><span class="na">writeCheckpoint</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="p">);</span>

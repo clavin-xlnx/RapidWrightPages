@@ -155,7 +155,7 @@ Example Usages: Modify User State Bits
     // Changes the initialization of the FF to 1
     Cell cell = design.getCell("myFF");
     cell.getProperty("INIT").setValue("1");
-    ConfigureBitstream.updateUserStateBits(configArray, null, cell);
+    configArray.updateUserStateBits(cell);
     bitstream.updatePacketsFromConfigArray();
         
     design.writeCheckpoint(args[2]);
