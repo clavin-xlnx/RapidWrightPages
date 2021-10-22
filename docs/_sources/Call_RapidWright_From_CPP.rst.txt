@@ -205,4 +205,4 @@ If all goes well, you should see the following output:
 	Tile[103,104] = "CLEM_X11Y799"
 	Tile[104,104] = "INT_X11Y799"
 	
-If you have questions or ideas on how to make better use of GraalVM, please post ideas and questions on the `RapidWright forum <https://groups.google.com/forum/#!forum/rapidwright>`_.	
+If you have questions or ideas on how to make better use of GraalVM, please post ideas and questions on the `RapidWright forum <https://github.com/Xilinx/RapidWright/discussions>`_.	
