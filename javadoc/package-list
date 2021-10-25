@@ -16,6 +16,10 @@ com.xilinx.rapidwright.ipi
 com.xilinx.rapidwright.placer.blockplacer
 com.xilinx.rapidwright.placer.handplacer
 com.xilinx.rapidwright.router
+com.xilinx.rapidwright.rwroute
 com.xilinx.rapidwright.tests
 com.xilinx.rapidwright.timing
+com.xilinx.rapidwright.timing.delayestimator
 com.xilinx.rapidwright.util
+com.xilinx.rapidwright.util.performance_evaluation
+com.xilinx.rapidwright.util.rwroute
