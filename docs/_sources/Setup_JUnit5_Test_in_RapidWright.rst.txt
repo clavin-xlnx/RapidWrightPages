@@ -9,9 +9,23 @@ Running the Tests
 
 All testcases are located in the ``test/`` directory. JUnit does not need a central list of testcases. Instead, it searches the directory for all classes that contain tests. Tests are marked by annotations (see later). After builing a list of all tests, it executes them one by one.
 
+Some tests depend on DCPs which are stored in a Git submodule --- a feature that allows a specific commit of another Git repository to exist as a subdirectory of the current repository.
+To check out the specific commit of a submodule, run::
+
+  git submodule update --init
+
+from the parent RapidWright repository where ``--init`` is only strictly necessary (but harmless otherwise) on the first invocation.
+
 To run the tests via Gradle, use the task ``test`` or ``build`` (which depends on ``test``). After running the tests, Gradle will output the results both as an HTML document in ``build/reports/tests/test`` and as JUnit-internal XML in ``build/test-results/test``. Note that Gradle knows whether the input to the tests changed and will not rerun them if they are up to date.
 
 There is integration for JUnit in all major IDEs. When loading RapidWright into your IDE, you should set ``test`` as source directory for tests. Your IDE should allow you to run all the tests or choose a single class to run.
+Alternatively, one can execute Gradle from the command line with the ``test`` task with one or more ``--tests <filter>`` arguments. For example, on Linux::
+
+  ./gradlew test --tests com.xilinx.rapidwright.design.* --tests *PartNameTools.testGetPartCase
+
+would run all test methods under all classes within the ``com.xilinx.rapidwright.design`` package, as well as the single test method ``testGetPartCase`` from the ``com.xilinx.rapidwright.device.TestPartNameTools`` class.
+
+
 
 Writing Testcases
 ------------------
@@ -45,7 +59,6 @@ All these methods have a parameter for an expected value and an actual value. Op
 
 A very simple test to check that addition works as expected might look like this:
 
-
 .. code-block:: java
 
   import org.junit.jupiter.api.Assertions;
@@ -57,7 +70,7 @@ A very simple test to check that addition works as expected might look like this
       }
   }
 
-
+  
 Parameterized Tests
 -------------------
 
@@ -68,7 +81,6 @@ JUnit allows parameters on testcases. They are marked with ``@ParameterizedTest`
 You need to specify a source for values for these parameters. One option is use a separate method that return a ``Collection<Arguments>`` or ``Stream<Arguments>``. One instance of ``Arguments`` describes one invocation of the testcase method. The value source is specified as another annotation (here: ``@MethodSource``).
 
 A simple example that calls ``testNonzero(int i)`` on all numbers from 1 to 10:
-
 
 .. code-block:: java
 
@@ -92,7 +104,6 @@ A simple example that calls ``testNonzero(int i)`` on all numbers from 1 to 10:
   }
 
 
-
 RapidWright-specific Considerations
 -----------------------------------
 
@@ -104,3 +115,66 @@ parts of RapidWright can exceed that limit. You should keep this limitation in m
  - When instantiating a ``Design``, use a small ``Device`` for it.
 
 In the past, there were issues with files being left open after using them. To catch problems like this, there is an JUnit extension that compares the list of open files before and after a testcase. It will fail the testcase if there are changes. You can apply it to a testcase by adding the ``@CheckOpenFiles`` annotation (from the ``com.xilinx.rapidwright.checker`` package) to the method.
+
+
+Testcase DCPs
+^^^^^^^^^^^^^
+
+Tests requiring new DCP(s) will need to also fork the `RapidWrightDCP <https://github.com/eddieh-xlnx/RapidWrightDCP>`_ repository to gain write permissions.
+Next, execute the following::
+
+  # Add, commit, push new DCP(s) into new branch on fork
+  cd test/RapidWrightDCP
+  git remote add fork https://github.com/<user>/RapidWrightDCP  # Only necessary first invocation
+  git checkout -b <branch>
+  git add <dcp_name>
+  git commit
+  git push -u fork <branch>
+  cd ../..
+
+  # Commit new submodule reference
+  git commit test/RapidWrightDCP -s -m "(Description)"
+
+The submodule can now be used as a regular Git repository during development (remember to commit new submodule references from the RapidWright repository using::
+
+  git commit test/RapidWrightDCP -s -m "(Description)"
+
+Once ready, please create new pull requests in both the upstream RapidWright and RapidWrightDCP repositories. When both pull requests have been approved, the following situation will be present::
+
+  RapidWrightDCP (upstream) ... o--o---------------x
+                                    \             / (PR#123)
+  RapidWrightDCP (fork)          ... o--o ... o--o
+                                                 ^ (commit `abc`)
+
+
+     RapidWright (upstream) ... o--o---------------x
+                                    \             / (PR#456)
+     RapidWright (fork)          ... o--o ... o--o
+                                                 ^ (submodule refers to commit `abc`
+                                                    on RapidWrightDCP fork)
+
+Here, RapidWright's ``PR#456`` refers to commit ``abc`` which is present only on the fork.
+The expectation would be that the RapidWrightDCP's ``PR#123`` would be merged first after which ``PR#456`` can then update its RapidWrightDCP submodule reference to include upstream's newly merged result::
+
+  RapidWrightDCP (upstream) ... o--o---------------o (commit `def` including
+                                    \             /   PR#123)
+  RapidWrightDCP (fork)          ... o--o ... o--o
+
+
+     RapidWright (upstream) ... o--o------------------o
+                                    \             /  /  (PR#456)
+     RapidWright (fork)          ... o--o ... o--o--o
+                                                    ^ (submodule updated to commit `def`
+                                                       on RapidWrightDCP upstream)
+
+This submodule reference can be updated back to upstream as follows::
+
+  # Return submodule to upstream master
+  cd test/RapidWrightDCP
+  git checkout master
+  git pull
+  cd ../..
+
+  # Commit new submodule reference
+  git commit test/RapidWrightDCP
+

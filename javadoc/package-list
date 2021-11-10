@@ -3,6 +3,7 @@ com.xilinx.rapidwright.bitstream
 com.xilinx.rapidwright.debug
 com.xilinx.rapidwright.design
 com.xilinx.rapidwright.design.blocks
+com.xilinx.rapidwright.design.drc
 com.xilinx.rapidwright.design.tools
 com.xilinx.rapidwright.device
 com.xilinx.rapidwright.device.browser
