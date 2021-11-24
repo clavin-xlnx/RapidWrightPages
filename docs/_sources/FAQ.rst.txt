@@ -43,7 +43,7 @@ Can RapidWright generate bitstreams?
 No. There is currently no bitstream information in RapidWright.  Any designs will need to be put back into Vivado for DRC and bitstream generation.
 
 Does RapidWright provide device timing information?
-=================================================
+====================================================
 RapidWright now includes a lightweight timing model for UltraScale+ devices (see :ref:`RapidWright Report Timing Example`).  For other devices, timing results can be obtained by exporting a design using the ``Design.writeCheckpoint()`` command and loading the design in Vivado to report timing.
 
 Does RapidWright support partial reconfiguration (PR)?

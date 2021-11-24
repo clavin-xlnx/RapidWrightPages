@@ -3,7 +3,10 @@ RapidWright Tutorials
 
 .. toctree::
    :maxdepth: 1
-
+   
+   RWRoute_timing_driven_routing
+   RWRoute_wirelength_driven_routing
+   RWRoute_partial_routing
    ReportTimingExample
    SLR_Crosser_DCP_Creator_Tutorial
    IPI_PreImpl_Tutorial

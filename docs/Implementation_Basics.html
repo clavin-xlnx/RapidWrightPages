@@ -119,6 +119,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#site-intra-site-routing">Site (Intra-site) Routing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#interconnect-inter-site-routing">Interconnect (Inter-site) Routing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#clock-routing">Clock Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rwroute">RWRoute</a></li>
 </ul>
 </li>
 </ul>
@@ -277,7 +278,39 @@
 <div class="section" id="clock-routing">
 <h3>Clock Routing<a class="headerlink" href="#clock-routing" title="Permalink to this headline">¶</a></h3>
 <p>Clock routing is very architecture specific and is similar to inter-site routing in that it is also implemented by a list of PIPs. However, there are key steps and constraints that must be satisfied beyond typical inter-site routing.</p>
-<p>(More to come…)</p>
+</div>
+<div class="section" id="rwroute">
+<h3>RWRoute<a class="headerlink" href="#rwroute" title="Permalink to this headline">¶</a></h3>
+<p>RWRoute is a full design router that has been developed in the RapidWright framework leveraging its <a class="reference internal" href="ReportTimingExample.html#rapidwright-report-timing-example"><span class="std std-ref">lightweight timing model</span></a>. It is capable of routing designs in both wirelength-driven and timing-driven modes, enabling the open source community to innovate and develop new algorithms. The open source aspect enables creation of domain-specific algorithms such as bundle routing in customized cost functions for the desired figure of merit. It also supports a partial routing mode, which is an essential capability for a future library-based customized flow.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RWRoute has some limitations:</p>
+<ol class="arabic simple">
+<li><p>It currently only supports UltraScale+ devices.</p></li>
+<li><p>The timing model in RapidWright does not estimate hold time and thus RWRoute cannot address hold time violations.</p></li>
+<li><p>For the most accurate clock routing in timing-driven mode, certain files will be need to be created (see tcl/rwroute/README for more information).</p></li>
+<li><p>When attempting to route designs in timing-driven mode, for the most accurate timing estimates on hard blocks (such as DSPs), the design must be pre-analyzed and a set of files must be created to feed into RWRoute (see tcl/rwroute/README for more information).</p></li>
+</ol>
+</div>
+<p>By default, RWRoute runs in timing-driven mode, routing a design from scratch. To run an instance of RWRoute the syntax is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>java com.xilinx.rapidwright.rwroute.RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp<span class="sb">``</span>
+</pre></div>
+</div>
+<p>with the following options available:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[--nonTimingDriven]</span></code> for wirelength-driven routing. RWRoute is non-timing-driven with this option, relying on the Manhattan distance to guide the routing expansion and optimize total wirelength.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[--partialRouting]</span></code> for partial routing. RWRoute strictly preserves routed nets of a design and works only on the unrouted nets of the design.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[--softPreserve]</span></code> for enabling an experimental feature during <code class="docutils literal notranslate"><span class="pre">--partialRouting</span></code>,  allowing RWRoute to rip up and re-route otherwise routed (and strictly preserved) nets.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[--wirelengthWeight</span> <span class="pre">&lt;arg&gt;]</span></code> to redefine the wirelength weighting factor. The greater alpha is, the less runtime the router takes, at the expense of longer wirelength.
+It is within [0, 1]. Runtimes usually converges when alpha is larger than 0.7. The default value is 0.8.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[--timingWeight</span> <span class="pre">&lt;arg&gt;]</span></code> to redefine the timing-driven weighting factor. The smaller the timing weight is, the better critical path delay will be, at the expense of longer runtime. It is within [0, 1]. The default value is 0.35.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[--shareExponent</span> <span class="pre">&lt;arg&gt;]</span></code> to redefine the sharing exponent for timing-driven routing. It is used to control the routing resource sharing when routing connections. When the sharing exponent is 0, the sharing mechanism is criticality-unaware and encourages resource sharing, even when connections are long and timing-critical. With an increasing sharing exponent, the resource sharing is discouraged for critical connections, allowing more suitable routes for them to optimize timing. As a result, the wirelength and routing time are increased. For an effective criticality-aware sharing mechanism, the sharing exponent should be no less than 1. The default value is 2 for an optimized trade-off between the critical path delay reduction and the wirelength-runtime product increase.</p>
+<p>There are three tutorials that provide information about using RWRoute in different routing modes:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="RWRoute_wirelength_driven_routing.html#rwroute-wirelength-driven-routing"><span class="std std-ref">RWRoute Wirelength-driven Routing Tutorial</span></a></p></li>
+<li><p><a class="reference internal" href="RWRoute_timing_driven_routing.html#rwroute-timing-driven-routing"><span class="std std-ref">RWRoute Timing-driven Routing Tutorial</span></a></p></li>
+<li><p><a class="reference internal" href="RWRoute_partial_routing.html#rwroute-partial-routing"><span class="std std-ref">RWRoute Partial Routing Tutorial</span></a></p></li>
+</ol>
+<p>For all other configuration options, please refer to <a class="reference external" href="https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/rwroute/RWRouteConfig.java">src/com/xilinx/rapidwright/rwroute/RWRouteConfig.java</a>.</p>
 </div>
 </div>
 </div>

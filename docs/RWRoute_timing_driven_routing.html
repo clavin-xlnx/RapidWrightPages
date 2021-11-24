@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RWRoute Timing-driven Routing &mdash; RapidWright 2021.2.0-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RWRoute Wirelength-driven Routing" href="RWRoute_wirelength_driven_routing.html" />
+    <link rel="prev" title="RapidWright Tutorials" href="Tutorials.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2021.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RWRoute Timing-driven Routing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#steps-to-run">Steps to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-output">Example Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validation-with-vivado">Validation with Vivado</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_wirelength_driven_routing.html">RWRoute Wirelength-driven Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_partial_routing.html">RWRoute Partial Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>RWRoute Timing-driven Routing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/RWRoute_timing_driven_routing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rwroute-timing-driven-routing">
+<h1>RWRoute Timing-driven Routing<a class="headerlink" href="#rwroute-timing-driven-routing" title="Permalink to this headline">¶</a></h1>
+<p>Routes an example design (e.g. “gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp”).</p>
+<p>This example was designed to show the default way to use RWRoute in the timing-driven mode and validate routing results with Vivado.</p>
+<div class="section" id="steps-to-run">
+<h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Download the example <a class="reference download internal" download="" href="_downloads/589e516eee535eb9fb4200cf945e6294/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp"><code class="xref download docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp</span></code></a> design:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Ensure RapidWright source code is compiled:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew compileJava
+</pre></div>
+</div>
+<p>Alternatively, the source can be built using an IDE.</p>
+<ol class="arabic simple" start="3">
+<li><p>After compiling, to route the example design, run:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.rwroute.RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp
+</pre></div>
+</div>
+<p>The main entry point of RWRoute is <code class="docutils literal notranslate"><span class="pre">RWRoute.java</span></code> and is reproduced here for convenience:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * The main interface of RWRoute that reads in a design checkpoint,</span>
+<span class="cm"> * and parses the arguments for the RWRouteConfig Object of the router.</span>
+<span class="cm"> * It instantiates a RWRoute Object or a PartialRouter Object</span>
+<span class="cm"> * based on the partialRouting parameter and calls the route method to route the design.</span>
+<span class="cm"> * @param args An array of strings that are used to create a RWRouteConfig Object for the router.</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">){</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;USAGE: &lt;input.dcp&gt; &lt;output.dcp&gt;&quot;</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Reads the output directory and set the output design checkpoint file name</span>
+<span class="n">String</span> <span class="n">routedDCPfileName</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">;</span>
+
+        <span class="n">CodePerfTracker</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CodePerfTracker</span><span class="p">(</span><span class="s">&quot;RWRoute&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+        <span class="c1">// Reads in a design checkpoint and routes it</span>
+        <span class="n">Design</span> <span class="n">routed</span> <span class="o">=</span> <span class="n">RWRoute</span><span class="p">.</span><span class="na">routeDesignWithUserDefinedArguments</span><span class="p">(</span><span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">),</span> <span class="n">args</span><span class="p">);</span>
+
+        <span class="c1">// Writes out the routed design checkpoint</span>
+        <span class="n">routed</span><span class="p">.</span><span class="na">writeCheckpoint</span><span class="p">(</span><span class="n">routedDCPfileName</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;\nINFO: Write routed design\n &quot;</span> <span class="o">+</span> <span class="n">routedDCPfileName</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Please refer to the documentation <a class="reference external" href="http://www.rapidwright.io/javadoc/index.html">Javadoc</a> and code for more implementation details.  The Java source code for RWRoute is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/rwroute">src/com/xilinx/rapidwright/rwroute/</a>.</p>
+</div>
+<div class="section" id="example-output">
+<h2>Example Output<a class="headerlink" href="#example-output" title="Permalink to this headline">¶</a></h2>
+<p>Example output using the <code class="docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp</span></code> design is included below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>==============================================================================
+==                                 RWRoute                                  ==
+==============================================================================
+==============================================================================
+==            Reading DCP: gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp            ==
+==============================================================================
+ XML Parse &amp; Device Load:     2.593s
+                  EDIF Parse:     1.003s
+            Read XDEF Header:     0.026s
+            Read XDEF Caches:     0.045s
+         Read XDEF Placement:     1.900s
+           Read XDEF Routing:     0.071s
+------------------------------------------------------------------------------
+             [No GC] *Total*:     5.638s
+==============================================================================
+==                               Route Design                               ==
+==============================================================================
+INFO: Route 2123 pins of GLOBAL_LOGIC1
+INFO: Estimated pre-routing max delay: 1969
+------------------------------------------------------------------------------
+                  Generated       RRG        Routed  Nodes With     CPD  Total Run
+Iteration     RRG Nodes  Time (s)   Connections    Overlaps    (ps)   Time (s)
+---------  ----------------------   -----------  ----------   -----  ---------
+   1             238180      1.56         14952        3804    2469       2.32
+   2              14115      0.11          6923        2366    2308       0.71
+   3              14333      0.10          5103        1354    2308       0.83
+   4              14207      0.10          2933         542    2308       0.71
+   5              12593      0.09          1169         119    2323       0.66
+   6              11313      0.05           274           6    2331       0.29
+   7                587      0.00            56           0    2331       0.10
+------------------------------------------------------------------------------
+
+INFO: Route 0 direct connections
+
+INFO: No PIP overlaps
+
+==============================================================================
+==                                Statistics                                ==
+==============================================================================
+Total wirelength:                        12860
+Route design:                            8.21s
+├─ Initialization:                       1.95s
+└─ Routing:                              6.26s
+==============================================================================
+==                              Timing Report                               ==
+==============================================================================
+Timing requirement (ps):                  3000
+Critical path delay (ps):                 2331
+Slack (ps):                                669
+With timing closure guarantee:
+Critical path delay (ps):                 2500
+Slack (ps):                                500
+
+Detail delays:
+------------------------------------------------------------------------------
+Logic (ps)  Net (ps)  (intrasite (ps))  Total (ps)    Netlist Resource(s)
+----------  --------------------------  ----------    ------------------------
+             0         0                 0           0    superSource
+            78       451                 0         529    FD_n/Q
+                                                          net: opr[57]
+            90         0                 0          90    LUT5_1b7/I0
+             0        53                 0          53    LUT5_1b7/O
+                                                          net: nfd6
+           125         0                 0         125    LUT3_1b6/I1
+             0       193                 0         193    LUT3_1b6/O
+                                                          net: nfd7
+            35         0                 0          35    LUT5_1bd/I3
+             0       137                 0         137    LUT5_1bd/O
+                                                          net: n100c
+           115         0                 0         115    LUT6_2_a4/LUT5/I2
+             0       242                60         242    LUT6_2_a4/LUT5/O
+                                                          net: LUT6_2_a4/O5
+           115         0                 0         115    LUT6_2_a5/LUT5/I2
+             0       253                60         253    LUT6_2_a5/LUT5/O
+                                                          net: LUT6_2_a5/O5
+           100         0                 0         100    LUT5_1bc/I3
+             0       194                60         194    LUT5_1bc/O
+                                                          net: n1012
+           100         0                 0         100    LUT2_1b5/I1
+             0        50                50          50    LUT2_1b5/O
+                                                          net: nfea
+             0         0                 0           0    FD_jmm/D
+----------  --------------------------  ----------    ------------------------
+Arrival time:                                 2331
+------------------------------------------------------------------------------
+==============================================================================
+                  Write EDIF:     0.145s
+         Writing XDEF Header:     0.195s
+  Writing XDEF Placement:     0.367s
+        Writing XDEF Routing:     0.453s
+ Writing XDEF Finalizing:     0.030s
+                 Writing XDC:     0.006s
+------------------------------------------------------------------------------
+             [No GC] *Total*:     1.196s
+
+INFO: Write routed design
+ gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp
+</pre></div>
+</div>
+<p>The output contains four main sections regarding reading the design checkpoint, RWRoute processing info, routing statistics, and timing report. The log file shows that RWRoute successfully routes the design. The originally calculated critical path delay is 2331 ps and it has been adjusted to 2500 ps through a pessimistic approach.</p>
+</div>
+<div class="section" id="validation-with-vivado">
+<h2>Validation with Vivado<a class="headerlink" href="#validation-with-vivado" title="Permalink to this headline">¶</a></h2>
+<p>To validate the routed design by Vivado, run the following at the prompt:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado -mode tcl gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp
+</pre></div>
+</div>
+<p>and then run the following command at the Vivado Tcl prompt:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">report_route_status</span>
+</pre></div>
+</div>
+<p>The resulting output should show the design is successfully routed, as all the routable nets are fully routed and there is no nets with routing errors.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design Route Status
+                                            :      <span class="c1"># nets :</span>
+------------------------------------------- : ----------- :
+<span class="c1"># of logical nets.......................... :        4937 :</span>
+    <span class="c1"># of nets not needing routing.......... :        1082 :</span>
+        <span class="c1"># of internally routed nets........ :         932 :</span>
+        <span class="c1"># of implicitly routed ports....... :         150 :</span>
+    <span class="c1"># of routable nets..................... :        3855 :</span>
+        <span class="c1"># of fully routed nets............. :        3855 :</span>
+    <span class="c1"># of nets with routing errors.......... :           0 :</span>
+------------------------------------------- : ----------- :
+</pre></div>
+</div>
+<p>In Vivado 2020.1, the timing report shows that the design routed by RWRouote has a data path delay of 2.331 ns (2331 ps) for the same critical path. The full Vivado timing report is shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-----------------------------------------------------------------------------------------</span>
+<span class="o">|</span> <span class="n">Tool</span> <span class="n">Version</span>      <span class="p">:</span> <span class="n">Vivado</span> <span class="n">v</span><span class="mf">.2020.1</span> <span class="p">(</span><span class="n">lin64</span><span class="p">)</span> <span class="n">Build</span> <span class="mi">2902540</span> <span class="n">Wed</span> <span class="n">May</span> <span class="mi">27</span> <span class="mi">19</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mi">35</span> <span class="n">MDT</span> <span class="mi">2020</span>
+<span class="o">|</span> <span class="n">Date</span>              <span class="p">:</span> <span class="n">Mon</span> <span class="n">Nov</span>  <span class="mi">8</span> <span class="mi">22</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">55</span> <span class="mi">2021</span>
+<span class="o">|</span> <span class="n">Host</span>              <span class="p">:</span> <span class="n">yun</span><span class="o">-</span><span class="n">Latitude</span><span class="o">-</span><span class="mi">3470</span> <span class="n">running</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> <span class="n">Ubuntu</span> <span class="mf">16.04.7</span> <span class="n">LTS</span>
+<span class="o">|</span> <span class="n">Command</span>           <span class="p">:</span> <span class="n">report_timing</span>
+<span class="o">|</span> <span class="n">Design</span>            <span class="p">:</span> <span class="n">gnl_3500_03_7_80_80</span>
+<span class="o">|</span> <span class="n">Device</span>            <span class="p">:</span> <span class="n">xcvu3p</span><span class="o">-</span><span class="n">ffvc1517</span>
+<span class="o">|</span> <span class="n">Speed</span> <span class="n">File</span>        <span class="p">:</span> <span class="o">-</span><span class="mi">2</span>  <span class="n">PRODUCTION</span> <span class="mf">1.27</span> <span class="mi">02</span><span class="o">-</span><span class="mi">28</span><span class="o">-</span><span class="mi">2020</span>
+<span class="o">|</span> <span class="n">Temperature</span> <span class="n">Grade</span> <span class="p">:</span> <span class="n">E</span>
+<span class="o">-----------------------------------------------------------------------------------------</span>
+
+<span class="n">Timing</span> <span class="n">Report</span>
+
+<span class="n">Slack</span> <span class="p">(</span><span class="n">MET</span><span class="p">)</span> <span class="p">:</span>             <span class="mf">0.649</span><span class="n">ns</span>  <span class="p">(</span><span class="n">required</span> <span class="n">time</span> <span class="o">-</span> <span class="n">arrival</span> <span class="n">time</span><span class="p">)</span>
+  <span class="n">Source</span><span class="p">:</span>                 <span class="n">FD_n</span><span class="o">/</span><span class="n">C</span>
+                                <span class="p">(</span><span class="n">rising</span> <span class="n">edge</span><span class="o">-</span><span class="n">triggered</span> <span class="n">cell</span> <span class="n">FDRE</span> <span class="n">clocked</span> <span class="n">by</span> <span class="n">clk</span>  <span class="p">{</span><span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span> <span class="n">fall</span><span class="o">@</span><span class="mf">1.500</span><span class="n">ns</span> <span class="n">period</span><span class="o">=</span><span class="mf">3.000</span><span class="n">ns</span><span class="p">})</span>
+  <span class="n">Destination</span><span class="p">:</span>            <span class="n">FD_jmm</span><span class="o">/</span><span class="n">D</span>
+                                <span class="p">(</span><span class="n">rising</span> <span class="n">edge</span><span class="o">-</span><span class="n">triggered</span> <span class="n">cell</span> <span class="n">FDRE</span> <span class="n">clocked</span> <span class="n">by</span> <span class="n">clk</span>  <span class="p">{</span><span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span> <span class="n">fall</span><span class="o">@</span><span class="mf">1.500</span><span class="n">ns</span> <span class="n">period</span><span class="o">=</span><span class="mf">3.000</span><span class="n">ns</span><span class="p">})</span>
+  <span class="n">Path</span> <span class="n">Group</span><span class="p">:</span>             <span class="n">clk</span>
+  <span class="n">Path</span> <span class="n">Type</span><span class="p">:</span>              <span class="n">Setup</span> <span class="p">(</span><span class="n">Max</span> <span class="n">at</span> <span class="n">Slow</span> <span class="n">Process</span> <span class="n">Corner</span><span class="p">)</span>
+  <span class="n">Requirement</span><span class="p">:</span>            <span class="mf">3.000</span><span class="n">ns</span>  <span class="p">(</span><span class="n">clk</span> <span class="n">rise</span><span class="o">@</span><span class="mf">3.000</span><span class="n">ns</span> <span class="o">-</span> <span class="n">clk</span> <span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span><span class="p">)</span>
+  <span class="n">Data</span> <span class="n">Path</span> <span class="n">Delay</span><span class="p">:</span>        <span class="mf">2.331</span><span class="n">ns</span>  <span class="p">(</span><span class="n">logic</span> <span class="mf">0.753</span><span class="n">ns</span> <span class="p">(</span><span class="mf">32.304</span><span class="o">%</span><span class="p">)</span>  <span class="n">route</span> <span class="mf">1.578</span><span class="n">ns</span> <span class="p">(</span><span class="mf">67.696</span><span class="o">%</span><span class="p">))</span>
+  <span class="n">Logic</span> <span class="n">Levels</span><span class="p">:</span>           <span class="mi">7</span>  <span class="p">(</span><span class="n">LUT2</span><span class="o">=</span><span class="mi">1</span> <span class="n">LUT3</span><span class="o">=</span><span class="mi">1</span> <span class="n">LUT5</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+  <span class="n">Clock</span> <span class="n">Path</span> <span class="n">Skew</span><span class="p">:</span>        <span class="o">-</span><span class="mf">0.010</span><span class="n">ns</span> <span class="p">(</span><span class="n">DCD</span> <span class="o">-</span> <span class="n">SCD</span> <span class="o">+</span> <span class="n">CPR</span><span class="p">)</span>
+        <span class="n">Destination</span> <span class="n">Clock</span> <span class="n">Delay</span> <span class="p">(</span><span class="n">DCD</span><span class="p">):</span>    <span class="mf">0.020</span><span class="n">ns</span> <span class="o">=</span> <span class="p">(</span> <span class="mf">3.020</span> <span class="o">-</span> <span class="mf">3.000</span> <span class="p">)</span>
+        <span class="n">Source</span> <span class="n">Clock</span> <span class="n">Delay</span>      <span class="p">(</span><span class="n">SCD</span><span class="p">):</span>    <span class="mf">0.030</span><span class="n">ns</span>
+        <span class="n">Clock</span> <span class="n">Pessimism</span> <span class="n">Removal</span> <span class="p">(</span><span class="n">CPR</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+  <span class="n">Clock</span> <span class="n">Uncertainty</span><span class="p">:</span>      <span class="mf">0.035</span><span class="n">ns</span>  <span class="p">((</span><span class="n">TSJ</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">TIJ</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">DJ</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">PE</span>
+        <span class="n">Total</span> <span class="n">System</span> <span class="n">Jitter</span>     <span class="p">(</span><span class="n">TSJ</span><span class="p">):</span>    <span class="mf">0.071</span><span class="n">ns</span>
+        <span class="n">Total</span> <span class="n">Input</span> <span class="n">Jitter</span>      <span class="p">(</span><span class="n">TIJ</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+        <span class="n">Discrete</span> <span class="n">Jitter</span>          <span class="p">(</span><span class="n">DJ</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+        <span class="n">Phase</span> <span class="n">Error</span>              <span class="p">(</span><span class="n">PE</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+
+        <span class="n">Location</span>             <span class="n">Delay</span> <span class="nb">type</span>                <span class="n">Incr</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>  <span class="n">Path</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>    <span class="n">Netlist</span> <span class="n">Resource</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+                             <span class="p">(</span><span class="n">clock</span> <span class="n">clk</span> <span class="n">rise</span> <span class="n">edge</span><span class="p">)</span>        <span class="mf">0.000</span>     <span class="mf">0.000</span> <span class="n">r</span>
+                                                          <span class="mf">0.000</span>     <span class="mf">0.000</span> <span class="n">r</span>  <span class="n">clk</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1161</span><span class="p">,</span> <span class="n">unset</span><span class="p">)</span>         <span class="mf">0.030</span>     <span class="mf">0.030</span>    <span class="n">clk</span>
+        <span class="n">SLICE_X22Y115</span>        <span class="n">FDRE</span>                                         <span class="n">r</span>  <span class="n">FD_n</span><span class="o">/</span><span class="n">C</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+        <span class="n">SLICE_X22Y115</span>        <span class="n">FDRE</span> <span class="p">(</span><span class="n">Prop_DFF_SLICEM_C_Q</span><span class="p">)</span>
+                                                          <span class="mf">0.078</span>     <span class="mf">0.108</span> <span class="n">r</span>  <span class="n">FD_n</span><span class="o">/</span><span class="n">Q</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>          <span class="mf">0.523</span>     <span class="mf">0.631</span>    <span class="n">opr</span><span class="p">[</span><span class="mi">57</span><span class="p">]</span>
+        <span class="n">SLICE_X14Y100</span>        <span class="n">LUT5</span> <span class="p">(</span><span class="n">Prop_G6LUT_SLICEL_I0_O</span><span class="p">)</span>
+                                                          <span class="mf">0.089</span>     <span class="mf">0.720</span> <span class="n">r</span>  <span class="n">LUT5_1b7</span><span class="o">/</span><span class="n">O</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.050</span>     <span class="mf">0.770</span>    <span class="n">nfd6</span>
+        <span class="n">SLICE_X14Y100</span>        <span class="n">LUT3</span> <span class="p">(</span><span class="n">Prop_B6LUT_SLICEL_I1_O</span><span class="p">)</span>
+                                                          <span class="mf">0.124</span>     <span class="mf">0.894</span> <span class="n">r</span>  <span class="n">LUT3_1b6</span><span class="o">/</span><span class="n">O</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>          <span class="mf">0.226</span>     <span class="mf">1.120</span>    <span class="n">nfd7</span>
+        <span class="n">SLICE_X13Y95</span>         <span class="n">LUT5</span> <span class="p">(</span><span class="n">Prop_F6LUT_SLICEM_I3_O</span><span class="p">)</span>
+                                                          <span class="mf">0.037</span>     <span class="mf">1.157</span> <span class="n">r</span>  <span class="n">LUT5_1bd</span><span class="o">/</span><span class="n">O</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.139</span>     <span class="mf">1.296</span>    <span class="n">LUT6_2_a4</span><span class="o">/</span><span class="n">I2</span>
+        <span class="n">SLICE_X14Y95</span>         <span class="n">LUT5</span> <span class="p">(</span><span class="n">Prop_C5LUT_SLICEL_I2_O</span><span class="p">)</span>
+                                                          <span class="mf">0.110</span>     <span class="mf">1.406</span> <span class="n">r</span>  <span class="n">LUT6_2_a4</span><span class="o">/</span><span class="n">LUT5</span><span class="o">/</span><span class="n">O</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.219</span>     <span class="mf">1.625</span>    <span class="n">LUT6_2_a5</span><span class="o">/</span><span class="n">I2</span>
+        <span class="n">SLICE_X14Y95</span>         <span class="n">LUT5</span> <span class="p">(</span><span class="n">Prop_B5LUT_SLICEL_I2_O</span><span class="p">)</span>
+                                                          <span class="mf">0.116</span>     <span class="mf">1.741</span> <span class="n">r</span>  <span class="n">LUT6_2_a5</span><span class="o">/</span><span class="n">LUT5</span><span class="o">/</span><span class="n">O</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.213</span>     <span class="mf">1.954</span>    <span class="n">n100f</span>
+        <span class="n">SLICE_X14Y95</span>         <span class="n">LUT5</span> <span class="p">(</span><span class="n">Prop_A5LUT_SLICEL_I3_O</span><span class="p">)</span>
+                                                          <span class="mf">0.100</span>     <span class="mf">2.054</span> <span class="n">r</span>  <span class="n">LUT5_1bc</span><span class="o">/</span><span class="n">O</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.157</span>     <span class="mf">2.211</span>    <span class="n">n1012</span>
+        <span class="n">SLICE_X14Y95</span>         <span class="n">LUT2</span> <span class="p">(</span><span class="n">Prop_H6LUT_SLICEL_I1_O</span><span class="p">)</span>
+                                                          <span class="mf">0.099</span>     <span class="mf">2.310</span> <span class="n">r</span>  <span class="n">LUT2_1b5</span><span class="o">/</span><span class="n">O</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.051</span>     <span class="mf">2.361</span>    <span class="n">nfea</span>
+        <span class="n">SLICE_X14Y95</span>         <span class="n">FDRE</span>                                         <span class="n">r</span>  <span class="n">FD_jmm</span><span class="o">/</span><span class="n">D</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+
+                             <span class="p">(</span><span class="n">clock</span> <span class="n">clk</span> <span class="n">rise</span> <span class="n">edge</span><span class="p">)</span>        <span class="mf">3.000</span>     <span class="mf">3.000</span> <span class="n">r</span>
+                                                          <span class="mf">0.000</span>     <span class="mf">3.000</span> <span class="n">r</span>  <span class="n">clk</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span>
+                             <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1161</span><span class="p">,</span> <span class="n">unset</span><span class="p">)</span>         <span class="mf">0.020</span>     <span class="mf">3.020</span>    <span class="n">clk</span>
+        <span class="n">SLICE_X14Y95</span>         <span class="n">FDRE</span>                                         <span class="n">r</span>  <span class="n">FD_jmm</span><span class="o">/</span><span class="n">C</span>
+                             <span class="n">clock</span> <span class="n">pessimism</span>              <span class="mf">0.000</span>     <span class="mf">3.020</span>
+                             <span class="n">clock</span> <span class="n">uncertainty</span>           <span class="o">-</span><span class="mf">0.035</span>     <span class="mf">2.985</span>
+        <span class="n">SLICE_X14Y95</span>         <span class="n">FDRE</span> <span class="p">(</span><span class="n">Setup_HFF_SLICEL_C_D</span><span class="p">)</span>
+                                                          <span class="mf">0.025</span>     <span class="mf">3.010</span>    <span class="n">FD_jmm</span>
+  <span class="o">-------------------------------------------------------------------</span>
+                             <span class="n">required</span> <span class="n">time</span>                          <span class="mf">3.010</span>
+                             <span class="n">arrival</span> <span class="n">time</span>                          <span class="o">-</span><span class="mf">2.361</span>
+  <span class="o">-------------------------------------------------------------------</span>
+                             <span class="n">slack</span>                                  <span class="mf">0.649</span>
+</pre></div>
+</div>
+<p>It should be noted that the critical path reported by Vivado can be different from that of RWRoute for the same routed design. This is reasonable, as they use different timing models. The main point is that RWRoute is able to estimate a similar critical path delay to that of Vivado timing analysis.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="RWRoute_wirelength_driven_routing.html" class="btn btn-neutral float-right" title="RWRoute Wirelength-driven Routing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Tutorials.html" class="btn btn-neutral" title="RapidWright Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2021, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2021.2.0-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

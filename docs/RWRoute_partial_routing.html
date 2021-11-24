@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RWRoute Partial Routing &mdash; RapidWright 2021.2.0-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RapidWright Report Timing Example" href="ReportTimingExample.html" />
+    <link rel="prev" title="RWRoute Wirelength-driven Routing" href="RWRoute_wirelength_driven_routing.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2021.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_timing_driven_routing.html">RWRoute Timing-driven Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_wirelength_driven_routing.html">RWRoute Wirelength-driven Routing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RWRoute Partial Routing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#steps-to-run">Steps to Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-output">Example Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validation-with-vivado">Validation with Vivado</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>RWRoute Partial Routing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/RWRoute_partial_routing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rwroute-partial-routing">
+<h1>RWRoute Partial Routing<a class="headerlink" href="#rwroute-partial-routing" title="Permalink to this headline">¶</a></h1>
+<p>Routes an example design (e.g. “picoblaze_partial.dcp”).</p>
+<p>This example was designed to show the way to use RWRoute in the partial mode for wirelength-driven routing and validate routing results with Vivado.</p>
+<div class="section" id="steps-to-run">
+<h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Download the example <a class="reference download internal" download="" href="_downloads/f05310f68816ac862a380a568e506f6d/picoblaze_partial.dcp"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_partial.dcp</span></code></a> design:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/picoblaze_partial.dcp
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Ensure RapidWright source code is compiled:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew compileJava
+</pre></div>
+</div>
+<p>Alternatively, the source can be built using an IDE.</p>
+<ol class="arabic simple" start="3">
+<li><p>After compiling, to route the example design, run:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.rwroute.RWRoute picoblaze_partial.dcp picoblaze_partial_routed.dcp --partialRouting --nonTimingDriven
+</pre></div>
+</div>
+<p>Please refer to the documentation <a class="reference external" href="http://www.rapidwright.io/javadoc/index.html">Javadoc</a> and code for more implementation details.  The Java source code for RWRoute is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/rwroute">src/com/xilinx/rapidwright/rwroute/</a>.</p>
+</div>
+<div class="section" id="example-output">
+<h2>Example Output<a class="headerlink" href="#example-output" title="Permalink to this headline">¶</a></h2>
+<p>Example output using the <code class="docutils literal notranslate"><span class="pre">picoblaze_partial.dcp</span></code> design is included below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>==============================================================================
+==                                 RWRoute                                  ==
+==============================================================================
+==============================================================================
+==                    Reading DCP: picoblaze_partial.dcp                    ==
+==============================================================================
+ XML Parse &amp; Device Load:     2.365s
+                  EDIF Parse:     1.108s
+            Read XDEF Header:     0.027s
+            Read XDEF Caches:     0.148s
+         Read XDEF Placement:     5.297s
+           Read XDEF Routing:     3.486s
+------------------------------------------------------------------------------
+             [No GC] *Total*:    12.430s
+==============================================================================
+==                               Route Design                               ==
+==============================================================================
+------------------------------------------------------------------------------
+                  Generated       RRG        Routed  Nodes With          Total Run
+Iteration     RRG Nodes  Time (s)   Connections    Overlaps           Time (s)
+---------  ----------------------   -----------  ----------   ----------------
+   1            2705791     13.74         12144       10146              16.63
+   2             689195      1.94          6496        5093               5.14
+   3             482106      1.41          4037        1604               3.84
+   4             292903      0.94          1609         298               2.49
+   5             176537      0.54           336          45               1.62
+   6             178330      0.61            59          10               1.20
+   7             261196      1.40            12           2               2.83
+   8             250050      1.75             3           0               2.65
+------------------------------------------------------------------------------
+
+INFO: Route 0 direct connections
+
+INFO: No PIP overlaps
+
+==============================================================================
+==                                Statistics                                ==
+==============================================================================
+Total wirelength:                       101840
+Route design:                           41.73s
+├─ Initialization:                       2.10s
+└─ Routing:                             39.62s
+==============================================================================
+                  Write EDIF:     0.209s
+         Writing XDEF Header:     1.744s
+  Writing XDEF Placement:     5.939s
+        Writing XDEF Routing:     3.902s
+ Writing XDEF Finalizing:     0.246s
+                 Writing XDC:     0.008s
+------------------------------------------------------------------------------
+             [No GC] *Total*:    12.048s
+
+INFO: Write routed design
+ picoblaze_partial_routed.dcp
+</pre></div>
+</div>
+<p>The output contains three main sections regarding reading the design checkpoint, RWRoute processing info, and routing statistics.</p>
+</div>
+<div class="section" id="validation-with-vivado">
+<h2>Validation with Vivado<a class="headerlink" href="#validation-with-vivado" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>If you would like to visualize the original design shown in Vivado device view, run Vivado in its GUI mode:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>To load the original checkpoint, run the following command in the Tcl console:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>open_checkpoint picoblaze_partial.dcp
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>After the original checkpoint is loaded, to highlighted unrouted nets, run:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>highlight_objects -color red <span class="o">[</span>get_nets * -filter <span class="o">{</span><span class="nv">ROUTE_STATUS</span> <span class="o">==</span> UNROUTED<span class="o">}]</span>
+</pre></div>
+</div>
+<p>As a result, the device view of Vivado will show:</p>
+<a class="reference internal image-reference" href="_images/highlight_unrouted_nets.png"><img alt="_images/highlight_unrouted_nets.png" class="align-center" src="_images/highlight_unrouted_nets.png" style="width: 1000px;" /></a>
+<p>Nets highlighted in red are unrouted.</p>
+<ol class="arabic simple" start="4">
+<li><p>To check the route status of the origial design checkpoint, run:</p></li>
+</ol>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">report_route_status</span>
+</pre></div>
+</div>
+<p>The design route status is as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design Route Status
+                                             :      <span class="c1"># nets :</span>
+ ------------------------------------------- : ----------- :
+ <span class="c1"># of logical nets.......................... :      147009 :</span>
+     <span class="c1"># of nets not needing routing.......... :       58434 :</span>
+         <span class="c1"># of internally routed nets........ :       47124 :</span>
+         <span class="c1"># of nets with no loads............ :       11132 :</span>
+         <span class="c1"># of implicitly routed ports....... :         178 :</span>
+     <span class="c1"># of routable nets..................... :       88575 :</span>
+         <span class="c1"># of unrouted nets................. :       12144 :</span>
+         <span class="c1"># of fully routed nets............. :       76431 :</span>
+     <span class="c1"># of nets with routing errors.......... :           0 :</span>
+ ------------------------------------------- : ----------- :
+</pre></div>
+</div>
+<p>It is shown that there are 12144 unrouted nets.</p>
+<ol class="arabic simple" start="5">
+<li><p>To load the routed design checkpoint into Vivado and validate the routed design by RWRoute, run:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>open_checkpoint picoblaze_partial_routed.dcp
+report_route_status
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/routed_picoblaze_device_view.png"><img alt="_images/routed_picoblaze_device_view.png" class="align-center" src="_images/routed_picoblaze_device_view.png" style="width: 1000px;" /></a>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design Route Status
+                                             :      <span class="c1"># nets :</span>
+ ------------------------------------------- : ----------- :
+ <span class="c1"># of logical nets.......................... :      147009 :</span>
+     <span class="c1"># of nets not needing routing.......... :       58434 :</span>
+         <span class="c1"># of internally routed nets........ :       47124 :</span>
+         <span class="c1"># of nets with no loads............ :       11132 :</span>
+         <span class="c1"># of implicitly routed ports....... :         178 :</span>
+     <span class="c1"># of routable nets..................... :       88575 :</span>
+         <span class="c1"># of fully routed nets............. :       88575 :</span>
+     <span class="c1"># of nets with routing errors.......... :           0 :</span>
+ ------------------------------------------- : ----------- :
+</pre></div>
+</div>
+<p>The design is successfully routed, as all the routable nets are fully routed.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ReportTimingExample.html" class="btn btn-neutral float-right" title="RapidWright Report Timing Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="RWRoute_wirelength_driven_routing.html" class="btn btn-neutral" title="RWRoute Wirelength-driven Routing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2021, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2021.2.0-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
