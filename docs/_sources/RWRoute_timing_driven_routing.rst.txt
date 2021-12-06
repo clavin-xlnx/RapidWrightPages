@@ -14,20 +14,11 @@ Steps to Run
 
     wget http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
 
-2. Ensure RapidWright source code is compiled:
+2. Invoke RWRoute via gradle (this will ensure code is compiled before running):
 
 .. code-block:: bash
 
-    gradlew compileJava
-    
-Alternatively, the source can be built using an IDE.
-
-3. After compiling, to route the example design, run:
-
-.. code-block:: bash
-
-    java com.xilinx.rapidwright.rwroute.RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp
-
+    gradlew run --args="RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp"
 
 The main entry point of RWRoute is ``RWRoute.java`` and is reproduced here for convenience:
 

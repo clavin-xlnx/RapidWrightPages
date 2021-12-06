@@ -233,16 +233,9 @@
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>If you need to recompile the code, run:</p></li>
+<li><p>Invoke RWRoute via gradle (this will ensure code is compiled before running):</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>javac src/com/xilinx/rapidwright/examples/ReportTimingExample.java
-</pre></div>
-</div>
-<p>in the <code class="docutils literal notranslate"><span class="pre">RapidWright</span></code> directory.  Alternatively, build this example using your IDE.</p>
-<ol class="arabic simple" start="3">
-<li><p>After compiling, run:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.ReportTimingExample microblaze4.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew run --args<span class="o">=</span><span class="s2">&quot;ReportTimingExample microblaze4.dcp&quot;</span>
 </pre></div>
 </div>
 <p>The source code for <code class="docutils literal notranslate"><span class="pre">ReportTimingExample.java</span></code> is provided below for easy reference:</p>
@@ -321,7 +314,7 @@
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">report_timing</span>
 </pre></div>
 </div>
-<p>In Vivado 2018.3, the timing report shows a data path delay of 1.846 ns (1846 ps).  Which has an error of 30 ps or ~1.6%.  The full Vivado timing report is shown below:</p>
+<p>In Vivado 2020.1, the timing report shows a data path delay of 1.846 ns (1846 ps).  Which has an error of 30 ps or ~1.6%.  The full Vivado timing report is shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-----------------------------------------------------------------------------------------</span>
 <span class="o">|</span> <span class="n">Tool</span> <span class="n">Version</span>      <span class="p">:</span> <span class="n">Vivado</span> <span class="n">v</span><span class="mf">.2020.1</span> <span class="p">(</span><span class="n">lin64</span><span class="p">)</span> <span class="n">Build</span> <span class="mi">2902540</span> <span class="n">Wed</span> <span class="n">May</span> <span class="mi">27</span> <span class="mi">19</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mi">35</span> <span class="n">MDT</span> <span class="mi">2020</span>
 <span class="o">|</span> <span class="n">Date</span>              <span class="p">:</span> <span class="n">Mon</span> <span class="n">Nov</span>  <span class="mi">8</span> <span class="mi">22</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">03</span> <span class="mi">2021</span>

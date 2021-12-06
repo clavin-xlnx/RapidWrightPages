@@ -351,10 +351,6 @@ and each block is a list of configuration frames.</p>
 </div>
 <div class="section" id="example-usages-modify-user-state-bits">
 <h2><a class="toc-backref" href="#id6">Example Usages: Modify User State Bits</a><a class="headerlink" href="#example-usages-modify-user-state-bits" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The API <code class="docutils literal notranslate"><span class="pre">ConfigArray.updateUserStateBits()</span></code> only updates user state bits as documented in the logic location file generated from <code class="docutils literal notranslate"><span class="pre">write_bitstream</span> <span class="pre">-logic_location_file</span></code>.</p>
-</div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">Design</span> <span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">);</span>
   <span class="n">Bitstream</span> <span class="n">bitstream</span> <span class="o">=</span> <span class="n">Bitstream</span><span class="p">.</span><span class="na">readBitstream</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">);</span>

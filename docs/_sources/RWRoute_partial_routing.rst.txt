@@ -14,19 +14,13 @@ Steps to Run
 
     wget http://www.rapidwright.io/docs/_downloads/picoblaze_partial.dcp
 
-2. Ensure RapidWright source code is compiled:
+
+2. Invoke RWRoute via gradle (this will ensure code is compiled before running):
 
 .. code-block:: bash
 
-    gradlew compileJava
-    
-Alternatively, the source can be built using an IDE.
+    gradlew run --args="RWRoute picoblaze_partial.dcp picoblaze_partial_routed.dcp --partialRouting --nonTimingDriven"
 
-3. After compiling, to route the example design, run:
-
-.. code-block:: bash
-
-    java com.xilinx.rapidwright.rwroute.RWRoute picoblaze_partial.dcp picoblaze_partial_routed.dcp --partialRouting --nonTimingDriven
 
 Please refer to the documentation `Javadoc <http://www.rapidwright.io/javadoc/index.html>`_ and code for more implementation details.  The Java source code for RWRoute is located in: `src/com/xilinx/rapidwright/rwroute/ <https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/rwroute>`_.
 

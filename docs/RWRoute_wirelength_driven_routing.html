@@ -227,16 +227,9 @@
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>Ensure RapidWright source code is compiled:</p></li>
+<li><p>Invoke RWRoute via gradle (this will ensure code is compiled before running):</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew compileJava
-</pre></div>
-</div>
-<p>Alternatively, the source can be built using an IDE.</p>
-<ol class="arabic simple" start="3">
-<li><p>After compiling, to route the example design, run:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.rwroute.RWRoute  gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp --nonTimingDriven
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew run --args<span class="o">=</span><span class="s2">&quot;RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp --nonTimingDriven&quot;</span>
 </pre></div>
 </div>
 <p>Please refer to the documentation <a class="reference external" href="http://www.rapidwright.io/javadoc/index.html">Javadoc</a> and code for more implementation details.  The Java source code for RWRoute is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/rwroute">RapidWright/src/com/xilinx/rapidwright/rwroute/</a>.</p>

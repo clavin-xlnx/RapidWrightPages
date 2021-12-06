@@ -81,8 +81,15 @@ By default, RWRoute runs in timing-driven mode, routing a design from scratch. T
 .. code-block:: bash
 
  ``java com.xilinx.rapidwright.rwroute.RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp``
+
+It can also be invoked with ``gradlew`` to ensure the code is compiled before running (with a slight overhead in startup runtime):
+
+.. code-block:: bash
+
+ ``gradlew run --args="RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp"``
+
  
-with the following options available:
+In both run instances, with the following options available:
 
 ``[--nonTimingDriven]`` for wirelength-driven routing. RWRoute is non-timing-driven with this option, relying on the Manhattan distance to guide the routing expansion and optimize total wirelength.
 

@@ -20,19 +20,11 @@ Steps to Run
 
     wget http://www.rapidwright.io/docs/_downloads/microblaze4.dcp
 
-2. If you need to recompile the code, run: 
+2. Invoke RWRoute via gradle (this will ensure code is compiled before running):
 
 .. code-block:: bash
 
-    javac src/com/xilinx/rapidwright/examples/ReportTimingExample.java 
-    
-in the ``RapidWright`` directory.  Alternatively, build this example using your IDE.
-
-3. After compiling, run: 
-
-.. code-block:: bash
-
-    java com.xilinx.rapidwright.examples.ReportTimingExample microblaze4.dcp  
+    gradlew run --args="ReportTimingExample microblaze4.dcp"
 
 The source code for ``ReportTimingExample.java`` is provided below for easy reference:
 
@@ -119,7 +111,7 @@ and then run the following command at the Tcl prompt:
 
     report_timing
     
-In Vivado 2018.3, the timing report shows a data path delay of 1.846 ns (1846 ps).  Which has an error of 30 ps or ~1.6%.  The full Vivado timing report is shown below: 
+In Vivado 2020.1, the timing report shows a data path delay of 1.846 ns (1846 ps).  Which has an error of 30 ps or ~1.6%.  The full Vivado timing report is shown below: 
 
 ::
 

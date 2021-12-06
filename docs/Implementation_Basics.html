@@ -296,7 +296,11 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>java com.xilinx.rapidwright.rwroute.RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp<span class="sb">``</span>
 </pre></div>
 </div>
-<p>with the following options available:</p>
+<p>It can also be invoked with <code class="docutils literal notranslate"><span class="pre">gradlew</span></code> to ensure the code is compiled before running (with a slight overhead in startup runtime):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>gradlew run --args<span class="o">=</span><span class="s2">&quot;RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp&quot;</span><span class="sb">``</span>
+</pre></div>
+</div>
+<p>In both run instances, with the following options available:</p>
 <p><code class="docutils literal notranslate"><span class="pre">[--nonTimingDriven]</span></code> for wirelength-driven routing. RWRoute is non-timing-driven with this option, relying on the Manhattan distance to guide the routing expansion and optimize total wirelength.</p>
 <p><code class="docutils literal notranslate"><span class="pre">[--partialRouting]</span></code> for partial routing. RWRoute strictly preserves routed nets of a design and works only on the unrouted nets of the design.</p>
 <p><code class="docutils literal notranslate"><span class="pre">[--softPreserve]</span></code> for enabling an experimental feature during <code class="docutils literal notranslate"><span class="pre">--partialRouting</span></code>,  allowing RWRoute to rip up and re-route otherwise routed (and strictly preserved) nets.</p>
