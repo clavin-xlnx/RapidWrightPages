@@ -16,14 +16,15 @@ To check out the specific commit of a submodule, run::
 
 from the parent RapidWright repository where ``--init`` is only strictly necessary (but harmless otherwise) on the first invocation.
 
-To run the tests via Gradle, use the task ``test`` or ``build`` (which depends on ``test``). After running the tests, Gradle will output the results both as an HTML document in ``build/reports/tests/test`` and as JUnit-internal XML in ``build/test-results/test``. Note that Gradle knows whether the input to the tests changed and will not rerun them if they are up to date.
+To run the tests via Gradle, use the task ``test`` or ``build`` (which depends on ``test``). After running the tests, Gradle will output the results both as an HTML document in ``build/reports/tests/test*`` and as JUnit-internal XML in ``build/test-results/test*``. Note that Gradle knows whether the input to the tests changed and will not rerun them if they are up to date.
 
 There is integration for JUnit in all major IDEs. When loading RapidWright into your IDE, you should set ``test`` as source directory for tests. Your IDE should allow you to run all the tests or choose a single class to run.
-Alternatively, one can execute Gradle from the command line with the ``test`` task with one or more ``--tests <filter>`` arguments. For example, on Linux::
+Alternatively, one can execute Gradle from the command line with the ``testJava`` or ``testPython`` task to run all tests, and restricted to specific tests with one or more ``--tests <filter>`` arguments. For example::
 
-  ./gradlew test --tests com.xilinx.rapidwright.design.* --tests *PartNameTools.testGetPartCase
+  gradlew testJava --tests com.xilinx.rapidwright.design.* --tests *PartNameTools.testGetPartCase
 
-would run all test methods under all classes within the ``com.xilinx.rapidwright.design`` package, as well as the single test method ``testGetPartCase`` from the ``com.xilinx.rapidwright.device.TestPartNameTools`` class.
+would run all Java test methods under all classes within the ``com.xilinx.rapidwright.design`` package, as well as the single test method ``testGetPartCase`` from the ``com.xilinx.rapidwright.device.TestPartNameTools`` class.
+Note that the ``test`` task depends on ``testJava`` and ``testPython`` but does not support filtering.
 
 
 
@@ -135,7 +136,7 @@ Next, execute the following::
   # Commit new submodule reference
   git commit test/RapidWrightDCP -s -m "(Description)"
 
-The submodule can now be used as a regular Git repository during development (remember to commit new submodule references from the RapidWright repository using::
+The submodule can now be used as a regular Git repository during development; remember to commit new submodule references from the RapidWright repository using::
 
   git commit test/RapidWrightDCP -s -m "(Description)"
 

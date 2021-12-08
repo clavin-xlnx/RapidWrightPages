@@ -145,6 +145,8 @@ and each block is a list of configuration frames.
 Example Usages: Modify User State Bits
 ===========================================================
 
+.. note:: The API ``ConfigArray.updateUserStateBits()`` only updates user state bits as documented in the logic location file generated from ``write_bitstream -logic_location_file``.
+
 .. code-block:: java
 
   public static void main(String[] args) {
