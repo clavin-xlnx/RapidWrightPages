@@ -14,6 +14,7 @@ Additional RapidWright Publications
 =========== ================================================================================================================================================================================
 Conference  Title                                                                                                                                                           
 =========== ================================================================================================================================================================================
+FPT 2021    :download:`RWRoute: An Open-source Timing-driven Router for Commercial FPGAs <files/RWRoute_final_submitted.pdf>`      
 FPT 2019    :download:`An Open-source Lightweight Timing Model for RapidWright <files/FPT19-TimingModel.pdf>`    | :download:`Slides <files/FPT19-TimingModel-Presentation.pdf>`
 FPGA 2019   :download:`Build Your Own Domain-specific Solutions with RapidWright <files/FPGA19-RapidWright.pdf>` | :download:`Slides <files/FPGA19-RapidWright-Presentation.pdf>`     
 =========== ================================================================================================================================================================================
