@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Merging Designs &mdash; RapidWright 2021.2.1-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bitstream Manipulation" href="Bitstream_Manipulation.html" />
+    <link rel="prev" title="Implementation Basics" href="Implementation_Basics.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2021.2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Merging Designs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#customizing-merge-behavior">Customizing Merge Behavior</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#merging-edifports">Merging EDIFPorts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merging-edifnets-logical">Merging EDIFNets (Logical)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merging-edifcellinsts">Merging EDIFCellInsts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merging-siteinsts">Merging SiteInsts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merging-nets-physical">Merging Nets (Physical)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Merging Designs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Merge_Designs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="merging-designs">
+<h1>Merging Designs<a class="headerlink" href="#merging-designs" title="Permalink to this headline">¶</a></h1>
+<p>One useful technique in constructing an FPGA implementation is the
+‘divide and conquer’ approach.  When dividing a design, often, Vivado
+can achieve higher density and quality of results when it can focus on
+smaller parts of a design rather than the entire implementation at
+once.</p>
+<p>After dividing a design into separate pieces, it can be tricky to re-assemble
+the components back into a cohesive implementation.  The logical
+netlist must be consistent as well as the physical netlist.  A popular
+approach is to separate the design by module hierarchy, implementing
+each module or cell out of context.  However, not all designs benefit
+or have the right hierarchy necessary for this approach.  To provide a
+more robust method of assembly, we have added a design merge
+capability in RapidWright.</p>
+<p>Merging two or more designs in RapidWright can be accomplished with
+the API:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">Design</span> <span class="n">MergeDesign</span><span class="p">.</span><span class="na">mergeDesigns</span><span class="p">(</span><span class="n">Design</span> <span class="p">...</span> <span class="n">designs</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Which uses Java’s variable argument construct (<a class="reference external" href="https://docs.oracle.com/javase/8/docs/technotes/guides/language/varargs.html">Varargs</a>)
+which can accept any Java Collection object (<code class="docutils literal notranslate"><span class="pre">List&lt;Design&gt;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Set&lt;Design&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">Collection&lt;Design&gt;</span></code>) an array (<code class="docutils literal notranslate"><span class="pre">Design[]</span></code>) or a
+simple comma separated list (<code class="docutils literal notranslate"><span class="pre">design0,</span> <span class="pre">design1,</span> <span class="pre">...</span> <span class="pre">,</span> <span class="pre">designN</span></code>).  The return value
+is the resulting merged design which is the first design
+passed as an argument (<cite>design0</cite> in the comma separated list case).  All other designs are destructively changed to
+support the merge.</p>
+<div class="section" id="customizing-merge-behavior">
+<h2>Customizing Merge Behavior<a class="headerlink" href="#customizing-merge-behavior" title="Permalink to this headline">¶</a></h2>
+<p>As there might be different valid ways to merge a design, the merge
+process employs an <code class="docutils literal notranslate"><span class="pre">AbstractDesignMerger</span></code> to allow a user to implement
+the desired merging behavior.  There are five major object types that
+must be resolved in a merge and they are captured in the abstract class
+that inheritors must implement:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">mergePorts</span><span class="p">(</span><span class="n">EDIFPort</span> <span class="n">p0</span><span class="p">,</span> <span class="n">EDIFPort</span> <span class="n">p1</span><span class="p">);</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">mergeLogicalNets</span><span class="p">(</span><span class="n">EDIFNet</span> <span class="n">n0</span><span class="p">,</span> <span class="n">EDIFNet</span> <span class="n">n1</span><span class="p">);</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">mergeCellInsts</span><span class="p">(</span><span class="n">EDIFCellInst</span> <span class="n">i0</span><span class="p">,</span> <span class="n">EDIFCellInst</span> <span class="n">i1</span><span class="p">);</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">mergeSiteInsts</span><span class="p">(</span><span class="n">SiteInst</span> <span class="n">s0</span><span class="p">,</span> <span class="n">SiteInst</span> <span class="n">s1</span><span class="p">);</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">mergePhysicalNets</span><span class="p">(</span><span class="n">Net</span> <span class="n">n0</span><span class="p">,</span> <span class="n">Net</span> <span class="n">n1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The first three (<code class="docutils literal notranslate"><span class="pre">EDIFPort</span></code>, <code class="docutils literal notranslate"><span class="pre">EDIFNet</span></code> and <code class="docutils literal notranslate"><span class="pre">EDIFCellInst</span></code>) are all
+logical netlist objects.  The last two (<code class="docutils literal notranslate"><span class="pre">SiteInst</span></code> and <code class="docutils literal notranslate"><span class="pre">Net</span></code>) are
+physical netlist objects.  In the <code class="docutils literal notranslate"><span class="pre">DefaultDesignMerger</span></code>, a general
+merge behavior is implemented.  The order in which the objects are
+merged is the same as that listed above.  Here is a brief description
+of the default merge behavior of the 5 object types in
+<code class="docutils literal notranslate"><span class="pre">DefaultDesignMerger</span></code>.</p>
+<div class="section" id="merging-edifports">
+<h3>Merging EDIFPorts<a class="headerlink" href="#merging-edifports" title="Permalink to this headline">¶</a></h3>
+<p>When merging ports, the two sets of ports on the top cell of both
+designs is examined.  All names that are unique are merged into the
+resulting design.  If both designs contain a port with the same name,
+the directionality of the ports is checked.  If they are of opposite
+directionality (one is an input and the other an output), generally
+both ports will be removed and their connected nets will be joined.  The net
+attached to the input port will be eliminated and the net on the
+output port will assume the sinks of the input port.</p>
+<p>If both ports are inputs, the extra copy is removed and its sinks are
+added to the first design’s port.  If both ports are outputs, the same
+approach is taken except if the merging is incompatible (two different
+sources that cannot be merged), an error will be thrown.</p>
+</div>
+<div class="section" id="merging-edifnets-logical">
+<h3>Merging EDIFNets (Logical)<a class="headerlink" href="#merging-edifnets-logical" title="Permalink to this headline">¶</a></h3>
+<p>All unique nets are included in the merged design.  If each input
+design has a net with the same name, sinks are moved from one copy to
+the merged net.  If one net has a top level port source and the other
+has a real (hard cell pin) source, the merging will choose the real
+source to be included in the final merged net and the port will be
+omitted.</p>
+</div>
+<div class="section" id="merging-edifcellinsts">
+<h3>Merging EDIFCellInsts<a class="headerlink" href="#merging-edifcellinsts" title="Permalink to this headline">¶</a></h3>
+<p>All unique instances are included in the merged design.  When two
+designs contain instances of the same name, only one is kept.  Each of
+the pins on both copies of the instance are examined, if one of the
+ports is unconnected or undriven, it will use the connection from the
+other source design.  If both copies of a pin are driven by a source
+or connection that cannot be merged, an error is thrown.</p>
+<p>To illustrate an example of some of these merging concepts, consider
+the following two designs, <code class="docutils literal notranslate"><span class="pre">Design</span> <span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">Design</span> <span class="pre">B</span></code>:</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/merge_design_a.png"><img alt="_images/merge_design_a.png" src="_images/merge_design_a.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Input Design A</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="_images/merge_design_b.png"><img alt="_images/merge_design_b.png" src="_images/merge_design_b.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Input Design B</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">Design</span> <span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">Design</span> <span class="pre">B</span></code> were merged using the RapidWright
+API, the resulting design would be:</p>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="_images/merge_design_a_and_b.png"><img alt="_images/merge_design_a_and_b.png" src="_images/merge_design_a_and_b.png" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">Result of Merging Design A and Design B</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="merging-siteinsts">
+<h3>Merging SiteInsts<a class="headerlink" href="#merging-siteinsts" title="Permalink to this headline">¶</a></h3>
+<p>Generally, if a merging of two or more designs are attempted, their
+implementation should not overlap unless curated in a predictable
+manner.  Merging more than one SiteInst from two different sources both
+placed onto the same site can be complicated and error prone. The merge API
+will attempt to merge placed cells and site routing even if they occupy the same site.</p>
+</div>
+<div class="section" id="merging-nets-physical">
+<h3>Merging Nets (Physical)<a class="headerlink" href="#merging-nets-physical" title="Permalink to this headline">¶</a></h3>
+<p>All unique physical nets are merged in the final result.  If more than
+one copy of a physical net exists in the design inputs, the routing is
+combined simply by taking the union of the PIPs belonging to each
+copy.  GND and VCC are common cases where the physical net is merged.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Bitstream_Manipulation.html" class="btn btn-neutral float-right" title="Bitstream Manipulation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Implementation_Basics.html" class="btn btn-neutral" title="Implementation Basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2022, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2021.2.1-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

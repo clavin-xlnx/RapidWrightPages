@@ -16,6 +16,7 @@ RapidWright Documentation
    RapidWright_Overview
    Design_Checkpoints
    Implementation_Basics
+   Merge_Designs
    Bitstream_Manipulation
    Papers
    PreImplemented_Module_Flow

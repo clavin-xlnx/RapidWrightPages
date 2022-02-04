@@ -1,0 +1,134 @@
+================================
+Merging Designs
+================================
+One useful technique in constructing an FPGA implementation is the
+'divide and conquer' approach.  When dividing a design, often, Vivado
+can achieve higher density and quality of results when it can focus on
+smaller parts of a design rather than the entire implementation at
+once.
+
+After dividing a design into separate pieces, it can be tricky to re-assemble
+the components back into a cohesive implementation.  The logical
+netlist must be consistent as well as the physical netlist.  A popular
+approach is to separate the design by module hierarchy, implementing
+each module or cell out of context.  However, not all designs benefit
+or have the right hierarchy necessary for this approach.  To provide a
+more robust method of assembly, we have added a design merge
+capability in RapidWright.
+
+Merging two or more designs in RapidWright can be accomplished with
+the API:
+
+.. code-block:: java
+	
+	public static Design MergeDesign.mergeDesigns(Design ... designs);
+
+Which uses Java's variable argument construct (`Varargs
+<https://docs.oracle.com/javase/8/docs/technotes/guides/language/varargs.html>`_)
+which can accept any Java Collection object (``List<Design>``,
+``Set<Design>``, ``Collection<Design>``) an array (``Design[]``) or a
+simple comma separated list (``design0, design1, ... , designN``).  The return value
+is the resulting merged design which is the first design
+passed as an argument (`design0` in the comma separated list case).  All other designs are destructively changed to
+support the merge.  
+
+Customizing Merge Behavior
+==========================================
+As there might be different valid ways to merge a design, the merge
+process employs an ``AbstractDesignMerger`` to allow a user to implement
+the desired merging behavior.  There are five major object types that
+must be resolved in a merge and they are captured in the abstract class
+that inheritors must implement:
+
+.. code-block:: java
+
+	public abstract void mergePorts(EDIFPort p0, EDIFPort p1);
+	public abstract void mergeLogicalNets(EDIFNet n0, EDIFNet n1);
+	public abstract void mergeCellInsts(EDIFCellInst i0, EDIFCellInst i1);
+	public abstract void mergeSiteInsts(SiteInst s0, SiteInst s1);
+	public abstract void mergePhysicalNets(Net n0, Net n1); 
+
+    
+The first three (``EDIFPort``, ``EDIFNet`` and ``EDIFCellInst``) are all
+logical netlist objects.  The last two (``SiteInst`` and ``Net``) are
+physical netlist objects.  In the ``DefaultDesignMerger``, a general
+merge behavior is implemented.  The order in which the objects are
+merged is the same as that listed above.  Here is a brief description
+of the default merge behavior of the 5 object types in
+``DefaultDesignMerger``.
+
+Merging EDIFPorts
+----------------------------
+When merging ports, the two sets of ports on the top cell of both
+designs is examined.  All names that are unique are merged into the
+resulting design.  If both designs contain a port with the same name,
+the directionality of the ports is checked.  If they are of opposite
+directionality (one is an input and the other an output), generally
+both ports will be removed and their connected nets will be joined.  The net
+attached to the input port will be eliminated and the net on the
+output port will assume the sinks of the input port.
+
+If both ports are inputs, the extra copy is removed and its sinks are
+added to the first design's port.  If both ports are outputs, the same
+approach is taken except if the merging is incompatible (two different
+sources that cannot be merged), an error will be thrown.
+
+Merging EDIFNets (Logical)
+----------------------------
+All unique nets are included in the merged design.  If each input
+design has a net with the same name, sinks are moved from one copy to
+the merged net.  If one net has a top level port source and the other
+has a real (hard cell pin) source, the merging will choose the real
+source to be included in the final merged net and the port will be
+omitted. 
+
+Merging EDIFCellInsts
+----------------------------
+All unique instances are included in the merged design.  When two
+designs contain instances of the same name, only one is kept.  Each of
+the pins on both copies of the instance are examined, if one of the
+ports is unconnected or undriven, it will use the connection from the
+other source design.  If both copies of a pin are driven by a source
+or connection that cannot be merged, an error is thrown.
+
+To illustrate an example of some of these merging concepts, consider
+the following two designs, ``Design A`` and ``Design B``:
+
+.. figure:: images/merge_design_a.png
+	:width: 550px
+	:align: center
+
+	Input Design A
+
+.. figure:: images/merge_design_b.png
+	:width: 550px
+	:align: center
+
+	Input Design B
+
+If ``Design A`` and ``Design B`` were merged using the RapidWright
+API, the resulting design would be:
+
+.. figure:: images/merge_design_a_and_b.png
+	:width: 550px
+	:align: center
+
+	Result of Merging Design A and Design B
+
+
+Merging SiteInsts
+----------------------------
+Generally, if a merging of two or more designs are attempted, their
+implementation should not overlap unless curated in a predictable
+manner.  Merging more than one SiteInst from two different sources both
+placed onto the same site can be complicated and error prone. The merge API
+will attempt to merge placed cells and site routing even if they occupy the same site.  
+
+
+
+Merging Nets (Physical)
+----------------------------
+All unique physical nets are merged in the final result.  If more than
+one copy of a physical net exists in the design inputs, the routing is
+combined simply by taking the union of the PIPs belonging to each
+copy.  GND and VCC are common cases where the physical net is merged.
