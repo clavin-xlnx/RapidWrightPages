@@ -5,6 +5,7 @@ com.xilinx.rapidwright.design
 com.xilinx.rapidwright.design.blocks
 com.xilinx.rapidwright.design.drc
 com.xilinx.rapidwright.design.merge
+com.xilinx.rapidwright.design.noc
 com.xilinx.rapidwright.design.tools
 com.xilinx.rapidwright.device
 com.xilinx.rapidwright.device.browser
@@ -23,5 +24,6 @@ com.xilinx.rapidwright.tests
 com.xilinx.rapidwright.timing
 com.xilinx.rapidwright.timing.delayestimator
 com.xilinx.rapidwright.util
+com.xilinx.rapidwright.util.function
 com.xilinx.rapidwright.util.performance_evaluation
 com.xilinx.rapidwright.util.rwroute
