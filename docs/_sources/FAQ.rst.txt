@@ -19,7 +19,7 @@ RapidWright program at runtime.
 
 Can RapidWright be used for designs targeting the AWS F1 platform?
 ====================================================================
-Yes, there are some ways in which parts of a design generated in RapidWright can be inserted into an existing AWS-F1 design.  One technique uses the Vivado command ``read_checkpoint -cell <cell_instance_name> <checkpoint.dcp>``. If you insert a blackbox that matches your DCP (see the stub files inside the ZIP/DCP file) into your AWS-F1 design, you can use the ``read_checkpoint`` command to pull in a synthesized, placed and/or routed DCP into the existing design.  
+Yes, there are some ways in which parts of a design generated in RapidWright can be inserted into an existing AWS-F1 design.  One technique uses the Vivado command ``read_checkpoint -cell <cell_instance_name> <checkpoint.dcp>``. If you insert a blackbox that matches your DCP (see the stub files inside the DCP file) into your AWS-F1 design, you can use the ``read_checkpoint`` command to pull in a synthesized, placed and/or routed DCP into the existing design.  
 
 Note that RapidWright cannot read in the AWS F1 shell design as it is encrypted and user design data is encrypted by default. 
 

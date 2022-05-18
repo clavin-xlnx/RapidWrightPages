@@ -3,18 +3,68 @@ Manual Install
 =================================================
 RapidWright source code and data files are hosted on `GitHub <https://github.com/Xilinx/RapidWright>`_.  Here is how to get the necessary files to get started:
 
-1. Use ``git clone https://github.com/Xilinx/RapidWright.git`` to clone the repo, either on the command line or setting up a new project in your IDE.  For a detailed tutorial setting up RapidWright in Eclipse see the :ref:`RapidWright Eclipse Setup` page.
-2. Go to https://github.com/Xilinx/RapidWright/releases and download the latest release files: rapidwright_data.zip and rapidwright_jars.zip.
-3. Expand the two zip files into the root repository directory, there should be a 'jars' and 'data' directory listed there. Make sure to delete previous 'jars' and 'data' directories if present.
-4. Set the environment variable ``RAPIDWRIGHT_PATH=<your_repo_path>``
-5. Be sure to add the compiled Java files and jar files in the jar folder to your ``CLASSPATH`` variable. If using Bash and can delete the unused OS-specific jars in the jars directory, you could add the following to your ``.bashrc`` file:  
-   ``export CLASSPATH=$RAPIDWRIGHT_PATH/bin:$(echo $RAPIDWRIGHT_PATH/jars/*.jar | tr ' ' ':')``
+Run the following from the command line:
 
-6. Compile the project either through an IDE such as Eclipse or IntelliJ (see :ref:`RapidWright Eclipse Setup` or :ref:`RapidWright IntelliJ Setup`).  You may need to refresh the project to ensure the IDE can see the jars added in step 3.  You can also use Gradle to compile the project using the provided gradle build script. You will need to make sure Gradle is installed and then run: ``gradle build -p $RAPIDWRIGHT_PATH``
-7. A quick test is to try running the DeviceBrowser class with something like: ``java com.xilinx.rapidwright.device.browser.DeviceBrowser``.  You should see the GUI come up similar to this screenshot:
+.. code-block:: bash
+
+    git clone https://github.com/Xilinx/RapidWright.git
+    cd RapidWright
+    ./gradlew compileJava
+
+This will clone a copy of RapidWright from GitHub, download jar
+dependencies and compile the Java code.  Checking out and compiling
+the code can also be accomplished by using an IDE (see
+:ref:`RapidWright Eclipse Setup` or :ref:`RapidWright IntelliJ Setup`). 
+
+To perform a quick test to ensure RapidWright is setup correctly, try
+running the following:
+    
+.. code-block:: bash
+    
+    java -cp bin:jars/* com.xilinx.rapidwright.device.browser.DeviceBrowser
+
+.. note:: If you prefer to run with Gradle, the same tool can be invoked with: ``./gradlew run --args=DeviceBrowser``
+    
+You should see the GUI come up similar to this screenshot:
 
 .. image:: images/DeviceBrowser.png
 	:width: 550px
 	:align: center
+		
+If you have gotten to this point, congrats!  Your RapidWright install
+is correctly configured and you are ready to start experimenting.
 
-If you have gotten to this point, congrats!  Your RapidWright install is correctly configured and you are ready to start experimenting.  
+A Couple of Notes:
+===================
+
+CLASSPATH
+-----------
+Java has the notion of a CLASSPATH, this is a list of locations where
+`java` can look for compiled Java code (`.class` files or `.jar`
+files) to execute at runtime.  The CLASSPATH can be set on the command
+line (as in the example test command above) or it can be set via the
+environment variable `CLASSPATH`.  If a script to set the `CLASSPATH`
+variable (in Linux) is desired, the following command can be run:
+    
+.. code-block:: bash
+    
+    echo "export CLASSPATH=`pwd`/bin:`pwd`/jars/*" > bin/rapidwright_classpath.sh
+
+
+    
+This sets up the environment so the `-cp bin:jars/*` classpath option doesn't need to be set
+as an argument when invoking `java`, for example:
+
+.. code-block:: bash
+
+    source bin/rapidwright_classpath.sh
+    java com.xilinx.rapidwright.device.browser.DeviceBrowser
+
+Should start the `DeviceBrowser` just as before.
+    
+
+RAPIDWRIGHT_PATH
+-----------------
+The environment variable `RAPIDWRIGHT_PATH` is no longer required.  It
+can be set in the event that the user has an existing data set of
+files that they want to use or override the existing set.
