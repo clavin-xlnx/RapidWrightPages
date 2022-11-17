@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright PipelineGeneratorWithRouting Example &mdash; RapidWright 2022.1.4-beta documentation</title>
+  <title>RapidWright PipelineGeneratorWithRouting Example &mdash; RapidWright 2022.2.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.1.4
+                2022.2.0
               </div>
             
           
@@ -223,9 +223,9 @@
 <p>As part of the introduction of our new RapidWright timing library, we have extended the Pipeline Generator tutorial to demonstrate how to use our timing library, or at least how one might call our new timing library towards implementing a timing-driven router.</p>
 <div class="section" id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
-<p>Please see our FPT‘19 paper, <a class="reference download internal" download="" href="_downloads/6610b931d8a2e053e69a499d3923077f/FPT19-TimingModel.pdf"><code class="xref download docutils literal notranslate"><span class="pre">&quot;An</span> <span class="pre">Open-source</span> <span class="pre">Lightweight</span>
+<p>Please see our FPT‘19 paper, <a class="reference download internal" download="" href="_downloads/92bb5a83001a99802b3ca10dec2a7ed9/FPT19-TimingModel.pdf"><code class="xref download docutils literal notranslate"><span class="pre">&quot;An</span> <span class="pre">Open-source</span> <span class="pre">Lightweight</span>
 <span class="pre">Timing</span> <span class="pre">Model</span> <span class="pre">for</span> <span class="pre">RapidWright&quot;</span></code></a>
-(<a class="reference download internal" download="" href="_downloads/d86adc06190925e6456ef2489c361ad7/FPT19-TimingModel-Presentation.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Presentation</span></code></a>)
+(<a class="reference download internal" download="" href="_downloads/fc01166dd59fe754a69f1e687e11847b/FPT19-TimingModel-Presentation.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Presentation</span></code></a>)
 for background details on our RapidWright Timing Model. Our model abstracts groups of low level wires and MUXes into an abstraction that we call timing groups (TGs).</p>
 <p>Please note this tutorial does not cover some deeper background details, and it assumes a basic knowledge of routing concepts and the routing resources available within Xilinx devices.   For more background, the tutorial library contains a separate tutorial dedicated on routing, including implementation examples that are depth-based (non-timing driven).  That tutorial includes some device model details specific to RapidWright.  RapidWright also provides an even more substantial depth-based router implementation within its source library (at least more substantial than the dedicated tutorial).</p>
 <p>In this tutorial we further model our router cost function to compare the net delays estimated for different paths as a component of the cost.  However, our cost function, algorithm, and overall implementation are for illustration purposes and have not been optimized for runtime performance or modular design.  Our goal here is merely to present an example of using our timing library for exploring potential routing resources.</p>
@@ -359,7 +359,7 @@ for background details on our RapidWright Timing Model. Our model abstracts grou
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.1.4-beta',
+            VERSION:'2022.2.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
