@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Create and Use an SLR Bridge &mdash; RapidWright 2022.2.0-beta documentation</title>
+  <title>Create and Use an SLR Bridge &mdash; RapidWright 2022.2.1-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.2.0
+                2022.2.1
               </div>
             
           
@@ -305,7 +305,7 @@ Option                                   Description
 <h3>Combining the Designs<a class="headerlink" href="#combining-the-designs" title="Permalink to this headline">¶</a></h3>
 <p>Now that we know we have a correct bridge, we start on our main design.  To do so, we have provided a synthesized version of our TDM circuit where N=32. To open it:</p>
 <ol class="arabic simple">
-<li><p>Download <a class="reference download internal" download="" href="_downloads/afbabe02346074849b7f1b49f9fd261e/synth32_BB.dcp"><code class="xref download docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
+<li><p>Download <a class="reference download internal" download="" href="_downloads/2982db30c1a4e403863cbc1efea2d28d/synth32_BB.dcp"><code class="xref download docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
 <li><p>Open it in Vivado using the Tcl command:</p></li>
 </ol>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span><span class="w"> </span>synth32_BB.dcp
@@ -329,7 +329,7 @@ Option                                   Description
 <h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h3>
 <p>We can now proceed to constrain the design and run place and route by running the following script:</p>
 <ol class="arabic simple">
-<li><p>Download <a class="reference download internal" download="" href="_downloads/7f96689af5112e25ed01875abf915a3c/run_PnR.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_PnR.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
+<li><p>Download <a class="reference download internal" download="" href="_downloads/8bbc160bdcb93f3b37eac383c3e1f882/run_PnR.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_PnR.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
 <li><p>Run the Tcl command:</p></li>
 </ol>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>run_PnR.tcl
@@ -349,13 +349,13 @@ Option                                   Description
 <span class="n">write_checkpoint</span> <span class="o">-</span><span class="n">force</span> <span class="n">routed_32</span><span class="o">.</span><span class="n">dcp</span>
 </pre></div>
 </div>
-<p>This can take several minutes (up to 30 minutes inside the tutorial virtual machine).  For those wishing to skip ahead, we have provided our own implementation of the results of the above Tcl commands here: <a class="reference download internal" download="" href="_downloads/0d893bb3b9e03ba99470dd9eaed12720/routed_32.dcp"><code class="xref download docutils literal notranslate"><span class="pre">routed_32.dcp</span></code></a>.  In the Device model view, our implementation looks like this:</p>
+<p>This can take several minutes (up to 30 minutes inside the tutorial virtual machine).  For those wishing to skip ahead, we have provided our own implementation of the results of the above Tcl commands here: <a class="reference download internal" download="" href="_downloads/1cfdbabb9e18187966ddde0954d4f611/routed_32.dcp"><code class="xref download docutils literal notranslate"><span class="pre">routed_32.dcp</span></code></a>.  In the Device model view, our implementation looks like this:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/slr_routed.png"><img alt="_images/slr_routed.png" class="align-center" src="_images/slr_routed.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>For additional analysis of timing reports can be performed on the specific paths crossing the SLR and leading up to it by:</p>
 <ol class="arabic simple">
-<li><p>Downloading <a class="reference download internal" download="" href="_downloads/13fcd549011eef56cd7faea7a95ad360/run_timing.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_timing.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
+<li><p>Downloading <a class="reference download internal" download="" href="_downloads/db22add9e77242144fc6a54a74550ef6/run_timing.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_timing.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
 <li><p>Running the Tcl command:</p></li>
 </ol>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>run_timing.tcl
@@ -405,7 +405,7 @@ Option                                   Description
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018-2022, Xilinx, Inc.
+        &copy; Copyright 2018-2023, Advanced Micro Devices, Inc.
 
     </p>
   </div>
@@ -427,7 +427,7 @@ Option                                   Description
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.2.0-beta',
+            VERSION:'2022.2.1-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
