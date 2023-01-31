@@ -117,10 +117,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Call_RapidWright_From_CPP.html">Call RapidWright from C/C++ Using GraalVM</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Using RapidWright Directly in Python 3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tl-dr">TL;DR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#python-virtual-environments">Python Virtual Environments</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#setting-up-a-virtual-python-environment">Setting up a Virtual Python Environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#running-rapidwright-in-the-virtual-environment">Running RapidWright in the Virtual Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#java-development-and-python">Java Development and Python</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Setup_JUnit5_Test_in_RapidWright.html">Setup JUnit 5 Tests in RapidWright</a></li>
@@ -208,13 +211,21 @@
             
   <div class="section" id="using-rapidwright-directly-in-python-3">
 <h1>Using RapidWright Directly in Python 3<a class="headerlink" href="#using-rapidwright-directly-in-python-3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tl-dr">
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install rapidwright
+</pre></div>
+</div>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Although RapidWright is written in Java, there is significant interest
 to access it from Python.  Python has many features that make it a
 great choice for rapid prototyping and scripting solutions.  In fact,
 RapidWright ships with <a class="reference external" href="https://www.jython.org/">Jython</a> (Python
 implemented in Java) to provide an authentic Python experience.</p>
 <p>Despite RapidWright’s Jython integration, for real-world Python
-development, the world has mostly transitioned to Python 3 and depend
+development, the world has transitioned to Python 3 and depend
 on packages that have native implementations which are incompatible
 with Jython. This has generally excluded RapidWright (with the
 exclusion of the experimental <a class="reference external" href="https://www.graalvm.org/reference-manual/python/">GraalVM’s Python</a>) from working
@@ -223,6 +234,7 @@ directly with Python 3.</p>
 Java packages directly as if they were native APIs. This tutorial
 shows you how RapidWright can take advantage of this package to use
 RapidWright directly in your Python projects.</p>
+</div>
 <div class="section" id="python-virtual-environments">
 <h2>Python Virtual Environments<a class="headerlink" href="#python-virtual-environments" title="Permalink to this headline">¶</a></h2>
 <p>A highly recommeneded way to develop in Python is to use <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">Virtual
@@ -272,34 +284,24 @@ simply run:</p>
 </div>
 <div class="section" id="running-rapidwright-in-the-virtual-environment">
 <h2>Running RapidWright in the Virtual Environment<a class="headerlink" href="#running-rapidwright-in-the-virtual-environment" title="Permalink to this headline">¶</a></h2>
-<p>Now that the virtual environment is setup, we can begin to configure
-it to our liking and not have to worry about conflicts with other
-projects or the existing system install.  To use RapidWright, we need
-the <code class="docutils literal notranslate"><span class="pre">Jpype1</span></code> package installed and this can be done by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install JPype1
+<p>Now that the virtual environment is setup, we can begin to experiment
+with RapidWright.  As mentioned in the introduction, <code class="docutils literal notranslate"><span class="pre">Jpype1</span></code> is
+listed as a dependency, so if we simply run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install rapidwright
 </pre></div>
 </div>
-<p>Next, we need a copy of RapidWright to use.  The easiest way to get
-RapidWright is to download the stand-alone jar file from the <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/latest">latest
-release</a>, for example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/Xilinx/RapidWright/releases/download/v2020.2.4-beta/rapidwright-2020.2.4-standalone-lin64.jar
+<p>It will be installed automatically.  Then we can run Python:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python
 </pre></div>
 </div>
-<p>We can create a boilerplate script that will setup JPype1 and make
-RapidWright available:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jpype</span>
-<span class="kn">import</span> <span class="nn">jpype.imports</span>
-<span class="kn">from</span> <span class="nn">jpype.types</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="n">jpype</span><span class="o">.</span><span class="n">startJVM</span><span class="p">(</span><span class="n">classpath</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rapidwright-2020.2.4-standalone-lin64.jar&quot;</span><span class="p">])</span>
+<p>To use RapidWright inside the Python interpreter (or a script), all we need to do is simply:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rapidwright</span>
 </pre></div>
 </div>
-<p>If we save these commands above in <cite>rapidwright.py</cite> and then run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -i rapidwright.py
-</pre></div>
-</div>
-<p>At this point, you’ll get a prompt and can import java classes to
-allow you to access any RapidWright Java API:</p>
+<p>On the very first invocation of this import, it will take a few
+seconds to get things set up.  After the first time, it will be faster.</p>
+<p>At this point, you can import java classes to allow you to access any
+RapidWright Java API:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">com.xilinx.rapidwright.device</span> <span class="kn">import</span> <span class="n">Device</span>
 <span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">.</span><span class="n">getDevice</span><span class="p">(</span><span class="n">Device</span><span class="o">.</span><span class="n">AWS_F1</span><span class="p">)</span>
 </pre></div>
@@ -351,6 +353,20 @@ GUI applications from Python:</p>
 <p>We expect this integration capability with Python to help increase
 RapidWright’s applicability to a wider number of projects.  There are
 more opportunities for integration as well, so stay tuned!</p>
+</div>
+<div class="section" id="java-development-and-python">
+<h2>Java Development and Python<a class="headerlink" href="#java-development-and-python" title="Permalink to this headline">¶</a></h2>
+<p>When you install the Python RapidWright package, it downloads the
+standalone jar so it can run without any extra setup.  However, if you
+already have a git repo checked out and compiled, you can tell the
+Python RapidWright package to point to your local install by setting
+the following environment variables:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">RAPIDWRIGHT_PATH</span><span class="o">=</span>&lt;path_to_RapidWright_directory_checked_out_from_GitHub&gt;
+<span class="nv">CLASSPATH</span><span class="o">=</span><span class="nv">$RAPIDWRIGHT_PATH</span>/bin:<span class="nv">$RAPIDWRIGHT_PATH</span>/jars/*
+</pre></div>
+</div>
+<p>This way, the Python RapidWright will use your development copy of
+RapidWright.</p>
 </div>
 </div>
 

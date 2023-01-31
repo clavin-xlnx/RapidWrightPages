@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Automatic Install" href="Automatic_Install.html" />
+    <link rel="next" title="Install" href="Install.html" />
     <link rel="prev" title="Getting Started" href="Getting_Started.html" /> 
 
   
@@ -105,8 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Getting_Started.html">Getting Started</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Quick Start</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Automatic_Install.html">Automatic Install</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Manual_Install.html">Manual Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Install.html">Install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RapidWright_IntelliJ_Setup.html">RapidWright IntelliJ Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RapidWright_Jupyter_Setup.html">RapidWright Jupyter Notebook Kernel Setup</a></li>
@@ -205,7 +204,7 @@
   <div class="section" id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic simple">
-<li><p>Download and install <a class="reference external" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle JRE/JDK Java 1.8 or later</a></p></li>
+<li><p>Download and install Java JDK 11 (or later) - Any distribution such as <a class="reference external" href="https://adoptium.net/">Adoptium</a> should work</p></li>
 <li><p>Download the <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/latest">latest standalone RapidWright release jar file</a></p></li>
 <li><p>Start the RapidWright Python (<a class="reference external" href="http://www.jython.org">Jython</a>) interpreter by running:</p></li>
 </ol>
@@ -219,7 +218,7 @@
 <p>You should see the GUI come up similar to this screenshot:</p>
 <a class="reference internal image-reference" href="_images/DeviceBrowser.png"><img alt="_images/DeviceBrowser.png" class="align-center" src="_images/DeviceBrowser.png" style="width: 550px;" /></a>
 <p>If you have gotten to this point, congrats!  Your RapidWright install is correctly configured and you are ready to start experimenting.</p>
-<p>Note that the standalone jar comes with a few select devices:</p>
+<p>Note that the standalone jar comes pre-packaged with a few select devices:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>AWS-F1: Virtex UltraScale+ VU9P (xcvu9p)</p></li>
@@ -227,7 +226,8 @@
 <li><p>Virtex UltraScale VU440 (xcvu440)</p></li>
 </ul>
 </div></blockquote>
-<p>To get additional devices download the latest <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/latest">rapidwright_data.zip</a>  set of device data files and unzip them in the same directory as the stand-alone jar. Alternatively, you can follow the <a class="reference internal" href="Automatic_Install.html#automatic-install"><span class="std std-ref">Automatic Install</span></a> process.</p>
+<p>Additional devices are downloaded over the Internet on demand when the code attempts to
+load them.  See <a class="reference internal" href="RapidWright_Data_Files.html#rapidwright-data-files"><span class="std std-ref">RapidWright Data Files</span></a> for more details.</p>
 </div>
 
 
@@ -238,7 +238,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Automatic_Install.html" class="btn btn-neutral float-right" title="Automatic Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Install.html" class="btn btn-neutral float-right" title="Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Getting_Started.html" class="btn btn-neutral" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

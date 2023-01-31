@@ -5,8 +5,7 @@ Getting Started
 **How would you like to use RapidWright?**
 
  * :ref:`Quick Start` -- "Just want to try it out"
- * :ref:`Automatic Install` -- "Ready to write code"
- * :ref:`Manual Install` -- "I'm a power user"
+ * :ref:`Install` -- "Ready to write code"
 
 **Setting up Development Environments**
 
@@ -19,8 +18,7 @@ Getting Started
    :hidden:
    
    Quick_Start
-   Automatic_Install
-   Manual_Install
+   Install
    RapidWright_Eclipse_Setup
    RapidWright_IntelliJ_Setup 
    RapidWright_Jupyter_Setup

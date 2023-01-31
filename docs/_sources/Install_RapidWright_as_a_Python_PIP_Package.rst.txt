@@ -2,6 +2,15 @@
 Using RapidWright Directly in Python 3
 =========================================
 
+TL;DR
+==============================
+.. code-block:: bash
+
+	pip install rapidwright
+
+
+Introduction
+==============================
 Although RapidWright is written in Java, there is significant interest
 to access it from Python.  Python has many features that make it a
 great choice for rapid prototyping and scripting solutions.  In fact,
@@ -9,7 +18,7 @@ RapidWright ships with `Jython <https://www.jython.org/>`_ (Python
 implemented in Java) to provide an authentic Python experience.
 
 Despite RapidWright's Jython integration, for real-world Python
-development, the world has mostly transitioned to Python 3 and depend
+development, the world has transitioned to Python 3 and depend
 on packages that have native implementations which are incompatible
 with Jython. This has generally excluded RapidWright (with the
 exclusion of the experimental `GraalVM's Python
@@ -80,42 +89,31 @@ simply run:
 
 Running RapidWright in the Virtual Environment
 ===================================================
-Now that the virtual environment is setup, we can begin to configure
-it to our liking and not have to worry about conflicts with other
-projects or the existing system install.  To use RapidWright, we need
-the ``Jpype1`` package installed and this can be done by running:
+Now that the virtual environment is setup, we can begin to experiment
+with RapidWright.  As mentioned in the introduction, ``Jpype1`` is
+listed as a dependency, so if we simply run:
 
 .. code-block:: bash
 
-	pip install JPype1
+	pip install rapidwright
 
-Next, we need a copy of RapidWright to use.  The easiest way to get
-RapidWright is to download the stand-alone jar file from the `latest
-release <https://github.com/Xilinx/RapidWright/releases/latest>`_, for example: 
+It will be installed automatically.  Then we can run Python:
 
 .. code-block:: bash
 
-	wget https://github.com/Xilinx/RapidWright/releases/download/v2020.2.4-beta/rapidwright-2020.2.4-standalone-lin64.jar
+	python
 
-We can create a boilerplate script that will setup JPype1 and make
-RapidWright available:
+To use RapidWright inside the Python interpreter (or a script), all we need to do is simply:
 
 .. code-block:: python
 
-	import jpype
-	import jpype.imports
-	from jpype.types import *
+	import rapidwright
 
-	jpype.startJVM(classpath=["rapidwright-2020.2.4-standalone-lin64.jar"])
-  
-If we save these commands above in `rapidwright.py` and then run:
-
-.. code-block:: bash
-
-	python -i rapidwright.py
-
-At this point, you'll get a prompt and can import java classes to
-allow you to access any RapidWright Java API:
+On the very first invocation of this import, it will take a few
+seconds to get things set up.  After the first time, it will be faster.
+	
+At this point, you can import java classes to allow you to access any
+RapidWright Java API:
 
 .. code-block:: python
 
@@ -179,3 +177,20 @@ GUI applications from Python:
 We expect this integration capability with Python to help increase
 RapidWright's applicability to a wider number of projects.  There are
 more opportunities for integration as well, so stay tuned!
+
+
+Java Development and Python
+===================================
+When you install the Python RapidWright package, it downloads the
+standalone jar so it can run without any extra setup.  However, if you
+already have a git repo checked out and compiled, you can tell the
+Python RapidWright package to point to your local install by setting
+the following environment variables:
+
+.. code-block:: bash
+
+	RAPIDWRIGHT_PATH=<path_to_RapidWright_directory_checked_out_from_GitHub>
+	CLASSPATH=$RAPIDWRIGHT_PATH/bin:$RAPIDWRIGHT_PATH/jars/*
+ 
+This way, the Python RapidWright will use your development copy of
+RapidWright.

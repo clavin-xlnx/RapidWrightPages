@@ -23,7 +23,7 @@ Getting Started
 
 Before attempting the tutorials above, please install and/or setup the following tools:
 
-1. :ref:`RapidWright 2018.3.3 <Automatic Install>` 
+1. :ref:`RapidWright 2018.3.3 <Install>` 
 2. `Vivado 2018.3 <https://www.xilinx.com/support/download.html>`_
 3. :ref:`Eclipse <RapidWright Eclipse Setup>` or :ref:`IntelliJ <RapidWright IntelliJ Setup>` (not required, but mentioned in |Pipeline|)
 4. :ref:`Jupyter Notebook and the RapidWright Kernel <RapidWright Jupyter Notebook Kernel Setup>` (for Jupyter Notebook tutorials)

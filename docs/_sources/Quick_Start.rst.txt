@@ -1,7 +1,7 @@
 ===========================
 Quick Start
 ===========================
-1. Download and install `Oracle JRE/JDK Java 1.8 or later <https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>`_
+1. Download and install Java JDK 11 (or later) - Any distribution such as `Adoptium <https://adoptium.net/>`_ should work
 2. Download the `latest standalone RapidWright release jar file <https://github.com/Xilinx/RapidWright/releases/latest>`_ 
 
 3. Start the RapidWright Python (`Jython <http://www.jython.org>`_) interpreter by running:
@@ -24,10 +24,11 @@ You should see the GUI come up similar to this screenshot:
 
 If you have gotten to this point, congrats!  Your RapidWright install is correctly configured and you are ready to start experimenting.  
 
-Note that the standalone jar comes with a few select devices:
+Note that the standalone jar comes pre-packaged with a few select devices:
 
   * AWS-F1: Virtex UltraScale+ VU9P (xcvu9p)
   * PYNQ-Z1: Zynq 7020 (xc7z020)
   * Virtex UltraScale VU440 (xcvu440)
 
-To get additional devices download the latest `rapidwright_data.zip <https://github.com/Xilinx/RapidWright/releases/latest>`_  set of device data files and unzip them in the same directory as the stand-alone jar. Alternatively, you can follow the :ref:`Automatic Install` process.
+Additional devices are downloaded over the Internet on demand when the code attempts to
+load them.  See :ref:`RapidWright Data Files` for more details.
