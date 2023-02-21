@@ -194,3 +194,23 @@ the following environment variables:
  
 This way, the Python RapidWright will use your development copy of
 RapidWright.
+
+Things to Know When Using RapidWright in Python
+=================================================================
+
+Equality
+------------
+In Java, there are two main ways to check for equality:
+
+1. Reference equality, ``==`` operator
+2. Object equality, ``equals()`` method
+
+Reference equality essentially checks if two objects point to the same
+reference or location in memory.  Whereas ``equals()`` invokes the
+method on referenced object's class definition.
+
+Jpype has chosen to map the Python ``==`` operator to use the Java
+``equals()`` method and the Java ``==`` is not directly accessible.
+More on this can be found in `Jpype documentation
+<https://jpype.readthedocs.io/en/latest/userguide.html#classes>`_.
+

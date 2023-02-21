@@ -124,6 +124,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#setting-up-a-virtual-python-environment">Setting up a Virtual Python Environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#running-rapidwright-in-the-virtual-environment">Running RapidWright in the Virtual Environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#java-development-and-python">Java Development and Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#things-to-know-when-using-rapidwright-in-python">Things to Know When Using RapidWright in Python</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#equality">Equality</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Setup_JUnit5_Test_in_RapidWright.html">Setup JUnit 5 Tests in RapidWright</a></li>
@@ -367,6 +371,23 @@ the following environment variables:</p>
 </div>
 <p>This way, the Python RapidWright will use your development copy of
 RapidWright.</p>
+</div>
+<div class="section" id="things-to-know-when-using-rapidwright-in-python">
+<h2>Things to Know When Using RapidWright in Python<a class="headerlink" href="#things-to-know-when-using-rapidwright-in-python" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="equality">
+<h3>Equality<a class="headerlink" href="#equality" title="Permalink to this headline">¶</a></h3>
+<p>In Java, there are two main ways to check for equality:</p>
+<ol class="arabic simple">
+<li><p>Reference equality, <code class="docutils literal notranslate"><span class="pre">==</span></code> operator</p></li>
+<li><p>Object equality, <code class="docutils literal notranslate"><span class="pre">equals()</span></code> method</p></li>
+</ol>
+<p>Reference equality essentially checks if two objects point to the same
+reference or location in memory.  Whereas <code class="docutils literal notranslate"><span class="pre">equals()</span></code> invokes the
+method on referenced object’s class definition.</p>
+<p>Jpype has chosen to map the Python <code class="docutils literal notranslate"><span class="pre">==</span></code> operator to use the Java
+<code class="docutils literal notranslate"><span class="pre">equals()</span></code> method and the Java <code class="docutils literal notranslate"><span class="pre">==</span></code> is not directly accessible.
+More on this can be found in <a class="reference external" href="https://jpype.readthedocs.io/en/latest/userguide.html#classes">Jpype documentation</a>.</p>
+</div>
 </div>
 </div>
 
