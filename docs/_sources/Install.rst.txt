@@ -65,7 +65,7 @@ If you have gotten to this point, congrats!  Your RapidWright install
 is correctly configured and you are ready to start experimenting.
 
 Notes for Advanced/Legacy Users:
-===================
+=====================================
 
 Using Java distributed with Vivado
 ------------------------------------
@@ -88,8 +88,8 @@ To use this version of Java instead of the system Java or installing
 it, simply add the directory to your ``PATH`` environment variable:
 
 .. code-block:: bash
-	export
-	PATH=/opt/Vivado/2022.2/tps/lnx64/jre11.0.11_9/bin:$PATH
+
+	export PATH=/opt/Vivado/2022.2/tps/lnx64/jre11.0.11_9/bin:$PATH
 
 Or, if using Windows, use the Control panel for environment variables
 and add a new entry for ``PATH``.
@@ -122,10 +122,12 @@ Should start the ``DeviceBrowser`` just as before.
     
 
 RAPIDWRIGHT_PATH
------------------
-The environment variable ``RAPIDWRIGHT_PATH`` is no longer required.  It
-can be set in the event that the user has an existing data set of
-files that they want to use or override the existing set.
+--------------------
+The environment variable ``RAPIDWRIGHT_PATH`` is no longer required.
+RapidWright data files have a default location (see
+:ref:`RapidWright Data Files`).  To override the default location, the
+environment variable ``RAPIDWRIGHT_PATH`` can be set and the data files will be
+placed in ``$RAPIDWRIGHT_PATH/data``.
 	
 
 RapidWright Installer (Obsolete)

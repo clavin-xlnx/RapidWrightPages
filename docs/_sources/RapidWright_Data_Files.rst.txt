@@ -4,17 +4,17 @@ RapidWright Data Files
 .. contents:: Table of Contents
    :depth: 2
 
-In order to support the set of Xilinx devices and their corresponding
-data models in RapidWright, data files are used to access that
-information.  These data files are completely separate from Vivado but
-are included with each release.  As of RapidWright 2021.1.0, there are
-currently two ways to obtain these files:
+RapidWright maintains support for the full set of devices publicly
+available in the latest Vivado release. The information needed to
+populate RapidWright device models is stored in binary data files
+distributed with RapidWright.  Starting in the 2021.1.0 release, these
+data files began to be distributed via a download on-demand model.
+This was done to accelerate installation, reduce disk space
+requirements and provided an easier path to upgrade.  
 
-1. The conventional method is a one-time download of the
-   ``rapidwright_data.zip`` file associated with each release.
-2. If the user chooses not to download the zip file in option #1,
-   RapidWright is now equiped for data file on-demand delivery via
-   cloud access (requires an Internet connection at runtime).  
+
+On-demand Data File Downloads
+========================================
 
 All of the code involved in downloading and checking for data files is
 in the open source portion of RapidWright.  Most of the code is found
@@ -29,7 +29,63 @@ extension for speed.  If the file is missing or doesn't match that
 expected MD5, it will attempt to download the file.  This will happen
 behind the scenes transparent to the user with the exception that the
 first time call will take a bit longer since it is downloading the
-file.  
+file.
 
 If desired, a user can turn off the on-demand data file download
-feature by calling ``FileTools.setOverrideDataFileDownload(true)``.
+feature by calling ``FileTools.setOverrideDataFileDownload(true)`` at
+the start of their RapidWright program.
+
+Local Storage of Data Files
+===============================
+RapidWright data files are stored in two ways depending on how
+RapidWright has been installed.
+
+
+Standalone Jar (Binary)
+--------------------------------
+
+If RapidWright is installed using the standalone jar downloaded
+directly from a GitHub release or a Python pip install, the files are
+located in an OS-specified user directory:
+
+- For Windows, ``%USER%\AppData\Roaming\RapidWright`` or a path set by the
+  environment variable ``APPDATA``
+- For Linux, ``~/.local/share/RapidWright`` or a path set by the environment
+  variable ``XDG_DATA_HOME``
+
+It should be noted that the first time RapidWright is invoked using
+the standalone jar method, it will unpack a minimal set of data files
+that were included with the standalone jar to the directory cited above.
+
+  
+GitHub Clone (Source Code)
+-----------------------------------
+  
+If RapidWright is installed by a clone of the GitHub repository (or a
+snapshot of the source code), the default directory is the directory
+created by the clone of the code (``./RapidWright``).
+
+
+Override Data File Location
+----------------------------------
+Both standalone jar and GitHub clone options can be overriden by
+setting the environment varable ``RAPIDWRIGHT_PATH``.  This will avoid
+the creation of the default OS/user specific directories.
+
+
+Avoiding On-demand Download of Data Files
+=================================================
+In some situations, users may not have direct or persistent access to
+the Internet and can optionally download all of the data files
+necessary ahead of runtime.  The easiest option to do so is to invoke
+the API ``FileTools.updateAllDataFiles()`` which will ensure the latest
+and entire set of data files available are fully downloaded on the
+local system. 
+
+Another option is to download the ``rapidwright_data.zip`` file
+associated with the current release and replace the ``data`` directory
+in the ``RapidWright`` directory with its contents.
+
+Note, that due to GitHub size limitations, starting with the 2022.1.0
+release, the data files are split into two downloads,
+``rapidwright_data.zip`` and ``rapidwright_data2.zip``.

@@ -223,11 +223,11 @@ it includes Java, see <a class="reference internal" href="#using-java-distribute
 <li><p><a class="reference external" href="https://git-scm.com/">Git</a> (source revision control system)</p></li>
 <li><p>If you are running Linux and want to run the GUI portion of RapidWright, you may need an older libpng12 library.  For those running Debian/Ubuntu-based distros, try the following:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget -O /tmp/libpng12.deb https://snapshot.debian.org/archive/debian/20160413T160058Z/pool/main/libp/libpng/libpng12-0_1.2.54-6_amd64.deb <span class="o">&amp;&amp;</span> sudo dpkg -i /tmp/libpng12.deb <span class="o">&amp;&amp;</span> rm /tmp/libpng12.deb
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-O<span class="w"> </span>/tmp/libpng12.deb<span class="w"> </span>https://snapshot.debian.org/archive/debian/20160413T160058Z/pool/main/libp/libpng/libpng12-0_1.2.54-6_amd64.deb<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>/tmp/libpng12.deb<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>/tmp/libpng12.deb
 </pre></div>
 </div>
 <p>For CentOS/RedHat/Fedora distros, try the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum install libpng12
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>libpng12
 </pre></div>
 </div>
 </div>
@@ -250,9 +250,9 @@ Gradle installation is not necessary.</p>
 <div class="section" id="install-steps">
 <h2>Install Steps<a class="headerlink" href="#install-steps" title="Permalink to this headline">¶</a></h2>
 <p>The easiest way to get RapidWright setup is to simply run these commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Xilinx/RapidWright.git
-<span class="nb">cd</span> RapidWright
-./gradlew compileJava
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Xilinx/RapidWright.git
+<span class="nb">cd</span><span class="w"> </span>RapidWright
+./gradlew<span class="w"> </span>compileJava
 </pre></div>
 </div>
 <p>This will clone a copy of RapidWright from GitHub, download jar
@@ -261,7 +261,7 @@ the code can also be accomplished by using an IDE (see
 <a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> or <a class="reference internal" href="RapidWright_IntelliJ_Setup.html#rapidwright-intellij-setup"><span class="std std-ref">RapidWright IntelliJ Setup</span></a>).</p>
 <p>To perform a quick test to ensure RapidWright is setup correctly, try
 running the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java -cp bin:jars/* com.xilinx.rapidwright.device.browser.DeviceBrowser
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>-cp<span class="w"> </span>bin:jars/*<span class="w"> </span>com.xilinx.rapidwright.device.browser.DeviceBrowser
 </pre></div>
 </div>
 <div class="admonition note">
@@ -290,6 +290,9 @@ full path, something like this:</p>
 </div>
 <p>To use this version of Java instead of the system Java or installing
 it, simply add the directory to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/opt/Vivado/2022.2/tps/lnx64/jre11.0.11_9/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
 <p>Or, if using Windows, use the Control panel for environment variables
 and add a new entry for <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
 </div>
@@ -301,22 +304,24 @@ files) to execute at runtime.  The CLASSPATH can be set on the command
 line (as in the example test command above) or it can be set via the
 environment variable <code class="docutils literal notranslate"><span class="pre">CLASSPATH</span></code>.  If a script to set the <code class="docutils literal notranslate"><span class="pre">CLASSPATH</span></code>
 variable (in Linux) is desired, the following command can be run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;export CLASSPATH=`pwd`/bin:`pwd`/jars/*&quot;</span> &gt; bin/rapidwright_classpath.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export CLASSPATH=`pwd`/bin:`pwd`/jars/*&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>bin/rapidwright_classpath.sh
 </pre></div>
 </div>
 <p>This sets up the environment so the <code class="docutils literal notranslate"><span class="pre">-cp</span> <span class="pre">bin:jars/*</span></code> classpath option doesn’t need to be set
 as an argument when invoking <code class="docutils literal notranslate"><span class="pre">java</span></code>, for example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> bin/rapidwright_classpath.sh
-java com.xilinx.rapidwright.device.browser.DeviceBrowser
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>bin/rapidwright_classpath.sh
+java<span class="w"> </span>com.xilinx.rapidwright.device.browser.DeviceBrowser
 </pre></div>
 </div>
 <p>Should start the <code class="docutils literal notranslate"><span class="pre">DeviceBrowser</span></code> just as before.</p>
 </div>
 <div class="section" id="rapidwright-path">
 <h3>RAPIDWRIGHT_PATH<a class="headerlink" href="#rapidwright-path" title="Permalink to this headline">¶</a></h3>
-<p>The environment variable <code class="docutils literal notranslate"><span class="pre">RAPIDWRIGHT_PATH</span></code> is no longer required.  It
-can be set in the event that the user has an existing data set of
-files that they want to use or override the existing set.</p>
+<p>The environment variable <code class="docutils literal notranslate"><span class="pre">RAPIDWRIGHT_PATH</span></code> is no longer required.
+RapidWright data files have a default location (see
+<a class="reference internal" href="RapidWright_Data_Files.html#rapidwright-data-files"><span class="std std-ref">RapidWright Data Files</span></a>).  To override the default location, the
+environment variable <code class="docutils literal notranslate"><span class="pre">RAPIDWRIGHT_PATH</span></code> can be set and the data files will be
+placed in <code class="docutils literal notranslate"><span class="pre">$RAPIDWRIGHT_PATH/data</span></code>.</p>
 </div>
 </div>
 <div class="section" id="rapidwright-installer-obsolete">
@@ -327,13 +332,13 @@ legacy purposes.</p>
 <ol class="arabic simple">
 <li><p>Download <a class="reference download internal" download="" href="_downloads/80330ecb11731b21d246add971a17ebd/rapidwright-installer.jar"><code class="xref download docutils literal notranslate"><span class="pre">rapidwright-installer.jar</span></code></a> (or run command below in Linux) to the directory where you would like RapidWright to reside.</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/rapidwright-installer.jar
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/rapidwright-installer.jar
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>From a terminal in that directory, run (To open a terminal on Windows, search and run ‘cmd.exe’ from the Start orb):</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java -jar rapidwright-installer.jar
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>-jar<span class="w"> </span>rapidwright-installer.jar
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
