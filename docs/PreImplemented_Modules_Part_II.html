@@ -228,7 +228,7 @@
 <h2>1. Implementation Optimization<a class="headerlink" href="#implementation-optimization" title="Permalink to this headline">¶</a></h2>
 <p>From <a class="reference internal" href="PreImplemented_Modules_Part_I.html#pre-implemented-modules-part-i"><span class="std std-ref">Pre-implemented Modules - Part I</span></a>, we finished by creating three pblocks to be used for our PicoBlaze implementation. Now that we know what our three pblock sizes are, we can use <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code>, a tool provided with RapidWright, to help us explore implementation performance of each of these instances.  The <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> is able to parallelize many different runs of place and route using different directives and also sweep clock uncertainty to explore the solution space.  By leveraging Vivado and RapidWright’s <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code>, we are able to capture the best implementation runs for reuse.</p>
 <p>The RapidWright <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> can be run directly from the command line:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.PerformanceExplorer -h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>com.xilinx.rapidwright.util.PerformanceExplorer<span class="w"> </span>-h
 </pre></div>
 </div>
 <p>which prints help and options detail:</p>
@@ -273,7 +273,7 @@ Option (* = required)                    Description
 <p><strong>DO NOT USE THIS IN A TUTORIAL VIRTUAL MACHINE</strong>, it will crash the VM.  <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> is best used with a compute cluster (such as <a class="reference external" href="https://en.wikipedia.org/wiki/Platform_LSF">LSF</a>).  It can be used on a single workstation, but, the number of parallel runs combined with their length can quickly add up to days of compute time.</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># DON&#39;T RUN THIS IN A TUTORIAL VIRTUAL MACHINE</span>
-java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.dcp -t <span class="m">2</span>.85 -b picoblaze_pblocks.txt
+java<span class="w"> </span>com.xilinx.rapidwright.util.PerformanceExplorer<span class="w"> </span>-c<span class="w"> </span>clk<span class="w"> </span>-i<span class="w"> </span>picoblaze_synth.dcp<span class="w"> </span>-t<span class="w"> </span><span class="m">2</span>.85<span class="w"> </span>-b<span class="w"> </span>picoblaze_pblocks.txt
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">PerformanceExplorer</span></code> will then create a unique directory and launch a Vivado run for each unique job specification.  There are four main parameters by which a job can be specified:</p>
@@ -323,7 +323,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 </tbody>
 </table>
 <p>Download the best placed and routed implementations here: <a class="reference download internal" download="" href="_downloads/d15cb9e27f95f6c56a2ff609517d239e/picoblaze_best.zip"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_best.zip</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code> directory then unzip the file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip picoblaze_best.zip
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>picoblaze_best.zip
 </pre></div>
 </div>
 </div>
@@ -335,7 +335,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 </div></blockquote>
 <p>For each column, there will be one 8-bit top-level input that will drive any inputs that don’t have matching connecting instances.  There will be one 8-top level output driven by the top PicoBlaze’s output <code class="docutils literal notranslate"><span class="pre">z</span></code>, all other outputs without matching connecting instances will be left unconnected.</p>
 <p>RapidWright Java code to instantiate and place the three PicoBlaze pre-implemented modules and stitch them together is found in <code class="docutils literal notranslate"><span class="pre">RapidWright/com/xilinx/rapidwright/examples/PicoBlazeArray.java</span></code>.  This can be run at the command line with the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PicoBlazeArray
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>com.xilinx.rapidwright.examples.PicoBlazeArray
 </pre></div>
 </div>
 <p>Without any parameters, we get a simple usage message:</p>
@@ -343,7 +343,7 @@ java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.d
 </pre></div>
 </div>
 <p>To run, we must provide the path to the directory where our pblock DCPs are located, the target device part name and an output DCP name:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.PicoBlazeArray <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span> xcvu3p-ffvc1517-2-i picoblaze_array.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>com.xilinx.rapidwright.examples.PicoBlazeArray<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span><span class="w"> </span>xcvu3p-ffvc1517-2-i<span class="w"> </span>picoblaze_array.dcp
 </pre></div>
 </div>
 <p>The program will read each of the pblock DCPs and stitch them together, printing out runtime numbers for each step.  By default, the program will open the <code class="docutils literal notranslate"><span class="pre">HandPlacer</span></code> to enable the user to examine the placed PicoBlazes (you can skip the hand placer by adding <code class="docutils literal notranslate"><span class="pre">--no_hand_placer</span></code> as the last argument).  Here is a screenshot of the tool:</p>

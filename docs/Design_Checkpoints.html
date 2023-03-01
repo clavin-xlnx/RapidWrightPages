@@ -234,10 +234,10 @@
 </ul>
 </div></blockquote>
 <p>Here are a few ways to read/write a design checkpoint in RapidWright:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="s">&quot;my_design_routed.dcp&quot;</span><span class="p">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span><span class="w"> </span><span class="n">design</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="s">&quot;my_design_routed.dcp&quot;</span><span class="p">);</span>
 <span class="c1">// or if the EDIF inside the DCP is encrypted because of source references,</span>
 <span class="c1">//   you can alternatively supply a separate EDIF</span>
-<span class="n">design</span> <span class="o">=</span> <span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="s">&quot;my_design_routed.dcp&quot;</span><span class="p">,</span> <span class="s">&quot;my_design_edif.edf&quot;</span><span class="p">);</span>
+<span class="n">design</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="s">&quot;my_design_routed.dcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my_design_edif.edf&quot;</span><span class="p">);</span>
 
 <span class="c1">// To write out a design</span>
 <span class="n">design</span><span class="p">.</span><span class="na">writeCheckpoint</span><span class="p">(</span><span class="s">&quot;my_design_post_rapidwright.dcp&quot;</span><span class="p">);</span>

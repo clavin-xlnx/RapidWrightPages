@@ -238,12 +238,12 @@
 <div class="section" id="building-the-bridge">
 <h3>Building the Bridge<a class="headerlink" href="#building-the-bridge" title="Permalink to this headline">¶</a></h3>
 <p>Begin by creating a directory for our work in this tutorial:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir bridge_tutorial
-<span class="nb">cd</span> bridge_tutorial
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>bridge_tutorial
+<span class="nb">cd</span><span class="w"> </span>bridge_tutorial
 </pre></div>
 </div>
 <p>Our first task is to generate an SLR crossing bridge from RapidWright.  RapidWright has a dedicated generator for this purpose called the <code class="docutils literal notranslate"><span class="pre">SLRCrossingGenerator</span></code> which can be run from the command line.  To invoke the help/options output of the tool simply run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>com.xilinx.rapidwright.examples.SLRCrosserGenerator<span class="w">  </span>-h
 </pre></div>
 </div>
 <p>This should produce the following output:</p>
@@ -280,11 +280,11 @@ Option                                   Description
 </pre></div>
 </div>
 <p>As you can see, this generator has several parameterizable options.  In this case, we will want a bridge that provides 32 wires in both directions using a single column of Laguna tiles.  We will use the xcvu7p-flva2104-2-i part for our example and use the far edge Laguna column for our crossing.  As RapidWright must custom route the clock to preserve the carefully tuned leaf clock buffer delays, it must include a BUFGCE instance.  We also specify the location of the BUFG to improve timing reproducibility in the application context. To generate such a bridge run the following at the command line:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -l LAGUNA_X20Y120 -b BUFGCE_X1Y80 -w <span class="m">32</span> -o slr_crosser_vu7p_32.dcp -p xcvu7p-flva2104-2-i
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>com.xilinx.rapidwright.examples.SLRCrosserGenerator<span class="w">  </span>-l<span class="w"> </span>LAGUNA_X20Y120<span class="w"> </span>-b<span class="w"> </span>BUFGCE_X1Y80<span class="w"> </span>-w<span class="w"> </span><span class="m">32</span><span class="w"> </span>-o<span class="w"> </span>slr_crosser_vu7p_32.dcp<span class="w"> </span>-p<span class="w"> </span>xcvu7p-flva2104-2-i
 </pre></div>
 </div>
 <p>After several seconds, a new file, <code class="docutils literal notranslate"><span class="pre">slr_crosser_vu7p_32.dcp</span></code> should appear in our working directory, let’s open it in Vivado to examine what we have created.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado slr_crosser_vu7p_32.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado<span class="w"> </span>slr_crosser_vu7p_32.dcp
 </pre></div>
 </div>
 <p>Once open, the device view (<code class="docutils literal notranslate"><span class="pre">Window-&gt;Device</span></code>) should look something like this:</p>

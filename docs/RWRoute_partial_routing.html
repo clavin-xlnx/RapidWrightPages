@@ -224,13 +224,13 @@
 <ol class="arabic simple">
 <li><p>Download the example <a class="reference download internal" download="" href="_downloads/95cbc7e0be3e76ad3ef3bcee4b7762b4/picoblaze_partial.dcp"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_partial.dcp</span></code></a> design:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/picoblaze_partial.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/picoblaze_partial.dcp
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Invoke RWRoute via gradle (this will ensure code is compiled before running):</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew run --args<span class="o">=</span><span class="s2">&quot;RWRoute picoblaze_partial.dcp picoblaze_partial_routed.dcp --partialRouting --nonTimingDriven&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew<span class="w"> </span>run<span class="w"> </span>--args<span class="o">=</span><span class="s2">&quot;PartialRouter picoblaze_partial.dcp picoblaze_partial_routed.dcp --nonTimingDriven&quot;</span>
 </pre></div>
 </div>
 <p>Please refer to the documentation <a class="reference external" href="http://www.rapidwright.io/javadoc/index.html">Javadoc</a> and code for more implementation details.  The Java source code for RWRoute is located in: <a class="reference external" href="https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/rwroute">src/com/xilinx/rapidwright/rwroute/</a>.</p>
@@ -307,13 +307,13 @@ INFO: Write routed design
 <ol class="arabic simple" start="2">
 <li><p>To load the original checkpoint, run the following command in the Tcl console:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>open_checkpoint picoblaze_partial.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>open_checkpoint<span class="w"> </span>picoblaze_partial.dcp
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>After the original checkpoint is loaded, to highlighted unrouted nets, run:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>highlight_objects -color red <span class="o">[</span>get_nets * -filter <span class="o">{</span><span class="nv">ROUTE_STATUS</span> <span class="o">==</span> UNROUTED<span class="o">}]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>highlight_objects<span class="w"> </span>-color<span class="w"> </span>red<span class="w"> </span><span class="o">[</span>get_nets<span class="w"> </span>*<span class="w"> </span>-filter<span class="w"> </span><span class="o">{</span><span class="nv">ROUTE_STATUS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>UNROUTED<span class="o">}]</span>
 </pre></div>
 </div>
 <p>As a result, the device view of Vivado will show:</p>
@@ -326,42 +326,42 @@ INFO: Write routed design
 </pre></div>
 </div>
 <p>The design route status is as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design Route Status
-                                             :      <span class="c1"># nets :</span>
- ------------------------------------------- : ----------- :
- <span class="c1"># of logical nets.......................... :      147009 :</span>
-     <span class="c1"># of nets not needing routing.......... :       58434 :</span>
-         <span class="c1"># of internally routed nets........ :       47124 :</span>
-         <span class="c1"># of nets with no loads............ :       11132 :</span>
-         <span class="c1"># of implicitly routed ports....... :         178 :</span>
-     <span class="c1"># of routable nets..................... :       88575 :</span>
-         <span class="c1"># of unrouted nets................. :       12144 :</span>
-         <span class="c1"># of fully routed nets............. :       76431 :</span>
-     <span class="c1"># of nets with routing errors.......... :           0 :</span>
- ------------------------------------------- : ----------- :
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design<span class="w"> </span>Route<span class="w"> </span>Status
+<span class="w">                                             </span>:<span class="w">      </span><span class="c1"># nets :</span>
+<span class="w"> </span>-------------------------------------------<span class="w"> </span>:<span class="w"> </span>-----------<span class="w"> </span>:
+<span class="w"> </span><span class="c1"># of logical nets.......................... :      147009 :</span>
+<span class="w">     </span><span class="c1"># of nets not needing routing.......... :       58434 :</span>
+<span class="w">         </span><span class="c1"># of internally routed nets........ :       47124 :</span>
+<span class="w">         </span><span class="c1"># of nets with no loads............ :       11132 :</span>
+<span class="w">         </span><span class="c1"># of implicitly routed ports....... :         178 :</span>
+<span class="w">     </span><span class="c1"># of routable nets..................... :       88575 :</span>
+<span class="w">         </span><span class="c1"># of unrouted nets................. :       12144 :</span>
+<span class="w">         </span><span class="c1"># of fully routed nets............. :       76431 :</span>
+<span class="w">     </span><span class="c1"># of nets with routing errors.......... :           0 :</span>
+<span class="w"> </span>-------------------------------------------<span class="w"> </span>:<span class="w"> </span>-----------<span class="w"> </span>:
 </pre></div>
 </div>
 <p>It is shown that there are 12144 unrouted nets.</p>
 <ol class="arabic simple" start="5">
 <li><p>To load the routed design checkpoint into Vivado and validate the routed design by RWRoute, run:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>open_checkpoint picoblaze_partial_routed.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>open_checkpoint<span class="w"> </span>picoblaze_partial_routed.dcp
 report_route_status
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/routed_picoblaze_device_view.png"><img alt="_images/routed_picoblaze_device_view.png" class="align-center" src="_images/routed_picoblaze_device_view.png" style="width: 1000px;" /></a>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design Route Status
-                                             :      <span class="c1"># nets :</span>
- ------------------------------------------- : ----------- :
- <span class="c1"># of logical nets.......................... :      147009 :</span>
-     <span class="c1"># of nets not needing routing.......... :       58434 :</span>
-         <span class="c1"># of internally routed nets........ :       47124 :</span>
-         <span class="c1"># of nets with no loads............ :       11132 :</span>
-         <span class="c1"># of implicitly routed ports....... :         178 :</span>
-     <span class="c1"># of routable nets..................... :       88575 :</span>
-         <span class="c1"># of fully routed nets............. :       88575 :</span>
-     <span class="c1"># of nets with routing errors.......... :           0 :</span>
- ------------------------------------------- : ----------- :
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design<span class="w"> </span>Route<span class="w"> </span>Status
+<span class="w">                                             </span>:<span class="w">      </span><span class="c1"># nets :</span>
+<span class="w"> </span>-------------------------------------------<span class="w"> </span>:<span class="w"> </span>-----------<span class="w"> </span>:
+<span class="w"> </span><span class="c1"># of logical nets.......................... :      147009 :</span>
+<span class="w">     </span><span class="c1"># of nets not needing routing.......... :       58434 :</span>
+<span class="w">         </span><span class="c1"># of internally routed nets........ :       47124 :</span>
+<span class="w">         </span><span class="c1"># of nets with no loads............ :       11132 :</span>
+<span class="w">         </span><span class="c1"># of implicitly routed ports....... :         178 :</span>
+<span class="w">     </span><span class="c1"># of routable nets..................... :       88575 :</span>
+<span class="w">         </span><span class="c1"># of fully routed nets............. :       88575 :</span>
+<span class="w">     </span><span class="c1"># of nets with routing errors.......... :           0 :</span>
+<span class="w"> </span>-------------------------------------------<span class="w"> </span>:<span class="w"> </span>-----------<span class="w"> </span>:
 </pre></div>
 </div>
 <p>The design is successfully routed, as all the routable nets are fully routed.</p>

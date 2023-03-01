@@ -234,13 +234,13 @@ Note that the <code class="docutils literal notranslate"><span class="pre">test<
 <h2>Writing Testcases<a class="headerlink" href="#writing-testcases" title="Permalink to this headline">¶</a></h2>
 <p>JUnit uses Annotations to tag methods as testcases. While there are more specialized annotations, most testcases will be tagged with the annotation <code class="docutils literal notranslate"><span class="pre">&#64;Test</span></code> (from the <code class="docutils literal notranslate"><span class="pre">org.junit.jupiter.api</span></code> package).</p>
 <p>A test class with a single (empty) test method might look like this:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Assertions</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="p">;</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyTestClass</span> <span class="p">{</span>
-    <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Assertions</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="p">;</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyTestClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-    <span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -256,13 +256,13 @@ Note that the <code class="docutils literal notranslate"><span class="pre">test<
 </div></blockquote>
 <p>All these methods have a parameter for an expected value and an actual value. Optionally, a message parameter can be passed to explain what part of the test encountered an error.</p>
 <p>A very simple test to check that addition works as expected might look like this:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Assertions</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="p">;</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyTestClass</span> <span class="p">{</span>
-    <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">Assertions</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="p">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Assertions</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="p">;</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyTestClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Assertions</span><span class="p">.</span><span class="na">assertEquals</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -273,23 +273,23 @@ Note that the <code class="docutils literal notranslate"><span class="pre">test<
 <p>JUnit allows parameters on testcases. They are marked with <code class="docutils literal notranslate"><span class="pre">&#64;ParameterizedTest</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&#64;Test</span></code>. The annotation has an optional parameter (<code class="docutils literal notranslate"><span class="pre">name</span></code>) that allows you to override the generated test’s name to make it more descriptive.</p>
 <p>You need to specify a source for values for these parameters. One option is use a separate method that return a <code class="docutils literal notranslate"><span class="pre">Collection&lt;Arguments&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">Stream&lt;Arguments&gt;</span></code>. One instance of <code class="docutils literal notranslate"><span class="pre">Arguments</span></code> describes one invocation of the testcase method. The value source is specified as another annotation (here: <code class="docutils literal notranslate"><span class="pre">&#64;MethodSource</span></code>).</p>
 <p>A simple example that calls <code class="docutils literal notranslate"><span class="pre">testNonzero(int</span> <span class="pre">i)</span></code> on all numbers from 1 to 10:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.stream.IntStream</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.util.stream.Stream</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Assertions</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.params.ParameterizedTest</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.params.provider.Arguments</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.params.provider.MethodSource</span><span class="p">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.stream.IntStream</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.stream.Stream</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Assertions</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.params.ParameterizedTest</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.params.provider.Arguments</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.params.provider.MethodSource</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyTestClass</span> <span class="p">{</span>
-    <span class="nd">@ParameterizedTest</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Check that {0} is nonzero&quot;</span><span class="p">)</span>
-    <span class="nd">@MethodSource</span><span class="p">()</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testNonzero</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">Assertions</span><span class="p">.</span><span class="na">assertNotEquals</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyTestClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@ParameterizedTest</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Check that {0} is nonzero&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@MethodSource</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testNonzero</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Assertions</span><span class="p">.</span><span class="na">assertNotEquals</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">Arguments</span><span class="o">&gt;</span> <span class="nf">testNonzero</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">Arguments</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Stream</span><span class="o">&lt;</span><span class="n">Arguments</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">testNonzero</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">).</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Arguments</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>

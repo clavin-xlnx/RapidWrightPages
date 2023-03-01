@@ -253,8 +253,8 @@
 <div class="section" id="site-placement">
 <h3>Site Placement<a class="headerlink" href="#site-placement" title="Permalink to this headline">¶</a></h3>
 <p>Within RapidWright, it can be straightforward to move a <code class="docutils literal notranslate"><span class="pre">SiteInst</span></code> from one site to another.  An example of how to relocate a site instance from one location to another is shown below:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="s">&quot;example.dcp&quot;</span><span class="p">);</span>
-<span class="n">SiteInstance</span> <span class="n">si</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="na">getSiteInstanceFromSiteName</span><span class="p">(</span><span class="s">&quot;SLICE_X0Y0&quot;</span><span class="p">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="s">&quot;example.dcp&quot;</span><span class="p">);</span>
+<span class="n">SiteInstance</span><span class="w"> </span><span class="n">si</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="na">getSiteInstanceFromSiteName</span><span class="p">(</span><span class="s">&quot;SLICE_X0Y0&quot;</span><span class="p">);</span>
 <span class="n">si</span><span class="p">.</span><span class="na">place</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="na">getDevice</span><span class="p">().</span><span class="na">getSite</span><span class="p">(</span><span class="s">&quot;SLICE_X1Y1&quot;</span><span class="p">));</span>
 </pre></div>
 </div>
@@ -294,11 +294,11 @@
 </ol>
 </div>
 <p>By default, RWRoute runs in timing-driven mode, routing a design from scratch. To run an instance of RWRoute the syntax is:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>java com.xilinx.rapidwright.rwroute.RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp<span class="sb">``</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>java<span class="w"> </span>com.xilinx.rapidwright.rwroute.RWRoute<span class="w"> </span>/PATH/TO/INPUT/DCP/design.dcp<span class="w"> </span>/PATH/TO/OUTPUT/DCP/design_routed.dcp<span class="sb">``</span>
 </pre></div>
 </div>
 <p>It can also be invoked with <code class="docutils literal notranslate"><span class="pre">gradlew</span></code> to ensure the code is compiled before running (with a slight overhead in startup runtime):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>gradlew run --args<span class="o">=</span><span class="s2">&quot;RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp&quot;</span><span class="sb">``</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>gradlew<span class="w"> </span>run<span class="w"> </span>--args<span class="o">=</span><span class="s2">&quot;RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp&quot;</span><span class="sb">``</span>
 </pre></div>
 </div>
 <p>In both run instances, with the following options available:</p>

@@ -224,13 +224,13 @@
 <ol class="arabic simple">
 <li><p>Download the example <a class="reference download internal" download="" href="_downloads/11db45fb044abe4a2a8bcdcda8521319/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp"><code class="xref download docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp</span></code></a> design:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Invoke RWRoute via gradle (this will ensure code is compiled before running):</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew run --args<span class="o">=</span><span class="s2">&quot;RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew<span class="w"> </span>run<span class="w"> </span>--args<span class="o">=</span><span class="s2">&quot;RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp&quot;</span>
 </pre></div>
 </div>
 <p>The main entry point of RWRoute is <code class="docutils literal notranslate"><span class="pre">RWRoute.java</span></code> and is reproduced here for convenience:</p>
@@ -241,22 +241,22 @@
 <span class="cm"> * based on the partialRouting parameter and calls the route method to route the design.</span>
 <span class="cm"> * @param args An array of strings that are used to create a RWRouteConfig Object for the router.</span>
 <span class="cm"> */</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">){</span>
-    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;USAGE: &lt;input.dcp&gt; &lt;output.dcp&gt;&quot;</span><span class="p">);</span>
-    <span class="k">return</span><span class="p">;</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">){</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;USAGE: &lt;input.dcp&gt; &lt;output.dcp&gt;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="c1">// Reads the output directory and set the output design checkpoint file name</span>
-<span class="n">String</span> <span class="n">routedDCPfileName</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">;</span>
+<span class="n">String</span><span class="w"> </span><span class="n">routedDCPfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">;</span>
 
-        <span class="n">CodePerfTracker</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CodePerfTracker</span><span class="p">(</span><span class="s">&quot;RWRoute&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="w">        </span><span class="n">CodePerfTracker</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CodePerfTracker</span><span class="p">(</span><span class="s">&quot;RWRoute&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
 
-        <span class="c1">// Reads in a design checkpoint and routes it</span>
-        <span class="n">Design</span> <span class="n">routed</span> <span class="o">=</span> <span class="n">RWRoute</span><span class="p">.</span><span class="na">routeDesignWithUserDefinedArguments</span><span class="p">(</span><span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">),</span> <span class="n">args</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// Reads in a design checkpoint and routes it</span>
+<span class="w">        </span><span class="n">Design</span><span class="w"> </span><span class="n">routed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RWRoute</span><span class="p">.</span><span class="na">routeDesignWithUserDefinedArguments</span><span class="p">(</span><span class="n">Design</span><span class="p">.</span><span class="na">readCheckpoint</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">),</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
 
-        <span class="c1">// Writes out the routed design checkpoint</span>
-        <span class="n">routed</span><span class="p">.</span><span class="na">writeCheckpoint</span><span class="p">(</span><span class="n">routedDCPfileName</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;\nINFO: Write routed design\n &quot;</span> <span class="o">+</span> <span class="n">routedDCPfileName</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// Writes out the routed design checkpoint</span>
+<span class="w">        </span><span class="n">routed</span><span class="p">.</span><span class="na">writeCheckpoint</span><span class="p">(</span><span class="n">routedDCPfileName</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;\nINFO: Write routed design\n &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">routedDCPfileName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;\n&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -369,7 +369,7 @@ INFO: Write routed design
 <div class="section" id="validation-with-vivado">
 <h2>Validation with Vivado<a class="headerlink" href="#validation-with-vivado" title="Permalink to this headline">¶</a></h2>
 <p>To validate the routed design by Vivado, run the following at the prompt:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado -mode tcl gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado<span class="w"> </span>-mode<span class="w"> </span>tcl<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp
 </pre></div>
 </div>
 <p>and then run the following command at the Vivado Tcl prompt:</p>
@@ -377,17 +377,17 @@ INFO: Write routed design
 </pre></div>
 </div>
 <p>The resulting output should show the design is successfully routed, as all the routable nets are fully routed and there is no nets with routing errors.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design Route Status
-                                            :      <span class="c1"># nets :</span>
-------------------------------------------- : ----------- :
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Design<span class="w"> </span>Route<span class="w"> </span>Status
+<span class="w">                                            </span>:<span class="w">      </span><span class="c1"># nets :</span>
+-------------------------------------------<span class="w"> </span>:<span class="w"> </span>-----------<span class="w"> </span>:
 <span class="c1"># of logical nets.......................... :        4937 :</span>
-    <span class="c1"># of nets not needing routing.......... :        1082 :</span>
-        <span class="c1"># of internally routed nets........ :         932 :</span>
-        <span class="c1"># of implicitly routed ports....... :         150 :</span>
-    <span class="c1"># of routable nets..................... :        3855 :</span>
-        <span class="c1"># of fully routed nets............. :        3855 :</span>
-    <span class="c1"># of nets with routing errors.......... :           0 :</span>
-------------------------------------------- : ----------- :
+<span class="w">    </span><span class="c1"># of nets not needing routing.......... :        1082 :</span>
+<span class="w">        </span><span class="c1"># of internally routed nets........ :         932 :</span>
+<span class="w">        </span><span class="c1"># of implicitly routed ports....... :         150 :</span>
+<span class="w">    </span><span class="c1"># of routable nets..................... :        3855 :</span>
+<span class="w">        </span><span class="c1"># of fully routed nets............. :        3855 :</span>
+<span class="w">    </span><span class="c1"># of nets with routing errors.......... :           0 :</span>
+-------------------------------------------<span class="w"> </span>:<span class="w"> </span>-----------<span class="w"> </span>:
 </pre></div>
 </div>
 <p>In Vivado 2020.1, the timing report shows that the design routed by RWRouote has a data path delay of 2.331 ns (2331 ps) for the same critical path. The full Vivado timing report is shown below:</p>

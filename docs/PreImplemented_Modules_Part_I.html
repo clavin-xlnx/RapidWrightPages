@@ -246,14 +246,14 @@
 <li><p>Open a terminal and create a new directory called <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code>.</p></li>
 </ol>
 </div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir picoblaze
-<span class="nb">cd</span> picoblaze
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>picoblaze
+<span class="nb">cd</span><span class="w"> </span>picoblaze
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Download <a class="reference download internal" download="" href="_downloads/a008e9a321032c84b011066d8458ac13/picoblaze_synth.dcp"><code class="xref download docutils literal notranslate"><span class="pre">picoblaze_synth.dcp</span></code></a> to your new <code class="docutils literal notranslate"><span class="pre">picoblaze</span></code> directory and open it in Vivado.</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado picoblaze_synth.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado<span class="w"> </span>picoblaze_synth.dcp
 </pre></div>
 </div>
 <div class="section" id="design-utilization-analysis">
@@ -314,7 +314,7 @@
 <div><a class="reference internal image-reference" href="_images/colored_tile_columns.png"><img alt="_images/colored_tile_columns.png" class="align-center" src="_images/colored_tile_columns.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>Tiles of the same type have all of the same logic and local interconnect and are repetitive in their respective columns.  The main constraint for the PicoBlaze is a block RAM and we can leverage RapidWright to help us analyze the fabric to find the most repeated tile column patterns adjacent to block RAMs.  To do this, in our terminal open the RapidWright Python interpreter by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java com.xilinx.rapidwright.util.RapidWright
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>com.xilinx.rapidwright.util.RapidWright
 </pre></div>
 </div>
 <p>Then in the terminal we can use a class called <code class="docutils literal notranslate"><span class="pre">TileColumnPattern</span></code> to analyze the fabric and create a map of all the tile patterns in the device.  We can do this by running:</p>

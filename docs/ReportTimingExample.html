@@ -230,13 +230,13 @@
 <ol class="arabic simple">
 <li><p>Download the example <a class="reference download internal" download="" href="_downloads/295b413ce3d0ab267f99e054d472e550/microblaze4.dcp"><code class="xref download docutils literal notranslate"><span class="pre">microblaze4.dcp</span></code></a> design:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/microblaze4.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/microblaze4.dcp
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Invoke RWRoute via gradle (this will ensure code is compiled before running):</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew run --args<span class="o">=</span><span class="s2">&quot;ReportTimingExample microblaze4.dcp&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gradlew<span class="w"> </span>run<span class="w"> </span>--args<span class="o">=</span><span class="s2">&quot;ReportTimingExample microblaze4.dcp&quot;</span>
 </pre></div>
 </div>
 <p>The source code for <code class="docutils literal notranslate"><span class="pre">ReportTimingExample.java</span></code> is provided below for easy reference:</p>
@@ -308,7 +308,7 @@
 <div class="section" id="compare-with-vivado">
 <h2>Compare with Vivado<a class="headerlink" href="#compare-with-vivado" title="Permalink to this headline">¶</a></h2>
 <p>To compare the output of the RapidWright timing model to Vivado, run the following at the prompt:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado -mode tcl microblaze4.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado<span class="w"> </span>-mode<span class="w"> </span>tcl<span class="w"> </span>microblaze4.dcp
 </pre></div>
 </div>
 <p>and then run the following command at the Tcl prompt:</p>
