@@ -1,0 +1,20 @@
+=================================================
+Manual Install 
+=================================================
+RapidWright source code and data files are hosted on `GitHub <https://github.com/Xilinx/RapidWright>`_.  Here is how to get the necessary files to get started:
+
+1. Use ``git clone https://github.com/Xilinx/RapidWright.git`` to clone the repo, either on the command line or setting up a new project in your IDE.  For a detailed tutorial setting up RapidWright in Eclipse see the :ref:`RapidWright Eclipse Setup` page.
+2. Go to https://github.com/Xilinx/RapidWright/releases and download the latest release files: rapidwright_data.zip and rapidwright_jars.zip.
+3. Expand the two zip files into the root repository directory, there should be a 'jars' and 'data' directory listed there. Make sure to delete previous 'jars' and 'data' directories if present.
+4. Set the environment variable ``RAPIDWRIGHT_PATH=<your_repo_path>``
+5. Be sure to add the compiled Java files and jar files in the jar folder to your ``CLASSPATH`` variable. If using Bash and can delete the unused OS-specific jars in the jars directory, you could add the following to your ``.bashrc`` file:  
+   ``export CLASSPATH=$RAPIDWRIGHT_PATH/bin:$(echo $RAPIDWRIGHT_PATH/jars/*.jar | tr ' ' ':')``
+
+6. Compile the project either through an IDE such as Eclipse or IntelliJ (see :ref:`RapidWright Eclipse Setup` or :ref:`RapidWright IntelliJ Setup`).  You may need to refresh the project to ensure the IDE can see the jars added in step 3.  You can also use Gradle to compile the project using the provided gradle build script. You will need to make sure Gradle is installed and then run: ``gradle build -p $RAPIDWRIGHT_PATH``
+7. A quick test is to try running the DeviceBrowser class with something like: ``java com.xilinx.rapidwright.device.browser.DeviceBrowser``.  You should see the GUI come up similar to this screenshot:
+
+.. image:: images/DeviceBrowser.png
+	:width: 550px
+	:align: center
+
+If you have gotten to this point, congrats!  Your RapidWright install is correctly configured and you are ready to start experimenting.  

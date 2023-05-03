@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Automatic Install &mdash; RapidWright 2020.2.1-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Manual Install" href="Manual_Install.html" />
+    <link rel="prev" title="Quick Start" href="Quick_Start.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2020.2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Getting_Started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Quick_Start.html">Quick Start</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Automatic Install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-you-need-to-get-started">What You Need to Get Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-recommendations">Additional Recommendations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-install-steps">Automatic Install Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Manual_Install.html">Manual Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RapidWright_Eclipse_Setup.html">RapidWright Eclipse Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RapidWright_IntelliJ_Setup.html">RapidWright IntelliJ Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RapidWright_Jupyter_Setup.html">RapidWright Jupyter Notebook Kernel Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Getting_Started.html">Getting Started</a> &raquo;</li>
+        
+      <li>Automatic Install</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Automatic_Install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="automatic-install">
+<h1>Automatic Install<a class="headerlink" href="#automatic-install" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-you-need-to-get-started">
+<h2>What You Need to Get Started<a class="headerlink" href="#what-you-need-to-get-started" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>5GB disk space (4GB after installation).</p></li>
+<li><p><a class="reference external" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle JDK Java 1.8 or later</a> (<a class="reference external" href="https://openjdk.java.net/install/">OpenJDK</a> should also work)</p></li>
+<li><p><a class="reference external" href="https://git-scm.com/">Git</a> (source revision control system)</p></li>
+<li><p>If you are running Linux, you may need an older libpng12 library.  For those running Debian/Ubuntu-based distros, try the following:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb <span class="o">&amp;&amp;</span> sudo dpkg -i /tmp/libpng12.deb <span class="o">&amp;&amp;</span> rm /tmp/libpng12.deb
+</pre></div>
+</div>
+<p>For CentOS/RedHat/Fedora distros, try the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum install libpng12
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-recommendations">
+<h2>Additional Recommendations<a class="headerlink" href="#additional-recommendations" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://www.xilinx.com/products/design-tools/vivado.html">Vivado Design Suite 2018.3 or later</a>  (Not essential to run RapidWright, but makes it useful)</p></li>
+<li><dl class="simple">
+<dt>An IDE such as:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2">Eclipse</a></p></li>
+<li><p><a class="reference external" href="https://www.jetbrains.com/idea/">IntelliJ</a></p></li>
+</ul>
+</dd>
+<dt>or a build tool:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://gradle.org/install/">Gradle 4.0</a> or later</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="automatic-install-steps">
+<h2>Automatic Install Steps<a class="headerlink" href="#automatic-install-steps" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to get RapidWright setup is to use the automatic installer jar that performs the manual installation automatically.  Make sure you have the JDK and Git on your PATH.</p>
+<ol class="arabic simple">
+<li><p>Download <a class="reference download internal" download="" href="_downloads/b84c6ea6179f1d30b36009edc05c005c/rapidwright-installer.jar"><code class="xref download docutils literal notranslate"><span class="pre">rapidwright-installer.jar</span></code></a> (or run command below in Linux) to the directory where you would like RapidWright to reside.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget http://www.rapidwright.io/docs/_downloads/rapidwright-installer.jar
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>From a terminal in that directory, run (To open a terminal on Windows, search and run ‘cmd.exe’ from the Start orb):</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java -jar rapidwright-installer.jar
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Use one of the BASH/CSH/BAT scripts created at the end of the install to set the proper environment variables for subsequent invocations of RapidWright.</p></li>
+<li><p>Setup your IDE (if applicable):</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a></p></li>
+<li><p><a class="reference internal" href="RapidWright_IntelliJ_Setup.html#rapidwright-intellij-setup"><span class="std std-ref">RapidWright IntelliJ Setup</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>Once complete, you can run the DeviceBrowser within your respective IDE to test the installation.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Manual_Install.html" class="btn btn-neutral float-right" title="Manual Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Quick_Start.html" class="btn btn-neutral" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2021, Xilinx, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2020.2.1-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
