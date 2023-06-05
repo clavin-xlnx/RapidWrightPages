@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Call RapidWright from C/C++ Using GraalVM &mdash; RapidWright 2022.2.3-beta documentation</title>
+  <title>Call RapidWright from C/C++ Using GraalVM &mdash; RapidWright 2023.1.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.2.3
+                2023.1.0
               </div>
             
           
@@ -218,14 +218,14 @@
 </ul>
 </div></blockquote>
 <p>In this article, we’ll focus on that last feature which enables us to package up RapidWright as a shared object library with header files to be called by C/C++ applications.  To get started, we are going to target a Linux environment and use Bash commands for our example (GraalVM is still in the early stages for support in Windows).</p>
-<p>For the impatient, we have provided <a class="reference download internal" download="" href="_downloads/920a717501e0cb0d129a581fd9ad4e03/GraalVMExample.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">an</span> <span class="pre">example</span> <span class="pre">tar</span> <span class="pre">ball</span></code></a> with example source code and Makefile to run the entire flow, just run these four commands:</p>
+<p>For the impatient, we have provided <a class="reference download internal" download="" href="_downloads/483b64938930b9bc55743281da34bf1b/GraalVMExample.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">an</span> <span class="pre">example</span> <span class="pre">tar</span> <span class="pre">ball</span></code></a> with example source code and Makefile to run the entire flow, just run these four commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/GraalVMExample.tar.gz
 tar<span class="w"> </span>zxf<span class="w"> </span>GraalVMExample.tar.gz
 <span class="nb">cd</span><span class="w"> </span>GraalVMExample
 make
 </pre></div>
 </div>
-<p>For a more indepth explaination of how this all works, see the rest of the article below.</p>
+<p>For a more in depth explanation of how this all works, see the rest of the article below.</p>
 <div class="section" id="get-setup">
 <h2>Get Setup<a class="headerlink" href="#get-setup" title="Permalink to this headline">¶</a></h2>
 <p>First, navigate to a directory where you would like to install/practice the steps provided in this article.  We’ll need to install GraalVM and use the <a class="reference external" href="https://www.graalvm.org/docs/reference-manual/graal-updater/">GraalVM Updater</a> to install it’s <code class="docutils literal notranslate"><span class="pre">native-image</span></code> package:</p>
@@ -235,10 +235,11 @@ tar<span class="w"> </span>zxf<span class="w"> </span>graalvm-ce-linux-amd64-19.
 gu<span class="w"> </span>install<span class="w"> </span>native-image
 </pre></div>
 </div>
-<p>Next we’ll install RapidWright using the automatic installer and get its source from GitHub:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/rapidwright-installer.jar
-java<span class="w"> </span>-jar<span class="w"> </span>rapidwright-installer.jar<span class="w"> </span>-t<span class="w"> </span>-k
-<span class="nb">export</span><span class="w"> </span><span class="nv">RAPIDWRIGHT_PATH</span><span class="o">=</span><span class="nv">$PWD</span>/RapidWright
+<p>Next we’ll install RapidWright and set RAPIDWRIGHT_PATH:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Xilinx/RapidWright.git
+<span class="nb">cd</span><span class="w"> </span>RapidWright
+./gradlew<span class="w"> </span>compileJava
+<span class="nb">export</span><span class="w"> </span><span class="nv">RAPIDWRIGHT_PATH</span><span class="o">=</span><span class="nv">$PWD</span>
 </pre></div>
 </div>
 <p>It turns out that the native compilation feature of GraalVM does not support certain kinds of reflection that are used in Jython, so we need to remove that dependency and associated code in order to create the shared object library:</p>
@@ -265,7 +266,7 @@ rm<span class="w"> </span>RapidWright/jars/<span class="o">{</span>jython-standa
 <li><p>The first parameter must be an execution context (<a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/IsolateThread.html">IsolateThread</a> or <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/Isolate.html">Isolate</a>)</p></li>
 <li><p>All other parameters must be Java primitive values (int, long, char, …), C helper classes (<a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/type/CCharPointer.html">CCharPointer</a>, <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/index.html?org/graalvm/nativeimage/c/type/CIntPointer.html">CIntPointer</a>,…) or a Java enum annotated with <a class="reference external" href="https://www.graalvm.org/sdk/javadoc/org/graalvm/nativeimage/c/constant/CEnumValue.html">&#64;CEnumLookup</a></p></li>
 </ol>
-<p>Below is an example Java class <a class="reference download internal" download="" href="_downloads/7d82c621d0b815f4250ca7091bed963c/RapidWrightAPI.java"><code class="xref download docutils literal notranslate"><span class="pre">RapidWrightAPI.java</span></code></a> that illustrates how these two Java APIs could be implemented to provide the C interface requirements while accessing RapidWright Java functionality. Note that this Java class will need to be compiled with GraalVM as it imports special features from its native-image library.</p>
+<p>Below is an example Java class <a class="reference download internal" download="" href="_downloads/b89f74104b8f71f9d5ef40a7f51fa57f/RapidWrightAPI.java"><code class="xref download docutils literal notranslate"><span class="pre">RapidWrightAPI.java</span></code></a> that illustrates how these two Java APIs could be implemented to provide the C interface requirements while accessing RapidWright Java functionality. Note that this Java class will need to be compiled with GraalVM as it imports special features from its native-image library.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nn">com.xilinx.rapidwright.examples</span><span class="p">;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">org.graalvm.nativeimage.IsolateThread</span><span class="p">;</span>
@@ -313,7 +314,7 @@ native-image<span class="w"> </span>--no-server<span class="w"> </span>-cp<span 
 </div>
 <div class="section" id="testing-it-out">
 <h2>Testing it Out<a class="headerlink" href="#testing-it-out" title="Permalink to this headline">¶</a></h2>
-<p>Now for the fun part, we can create a C or C++ application that will make use of the new RapidWright APIs!  Here’s a <a class="reference download internal" download="" href="_downloads/d1fbd451faec03995956936e97ab88ed/RapidWrightExample.cpp"><code class="xref download docutils literal notranslate"><span class="pre">small</span> <span class="pre">C++</span> <span class="pre">program</span></code></a> that prints out a grid of tile names for a given device:</p>
+<p>Now for the fun part, we can create a C or C++ application that will make use of the new RapidWright APIs!  Here’s a <a class="reference download internal" download="" href="_downloads/14b81d327d1102b9635b68b4870844a0/RapidWrightExample.cpp"><code class="xref download docutils literal notranslate"><span class="pre">small</span> <span class="pre">C++</span> <span class="pre">program</span></code></a> that prints out a grid of tile names for a given device:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="c1">// This is the header file created by native-image (Graal)</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;librapidwright.h&gt;</span>
@@ -439,7 +440,7 @@ Tile<span class="o">[</span><span class="m">104</span>,104<span class="o">]</spa
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.2.3-beta',
+            VERSION:'2023.1.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

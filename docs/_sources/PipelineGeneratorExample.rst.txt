@@ -27,9 +27,9 @@ Steps to Run
 
 1. Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.  While we don't provide any IDE "how to" steps within this tutorial, if you do have questions please feel free to ask.
 
-2. If you need to recompile the code, run: ``javac com/xilinx/rapidwright/examples/PipelineGenerator.java`` from within your "<workspace_dir>/RapidWright" subdirectory.  Alternatively, build this example using your IDE.
+2. If you need to recompile the code, run: ``./gradlew compileJava`` from within your "<workspace_dir>/RapidWright" subdirectory.  Alternatively, build this example using your IDE.
 
-3. After compiling, run: ``java com.xilinx.rapidwright.examples.PipelineGenerator``.  This will generate an output called "pipeline.dcp", containing the placed and routed circuit design.
+3. After compiling, run: ``rapidwright PipelineGenerator``.  This will generate an output called "pipeline.dcp", containing the placed and routed circuit design.
 
 4. To see a list of available input options specify "-h" as an argument.  Note: the horizontal direction is assigned within the source code, but it can alternatively be changed to vertical within main().  The source code for this example is located in: ``<workspace_dir>/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java``.
  

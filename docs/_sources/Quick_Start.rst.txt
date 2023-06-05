@@ -1,16 +1,26 @@
 ===========================
 Quick Start
 ===========================
-1. Download and install Java JDK 11 (or later) - Any distribution such as `Adoptium <https://adoptium.net/>`_ should work
-2. Download the `latest standalone RapidWright release jar file <https://github.com/Xilinx/RapidWright/releases/latest>`_ 
 
-3. Start the RapidWright Python (`Jython <http://www.jython.org>`_) interpreter by running:
+.. note:: The only major prerequisite is Java (1.8 minimum, 11 or later recommended) - Any distribution such as `Adoptium <https://adoptium.net/>`_ should work
+
+Download and run the latest stand-alone RapidWright release jar file: `Linux <https://github.com/Xilinx/RapidWright/releases/download/v2023.1.0-beta/rapidwright-2023.1.0-standalone-lin64.jar>`_ | `Windows <https://github.com/Xilinx/RapidWright/releases/download/v2023.1.0-beta/rapidwright-2023.1.0-standalone-win64.jar>`_: 
+
+**Linux:**
 
 .. code-block:: bash
 
-  $ java -jar rapidwright-2018.3-standalone-lin64.jar # (or whichever jar you downloaded)
-  
-At this point you should have a Python interpreter instance running with most RapidWright classes loaded.  You can test your install by running the following at the prompt:
+  wget https://github.com/Xilinx/RapidWright/releases/download/v2023.1.0-beta/rapidwright-2023.1.0-standalone-lin64.jar
+  java -jar rapidwright-2023.1.0-standalone-lin64.jar
+
+**Windows:** 
+
+.. code-block:: bat
+
+  curl -L -O https://github.com/Xilinx/RapidWright/releases/download/v2023.1.0-beta/rapidwright-2023.1.0-standalone-win64.jar
+  java -jar rapidwright-2023.1.0-standalone-win64.jar
+
+This will start the RapidWright `Jython <http://www.jython.org>`_ (Python 2 in Java) interpreter with most RapidWright classes loaded.  You can test your install by running the following at the prompt:
 
 .. code-block:: python
 

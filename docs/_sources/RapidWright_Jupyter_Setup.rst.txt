@@ -6,7 +6,7 @@ A `Jupyter Notebook <https://jupyter.org/index.html>`_ is an open source web app
 
 Pre-requisites
 ===============================
-1. RapidWright 2018.3.0 or above
+1. RapidWright 2023.1 or above
 2. `Python <https://www.python.org>`_ and `Jupyter Notebook <https://jupyter.org/index.html>`_, see `installation details here <https://jupyter.org/install.html>`_.
 3. A web browser
 
@@ -17,13 +17,13 @@ Step-by-Step Instructions
 
 .. code-block:: bash
 
-	java -jar rapidwright-2018.3.0-standalone-win64.jar --create_jupyter_kernel
+	java -jar rapidwright-2018.3.0-standalone-lin64.jar --create_jupyter_kernel
 
 for all other installs run:
 
 .. code-block:: bash
 
-	java com.xilinx.rapidwright.util.RapidWright --create_jupyter_kernel
+	rapidwright StandaloneEntrypoint --create_jupyter_kernel
 
 3. Install the Jython 2.7 kernel by running the following at the command line:
 

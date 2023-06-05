@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Implementation Basics &mdash; RapidWright 2022.2.3-beta documentation</title>
+  <title>Implementation Basics &mdash; RapidWright 2023.1.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.2.3
+                2023.1.0
               </div>
             
           
@@ -294,11 +294,7 @@
 </ol>
 </div>
 <p>By default, RWRoute runs in timing-driven mode, routing a design from scratch. To run an instance of RWRoute the syntax is:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>java<span class="w"> </span>com.xilinx.rapidwright.rwroute.RWRoute<span class="w"> </span>/PATH/TO/INPUT/DCP/design.dcp<span class="w"> </span>/PATH/TO/OUTPUT/DCP/design_routed.dcp<span class="sb">``</span>
-</pre></div>
-</div>
-<p>It can also be invoked with <code class="docutils literal notranslate"><span class="pre">gradlew</span></code> to ensure the code is compiled before running (with a slight overhead in startup runtime):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">``</span>gradlew<span class="w"> </span>run<span class="w"> </span>--args<span class="o">=</span><span class="s2">&quot;RWRoute /PATH/TO/INPUT/DCP/design.dcp /PATH/TO/OUTPUT/DCP/design_routed.dcp&quot;</span><span class="sb">``</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>RWRoute<span class="w"> </span>/PATH/TO/INPUT/DCP/design.dcp<span class="w"> </span>/PATH/TO/OUTPUT/DCP/design_routed.dcp
 </pre></div>
 </div>
 <p>In both run instances, with the following options available:</p>
@@ -362,7 +358,7 @@ It is within [0, 1]. Runtimes usually converges when alpha is larger than 0.7. T
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.2.3-beta',
+            VERSION:'2023.1.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

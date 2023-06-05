@@ -19,7 +19,7 @@ For the impatient, we have provided :download:`an example tar ball <files/GraalV
 	cd GraalVMExample
 	make
 
-For a more indepth explaination of how this all works, see the rest of the article below.
+For a more in depth explanation of how this all works, see the rest of the article below.
 
 Get Setup
 ===========
@@ -32,13 +32,14 @@ First, navigate to a directory where you would like to install/practice the step
 	export PATH=$PWD/graalvm-ce-19.0.0/bin:$PATH
 	gu install native-image
 	
-Next we'll install RapidWright using the automatic installer and get its source from GitHub:
+Next we'll install RapidWright and set RAPIDWRIGHT_PATH:
 
 .. code-block:: bash
 
-	wget http://www.rapidwright.io/docs/_downloads/rapidwright-installer.jar
-	java -jar rapidwright-installer.jar -t -k
-	export RAPIDWRIGHT_PATH=$PWD/RapidWright
+    git clone https://github.com/Xilinx/RapidWright.git
+    cd RapidWright
+    ./gradlew compileJava
+    export RAPIDWRIGHT_PATH=$PWD
 	
 It turns out that the native compilation feature of GraalVM does not support certain kinds of reflection that are used in Jython, so we need to remove that dependency and associated code in order to create the shared object library:
 

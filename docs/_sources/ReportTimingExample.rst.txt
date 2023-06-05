@@ -24,7 +24,7 @@ Steps to Run
 
 .. code-block:: bash
 
-    gradlew run --args="ReportTimingExample microblaze4.dcp"
+    rapidwright ReportTimingExample microblaze4.dcp
 
 The source code for ``ReportTimingExample.java`` is provided below for easy reference:
 

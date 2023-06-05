@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Setup JUnit 5 Tests in RapidWright &mdash; RapidWright 2022.2.3-beta documentation</title>
+  <title>Setup JUnit 5 Tests in RapidWright &mdash; RapidWright 2023.1.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.2.3
+                2023.1.0
               </div>
             
           
@@ -224,7 +224,7 @@ To check out the specific commit of a submodule, run:</p>
 <p>To run the tests via Gradle, use the task <code class="docutils literal notranslate"><span class="pre">test</span></code> or <code class="docutils literal notranslate"><span class="pre">build</span></code> (which depends on <code class="docutils literal notranslate"><span class="pre">test</span></code>). After running the tests, Gradle will output the results both as an HTML document in <code class="docutils literal notranslate"><span class="pre">build/reports/tests/test*</span></code> and as JUnit-internal XML in <code class="docutils literal notranslate"><span class="pre">build/test-results/test*</span></code>. Note that Gradle knows whether the input to the tests changed and will not rerun them if they are up to date.</p>
 <p>There is integration for JUnit in all major IDEs. When loading RapidWright into your IDE, you should set <code class="docutils literal notranslate"><span class="pre">test</span></code> as source directory for tests. Your IDE should allow you to run all the tests or choose a single class to run.
 Alternatively, one can execute Gradle from the command line with the <code class="docutils literal notranslate"><span class="pre">testJava</span></code> or <code class="docutils literal notranslate"><span class="pre">testPython</span></code> task to run all tests, and restricted to specific tests with one or more <code class="docutils literal notranslate"><span class="pre">--tests</span> <span class="pre">&lt;filter&gt;</span></code> arguments. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gradlew</span> <span class="n">testJava</span> <span class="o">--</span><span class="n">tests</span> <span class="n">com</span><span class="o">.</span><span class="n">xilinx</span><span class="o">.</span><span class="n">rapidwright</span><span class="o">.</span><span class="n">design</span><span class="o">.*</span> <span class="o">--</span><span class="n">tests</span> <span class="o">*</span><span class="n">PartNameTools</span><span class="o">.</span><span class="n">testGetPartCase</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="n">testJava</span> <span class="o">--</span><span class="n">tests</span> <span class="n">com</span><span class="o">.</span><span class="n">xilinx</span><span class="o">.</span><span class="n">rapidwright</span><span class="o">.</span><span class="n">design</span><span class="o">.*</span> <span class="o">--</span><span class="n">tests</span> <span class="o">*</span><span class="n">PartNameTools</span><span class="o">.</span><span class="n">testGetPartCase</span>
 </pre></div>
 </div>
 <p>would run all Java test methods under all classes within the <code class="docutils literal notranslate"><span class="pre">com.xilinx.rapidwright.design</span></code> package, as well as the single test method <code class="docutils literal notranslate"><span class="pre">testGetPartCase</span></code> from the <code class="docutils literal notranslate"><span class="pre">com.xilinx.rapidwright.device.TestPartNameTools</span></code> class.
@@ -305,7 +305,7 @@ parts of RapidWright can exceed that limit. You should keep this limitation in m
 <li><p>When instantiating a <code class="docutils literal notranslate"><span class="pre">Design</span></code>, use a small <code class="docutils literal notranslate"><span class="pre">Device</span></code> for it.</p></li>
 </ul>
 </div></blockquote>
-<p>In the past, there were issues with files being left open after using them. To catch problems like this, there is an JUnit extension that compares the list of open files before and after a testcase. It will fail the testcase if there are changes. You can apply it to a testcase by adding the <code class="docutils literal notranslate"><span class="pre">&#64;CheckOpenFiles</span></code> annotation (from the <code class="docutils literal notranslate"><span class="pre">com.xilinx.rapidwright.checker</span></code> package) to the method.</p>
+<p>To identify issues with files being left open, there is a JUnit extension that compares the list of open files before and after a testcase. It will fail the testcase if there are changes. This extension (<code class="docutils literal notranslate"><span class="pre">com.xilinx.rapidwright.support.CheckOpenFilesExtension</span></code>) is automatically registered when JUnit tests are run with Gradle.</p>
 <div class="section" id="testcase-dcps">
 <h3>Testcase DCPs<a class="headerlink" href="#testcase-dcps" title="Permalink to this headline">¶</a></h3>
 <p>Tests requiring new DCP(s) will need to also fork the <a class="reference external" href="https://github.com/eddieh-xlnx/RapidWrightDCP">RapidWrightDCP</a> repository to gain write permissions.
@@ -412,7 +412,7 @@ RapidWrightDCP (fork)          ... o--o ... o--o
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.2.3-beta',
+            VERSION:'2023.1.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

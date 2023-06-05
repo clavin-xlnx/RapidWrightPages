@@ -22,7 +22,7 @@ The RapidWright ``PerformanceExplorer`` can be run directly from the command lin
 
 .. code-block:: bash
 	
-	java com.xilinx.rapidwright.util.PerformanceExplorer -h
+	rapidwright PerformanceExplorer -h
 	
 which prints help and options detail:
 	
@@ -69,7 +69,7 @@ To run ``PerformanceExplorer`` for our PicoBlaze design and three selected pbloc
 .. code-block:: bash
 	
 	# DON'T RUN THIS IN A TUTORIAL VIRTUAL MACHINE
-	java com.xilinx.rapidwright.util.PerformanceExplorer -c clk -i picoblaze_synth.dcp -t 2.85 -b picoblaze_pblocks.txt
+	rapidwright PerformanceExplorer -c clk -i picoblaze_synth.dcp -t 2.85 -b picoblaze_pblocks.txt
 		
 The ``PerformanceExplorer`` will then create a unique directory and launch a Vivado run for each unique job specification.  There are four main parameters by which a job can be specified:
 
@@ -123,7 +123,7 @@ RapidWright Java code to instantiate and place the three PicoBlaze pre-implement
 
 .. code-block:: bash
 
-	java com.xilinx.rapidwright.examples.PicoBlazeArray 
+	rapidwright PicoBlazeArray 
 
 Without any parameters, we get a simple usage message:
 
@@ -135,7 +135,7 @@ To run, we must provide the path to the directory where our pblock DCPs are loca
 
 .. code-block:: bash
 	
-	java com.xilinx.rapidwright.examples.PicoBlazeArray `pwd` xcvu3p-ffvc1517-2-i picoblaze_array.dcp
+	rapidwright PicoBlazeArray `pwd` xcvu3p-ffvc1517-2-i picoblaze_array.dcp
 
 The program will read each of the pblock DCPs and stitch them together, printing out runtime numbers for each step.  By default, the program will open the ``HandPlacer`` to enable the user to examine the placed PicoBlazes (you can skip the hand placer by adding ``--no_hand_placer`` as the last argument).  Here is a screenshot of the tool:
 

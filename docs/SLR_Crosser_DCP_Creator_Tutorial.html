@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Create Placed and Routed DCP to Cross SLR &mdash; RapidWright 2022.2.3-beta documentation</title>
+  <title>Create Placed and Routed DCP to Cross SLR &mdash; RapidWright 2023.1.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.2.3
+                2023.1.0
               </div>
             
           
@@ -217,7 +217,7 @@
 <h1>Create Placed and Routed DCP to Cross SLR<a class="headerlink" href="#create-placed-and-routed-dcp-to-cross-slr" title="Permalink to this headline">¶</a></h1>
 <dl class="simple">
 <dt>What You’ll Need to Get Started:</dt><dd><ul class="simple">
-<li><p>RapidWright 2018.2 or later</p></li>
+<li><p>RapidWright 2023.1 or later</p></li>
 <li><p>Vivado 2018.2 or later</p></li>
 </ul>
 </dd>
@@ -240,7 +240,7 @@
 <li><p>Ensure you have RapidWright correctly setup and/or installed. See the <a class="reference internal" href="PreImplemented_Modules_Part_I.html#getting-started"><span class="std std-ref">Getting Started</span></a> page for details.</p></li>
 <li><p>Run the command below to print available options to parameterize the SLR crossing output</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>com.xilinx.rapidwright.examples.SLRCrosserGenerator<span class="w"> </span>-h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>SLRCrosserGenerator<span class="w"> </span>-h
 </pre></div>
 </div>
 <p>Example output below:</p>
@@ -279,7 +279,7 @@ Option                                   Description
 <ol class="arabic simple" start="3">
 <li><p>A default scenario of a single bi-directional crossing of 512 bits is generated at the LAGUNA_X2Y120 site on a VU9P part if no options are provided. The DCP is generated in the current working directory with the name <code class="docutils literal notranslate"><span class="pre">slr_crosser.dcp</span></code> unless the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option is specified.</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>com.xilinx.rapidwright.examples.SLRCrosserGenerator
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>SLRCrosserGenerator
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">==============================================================================</span>
@@ -339,7 +339,7 @@ $
 <ol class="arabic simple" start="6">
 <li><p>As one additional example, the generator is capable of using every SLL in the device.  To generate such a DCP for a VU9P device, run:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ java com.xilinx.rapidwright.examples.SLRCrosserGenerator -w 720 -l LAGUNA_X0Y120,LAGUNA_X2Y120,LAGUNA_X4Y120,LAGUNA_X6Y120,LAGUNA_X8Y120,LAGUNA_X10Y120,LAGUNA_X12Y120,LAGUNA_X14Y120,LAGUNA_X16Y120,LAGUNA_X18Y120,LAGUNA_X20Y120,LAGUNA_X22Y120,LAGUNA_X0Y360,LAGUNA_X2Y360,LAGUNA_X4Y360,LAGUNA_X6Y360,LAGUNA_X8Y360,LAGUNA_X10Y360,LAGUNA_X12Y360,LAGUNA_X14Y360,LAGUNA_X16Y360,LAGUNA_X18Y360,LAGUNA_X20Y360,LAGUNA_X22Y360
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rapidwright SLRCrosserGenerator -w 720 -l LAGUNA_X0Y120,LAGUNA_X2Y120,LAGUNA_X4Y120,LAGUNA_X6Y120,LAGUNA_X8Y120,LAGUNA_X10Y120,LAGUNA_X12Y120,LAGUNA_X14Y120,LAGUNA_X16Y120,LAGUNA_X18Y120,LAGUNA_X20Y120,LAGUNA_X22Y120,LAGUNA_X0Y360,LAGUNA_X2Y360,LAGUNA_X4Y360,LAGUNA_X6Y360,LAGUNA_X8Y360,LAGUNA_X10Y360,LAGUNA_X12Y360,LAGUNA_X14Y360,LAGUNA_X16Y360,LAGUNA_X18Y360,LAGUNA_X20Y360,LAGUNA_X22Y360
 </pre></div>
 </div>
 <p>The resultant DCP should look similar to the following in Vivado:</p>
@@ -392,7 +392,7 @@ $
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.2.3-beta',
+            VERSION:'2023.1.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

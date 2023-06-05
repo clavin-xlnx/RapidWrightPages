@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RapidWright PipelineGenerator Example &mdash; RapidWright 2022.2.3-beta documentation</title>
+  <title>RapidWright PipelineGenerator Example &mdash; RapidWright 2023.1.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.2.3
+                2023.1.0
               </div>
             
           
@@ -240,8 +240,8 @@
 <h2>Steps to Run<a class="headerlink" href="#steps-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Ensure you are familiar with the RapidWright directories and have an IDE project created for RapidWright.  Using an IDE such as IntelliJ or Eclipse is highly recommended for exercises in this tutorial for easy compilation and for help with the RapidWright libraries and functions.  While we don’t provide any IDE “how to” steps within this tutorial, if you do have questions please feel free to ask.</p></li>
-<li><p>If you need to recompile the code, run: <code class="docutils literal notranslate"><span class="pre">javac</span> <span class="pre">com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code> from within your “&lt;workspace_dir&gt;/RapidWright” subdirectory.  Alternatively, build this example using your IDE.</p></li>
-<li><p>After compiling, run: <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.examples.PipelineGenerator</span></code>.  This will generate an output called “pipeline.dcp”, containing the placed and routed circuit design.</p></li>
+<li><p>If you need to recompile the code, run: <code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">compileJava</span></code> from within your “&lt;workspace_dir&gt;/RapidWright” subdirectory.  Alternatively, build this example using your IDE.</p></li>
+<li><p>After compiling, run: <code class="docutils literal notranslate"><span class="pre">rapidwright</span> <span class="pre">PipelineGenerator</span></code>.  This will generate an output called “pipeline.dcp”, containing the placed and routed circuit design.</p></li>
 <li><p>To see a list of available input options specify “-h” as an argument.  Note: the horizontal direction is assigned within the source code, but it can alternatively be changed to vertical within main().  The source code for this example is located in: <code class="docutils literal notranslate"><span class="pre">&lt;workspace_dir&gt;/RapidWright/com/xilinx/rapidwright/examples/PipelineGenerator.java</span></code>.</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>==============================================================================
@@ -339,7 +339,7 @@ used for pipeline]
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.2.3-beta',
+            VERSION:'2023.1.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

@@ -33,7 +33,7 @@ Our first task is to generate an SLR crossing bridge from RapidWright.  RapidWri
 
 .. code-block:: bash
 
-	java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -h
+	rapidwright SLRCrosserGenerator  -h
 
 This should produce the following output:
 	
@@ -74,7 +74,7 @@ As you can see, this generator has several parameterizable options.  In this cas
 
 .. code-block:: bash
 	
-	java com.xilinx.rapidwright.examples.SLRCrosserGenerator  -l LAGUNA_X20Y120 -b BUFGCE_X1Y80 -w 32 -o slr_crosser_vu7p_32.dcp -p xcvu7p-flva2104-2-i
+	rapidwright SLRCrosserGenerator -l LAGUNA_X20Y120 -b BUFGCE_X1Y80 -w 32 -o slr_crosser_vu7p_32.dcp -p xcvu7p-flva2104-2-i
 
 After several seconds, a new file, ``slr_crosser_vu7p_32.dcp`` should appear in our working directory, let's open it in Vivado to examine what we have created.  
 

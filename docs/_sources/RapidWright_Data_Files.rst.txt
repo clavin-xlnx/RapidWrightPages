@@ -73,19 +73,46 @@ setting the environment varable ``RAPIDWRIGHT_PATH``.  This will avoid
 the creation of the default OS/user specific directories.
 
 
-Avoiding On-demand Download of Data Files
-=================================================
-In some situations, users may not have direct or persistent access to
-the Internet and can optionally download all of the data files
-necessary ahead of runtime.  The easiest option to do so is to invoke
-the API ``FileTools.updateAllDataFiles()`` which will ensure the latest
-and entire set of data files available are fully downloaded on the
-local system. 
+Avoiding On-demand Download & Generation of Data Files
+==========================================================
+Two potential challenges exist for on-demand data file download and generation:
 
-Another option is to download the ``rapidwright_data.zip`` file
-associated with the current release and replace the ``data`` directory
-in the ``RapidWright`` directory with its contents.
+1. Lack of persistent Internet connectivity
+2. Collisions due to independent, parallel instances of RapidWright runs
 
-Note, that due to GitHub size limitations, starting with the 2022.1.0
-release, the data files are split into two downloads,
+To alleviate the need for Internet access, the easiest option is to 
+invoke the API ``FileTools.updateAllDataFiles()`` when Internet 
+connectivity is available.  After successful completion of calling 
+this method, every potential data file that RapidWright could download 
+will have been downloaded on the local system.  To run this method from 
+the command line run:
+
+.. code-block:: bash
+
+    rapidwright jython -c 'FileTools.updateAllDataFiles()'
+    
+Note that this does not generate device cache files that can also 
+potentially cause collisions if independent RapidWright instances 
+are run simultaneously.  
+
+To eliminate file download/generation collisions, the API 
+``FileTools.ensureDataFilesAreStaticInstallFriendly(String... devices)``
+has been created.  Due to the overhead of generating a device cache file
+for each device, the user can specify the specific devices anticipated
+during future runs.  As an example, to run this API from the command line 
+for the ``xc7a100t`` and ``xc7a200t`` devices, run:
+
+.. code-block:: bash
+
+    rapidwright jython -c "FileTools.ensureDataFilesAreStaticInstallFriendly("xc7a100t", "xc7a200t")'
+
+
+Another option to avoid on-demand download is to obtain the 
+``rapidwright_data.zip`` file associated with the current release 
+(see assets from the corresponding 
+`GitHub Releases<https://github.com/Xilinx/RapidWright/releases>`_) 
+and replace the ``data`` directory in the ``RapidWright`` directory with its contents.
+
+.. note:: Due to GitHub size limitations, starting with the 2022.1.0 through 2022.2.3
+release, the data files were split into two downloads (``rapidwright_data.zip`` and ``rapidwright_data2.zip``).  In 2023.1.0, we switched to Zstandard compression for all our data files that has allowed the release to be consolidated back to a single release zip file.
 ``rapidwright_data.zip`` and ``rapidwright_data2.zip``.

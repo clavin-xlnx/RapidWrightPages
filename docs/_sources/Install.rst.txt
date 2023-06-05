@@ -2,12 +2,22 @@
 Install
 ===========================
 
+TL;DR
+==============================
+.. code-block:: bash
+
+    git clone https://github.com/Xilinx/RapidWright.git
+    cd RapidWright
+    ./gradlew compileJava
+    export PATH=`pwd`/bin:$PATH
+
+
 What You Need to Get Started
 ==============================
-1. Java JDK 11 (or later) - Any distribution such as `Adoptium
+1. Java (1.8 minimum, 11 or later recommended) - Any distribution such as `Adoptium
    <https://adoptium.net/>`_ should work. If you already have Vivado,
    it includes Java, see :ref:`Using Java distributed with Vivado` below on how to use it.
-2. `Git <https://git-scm.com/>`_ (source revision control system)
+2. `Git <https://git-scm.com/downloads>`_ (source revision control system)
 3. If you are running Linux and want to run the GUI portion of RapidWright, you may need an older libpng12 library.  For those running Debian/Ubuntu-based distros, try the following:
 
 .. code-block:: bash
@@ -23,9 +33,7 @@ For CentOS/RedHat/Fedora distros, try the following:
 Additional Recommendations
 ============================
 1. `Vivado Design Suite 2018.3 or later <https://www.xilinx.com/products/design-tools/vivado.html>`_  (Not essential to run RapidWright, but makes it useful)
-2. An IDE such as:
-    * `IntelliJ <https://www.jetbrains.com/idea/>`_
-    * `Eclipse <https://www.eclipse.org/downloads/packages/>`_ 
+2. An IDE such as `IntelliJ <https://www.jetbrains.com/idea/>`_ or `Eclipse <https://www.eclipse.org/downloads/packages/>`_ 
 
 RapidWright includes the `Gradle Wrapper <https://docs.gradle.org/current/userguide/gradle_wrapper.html>`_ (automatic build tool), so a
 Gradle installation is not necessary.
@@ -34,26 +42,43 @@ Install Steps
 ========================
 The easiest way to get RapidWright setup is to simply run these commands:
 
+**Linux (** ``/bin/sh`` **or compatible):**
+
 .. code-block:: bash
 
-	git clone https://github.com/Xilinx/RapidWright.git
-	cd RapidWright
-	./gradlew compileJava
+  git clone https://github.com/Xilinx/RapidWright.git
+  cd RapidWright
+  ./gradlew compileJava
+  export PATH=`pwd`/bin:$PATH
 
+.. note:: C-style shells (``csh`` or ``tcsh``) should replace the last line with ``setenv PATH `pwd`/bin:$PATH``
+
+**Windows (** ``cmd.exe`` **):**
+
+.. code-block:: bat
+
+    git clone https://github.com/Xilinx/RapidWright.git
+    cd RapidWright
+    .\gradlew compileJava
+    set "PATH=%CD%\bin;%PATH%"
+
+.. note:: For Windows Powershell users, replace the last line with ``$env:PATH="$pwd\bin;$env:PATH"``
 
 This will clone a copy of RapidWright from GitHub, download jar
-dependencies and compile the Java code.  Checking out and compiling
+dependencies, compile the Java code and add the ``rapidwright`` wrapper to your ``PATH``.  Checking out and compiling
 the code can also be accomplished by using an IDE (see
 :ref:`RapidWright Eclipse Setup` or :ref:`RapidWright IntelliJ Setup`). 
+ 
+
 
 To perform a quick test to ensure RapidWright is setup correctly, try
 running the following:
     
 .. code-block:: bash
     
-    java -cp bin:jars/* com.xilinx.rapidwright.device.browser.DeviceBrowser
+    rapidwright DeviceBrowser
 
-.. note:: If you prefer to run with Gradle, the same tool can be invoked with: ``./gradlew run --args=DeviceBrowser``
+.. note:: If you prefer to run with ``java`` directly (you'll need to set the ``CLASSPATH`` appropriately, see :ref:`CLASSPATH` below for details), the same tool can be invoked with: ``java com.xilinx.rapidwright.device.browser.DeviceBrowser``
     
 You should see the GUI come up similar to this screenshot:
 
@@ -63,6 +88,49 @@ You should see the GUI come up similar to this screenshot:
 		
 If you have gotten to this point, congrats!  Your RapidWright install
 is correctly configured and you are ready to start experimenting.
+
+RapidWright Wrapper
+=====================================
+Some may be new to Java so RapidWright has included a ``rapidwright`` 
+wrapper script (``rapidwright.bat`` for Windows users) that manages 
+setting the Java class path and provides a handy interface to the 
+various use modes.  The directions above add the wrapper to the 
+``PATH``.  
+
+
+The ``rapidwright`` wrapper has the following options (printed when run without parameters):
+
+.. code-block:: bash
+
+  rapidwright com.xilinx.rapidwright.<ClassName> -- to execute main() method of Java class
+  rapidwright <application>                      -- to execute a specific application
+  rapidwright --list-apps                        -- to list all available applications
+  rapidwright jython                             -- to enter interactive Jython shell
+  rapidwright jython -c "..."                    -- to execute specific Jython command
+
+To pass options to ``java``, it is recommended to use the ``_JAVA_OPTIONS`` environment 
+variable, for example:
+
+.. code-block:: bash
+
+  _JAVA_OPTIONS=-Xmx32736m rapidwright RWRoute
+  
+This will set the Java Virtual Machine (JVM) upper heap memory limit to ~32GBs.  This 
+limit is useful as it is the largest heap size available by default without causing 
+all references to expand from 4 bytes to 8 bytes.  
+   
+
+Vivado Compatibility & Versioning
+=====================================
+RapidWright aims to be as compatible as possible with Vivado in terms of the device models 
+it offers and its ability to load design checkpoints (DCPs) as far back as 2018.2.    
+
+RapidWright versioning intends to indicate to the user what the latest version of Vivado 
+for which it will be compatible.  For example, RapidWright 2023.1.0 will be compatible 
+with Vivado 2023.1 and previous versions back to 2018.2.  Conversely, a DCP created in 
+Vivado 2023.1 will likely not be readable in previous versions of RapidWright 
+(2022.2.0, 2022.1.0, etc).  This also is true for device models.  If a device is released 
+in Vivado 2023.1, it won't be available in previous versions of RapidWright.       
 
 Notes for Advanced/Legacy Users:
 =====================================
@@ -85,22 +153,23 @@ full path, something like this:
 	/opt/Vivado/2022.2/tps/lnx64/jre11.0.11_9/bin/java
 
 To use this version of Java instead of the system Java or installing
-it, simply add the directory to your ``PATH`` environment variable:
+it, simply update your ``PATH`` and ``JAVA_HOME`` environment variables:
 
 .. code-block:: bash
 
 	export PATH=/opt/Vivado/2022.2/tps/lnx64/jre11.0.11_9/bin:$PATH
+	export JAVA_HOME=/opt/Vivado/2022.2/tps/lnx64/jre11.0.11_9
 
-Or, if using Windows, use the Control panel for environment variables
-and add a new entry for ``PATH``.
+Or, if using Windows, search for "edit environment variables"
+and add a new entry for ``PATH`` and ``JAVA_HOME`` appropriately.
 	
 
 CLASSPATH
 -----------
-Java has the notion of a CLASSPATH, this is a list of locations where
+Java has the notion of a ``CLASSPATH``, this is a list of locations where
 ``java`` can look for compiled Java code (``.class`` files or ``.jar``
-files) to execute at runtime.  The CLASSPATH can be set on the command
-line (as in the example test command above) or it can be set via the
+files) to execute at runtime.  The ``CLASSPATH`` can be set on the command
+line (``java -cp <CLASSPATH_HERE>``) or it can be set via the
 environment variable ``CLASSPATH``.  If a script to set the ``CLASSPATH``
 variable (in Linux) is desired, the following command can be run:
     
@@ -155,3 +224,4 @@ legacy purposes.
   * :ref:`RapidWright IntelliJ Setup`
   
 Once complete, you can run the DeviceBrowser within your respective IDE to test the installation.
+

@@ -28,7 +28,7 @@ Steps to Run
 
 .. code-block:: bash
 
-    javac src/com/xilinx/rapidwright/examples/PipelineGeneratorWithRouting.java 
+    ./gradlew compileJava 
 
 from within your ``RapidWright`` directory.  Alternatively, build this example using your IDE.
 
@@ -36,7 +36,7 @@ from within your ``RapidWright`` directory.  Alternatively, build this example u
 
 .. code-block:: bash
 
-    java com.xilinx.rapidwright.examples.PipelineGeneratorWithRouting  
+    rapidwright PipelineGeneratorWithRouting  
 
 This will generate an output called ``pipeline.dcp``, containing the placed and routed circuit design.
 

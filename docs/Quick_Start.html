@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quick Start &mdash; RapidWright 2022.2.3-beta documentation</title>
+  <title>Quick Start &mdash; RapidWright 2023.1.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.2.3
+                2023.1.0
               </div>
             
           
@@ -203,15 +203,22 @@
             
   <div class="section" id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
-<ol class="arabic simple">
-<li><p>Download and install Java JDK 11 (or later) - Any distribution such as <a class="reference external" href="https://adoptium.net/">Adoptium</a> should work</p></li>
-<li><p>Download the <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/latest">latest standalone RapidWright release jar file</a></p></li>
-<li><p>Start the RapidWright Python (<a class="reference external" href="http://www.jython.org">Jython</a>) interpreter by running:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>java<span class="w"> </span>-jar<span class="w"> </span>rapidwright-2018.3-standalone-lin64.jar<span class="w"> </span><span class="c1"># (or whichever jar you downloaded)</span>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The only major prerequisite is Java (1.8 minimum, 11 or later recommended) - Any distribution such as <a class="reference external" href="https://adoptium.net/">Adoptium</a> should work</p>
+</div>
+<p>Download and run the latest stand-alone RapidWright release jar file: <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/download/v2023.1.0-beta/rapidwright-2023.1.0-standalone-lin64.jar">Linux</a> | <a class="reference external" href="https://github.com/Xilinx/RapidWright/releases/download/v2023.1.0-beta/rapidwright-2023.1.0-standalone-win64.jar">Windows</a>:</p>
+<p><strong>Linux:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/Xilinx/RapidWright/releases/download/v2023.1.0-beta/rapidwright-2023.1.0-standalone-lin64.jar
+java<span class="w"> </span>-jar<span class="w"> </span>rapidwright-2023.1.0-standalone-lin64.jar
 </pre></div>
 </div>
-<p>At this point you should have a Python interpreter instance running with most RapidWright classes loaded.  You can test your install by running the following at the prompt:</p>
+<p><strong>Windows:</strong></p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>curl -L -O https://github.com/Xilinx/RapidWright/releases/download/v2023.1.0-beta/rapidwright-2023.1.0-standalone-win64.jar
+java -jar rapidwright-2023.1.0-standalone-win64.jar
+</pre></div>
+</div>
+<p>This will start the RapidWright <a class="reference external" href="http://www.jython.org">Jython</a> (Python 2 in Java) interpreter with most RapidWright classes loaded.  You can test your install by running the following at the prompt:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DeviceBrowser</span><span class="o">.</span><span class="n">main</span><span class="p">([])</span>
 </pre></div>
 </div>
@@ -272,7 +279,7 @@ load them.  See <a class="reference internal" href="RapidWright_Data_Files.html#
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.2.3-beta',
+            VERSION:'2023.1.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

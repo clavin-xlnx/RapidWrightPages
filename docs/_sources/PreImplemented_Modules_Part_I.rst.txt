@@ -134,7 +134,7 @@ Tiles of the same type have all of the same logic and local interconnect and are
 
 .. code-block:: bash
 	
-	java com.xilinx.rapidwright.util.RapidWright
+	rapidwright Jython
 	
 Then in the terminal we can use a class called ``TileColumnPattern`` to analyze the fabric and create a map of all the tile patterns in the device.  We can do this by running:
 

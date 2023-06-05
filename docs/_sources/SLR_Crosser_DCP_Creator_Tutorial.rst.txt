@@ -3,7 +3,7 @@ Create Placed and Routed DCP to Cross SLR
 =================================================
 
 What You'll Need to Get Started:
-  - RapidWright 2018.2 or later
+  - RapidWright 2023.1 or later
   - Vivado 2018.2 or later
    
 One of the example programs that is provided with RapidWright solves a challenging problem on UltraScale+ devices (this approach is not valid for Series 7 or UltraScale parts).  Crossing super logic region (SLR) boundaries at high speed can prove quite difficult in conventional Vivado flows.  The hardware provides dedicated TX/RX flip flops in Laguna sites to enable the creation of paths with very short delay but experience two significant problems:
@@ -29,7 +29,7 @@ Steps to Run
 
 .. code-block:: bash
 
-	java com.xilinx.rapidwright.examples.SLRCrosserGenerator -h
+	rapidwright SLRCrosserGenerator -h
 
 Example output below:	
 
@@ -72,7 +72,7 @@ Example output below:
 
 .. code-block:: bash
 
-	java com.xilinx.rapidwright.examples.SLRCrosserGenerator
+	rapidwright SLRCrosserGenerator
 
 ::
                                                                                                    
@@ -135,7 +135,8 @@ Optionally, you can open the DCP in Vivado and write out the netlist as EDIF, Ve
 
 ::
 
-  $ java com.xilinx.rapidwright.examples.SLRCrosserGenerator -w 720 -l LAGUNA_X0Y120,LAGUNA_X2Y120,LAGUNA_X4Y120,LAGUNA_X6Y120,LAGUNA_X8Y120,LAGUNA_X10Y120,LAGUNA_X12Y120,LAGUNA_X14Y120,LAGUNA_X16Y120,LAGUNA_X18Y120,LAGUNA_X20Y120,LAGUNA_X22Y120,LAGUNA_X0Y360,LAGUNA_X2Y360,LAGUNA_X4Y360,LAGUNA_X6Y360,LAGUNA_X8Y360,LAGUNA_X10Y360,LAGUNA_X12Y360,LAGUNA_X14Y360,LAGUNA_X16Y360,LAGUNA_X18Y360,LAGUNA_X20Y360,LAGUNA_X22Y360  
+  $ rapidwright SLRCrosserGenerator -w 720 -l LAGUNA_X0Y120,LAGUNA_X2Y120,LAGUNA_X4Y120,LAGUNA_X6Y120,LAGUNA_X8Y120,LAGUNA_X10Y120,LAGUNA_X12Y120,LAGUNA_X14Y120,LAGUNA_X16Y120,LAGUNA_X18Y120,LAGUNA_X20Y120,LAGUNA_X22Y120,LAGUNA_X0Y360,LAGUNA_X2Y360,LAGUNA_X4Y360,LAGUNA_X6Y360,LAGUNA_X8Y360,LAGUNA_X10Y360,LAGUNA_X12Y360,LAGUNA_X14Y360,LAGUNA_X16Y360,LAGUNA_X18Y360,LAGUNA_X20Y360,LAGUNA_X22Y360  
+
 
 
 The resultant DCP should look similar to the following in Vivado:

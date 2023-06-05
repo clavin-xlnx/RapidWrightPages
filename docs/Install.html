@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Install &mdash; RapidWright 2022.2.3-beta documentation</title>
+  <title>Install &mdash; RapidWright 2023.1.0-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2022.2.3
+                2023.1.0
               </div>
             
           
@@ -106,9 +106,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="Getting_Started.html">Getting Started</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Quick_Start.html">Quick Start</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Install</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tl-dr">TL;DR</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#what-you-need-to-get-started">What You Need to Get Started</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#additional-recommendations">Additional Recommendations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-steps">Install Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rapidwright-wrapper">RapidWright Wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vivado-compatibility-versioning">Vivado Compatibility &amp; Versioning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#notes-for-advanced-legacy-users">Notes for Advanced/Legacy Users:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#using-java-distributed-with-vivado">Using Java distributed with Vivado</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#classpath">CLASSPATH</a></li>
@@ -215,12 +218,21 @@
             
   <div class="section" id="install">
 <h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tl-dr">
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Xilinx/RapidWright.git
+<span class="nb">cd</span><span class="w"> </span>RapidWright
+./gradlew<span class="w"> </span>compileJava
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="what-you-need-to-get-started">
 <h2>What You Need to Get Started<a class="headerlink" href="#what-you-need-to-get-started" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Java JDK 11 (or later) - Any distribution such as <a class="reference external" href="https://adoptium.net/">Adoptium</a> should work. If you already have Vivado,
+<li><p>Java (1.8 minimum, 11 or later recommended) - Any distribution such as <a class="reference external" href="https://adoptium.net/">Adoptium</a> should work. If you already have Vivado,
 it includes Java, see <a class="reference internal" href="#using-java-distributed-with-vivado"><span class="std std-ref">Using Java distributed with Vivado</span></a> below on how to use it.</p></li>
-<li><p><a class="reference external" href="https://git-scm.com/">Git</a> (source revision control system)</p></li>
+<li><p><a class="reference external" href="https://git-scm.com/downloads">Git</a> (source revision control system)</p></li>
 <li><p>If you are running Linux and want to run the GUI portion of RapidWright, you may need an older libpng12 library.  For those running Debian/Ubuntu-based distros, try the following:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-O<span class="w"> </span>/tmp/libpng12.deb<span class="w"> </span>https://snapshot.debian.org/archive/debian/20160413T160058Z/pool/main/libp/libpng/libpng12-0_1.2.54-6_amd64.deb<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>/tmp/libpng12.deb<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>/tmp/libpng12.deb
@@ -235,14 +247,7 @@ it includes Java, see <a class="reference internal" href="#using-java-distribute
 <h2>Additional Recommendations<a class="headerlink" href="#additional-recommendations" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://www.xilinx.com/products/design-tools/vivado.html">Vivado Design Suite 2018.3 or later</a>  (Not essential to run RapidWright, but makes it useful)</p></li>
-<li><dl class="simple">
-<dt>An IDE such as:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://www.jetbrains.com/idea/">IntelliJ</a></p></li>
-<li><p><a class="reference external" href="https://www.eclipse.org/downloads/packages/">Eclipse</a></p></li>
-</ul>
-</dd>
-</dl>
-</li>
+<li><p>An IDE such as <a class="reference external" href="https://www.jetbrains.com/idea/">IntelliJ</a> or <a class="reference external" href="https://www.eclipse.org/downloads/packages/">Eclipse</a></p></li>
 </ol>
 <p>RapidWright includes the <a class="reference external" href="https://docs.gradle.org/current/userguide/gradle_wrapper.html">Gradle Wrapper</a> (automatic build tool), so a
 Gradle installation is not necessary.</p>
@@ -250,28 +255,80 @@ Gradle installation is not necessary.</p>
 <div class="section" id="install-steps">
 <h2>Install Steps<a class="headerlink" href="#install-steps" title="Permalink to this headline">¶</a></h2>
 <p>The easiest way to get RapidWright setup is to simply run these commands:</p>
+<p><strong>Linux (</strong> <code class="docutils literal notranslate"><span class="pre">/bin/sh</span></code> <strong>or compatible):</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Xilinx/RapidWright.git
 <span class="nb">cd</span><span class="w"> </span>RapidWright
 ./gradlew<span class="w"> </span>compileJava
-</pre></div>
-</div>
-<p>This will clone a copy of RapidWright from GitHub, download jar
-dependencies and compile the Java code.  Checking out and compiling
-the code can also be accomplished by using an IDE (see
-<a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> or <a class="reference internal" href="RapidWright_IntelliJ_Setup.html#rapidwright-intellij-setup"><span class="std std-ref">RapidWright IntelliJ Setup</span></a>).</p>
-<p>To perform a quick test to ensure RapidWright is setup correctly, try
-running the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java<span class="w"> </span>-cp<span class="w"> </span>bin:jars/*<span class="w"> </span>com.xilinx.rapidwright.device.browser.DeviceBrowser
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/bin:<span class="nv">$PATH</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you prefer to run with Gradle, the same tool can be invoked with: <code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">run</span> <span class="pre">--args=DeviceBrowser</span></code></p>
+<p>C-style shells (<code class="docutils literal notranslate"><span class="pre">csh</span></code> or <code class="docutils literal notranslate"><span class="pre">tcsh</span></code>) should replace the last line with <code class="docutils literal notranslate"><span class="pre">setenv</span> <span class="pre">PATH</span> <span class="pre">`pwd`/bin:$PATH</span></code></p>
+</div>
+<p><strong>Windows (</strong> <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code> <strong>):</strong></p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Xilinx/RapidWright.git
+<span class="k">cd</span> RapidWright
+.\gradlew compileJava
+<span class="k">set</span> <span class="s2">&quot;PATH=</span><span class="nv">%CD%</span><span class="s2">\bin;</span><span class="nv">%PATH%</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For Windows Powershell users, replace the last line with <code class="docutils literal notranslate"><span class="pre">$env:PATH=&quot;$pwd\bin;$env:PATH&quot;</span></code></p>
+</div>
+<p>This will clone a copy of RapidWright from GitHub, download jar
+dependencies, compile the Java code and add the <code class="docutils literal notranslate"><span class="pre">rapidwright</span></code> wrapper to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.  Checking out and compiling
+the code can also be accomplished by using an IDE (see
+<a class="reference internal" href="RapidWright_Eclipse_Setup.html#rapidwright-eclipse-setup"><span class="std std-ref">RapidWright Eclipse Setup</span></a> or <a class="reference internal" href="RapidWright_IntelliJ_Setup.html#rapidwright-intellij-setup"><span class="std std-ref">RapidWright IntelliJ Setup</span></a>).</p>
+<p>To perform a quick test to ensure RapidWright is setup correctly, try
+running the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>DeviceBrowser
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you prefer to run with <code class="docutils literal notranslate"><span class="pre">java</span></code> directly (you’ll need to set the <code class="docutils literal notranslate"><span class="pre">CLASSPATH</span></code> appropriately, see <a class="reference internal" href="#classpath"><span class="std std-ref">CLASSPATH</span></a> below for details), the same tool can be invoked with: <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">com.xilinx.rapidwright.device.browser.DeviceBrowser</span></code></p>
 </div>
 <p>You should see the GUI come up similar to this screenshot:</p>
 <a class="reference internal image-reference" href="_images/DeviceBrowser.png"><img alt="_images/DeviceBrowser.png" class="align-center" src="_images/DeviceBrowser.png" style="width: 550px;" /></a>
 <p>If you have gotten to this point, congrats!  Your RapidWright install
 is correctly configured and you are ready to start experimenting.</p>
+</div>
+<div class="section" id="rapidwright-wrapper">
+<h2>RapidWright Wrapper<a class="headerlink" href="#rapidwright-wrapper" title="Permalink to this headline">¶</a></h2>
+<p>Some may be new to Java so RapidWright has included a <code class="docutils literal notranslate"><span class="pre">rapidwright</span></code>
+wrapper script (<code class="docutils literal notranslate"><span class="pre">rapidwright.bat</span></code> for Windows users) that manages
+setting the Java class path and provides a handy interface to the
+various use modes.  The directions above add the wrapper to the
+<code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">rapidwright</span></code> wrapper has the following options (printed when run without parameters):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>com.xilinx.rapidwright.&lt;ClassName&gt;<span class="w"> </span>--<span class="w"> </span>to<span class="w"> </span>execute<span class="w"> </span>main<span class="o">()</span><span class="w"> </span>method<span class="w"> </span>of<span class="w"> </span>Java<span class="w"> </span>class
+rapidwright<span class="w"> </span>&lt;application&gt;<span class="w">                      </span>--<span class="w"> </span>to<span class="w"> </span>execute<span class="w"> </span>a<span class="w"> </span>specific<span class="w"> </span>application
+rapidwright<span class="w"> </span>--list-apps<span class="w">                        </span>--<span class="w"> </span>to<span class="w"> </span>list<span class="w"> </span>all<span class="w"> </span>available<span class="w"> </span>applications
+rapidwright<span class="w"> </span>jython<span class="w">                             </span>--<span class="w"> </span>to<span class="w"> </span>enter<span class="w"> </span>interactive<span class="w"> </span>Jython<span class="w"> </span>shell
+rapidwright<span class="w"> </span>jython<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w">                    </span>--<span class="w"> </span>to<span class="w"> </span>execute<span class="w"> </span>specific<span class="w"> </span>Jython<span class="w"> </span><span class="nb">command</span>
+</pre></div>
+</div>
+<p>To pass options to <code class="docutils literal notranslate"><span class="pre">java</span></code>, it is recommended to use the <code class="docutils literal notranslate"><span class="pre">_JAVA_OPTIONS</span></code> environment
+variable, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">_JAVA_OPTIONS</span><span class="o">=</span>-Xmx32736m<span class="w"> </span>rapidwright<span class="w"> </span>RWRoute
+</pre></div>
+</div>
+<p>This will set the Java Virtual Machine (JVM) upper heap memory limit to ~32GBs.  This
+limit is useful as it is the largest heap size available by default without causing
+all references to expand from 4 bytes to 8 bytes.</p>
+</div>
+<div class="section" id="vivado-compatibility-versioning">
+<h2>Vivado Compatibility &amp; Versioning<a class="headerlink" href="#vivado-compatibility-versioning" title="Permalink to this headline">¶</a></h2>
+<p>RapidWright aims to be as compatible as possible with Vivado in terms of the device models
+it offers and its ability to load design checkpoints (DCPs) as far back as 2018.2.</p>
+<p>RapidWright versioning intends to indicate to the user what the latest version of Vivado
+for which it will be compatible.  For example, RapidWright 2023.1.0 will be compatible
+with Vivado 2023.1 and previous versions back to 2018.2.  Conversely, a DCP created in
+Vivado 2023.1 will likely not be readable in previous versions of RapidWright
+(2022.2.0, 2022.1.0, etc).  This also is true for device models.  If a device is released
+in Vivado 2023.1, it won’t be available in previous versions of RapidWright.</p>
 </div>
 <div class="section" id="notes-for-advanced-legacy-users">
 <h2>Notes for Advanced/Legacy Users:<a class="headerlink" href="#notes-for-advanced-legacy-users" title="Permalink to this headline">¶</a></h2>
@@ -289,19 +346,20 @@ full path, something like this:</p>
 </pre></div>
 </div>
 <p>To use this version of Java instead of the system Java or installing
-it, simply add the directory to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable:</p>
+it, simply update your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> environment variables:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/opt/Vivado/2022.2/tps/lnx64/jre11.0.11_9/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/opt/Vivado/2022.2/tps/lnx64/jre11.0.11_9
 </pre></div>
 </div>
-<p>Or, if using Windows, use the Control panel for environment variables
-and add a new entry for <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<p>Or, if using Windows, search for “edit environment variables”
+and add a new entry for <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> appropriately.</p>
 </div>
 <div class="section" id="classpath">
 <h3>CLASSPATH<a class="headerlink" href="#classpath" title="Permalink to this headline">¶</a></h3>
-<p>Java has the notion of a CLASSPATH, this is a list of locations where
+<p>Java has the notion of a <code class="docutils literal notranslate"><span class="pre">CLASSPATH</span></code>, this is a list of locations where
 <code class="docutils literal notranslate"><span class="pre">java</span></code> can look for compiled Java code (<code class="docutils literal notranslate"><span class="pre">.class</span></code> files or <code class="docutils literal notranslate"><span class="pre">.jar</span></code>
-files) to execute at runtime.  The CLASSPATH can be set on the command
-line (as in the example test command above) or it can be set via the
+files) to execute at runtime.  The <code class="docutils literal notranslate"><span class="pre">CLASSPATH</span></code> can be set on the command
+line (<code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-cp</span> <span class="pre">&lt;CLASSPATH_HERE&gt;</span></code>) or it can be set via the
 environment variable <code class="docutils literal notranslate"><span class="pre">CLASSPATH</span></code>.  If a script to set the <code class="docutils literal notranslate"><span class="pre">CLASSPATH</span></code>
 variable (in Linux) is desired, the following command can be run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export CLASSPATH=`pwd`/bin:`pwd`/jars/*&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>bin/rapidwright_classpath.sh
@@ -330,7 +388,7 @@ placed in <code class="docutils literal notranslate"><span class="pre">$RAPIDWRI
 installation.  Please use the steps above, it is included below for
 legacy purposes.</p>
 <ol class="arabic simple">
-<li><p>Download <a class="reference download internal" download="" href="_downloads/b84c6ea6179f1d30b36009edc05c005c/rapidwright-installer.jar"><code class="xref download docutils literal notranslate"><span class="pre">rapidwright-installer.jar</span></code></a> (or run command below in Linux) to the directory where you would like RapidWright to reside.</p></li>
+<li><p>Download <a class="reference download internal" download="" href="_downloads/80330ecb11731b21d246add971a17ebd/rapidwright-installer.jar"><code class="xref download docutils literal notranslate"><span class="pre">rapidwright-installer.jar</span></code></a> (or run command below in Linux) to the directory where you would like RapidWright to reside.</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/rapidwright-installer.jar
 </pre></div>
@@ -397,7 +455,7 @@ legacy purposes.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2022.2.3-beta',
+            VERSION:'2023.1.0-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
