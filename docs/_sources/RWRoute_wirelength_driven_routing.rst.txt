@@ -18,7 +18,7 @@ Steps to Run
 
 .. code-block:: bash
 
-    gradlew run --args="RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp --nonTimingDriven"
+    rapidwright RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp --nonTimingDriven
 
 Please refer to the documentation `Javadoc <http://www.rapidwright.io/javadoc/index.html>`_ and code for more implementation details.  The Java source code for RWRoute is located in: `RapidWright/src/com/xilinx/rapidwright/rwroute/ <https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/rwroute>`_.
 

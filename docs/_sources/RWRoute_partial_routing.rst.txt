@@ -19,7 +19,7 @@ Steps to Run
 
 .. code-block:: bash
 
-    gradlew run --args="PartialRouter picoblaze_partial.dcp picoblaze_partial_routed.dcp --nonTimingDriven"
+    rapidwright PartialRouter picoblaze_partial.dcp picoblaze_partial_routed.dcp --nonTimingDriven
 
 
 Please refer to the documentation `Javadoc <http://www.rapidwright.io/javadoc/index.html>`_ and code for more implementation details.  The Java source code for RWRoute is located in: `src/com/xilinx/rapidwright/rwroute/ <https://github.com/Xilinx/RapidWright/tree/master/src/com/xilinx/rapidwright/rwroute>`_.

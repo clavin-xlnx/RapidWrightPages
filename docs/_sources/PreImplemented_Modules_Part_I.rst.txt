@@ -95,6 +95,9 @@ By running ``place_design`` we can gauge the feasibility of using this footprint
 	processor/reset_lut/LUT6 with block Id: 119 (LUT) at SLICE_X85Y150
 	processor/stack_loop[0].lsb_stack.stack_muxcy_CARRY4_CARRY8 with block Id: 134 (CARRY) at SLICE_X85Y150
 
+.. warning::
+	It has been found that Vivado 2022.2 may cause a segmentation fault when attempting to place this pblock and users of that version are advised to skip this step
+
 It turns out the logic is packed too tightly into the area.  Another way to gauge logic density would be to check the pblock statistics by selecting the pblock in Vivado by running the Tcl command:
 
 .. code-block:: tcl
@@ -107,11 +110,18 @@ Then choosing the ``Statistics`` tab of ``Pblock Properties``, which would have 
 	:width: 550px
 	:align: center
 
-A quick analysis shows that we are attempting to use ~96% of the LUTs in that area which is unlikely to place correctly.  Again, since BRAM tiles are stacked vertically, we must grow horizontally to ensure that we can step and repeat without blocking access to other BRAMs with used SLICEs.  Using the mouse, you can stretch/grow the pblock by grabbing the edge of the pblock shape and pushing it out.  Alternatively, you could run the following Tcl command:
+A quick analysis shows that we are attempting to use ~96% of the LUTs in that area which is unlikely to place correctly.  Again, since BRAM tiles are stacked vertically, we must grow horizontally to ensure that we can step and repeat without blocking access to other BRAMs with used SLICEs. Close and re-open the checkpoint then stretch/grow the pblock with the following Tcl commands:
 
 .. code-block:: tcl
 	
-	resize_pblock pblock_1 -add {SLICE_X26Y60:SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12} -remove {SLICE_X27Y60:SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12} -locs keep_all
+	close_design
+	open_checkpoint picoblaze_synth.dcp
+	create_pblock pblock_1
+	resize_pblock pblock_1 -add {SLICE_X26Y60:SLICE_X29Y64 RAMB18_X2Y24:RAMB18_X2Y25 RAMB36_X2Y12:RAMB36_X2Y12}
+	add_cells_to_pblock pblock_1 -top
+	set_property CONTAIN_ROUTING 1 [get_pblocks pblock_1]
+	create_clock -period 2.5 -name clk -waveform {0.000 1.25} [get_ports clk]
+	set_property HD.CLK_SRC BUFGCTRL_X0Y2 [get_ports clk]
 
 To validate our new footprint, we can run the Tcl command:
 

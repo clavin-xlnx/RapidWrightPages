@@ -289,6 +289,10 @@
 <span class="n">processor</span><span class="o">/</span><span class="n">stack_loop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lsb_stack</span><span class="o">.</span><span class="n">stack_muxcy_CARRY4_CARRY8</span> <span class="k">with</span> <span class="n">block</span> <span class="n">Id</span><span class="p">:</span> <span class="mi">134</span> <span class="p">(</span><span class="n">CARRY</span><span class="p">)</span> <span class="n">at</span> <span class="n">SLICE_X85Y150</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It has been found that Vivado 2022.2 may cause a segmentation fault when attempting to place this pblock and users of that version are advised to skip this step</p>
+</div>
 <p>It turns out the logic is packed too tightly into the area.  Another way to gauge logic density would be to check the pblock statistics by selecting the pblock in Vivado by running the Tcl command:</p>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">select_objects</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pblocks</span><span class="w"> </span>pblock_1<span class="k">]</span>
 </pre></div>
@@ -297,8 +301,15 @@
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/pico_pblock_stats.png"><img alt="_images/pico_pblock_stats.png" class="align-center" src="_images/pico_pblock_stats.png" style="width: 550px;" /></a>
 </div></blockquote>
-<p>A quick analysis shows that we are attempting to use ~96% of the LUTs in that area which is unlikely to place correctly.  Again, since BRAM tiles are stacked vertically, we must grow horizontally to ensure that we can step and repeat without blocking access to other BRAMs with used SLICEs.  Using the mouse, you can stretch/grow the pblock by grabbing the edge of the pblock shape and pushing it out.  Alternatively, you could run the following Tcl command:</p>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">resize_pblock</span><span class="w"> </span>pblock_1<span class="w"> </span><span class="o">-</span>add<span class="w"> </span><span class="k">{</span><span class="nv">SLICE_X26Y60</span><span class="o">:</span>SLICE_X29Y64<span class="w"> </span>RAMB18_X2Y24:RAMB18_X2Y25<span class="w"> </span>RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span><span class="w"> </span><span class="o">-</span>remove<span class="w"> </span><span class="k">{</span><span class="nv">SLICE_X27Y60</span><span class="o">:</span>SLICE_X29Y64<span class="w"> </span>RAMB18_X2Y24:RAMB18_X2Y25<span class="w"> </span>RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span><span class="w"> </span><span class="o">-</span>locs<span class="w"> </span>keep_all
+<p>A quick analysis shows that we are attempting to use ~96% of the LUTs in that area which is unlikely to place correctly.  Again, since BRAM tiles are stacked vertically, we must grow horizontally to ensure that we can step and repeat without blocking access to other BRAMs with used SLICEs. Close and re-open the checkpoint then stretch/grow the pblock with the following Tcl commands:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">close_design</span>
+<span class="nv">open_checkpoint</span><span class="w"> </span>picoblaze_synth.dcp
+<span class="nv">create_pblock</span><span class="w"> </span>pblock_1
+<span class="nv">resize_pblock</span><span class="w"> </span>pblock_1<span class="w"> </span><span class="o">-</span>add<span class="w"> </span><span class="k">{</span><span class="nv">SLICE_X26Y60</span><span class="o">:</span>SLICE_X29Y64<span class="w"> </span>RAMB18_X2Y24:RAMB18_X2Y25<span class="w"> </span>RAMB36_X2Y12:RAMB36_X2Y12<span class="k">}</span>
+<span class="nv">add_cells_to_pblock</span><span class="w"> </span>pblock_1<span class="w"> </span><span class="o">-</span>top
+<span class="nv">set_property</span><span class="w"> </span>CONTAIN_ROUTING<span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">[</span><span class="nv">get_pblocks</span><span class="w"> </span>pblock_1<span class="k">]</span>
+<span class="nv">create_clock</span><span class="w"> </span><span class="o">-</span>period<span class="w"> </span><span class="mf">2.5</span><span class="w"> </span><span class="o">-</span>name<span class="w"> </span>clk<span class="w"> </span><span class="o">-</span>waveform<span class="w"> </span><span class="k">{</span><span class="nv">0.000</span><span class="w"> </span><span class="mf">1.25</span><span class="k">}</span><span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span>clk<span class="k">]</span>
+<span class="nv">set_property</span><span class="w"> </span>HD.CLK_SRC<span class="w"> </span>BUFGCTRL_X0Y2<span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span>clk<span class="k">]</span>
 </pre></div>
 </div>
 <p>To validate our new footprint, we can run the Tcl command:</p>

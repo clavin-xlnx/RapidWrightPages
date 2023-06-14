@@ -18,7 +18,7 @@ Steps to Run
 
 .. code-block:: bash
 
-    gradlew run --args="RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp"
+    rapidwright RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80_routed.dcp
 
 The main entry point of RWRoute is ``RWRoute.java`` and is reproduced here for convenience:
 
