@@ -121,7 +121,22 @@ To identify issues with files being left open, there is a JUnit extension that c
 Testcase DCPs
 ^^^^^^^^^^^^^
 
-Tests requiring new DCP(s) will need to also fork the `RapidWrightDCP <https://github.com/eddieh-xlnx/RapidWrightDCP>`_ repository to gain write permissions.
+Tests requiring new DCP(s) will need to fork the `RapidWrightDCP <https://github.com/eddieh-xlnx/RapidWrightDCP>`_ repository to gain write permissions.
+
+The DCP(s) to be added should have no encrypted components inside and
+the EDIF inside the DCP should be readable (not encrypted).  A
+readable EDIF file can be generated using Vivado either `automatically <http://www.rapidwright.io/javadoc/com/xilinx/rapidwright/design/Design.html#RW_AUTO_GENERATE_READABLE_EDIF>`_
+upon load in RapidWright or via ``write_edif`` (see :ref:`RapidWright
+and Design Checkpoint Files`).  Use the ``ReplaceEDIFInDCP`` tool to
+replace the EDIF inside a DCP, for example:
+
+.. code-block:: bash
+
+  rapidwright ReplaceEDIFInDCP design.dcp readable_design.edf	
+		
+will replace the EDIF file inside ``design.dcp`` with ``readable_edif.edf``.
+
+  
 Next, execute the following::
 
   # Add, commit, push new DCP(s) into new branch on fork
