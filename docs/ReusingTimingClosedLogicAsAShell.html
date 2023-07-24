@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reuse Timing-closed Logic As A Shell &mdash; RapidWright 2023.1.2-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Create Placed and Routed DCP to Cross SLR" href="SLR_Crosser_DCP_Creator_Tutorial.html" />
+    <link rel="prev" title="RapidWright Report Timing Example" href="ReportTimingExample.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2023.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Merge_Designs.html">Merging Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_timing_driven_routing.html">RWRoute Timing-driven Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_wirelength_driven_routing.html">RWRoute Wirelength-driven Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_partial_routing.html">RWRoute Partial Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Reuse Timing-closed Logic As A Shell</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach">Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-candidate-implementation">2. Creating a Candidate Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-shell">3. Creating a Shell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#populating-a-black-box">4. Populating a Black Box</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>Reuse Timing-closed Logic As A Shell</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ReusingTimingClosedLogicAsAShell.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="reuse-timing-closed-logic-as-a-shell">
+<h1>Reuse Timing-closed Logic As A Shell<a class="headerlink" href="#reuse-timing-closed-logic-as-a-shell" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Often in FPGA development, a desirable timing-closed implementation is
+only achieved after several iterations or many parallel implementation
+runs of a design.  Elusive timing closure can be caused by one or a
+few stubborn modules in a design that have tight constraints or a
+large number of moderately difficult paths that have a lower
+probability of timing closure on any given run.</p>
+<p>One advantageous strategy to improve timing closure success can be to
+preserve and enable reuse of a known good implementation of the
+stubborn logic. By preserving the implementation, place and route
+tools can (hopefully) avoid rediscovering difficult timing closure and
+simply focus on the other logic.</p>
+<p>Some traditional approaches in Vivado to employ this preservation
+strategy might be to use or <a class="reference external" href="https://docs.xilinx.com/r/en-US/ug949-vivado-design-methodology/Using-Incremental-Implementation-Flows">Incremental Implementation Flows</a>
+<a class="reference external" href="https://docs.xilinx.com/r/en-US/ug909-vivado-partial-reconfiguration/Introduction-to-Dynamic-Function-eXchange">Dynamic Function eXchange</a> (DFX, previously known as partial
+reconfiguration or PR). Incremental Implementation Flows can work if
+the design has mostly converged and the amount of future changes to
+the design is small.  However, if significant development still
+remains, this strategy is unlikely to save compile time.</p>
+<p>Using DFX, one can lock down a portion of the design to form
+a reusable shell along with one or more reconfigurable
+partitions that contains logic under development.
+However, using DFX for this reuse methodology comes with some
+additional restrictions such as requiring area constraints and
+partition pin placements between the static and dynamic partitions of
+the design.  It is more difficult to achieve an overlap of the
+preserved logic and the new logic and the nature of DFX requires
+additional DRCs that would not normally be run without using DFX.</p>
+<p>This tutorial offers an alternative to the DFX flow with fewer
+restrictions and the ability to reused timing-closed logic without the
+need of area constraints by using the capabilities inherent in RapidWright.</p>
+</div>
+<div class="section" id="approach">
+<h2>Approach<a class="headerlink" href="#approach" title="Permalink to this headline">¶</a></h2>
+<p>To enable reuse of a timing-closed design as a shell in RapidWright,
+the original design will need some minor modifications.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/Shell-Picture1.png"><img alt="_images/Shell-Picture1.png" class="align-center" src="_images/Shell-Picture1.png" style="width: 550px;" /></a>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p>The design should be logically partitioned into two parts: static
+and dynamic (as shown in the diagram above).  The static part of
+the design is everything that should be preserved and be part of
+the “shell”.  For example, many designs include components for
+handling network, DDR memory or a PCIe interface.  These kinds of
+modules typically will have more demanding timing constraints and
+benefit from reusing their timing closure. The dynamic component is
+the portion of the design that the designer wants to change over
+time.  The main requirement is that the dynamic component must be
+composed of one or more logical modules.  If there is logic that
+needs to be modified at the top level of the design, it should be
+migrated into an existing module or a new module should be created
+and the logic added to it.</p></li>
+<li><p>The interface of the dynamic modules must be consistent with all
+future logic modules that will populate it. In theory, this is
+straight-forward.  However, during synthesis, design optimization,
+placement and routing, optimizations can modify the original
+interface of a module so that it no longer is consistent with the
+original definition and subsequent runs can cause divergence.  To
+avoid this, dynamic modules should have the <a class="reference external" href="https://docs.xilinx.com/r/en-US/ug901-vivado-synthesis/DONT_TOUCH-Verilog-Examples">DONT_TOUCH</a>
+synthesis attribute applied to the module instance. The alternative
+<code class="docutils literal notranslate"><span class="pre">KEEP_HIERARCHY</span></code> is not sufficient as <code class="docutils literal notranslate"><span class="pre">DONT_TOUCH</span></code> will stay
+persistent on the netlist through routing whereas
+<code class="docutils literal notranslate"><span class="pre">KEEP_HIERARCHY</span></code> will only persist through synthesis.</p></li>
+</ol>
+<p>Note that applying <code class="docutils literal notranslate"><span class="pre">DONT_TOUCH</span></code> to a module instance means that
+Vivado cannot add or remove pins of the instance, but can connect or
+disconnect pins and optimize logic inside the hierarchical module.
+Once the design is properly partitioned and synthesis attributes
+applied to dynamic modules, the design should be implemented using the
+typical implementation flow in Vivado.  Once a fully placed and routed
+implementation that meets all requirements has been achieved, this
+design can be preserved as a design checkpoint (DCP) and used to seed
+the shell creation process.</p>
+<p>This candidate shell design can then be loaded into RapidWright and all
+dynamic modules turned into black boxes.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prerequisites">
+<h3>1. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>To run this tutorial, you will need:</p>
+<ol class="arabic simple">
+<li><p>RapidWright 2023.1.2 or later</p></li>
+<li><p>Vivado 2023.1 or later</p></li>
+</ol>
+</div>
+<div class="section" id="creating-a-candidate-implementation">
+<h3>2. Creating a Candidate Implementation<a class="headerlink" href="#creating-a-candidate-implementation" title="Permalink to this headline">¶</a></h3>
+<p>For the ease of demonstration purposes in this tutorial, we have
+chosen a simple RISCV design targeting a KCU105 board (Kintex
+UltraScale <code class="docutils literal notranslate"><span class="pre">xcku040-ffva1156-2-e</span></code>).  The design was created using
+the <a class="reference external" href="https://github.com/litex-hub/linux-on-litex-vexriscv">Linux on LiteX-VexRiscv</a> project, but
+we will recreate the design using a minimal set of steps and
+dependencies.  To get started, follow the commands below (alternate
+project files download link here: <a class="reference download internal" download="" href="_downloads/63009257c609c9cfb59807633ae9dbce/kcu105_example.zip"><code class="xref download docutils literal notranslate"><span class="pre">kcu105_example.zip</span></code></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/kcu105_example.zip
+unzip<span class="w"> </span>kcu105_example.zip
+<span class="nb">cd</span><span class="w"> </span>kcu105
+vivado<span class="w"> </span>-source<span class="w"> </span>kcu105.tcl
+</pre></div>
+</div>
+<p>The included script will create a Vivado project, load the generated
+Verilog and synthesize, optimize and place and route the design.  The
+Verilog module for one of the RISCV CPUs has already been annotated
+for you with <code class="docutils literal notranslate"><span class="pre">DONT_TOUCH</span></code> and will serve as our dynamic module for
+this tutorial.  The script will take several minutes to complete but
+will generate a placed and routed DCP and EDIF file ready for
+RapidWright.</p>
+<p>A sample result is shown in the image below with the leaf cells of CPU
+core (<code class="docutils literal notranslate"><span class="pre">cores_1_cpu_logic_cpu</span></code>) highlighted in yellow.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/Shell-Picture2.png"><img alt="_images/Shell-Picture2.png" class="align-center" src="_images/Shell-Picture2.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>Out of convenience for this tutorial, we will generate the logic that
+will populate the dynamic module directly from this project.  We
+simply need to change the top of the design to the <code class="docutils literal notranslate"><span class="pre">VexRiscv_1</span></code> core
+and then resynthesize using the <code class="docutils literal notranslate"><span class="pre">-mode</span> <span class="pre">out_of_context</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">set_property</span> <span class="n">top</span> <span class="n">VexRiscv_1</span> <span class="p">[</span><span class="n">current_fileset</span><span class="p">]</span>
+<span class="n">reset_run</span> <span class="n">synth_1</span>
+<span class="n">synth_design</span> <span class="o">-</span><span class="n">mode</span> <span class="n">out_of_context</span>
+<span class="n">write_checkpoint</span> <span class="n">riscv_1_synth</span><span class="o">.</span><span class="n">dcp</span>
+</pre></div>
+</div>
+<p>At this point we should have two DCPs, one placed and routed candidate
+DCP to be made into a shell and one synthesized RISCV core that will
+populate the dynamic region in our shell.</p>
+</div>
+<div class="section" id="creating-a-shell">
+<h3>3. Creating a Shell<a class="headerlink" href="#creating-a-shell" title="Permalink to this headline">¶</a></h3>
+<p>To create a shell implementation, we need to take our top-level RISCV
+design that has the static portion meeting all necessary constraints
+and remove all logic from the dynamic components.</p>
+<p>To remove the logic in the dynamic module, we need to use RapidWright
+in order to carefully separate the static logic from the dynamic logic
+as no area constraints (i.e. pblocks) were used to separate the two.  Vivado can
+create a black box but can only do so correctly when the module made
+into a black box was sufficiently constrained such that all of its
+logic does not share any sites with any static logic. RapidWright has
+a built-in command that can accept a DCP and one or more cell instance
+names and produce a shell-based design with the cell instances turned
+into black boxes.  For our example, we can run RapidWright from the
+command line (outside of Vivado):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>MakeBlackBox<span class="w"> </span>kcu105_route.dcp<span class="w"> </span>kcu105_route_shell.dcp<span class="w"> </span>VexRiscvLitexSmpCluster_Cc4_Iw64Is8192Iy2_Dw64Ds8192Dy2_ITs4DTs4_Ldw512_Cdma_Ood/cores_1_cpu_logic_cpu
+</pre></div>
+</div>
+<p>This will create a new “shell” DCP (<code class="docutils literal notranslate"><span class="pre">kcu105_route_shell.dcp</span></code>) where the
+dynamic module has been turned into a black box.  This DCP can then be
+used again and again as a base starting point as it contains an
+implemented solution for all of the static logic and we will use
+Vivado (and RapidWright in the future) to place and route additional
+dynamic modules on top of it.</p>
+</div>
+<div class="section" id="populating-a-black-box">
+<h3>4. Populating a Black Box<a class="headerlink" href="#populating-a-black-box" title="Permalink to this headline">¶</a></h3>
+<p>Returning to our running Vivado instance, we can close our previous
+project and load the shell DCP using <code class="docutils literal notranslate"><span class="pre">open_checkpoint</span></code> at the Tcl
+command prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">close_project</span>
+<span class="n">open_checkpoint</span> <span class="n">kcu105_route_shell</span><span class="o">.</span><span class="n">dcp</span>
+</pre></div>
+</div>
+<p>If RapidWright was able to correctly create the black box, you should
+see exactly one critical warning from Vivado reported as shown in the
+dialog below:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/Shell-Picture3.png"><img alt="_images/Shell-Picture3.png" class="align-center" src="_images/Shell-Picture3.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>The implemented design will look similar to the original design,
+except that the cells previously highlighted in yellow above will be missing:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/Shell-Picture4.png"><img alt="_images/Shell-Picture4.png" class="align-center" src="_images/Shell-Picture4.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>You may also notice that several BEL sites have been marked with a
+<code class="docutils literal notranslate"><span class="pre">PROHIBIT</span></code> property that prevents any cells from being placed in
+those locations.  Through experimentation, it has been found that
+cells placed in the same half SLICE as those in the existing static
+logic portion of the design can lead to congestion.  Therefore,
+RapidWright adds the <code class="docutils literal notranslate"><span class="pre">PROHIBIT</span></code> property to the remaining BEL sites
+in any occupied half SLICEs to avoid this issue.  These prohibited
+locations can be seen in the image below (the red circles with a
+slash):</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/Shell-Picture4a.png"><img alt="_images/Shell-Picture4a.png" class="align-center" src="_images/Shell-Picture4a.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>We can also verify that the design is consistent by checking the
+routing status:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">report_route_status</span>
+</pre></div>
+</div>
+<p>Which should return a result something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">Route</span> <span class="n">Status</span>
+                                             <span class="p">:</span>      <span class="c1"># nets :</span>
+ <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+ <span class="c1"># of logical nets.......................... :       65546 :</span>
+     <span class="c1"># of nets not needing routing.......... :       23431 :</span>
+         <span class="c1"># of internally routed nets........ :       20613 :</span>
+         <span class="c1"># of nets with no loads............ :        2818 :</span>
+     <span class="c1"># of routable nets..................... :       42115 :</span>
+         <span class="c1"># of unrouted nets................. :          38 :</span>
+         <span class="c1"># of fully routed nets............. :       42077 :</span>
+     <span class="c1"># of nets with routing errors.......... :           0 :</span>
+ <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+</pre></div>
+</div>
+<p>The key element to look for is that there are no nets with routing
+errors.  Since we see that value is <code class="docutils literal notranslate"><span class="pre">0</span></code> we can proceed.</p>
+<p>At this point, we want to lock down the implementation so that further
+place and route runs do not upset the timing closure of the design.
+We can do this by running the Vivado Tcl command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lock_design</span> <span class="o">-</span><span class="n">level</span> <span class="n">routing</span>
+</pre></div>
+</div>
+<p>This tags the netlist, placement and routing such that
+<code class="docutils literal notranslate"><span class="pre">place_design</span></code> and <code class="docutils literal notranslate"><span class="pre">route_design</span></code> do not modify the netlist of the
+existing implementation–thus preserving the original timing closure.</p>
+<p>To populate the black box with the synthesized, out-of-context version
+of the RISCV core, we can load it directly in Vivado with
+<code class="docutils literal notranslate"><span class="pre">read_checkpoint</span> <span class="pre">-cell</span></code> (this is different from
+<code class="docutils literal notranslate"><span class="pre">open_checkpoint</span></code>).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">read_checkpoint</span> <span class="o">-</span><span class="n">cell</span> <span class="n">VexRiscvLitexSmpCluster_Cc4_Iw64Is8192Iy2_Dw64Ds8192Dy2_ITs4DTs4_Ldw512_Cdma_Ood</span><span class="o">/</span><span class="n">cores_1_cpu_logic_cpu</span> <span class="n">riscv_1_synth</span><span class="o">.</span><span class="n">dcp</span>
+</pre></div>
+</div>
+<p>Once the dynamic module has been loaded with the synthesized RISCV
+core, we can implement the design and check the results</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">place_design</span>
+<span class="n">route_design</span>
+<span class="n">report_route_status</span>
+<span class="n">report_timing</span>
+</pre></div>
+</div>
+<p>Results should looks similar to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">Route</span> <span class="n">Status</span>
+                                               <span class="p">:</span>      <span class="c1"># nets :</span>
+   <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+   <span class="c1"># of logical nets.......................... :       75917 :</span>
+       <span class="c1"># of nets not needing routing.......... :       28293 :</span>
+           <span class="c1"># of internally routed nets........ :       24553 :</span>
+           <span class="c1"># of nets with no loads............ :        3740 :</span>
+       <span class="c1"># of routable nets..................... :       47624 :</span>
+           <span class="c1"># of nets with fixed routing....... :       41853 :</span>
+           <span class="c1"># of fully routed nets............. :       47624 :</span>
+       <span class="c1"># of nets with routing errors.......... :           0 :</span>
+   <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+</pre></div>
+</div>
+<p>and should meet timing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Timing</span> <span class="n">Report</span>
+
+<span class="n">Slack</span> <span class="p">(</span><span class="n">MET</span><span class="p">)</span> <span class="p">:</span>             <span class="mf">0.253</span><span class="n">ns</span>  <span class="p">(</span><span class="n">required</span> <span class="n">time</span> <span class="o">-</span> <span class="n">arrival</span> <span class="n">time</span><span class="p">)</span>
+  <span class="n">Source</span><span class="p">:</span>                 <span class="n">main_crg_idelayctrl_ic_reset_reg</span><span class="o">/</span><span class="n">C</span>
+                            <span class="p">(</span><span class="n">rising</span> <span class="n">edge</span><span class="o">-</span><span class="n">triggered</span> <span class="n">cell</span> <span class="n">FDRE</span> <span class="n">clocked</span> <span class="n">by</span> <span class="n">main_crg_clkout1</span>  <span class="p">{</span><span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span> <span class="n">fall</span><span class="o">@</span><span class="mf">2.500</span><span class="n">ns</span> <span class="n">period</span><span class="o">=</span><span class="mf">5.000</span><span class="n">ns</span><span class="p">})</span>
+  <span class="n">Destination</span><span class="p">:</span>            <span class="n">IDELAYCTRL_REPLICATED_0_2</span><span class="o">/</span><span class="n">RST</span>
+                            <span class="p">(</span><span class="n">recovery</span> <span class="n">check</span> <span class="n">against</span> <span class="n">rising</span><span class="o">-</span><span class="n">edge</span> <span class="n">clock</span> <span class="n">main_crg_clkout1</span>  <span class="p">{</span><span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span> <span class="n">fall</span><span class="o">@</span><span class="mf">2.500</span><span class="n">ns</span> <span class="n">period</span><span class="o">=</span><span class="mf">5.000</span><span class="n">ns</span><span class="p">})</span>
+  <span class="n">Path</span> <span class="n">Group</span><span class="p">:</span>             <span class="o">**</span><span class="n">async_default</span><span class="o">**</span>
+  <span class="n">Path</span> <span class="n">Type</span><span class="p">:</span>              <span class="n">Recovery</span> <span class="p">(</span><span class="n">Max</span> <span class="n">at</span> <span class="n">Slow</span> <span class="n">Process</span> <span class="n">Corner</span><span class="p">)</span>
+  <span class="n">Requirement</span><span class="p">:</span>            <span class="mf">5.000</span><span class="n">ns</span>  <span class="p">(</span><span class="n">main_crg_clkout1</span> <span class="n">rise</span><span class="o">@</span><span class="mf">5.000</span><span class="n">ns</span> <span class="o">-</span> <span class="n">main_crg_clkout1</span> <span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span><span class="p">)</span>
+  <span class="n">Data</span> <span class="n">Path</span> <span class="n">Delay</span><span class="p">:</span>        <span class="mf">3.838</span><span class="n">ns</span>  <span class="p">(</span><span class="n">logic</span> <span class="mf">0.117</span><span class="n">ns</span> <span class="p">(</span><span class="mf">3.048</span><span class="o">%</span><span class="p">)</span>  <span class="n">route</span> <span class="mf">3.721</span><span class="n">ns</span> <span class="p">(</span><span class="mf">96.952</span><span class="o">%</span><span class="p">))</span>
+  <span class="n">Logic</span> <span class="n">Levels</span><span class="p">:</span>           <span class="mi">0</span>
+  <span class="n">Clock</span> <span class="n">Path</span> <span class="n">Skew</span><span class="p">:</span>        <span class="o">-</span><span class="mf">0.211</span><span class="n">ns</span> <span class="p">(</span><span class="n">DCD</span> <span class="o">-</span> <span class="n">SCD</span> <span class="o">+</span> <span class="n">CPR</span><span class="p">)</span>
+    <span class="n">Destination</span> <span class="n">Clock</span> <span class="n">Delay</span> <span class="p">(</span><span class="n">DCD</span><span class="p">):</span>    <span class="mf">5.765</span><span class="n">ns</span> <span class="o">=</span> <span class="p">(</span> <span class="mf">10.765</span> <span class="o">-</span> <span class="mf">5.000</span> <span class="p">)</span>
+    <span class="n">Source</span> <span class="n">Clock</span> <span class="n">Delay</span>      <span class="p">(</span><span class="n">SCD</span><span class="p">):</span>    <span class="mf">6.087</span><span class="n">ns</span>
+    <span class="n">Clock</span> <span class="n">Pessimism</span> <span class="n">Removal</span> <span class="p">(</span><span class="n">CPR</span><span class="p">):</span>    <span class="mf">0.112</span><span class="n">ns</span>
+  <span class="n">Clock</span> <span class="n">Uncertainty</span><span class="p">:</span>      <span class="mf">0.065</span><span class="n">ns</span>  <span class="p">((</span><span class="n">TSJ</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">DJ</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">PE</span>
+    <span class="n">Total</span> <span class="n">System</span> <span class="n">Jitter</span>     <span class="p">(</span><span class="n">TSJ</span><span class="p">):</span>    <span class="mf">0.071</span><span class="n">ns</span>
+    <span class="n">Discrete</span> <span class="n">Jitter</span>          <span class="p">(</span><span class="n">DJ</span><span class="p">):</span>    <span class="mf">0.108</span><span class="n">ns</span>
+    <span class="n">Phase</span> <span class="n">Error</span>              <span class="p">(</span><span class="n">PE</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+  <span class="n">Clock</span> <span class="n">Net</span> <span class="n">Delay</span> <span class="p">(</span><span class="n">Source</span><span class="p">):</span>      <span class="mf">2.666</span><span class="n">ns</span> <span class="p">(</span><span class="n">routing</span> <span class="mf">1.174</span><span class="n">ns</span><span class="p">,</span> <span class="n">distribution</span> <span class="mf">1.492</span><span class="n">ns</span><span class="p">)</span>
+  <span class="n">Clock</span> <span class="n">Net</span> <span class="n">Delay</span> <span class="p">(</span><span class="n">Destination</span><span class="p">):</span> <span class="mf">2.359</span><span class="n">ns</span> <span class="p">(</span><span class="n">routing</span> <span class="mf">1.078</span><span class="n">ns</span><span class="p">,</span> <span class="n">distribution</span> <span class="mf">1.281</span><span class="n">ns</span><span class="p">)</span>
+
+    <span class="n">Location</span>             <span class="n">Delay</span> <span class="nb">type</span>                <span class="n">Incr</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>  <span class="n">Path</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>    <span class="n">Netlist</span> <span class="n">Resource</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+                         <span class="p">(</span><span class="n">clock</span> <span class="n">main_crg_clkout1</span> <span class="n">rise</span> <span class="n">edge</span><span class="p">)</span>
+                                                      <span class="mf">0.000</span>     <span class="mf">0.000</span> <span class="n">r</span>
+    <span class="n">G10</span>                                               <span class="mf">0.000</span>     <span class="mf">0.000</span> <span class="n">r</span>  <span class="n">clk125_p</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                   <span class="mf">0.001</span>     <span class="mf">0.001</span>    <span class="n">IBUFDS</span><span class="o">/</span><span class="n">I</span>
+    <span class="n">HPIOBDIFFINBUF_X1Y59</span> <span class="n">DIFFINBUF</span> <span class="p">(</span><span class="n">Prop_DIFFINBUF_HPIOBDIFFINBUF_DIFF_IN_P_O</span><span class="p">)</span>
+                                                      <span class="mf">0.521</span>     <span class="mf">0.522</span> <span class="n">r</span>  <span class="n">IBUFDS</span><span class="o">/</span><span class="n">DIFFINBUF_INST</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.090</span>     <span class="mf">0.612</span>    <span class="n">IBUFDS</span><span class="o">/</span><span class="n">OUT</span>
+    <span class="n">G10</span>                  <span class="n">IBUFCTRL</span> <span class="p">(</span><span class="n">Prop_IBUFCTRL_HPIOB_I_O</span><span class="p">)</span>
+                                                      <span class="mf">0.000</span>     <span class="mf">0.612</span> <span class="n">r</span>  <span class="n">IBUFDS</span><span class="o">/</span><span class="n">IBUFCTRL_INST</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.750</span>     <span class="mf">1.362</span>    <span class="n">IBUFDS_n_0_BUFG_inst_n_0</span>
+    <span class="n">BUFGCE_X1Y52</span>         <span class="n">BUFGCE</span> <span class="p">(</span><span class="n">Prop_BUFCE_BUFGCE_I_O</span><span class="p">)</span>
+                                                      <span class="mf">0.083</span>     <span class="mf">1.445</span> <span class="n">r</span>  <span class="n">IBUFDS_n_0_BUFG_inst</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">1.687</span>     <span class="mf">3.132</span>    <span class="n">main_crg_clkin</span>
+    <span class="n">MMCME3_ADV_X1Y2</span>      <span class="n">MMCME3_ADV</span> <span class="p">(</span><span class="n">Prop_MMCME3_ADV_CLKIN1_CLKOUT1</span><span class="p">)</span>
+                                                     <span class="o">-</span><span class="mf">0.231</span>     <span class="mf">2.901</span> <span class="n">r</span>  <span class="n">MMCME2_ADV</span><span class="o">/</span><span class="n">CLKOUT1</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.437</span>     <span class="mf">3.338</span>    <span class="n">main_crg_clkout1</span>
+    <span class="n">BUFGCE_X1Y69</span>         <span class="n">BUFGCE</span> <span class="p">(</span><span class="n">Prop_BUFCE_BUFGCE_I_O</span><span class="p">)</span>
+                                                      <span class="mf">0.083</span>     <span class="mf">3.421</span> <span class="n">r</span>  <span class="n">BUFG</span><span class="o">/</span><span class="n">O</span>
+    <span class="n">X0Y1</span> <span class="p">(</span><span class="n">CLOCK_ROOT</span><span class="p">)</span>    <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>          <span class="mf">2.666</span>     <span class="mf">6.087</span>    <span class="n">idelay_clk</span>
+    <span class="n">SLICE_X0Y139</span>         <span class="n">FDRE</span>                                         <span class="n">r</span>  <span class="n">main_crg_idelayctrl_ic_reset_reg</span><span class="o">/</span><span class="n">C</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+    <span class="n">SLICE_X0Y139</span>         <span class="n">FDRE</span> <span class="p">(</span><span class="n">Prop_HFF2_SLICEL_C_Q</span><span class="p">)</span>
+                                                      <span class="mf">0.117</span>     <span class="mf">6.204</span> <span class="n">f</span>  <span class="n">main_crg_idelayctrl_ic_reset_reg</span><span class="o">/</span><span class="n">Q</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>          <span class="mf">3.721</span>     <span class="mf">9.925</span>    <span class="n">main_crg_idelayctrl_ic_reset</span>
+    <span class="n">BITSLICE_CONTROL_X0Y3</span>
+                         <span class="n">IDELAYCTRL</span>                                   <span class="n">f</span>  <span class="n">IDELAYCTRL_REPLICATED_0_2</span><span class="o">/</span><span class="n">RST</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+
+                         <span class="p">(</span><span class="n">clock</span> <span class="n">main_crg_clkout1</span> <span class="n">rise</span> <span class="n">edge</span><span class="p">)</span>
+                                                      <span class="mf">5.000</span>     <span class="mf">5.000</span> <span class="n">r</span>
+    <span class="n">G10</span>                                               <span class="mf">0.000</span>     <span class="mf">5.000</span> <span class="n">r</span>  <span class="n">clk125_p</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                   <span class="mf">0.001</span>     <span class="mf">5.001</span>    <span class="n">IBUFDS</span><span class="o">/</span><span class="n">I</span>
+    <span class="n">HPIOBDIFFINBUF_X1Y59</span> <span class="n">DIFFINBUF</span> <span class="p">(</span><span class="n">Prop_DIFFINBUF_HPIOBDIFFINBUF_DIFF_IN_P_O</span><span class="p">)</span>
+                                                      <span class="mf">0.324</span>     <span class="mf">5.325</span> <span class="n">r</span>  <span class="n">IBUFDS</span><span class="o">/</span><span class="n">DIFFINBUF_INST</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.051</span>     <span class="mf">5.376</span>    <span class="n">IBUFDS</span><span class="o">/</span><span class="n">OUT</span>
+    <span class="n">G10</span>                  <span class="n">IBUFCTRL</span> <span class="p">(</span><span class="n">Prop_IBUFCTRL_HPIOB_I_O</span><span class="p">)</span>
+                                                      <span class="mf">0.000</span>     <span class="mf">5.376</span> <span class="n">r</span>  <span class="n">IBUFDS</span><span class="o">/</span><span class="n">IBUFCTRL_INST</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.649</span>     <span class="mf">6.025</span>    <span class="n">IBUFDS_n_0_BUFG_inst_n_0</span>
+    <span class="n">BUFGCE_X1Y52</span>         <span class="n">BUFGCE</span> <span class="p">(</span><span class="n">Prop_BUFCE_BUFGCE_I_O</span><span class="p">)</span>
+                                                      <span class="mf">0.075</span>     <span class="mf">6.100</span> <span class="n">r</span>  <span class="n">IBUFDS_n_0_BUFG_inst</span><span class="o">/</span><span class="n">O</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">1.524</span>     <span class="mf">7.624</span>    <span class="n">main_crg_clkin</span>
+    <span class="n">MMCME3_ADV_X1Y2</span>      <span class="n">MMCME3_ADV</span> <span class="p">(</span><span class="n">Prop_MMCME3_ADV_CLKIN1_CLKOUT1</span><span class="p">)</span>
+                                                      <span class="mf">0.335</span>     <span class="mf">7.959</span> <span class="n">r</span>  <span class="n">MMCME2_ADV</span><span class="o">/</span><span class="n">CLKOUT1</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.372</span>     <span class="mf">8.331</span>    <span class="n">main_crg_clkout1</span>
+    <span class="n">BUFGCE_X1Y69</span>         <span class="n">BUFGCE</span> <span class="p">(</span><span class="n">Prop_BUFCE_BUFGCE_I_O</span><span class="p">)</span>
+                                                      <span class="mf">0.075</span>     <span class="mf">8.406</span> <span class="n">r</span>  <span class="n">BUFG</span><span class="o">/</span><span class="n">O</span>
+    <span class="n">X0Y1</span> <span class="p">(</span><span class="n">CLOCK_ROOT</span><span class="p">)</span>    <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>          <span class="mf">2.359</span>    <span class="mf">10.765</span>    <span class="n">idelay_clk</span>
+    <span class="n">BITSLICE_CONTROL_X0Y3</span>
+                         <span class="n">IDELAYCTRL</span>                                   <span class="n">r</span>  <span class="n">IDELAYCTRL_REPLICATED_0_2</span><span class="o">/</span><span class="n">REFCLK</span>
+                         <span class="n">clock</span> <span class="n">pessimism</span>              <span class="mf">0.112</span>    <span class="mf">10.876</span>
+                         <span class="n">clock</span> <span class="n">uncertainty</span>           <span class="o">-</span><span class="mf">0.065</span>    <span class="mf">10.812</span>
+    <span class="n">BITSLICE_CONTROL_X0Y3</span>
+                         <span class="n">IDELAYCTRL</span> <span class="p">(</span><span class="n">Recov_CONTROL_BITSLICE_CONTROL_REFCLK_RST</span><span class="p">)</span>
+                                                     <span class="o">-</span><span class="mf">0.633</span>    <span class="mf">10.179</span>    <span class="n">IDELAYCTRL_REPLICATED_0_2</span>
+  <span class="o">-------------------------------------------------------------------</span>
+                         <span class="n">required</span> <span class="n">time</span>                         <span class="mf">10.179</span>
+                         <span class="n">arrival</span> <span class="n">time</span>                          <span class="o">-</span><span class="mf">9.925</span>
+  <span class="o">-------------------------------------------------------------------</span>
+                         <span class="n">slack</span>                                  <span class="mf">0.253</span>
+</pre></div>
+</div>
+<p>The final implementation with the newly populated dynamic module
+highlighted in green is shown below.</p>
+<a class="reference internal image-reference" href="_images/Shell-Picture5.png"><img alt="_images/Shell-Picture5.png" class="align-center" src="_images/Shell-Picture5.png" style="width: 550px;" /></a>
+<p>Complexity can vary widely amongst different designs, so not all
+designs may benefit from this approach.  However, please <a class="reference external" href="https://github.com/Xilinx/RapidWright/discussions">reach out</a> to
+the RapidWright team if you encounter challenges when applying this
+approach for your own projects.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SLR_Crosser_DCP_Creator_Tutorial.html" class="btn btn-neutral float-right" title="Create Placed and Routed DCP to Cross SLR" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ReportTimingExample.html" class="btn btn-neutral" title="RapidWright Report Timing Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2023, Advanced Micro Devices, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2023.1.2-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

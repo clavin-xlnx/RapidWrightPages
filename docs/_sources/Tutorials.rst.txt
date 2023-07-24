@@ -8,6 +8,7 @@ RapidWright Tutorials
    RWRoute_wirelength_driven_routing
    RWRoute_partial_routing
    ReportTimingExample
+   ReusingTimingClosedLogicAsAShell
    SLR_Crosser_DCP_Creator_Tutorial
    IPI_PreImpl_Tutorial
    PipelineGeneratorExample
