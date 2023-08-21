@@ -10,7 +10,7 @@ Please check back here soon for more details.
 
 
 **Title:** RapidWright: Unleashing the Full Power of FPGA Technology with Domain-Specific Tooling
-|br| **Where:** `Artisan Room, Hyatt Regency San Francisco Downtown SOMA, ICCAD 2023`_
+|br| **Where:** Artisan Room, Hyatt Regency San Francisco Downtown SOMA, ICCAD 2023
 |br| **When:**  Wednesday, November 1st, 2023, 11:00am PDT
 |br| **Organizers:** Chris Lavin and Eddie Hung
 
