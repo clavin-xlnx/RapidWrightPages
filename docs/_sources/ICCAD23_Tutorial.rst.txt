@@ -1,0 +1,27 @@
+===========================================
+RapidWright ICCAD 2023 Tutorial
+===========================================
+RapidWright will be at `ICCAD 2023 <https://iccad.com/>`_ in San
+Francisco, CA, USA!  We'll be
+presenting a hands on tutorial on Wednesday, November 1st, 2023 in the
+Artisan meeting room at 11:00am PDT.
+
+Please check back here soon for more details.
+
+
+**Title:** RapidWright: Unleashing the Full Power of FPGA Technology with Domain-Specific Tooling
+|br| **Where:** `Artisan Room, Hyatt Regency San Francisco Downtown SOMA, ICCAD 2023`_
+|br| **When:**  Wednesday, November 1st, 2023, 11:00am PDT
+|br| **Organizers:** Chris Lavin and Eddie Hung
+
+	
+Questions? 
+-------------
+Contact organizers:
+ - Chris Lavin - chris.lavin`at`amd.com
+ - Eddie Hung - eddie.hung`at`amd.com
+
+ 
+.. |br| raw:: html
+
+  <br/>
