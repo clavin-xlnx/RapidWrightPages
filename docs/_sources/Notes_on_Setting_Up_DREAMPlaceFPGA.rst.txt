@@ -1,0 +1,100 @@
+===================================================================
+Notes on Setting Up DREAMPlaceFPGA
+===================================================================
+These notes relate specifically to setting up DREAMPlaceFPGA for use
+with RapidWright on a CentOS 7 Linux OS without ``sudo`` access.
+Ultimately, the pre-requisites and instructions provided on the
+`DREAMPlaceFPGA repository <https://github.com/rachelselinar/DREAMPlaceFPGA#dependencies>`_
+should be referenced as well.
+
+This assumes that RapidWright has been setup as described in our
+:ref:`Install` page.
+
+To provide a clean installation, these notes use a Python Virtual
+Environment to avoid conflicts with existing installed packages.
+
+1. Setup a Python Virtual Environment 
+------------------------------------------
+This step is highly recommended and assumes Python 3 is on your PATH.
+
+.. code-block:: bash
+
+  python3 -mvenv env
+  source env/bin/activate
+
+2. Checkout DREAMPlaceFPGA
+------------------------------------------
+Assumes that ``git`` is on your PATH.
+
+.. code-block:: bash
+
+  git clone --recursive https://github.com/rachelselinar/DREAMPlaceFPGA.git
+  cd DREAMPlaceFPGA/
+
+
+2a. (Optional) Install ``libffi`` and ``Boost`` locally
+---------------------------------------------------------
+Our CentOS 7 environment was missing the library ``libffi`` and
+``Boost``, if your system already has them installed, you can skip
+step ahead to step 3.
+
+.. code-block:: bash
+
+  # Install libffi locally
+  wget ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
+  tar xvf libffi-3.2.1.tar.gz
+  cd libffi-3.2.1
+  ./configure --prefix=`pwd`/python/libffi/
+  make
+  make install
+  export LD_LIBRARY_PATH=`pwd`/python/libffi/lib64:$LD_LIBRARY_PATH
+  export PKG_CONFIG_PATH=`pwd`/python/libffi/lib/pkgconfig:$PKG_CONFIG_PATH
+  cd ..
+   
+  # Install Boost locally
+  wget https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.gz
+  tar zxvf boost_1_81_0.tar.gz 
+  cd boost_1_81_0
+  ./bootstrap.sh --prefix=`pwd`/install
+  ./b2 install
+  export BOOST_ROOT=`pwd`/install
+  cd ..
+  
+  
+3. Install DREAMPlaceFPGA Python dependencies 
+-----------------------------------------------
+We found the ``numba`` package was also necessary for installation at this step.
+
+.. code-block:: bash
+
+  pip install --upgrade pip
+  pip install -r requirements.txt
+  pip install numba
+
+  
+4. Build and Install DREAMPlaceFPGA
+-----------------------------------------------
+We encountered a problem with ``flex 2.6.4`` that would cause a
+compilation problem and we had to revert to ``flex 2.5.37`` to resolve
+it. 
+
+.. code-block:: bash
+
+  mkdir build
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=$(dirname `pwd`)
+  make 
+  make install
+   
+5. Generate FPGA Interchange device file for VU3P
+--------------------------------------------------
+This is a one-time generation to provide DREAMPlaceFPGA a device
+file.  It will take a bit more memory to complete, hence the
+``_JAVA_OPTIONS=-Xmx16g`` option.
+
+.. code-block:: bash
+		
+  cd IFsupport
+  _JAVA_OPTIONS=-Xmx16g rapidwright DeviceResourcesExample xcvu3p-ffvc1517-2-e
+  cd ..
+

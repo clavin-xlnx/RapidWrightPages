@@ -1,0 +1,532 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format &mdash; RapidWright 2023.1.3-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Create Placed and Routed DCP to Cross SLR" href="SLR_Crosser_DCP_Creator_Tutorial.html" />
+    <link rel="prev" title="Reuse Timing-closed Logic As A Shell" href="ReusingTimingClosedLogicAsAShell.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2023.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Merge_Designs.html">Merging Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Interchange_Format.html">FPGA Interchange Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_timing_driven_routing.html">RWRoute Timing-driven Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_wirelength_driven_routing.html">RWRoute Wirelength-driven Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_partial_routing.html">RWRoute Partial Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReusingTimingClosedLogicAsAShell.html">Reuse Timing-closed Logic As A Shell</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach">Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getting-an-example-design-and-converting-it-to-the-fpga-interchange-format">2. Getting an example design and converting it to the FPGA Interchange Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#placing-the-design-with-dreamplacefpga">3. Placing the design with DREAMPlaceFPGA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#converting-the-placed-design-to-a-dcp-and-routing-it-in-vivado">4. Converting the placed design to a DCP and routing it in Vivado</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#routing-the-placed-solution-with-rwroute-in-rapidwright">5. Routing the placed solution with RWRoute in RapidWright</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validate-the-rwroute-routing-solution-in-vivado">6. Validate the RWRoute routing solution in Vivado</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ICCAD23_Tutorial.html">RapidWright ICCAD 2023 Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="use-dreamplacefpga-to-place-a-netlist-via-fpga-interchange-format">
+<h1>Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format<a class="headerlink" href="#use-dreamplacefpga-to-place-a-netlist-via-fpga-interchange-format" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA">DREAMPlaceFPGA</a> is
+an open source GPU-accelerated placer for FPGAs that uses a deep
+learning toolkit.  It is being developed at the University of Texas at
+Austin in Dr. David Pan’s research group.  DREAMPlaceFPGA has
+published work demonstrating some compelling placement runtime
+acceleration compared to other published placers.  DREAMPlaceFPGA has
+also adopted <a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main/IFsupport">support for the FPGA Interchange Format</a>.</p>
+<p>The <a class="reference internal" href="FPGA_Interchange_Format.html#fpga-interchange-format"><span class="std std-ref">FPGA Interchange Format</span></a> (FPGAIF) is a standard exchange format designed to
+provide all the information necessary to perform placement and routing
+in an open source context. See <a class="reference internal" href="FPGA_Interchange_Format.html#fpga-interchange-format"><span class="std std-ref">FPGA Interchange Format</span></a> for
+additional details and resources.</p>
+</div>
+<div class="section" id="approach">
+<h2>Approach<a class="headerlink" href="#approach" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial will demonstrate how to convert an existing design from
+Vivado into the FPGA Interchange Format to be placed in
+DREAMPlaceFPGA.  It will then demonstrate how the resulting placed
+design can be routed either by the router in Vivado or in RapidWright
+via RWRoute as shown in the diagram below.</p>
+<a class="reference internal image-reference" href="_images/interchange_dreamplacefpga.png"><img alt="_images/interchange_dreamplacefpga.png" class="align-center" src="_images/interchange_dreamplacefpga.png" style="width: 550px;" /></a>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prerequisites">
+<h3>1. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>To run this tutorial, you will need:</p>
+<ol class="arabic simple">
+<li><p>RapidWright 2023.1.3 or later</p></li>
+<li><p>Vivado 2023.1 or later</p></li>
+<li><p><a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/commit/95b5e3dcb7964c1501d025f641c65dfc2768e33f">DREAMPlaceFPGA commit 95b5e3d</a></p></li>
+</ol>
+<p>To checkout and build DREAMPlaceFPGA, please see their <a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA#build">build
+instructions</a>. Also see
+the <a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main/IFsupport#i-generate-the-bookshelf-files-from-the-interchange-format-if-netlist">note here</a>
+for how to generate an FPGA Interchange device model file.  Our notes
+on the install process for CentOS 7 can be found here: <a class="reference internal" href="Notes_on_Setting_Up_DREAMPlaceFPGA.html#notes-on-setting-up-dreamplacefpga"><span class="std std-ref">Notes on Setting Up DREAMPlaceFPGA</span></a>.</p>
+</div>
+<div class="section" id="getting-an-example-design-and-converting-it-to-the-fpga-interchange-format">
+<h3>2. Getting an example design and converting it to the FPGA Interchange Format<a class="headerlink" href="#getting-an-example-design-and-converting-it-to-the-fpga-interchange-format" title="Permalink to this headline">¶</a></h3>
+<p>For the ease of demonstration purposes in this tutorial, we have
+chosen a simple design targeting a VU3P (Virtex UltraScale+ <code class="docutils literal notranslate"><span class="pre">xcvu3p-ffvc1517-2-e</span></code>).    To get started, follow the commands below (alternate
+design DCP download link here: <a class="reference download internal" download="" href="_downloads/11db45fb044abe4a2a8bcdcda8521319/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp"><code class="xref download docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp</span></code></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
+rapidwright<span class="w"> </span>DcpToInterchange<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
+</pre></div>
+</div>
+<p>This will convert the design checkpoint file into two files:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist</span></code> – a logical netlist
+file in the FPGA Interchange Format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.phys</span></code> – a physical netlist
+(placement and routing information) file in the FPGA Interchange
+Format</p></li>
+</ol>
+<p>For this tutorial, we are only interested in #1 (the logical netlist)
+as we will be generating a new implementation with the tools mentioned above.</p>
+</div>
+<div class="section" id="placing-the-design-with-dreamplacefpga">
+<h3>3. Placing the design with DREAMPlaceFPGA<a class="headerlink" href="#placing-the-design-with-dreamplacefpga" title="Permalink to this headline">¶</a></h3>
+<p>There are a few preparatory steps in order to perform a placement run
+with DREAMPlaceFPGA.  Currently, DREAMPlaceFPGA reads Interchange
+files by converting them to bookshelf format consistent with the
+<a class="reference external" href="https://www.ispd.cc/contests/16/FAQ.html">ISPD‘16 contest</a>.  Convert the example DCP with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>DREAMPlaceFPGA<span class="w"> </span><span class="c1"># Or wherever your DREAMPlaceFPGA installation is located</span>
+python<span class="w"> </span>IFsupport/IF2bookshelf.py<span class="w"> </span>--netlist<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist
+</pre></div>
+</div>
+<p>Next, DREAMPlaceFPGA uses a JSON settings file to configure the
+placement run that we need to configure.  Here is an example JSON
+settings file for our example design (which you can also download
+here <a class="reference download internal" download="" href="_downloads/4bb88e3356d513d71951d98afbfeb9fa/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json"><code class="xref download docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json</span></code></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-O<span class="w"> </span>test/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;aux_input&quot;</span> <span class="p">:</span> <span class="s2">&quot;benchmarks/IF2bookshelf/gnl_2_4_7_3.0_gnl_3500_03_7_80_80/design.aux&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;gpu&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;num_bins_x&quot;</span> <span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+<span class="s2">&quot;num_bins_y&quot;</span> <span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+<span class="s2">&quot;global_place_stages&quot;</span> <span class="p">:</span> <span class="p">[</span>
+<span class="p">{</span><span class="s2">&quot;num_bins_x&quot;</span> <span class="p">:</span> <span class="mi">512</span><span class="p">,</span> <span class="s2">&quot;num_bins_y&quot;</span> <span class="p">:</span> <span class="mi">512</span><span class="p">,</span> <span class="s2">&quot;iteration&quot;</span> <span class="p">:</span> <span class="mi">2000</span><span class="p">,</span> <span class="s2">&quot;learning_rate&quot;</span> <span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s2">&quot;wirelength&quot;</span> <span class="p">:</span> <span class="s2">&quot;weighted_average&quot;</span><span class="p">,</span> <span class="s2">&quot;optimizer&quot;</span> <span class="p">:</span> <span class="s2">&quot;nesterov&quot;</span><span class="p">}</span>
+<span class="p">],</span>
+<span class="s2">&quot;routability_opt_flag&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;target_density&quot;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="s2">&quot;density_weight&quot;</span> <span class="p">:</span> <span class="mf">8e-5</span><span class="p">,</span>
+<span class="s2">&quot;random_seed&quot;</span> <span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+<span class="s2">&quot;scale_factor&quot;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="s2">&quot;global_place_flag&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;legalize_flag&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;detailed_place_flag&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;dtype&quot;</span> <span class="p">:</span> <span class="s2">&quot;float32&quot;</span><span class="p">,</span>
+<span class="s2">&quot;plot_flag&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">&quot;num_threads&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;deterministic_flag&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;enable_if&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">&quot;part_name&quot;</span> <span class="p">:</span> <span class="s2">&quot;xcvu3p-ffvc1517-2-e&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">&quot;gpu&quot;</span> <span class="pre">:</span> <span class="pre">0,</span></code> acceleration option is disabled so the
+tutorial is compatible with a greater number of compute
+configurations, however, this is an option with a compatible GPU (see
+<a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main#dependencies">DREAMPlaceFPGA External Dependencies for details</a>). For
+a full description of the options available, see <a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main#running">Running DREAMPlaceFPGA</a>.</p>
+<p>To run DREAMPlaceFPGA with the configuration file, run the following
+at a terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>dreamplacefpga/Placer.py<span class="w"> </span>test/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json
+</pre></div>
+</div>
+<p>Placement will proceed and may take a few minutes, afterwards a result
+new FPGA Interchange physical netlist file will be generated here: <code class="docutils literal notranslate"><span class="pre">results/design/design.phys</span></code>.</p>
+</div>
+<div class="section" id="converting-the-placed-design-to-a-dcp-and-routing-it-in-vivado">
+<h3>4. Converting the placed design to a DCP and routing it in Vivado<a class="headerlink" href="#converting-the-placed-design-to-a-dcp-and-routing-it-in-vivado" title="Permalink to this headline">¶</a></h3>
+<p>Now that the design is fully placed by DREAMPlaceFPGA, we can convert
+it back to a DCP and open it in Vivado by running the following
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>PhysicalNetlistToDcp<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist<span class="w"> </span>results/design/design.phys<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80.xdc<span class="w"> </span>placed.dcp<span class="w"> </span>--out_of_context
+</pre></div>
+</div>
+<p>This command will invoke RapidWright to load the logical netlist
+(which has not changed) and physical netlist (which now contains the
+new placement information) into a placed design checkpoint
+(<code class="docutils literal notranslate"><span class="pre">placed.dcp</span></code>), readable by Vivado.  Opening this design in Vivado
+will show the resulting placement solution:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado<span class="w"> </span>placed.dcp
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/dreamplacefpga_placed.png"><img alt="_images/dreamplacefpga_placed.png" class="align-center" src="_images/dreamplacefpga_placed.png" style="width: 550px;" /></a>
+<p>By default, the design has all the cells locked (notice the orange
+colored cells that have been placed) as this is advantageous for some
+implementation flows used by RapidWright.  However, the placement can
+be unlocked with the Vivado Tcl command <code class="docutils literal notranslate"><span class="pre">lock_design</span> <span class="pre">-unlock</span> <span class="pre">-level</span>
+<span class="pre">placement</span></code>.  Also, the command above added the <code class="docutils literal notranslate"><span class="pre">--out_of_context</span></code>
+option to ensure that when the DCP was opened in Vivado, that it
+treated it as an out of context implementation and would not
+automatically insert buffers on all the top level ports.</p>
+<p>Now that the placed design is loaded in Vivado, we can route it by
+running the following Tcl command in Vivado:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">route_design</span>
+</pre></div>
+</div>
+<p>Afterwards, we should see something like this:</p>
+<a class="reference internal image-reference" href="_images/dreamplacefpga_placed_vivado_routed.png"><img alt="_images/dreamplacefpga_placed_vivado_routed.png" class="align-center" src="_images/dreamplacefpga_placed_vivado_routed.png" style="width: 550px;" /></a>
+<p>We can then validate the solution of the route by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">report_route_status</span>
+</pre></div>
+</div>
+<p>Which should report something similar to this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">Route</span> <span class="n">Status</span>
+                                               <span class="p">:</span>      <span class="c1"># nets :</span>
+   <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+   <span class="c1"># of logical nets.......................... :        4937 :</span>
+       <span class="c1"># of nets not needing routing.......... :         878 :</span>
+           <span class="c1"># of internally routed nets........ :         728 :</span>
+           <span class="c1"># of implicitly routed ports....... :         150 :</span>
+       <span class="c1"># of routable nets..................... :        4059 :</span>
+           <span class="c1"># of fully routed nets............. :        4059 :</span>
+       <span class="c1"># of nets with routing errors.......... :           0 :</span>
+   <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+</pre></div>
+</div>
+<p>The key  metric to look for is the last one to ensure there are 0 nets
+with routing errors.</p>
+<p>As an alternative to Vivado, we can also use RWRoute (the main router
+in RapidWright) to route the design–showing how the FPGA Interchange
+Format allows placement and routing to happen in different open source
+tools on the same design.</p>
+</div>
+<div class="section" id="routing-the-placed-solution-with-rwroute-in-rapidwright">
+<h3>5. Routing the placed solution with RWRoute in RapidWright<a class="headerlink" href="#routing-the-placed-solution-with-rwroute-in-rapidwright" title="Permalink to this headline">¶</a></h3>
+<p>If we return to the placed solution of our design generated by
+DREAMPlaceFPGA, we can take another path through RapidWright to have
+it routed by its main router, RWRoute.  To load the FPGA Interchange
+design files in RWRoute, we need to have the <code class="docutils literal notranslate"><span class="pre">.netlist</span></code> and
+<code class="docutils literal notranslate"><span class="pre">.phys</span></code> files in the same directory with the same root name.  We can
+accomplish this by simply copying the file over and invoking RWRoute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">results</span><span class="o">/</span><span class="n">design</span><span class="o">/</span><span class="n">design</span><span class="o">.</span><span class="n">phys</span> <span class="n">gnl_2_4_7_3</span><span class="mf">.0</span><span class="n">_gnl_3500_03_7_80_80</span><span class="o">.</span><span class="n">phys</span>
+<span class="n">rapidwright</span> <span class="n">RWRoute</span> <span class="n">gnl_2_4_7_3</span><span class="mf">.0</span><span class="n">_gnl_3500_03_7_80_80</span><span class="o">.</span><span class="n">phys</span> <span class="n">rwroute_routed</span><span class="o">.</span><span class="n">dcp</span> <span class="o">--</span><span class="n">nonTimingDriven</span> <span class="o">--</span><span class="n">outOfContext</span>
+</pre></div>
+</div>
+<p>The last <code class="docutils literal notranslate"><span class="pre">rapidwright</span></code> command will accomplish 3 things:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Load the existing FPGA Interchange placed result from
+DREAMPlaceFPGA into RapidWright</p></li>
+<li><p>Route the design using RWRoute (non-timing driven mode)</p></li>
+<li><p>Once routing is complete, it will export a routed design checkpoint
+called <code class="docutils literal notranslate"><span class="pre">rwroute_routed.dcp</span></code>.  The <code class="docutils literal notranslate"><span class="pre">--outOfContext</span></code> option is
+added since the example design’s top level ports do not connect to
+IOBs and allows Vivado to import the design without inserting buffers.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="validate-the-rwroute-routing-solution-in-vivado">
+<h3>6. Validate the RWRoute routing solution in Vivado<a class="headerlink" href="#validate-the-rwroute-routing-solution-in-vivado" title="Permalink to this headline">¶</a></h3>
+<p>We can open the routed DCP from RWRoute by running the following in
+our existing Vivado Tcl prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">open_checkpoint</span> <span class="n">rwroute_routed</span><span class="o">.</span><span class="n">dcp</span>
+</pre></div>
+</div>
+<p>The result should look similar to the solution below:</p>
+<a class="reference internal image-reference" href="_images/dreamplacefpga_placed_rwroute_routed.png"><img alt="_images/dreamplacefpga_placed_rwroute_routed.png" class="align-center" src="_images/dreamplacefpga_placed_rwroute_routed.png" style="width: 550px;" /></a>
+<p>We can similarly validate the routed solution with Vivado by running
+the Tcl command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">report_route_status</span>
+</pre></div>
+</div>
+<p>Which should produce an identical one as to that shown above for the
+Vivado routed solution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">Route</span> <span class="n">Status</span>
+                                               <span class="p">:</span>      <span class="c1"># nets :</span>
+   <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+   <span class="c1"># of logical nets.......................... :        4937 :</span>
+       <span class="c1"># of nets not needing routing.......... :         878 :</span>
+           <span class="c1"># of internally routed nets........ :         728 :</span>
+           <span class="c1"># of implicitly routed ports....... :         150 :</span>
+       <span class="c1"># of routable nets..................... :        4059 :</span>
+           <span class="c1"># of fully routed nets............. :        4059 :</span>
+       <span class="c1"># of nets with routing errors.......... :           0 :</span>
+   <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SLR_Crosser_DCP_Creator_Tutorial.html" class="btn btn-neutral float-right" title="Create Placed and Routed DCP to Cross SLR" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ReusingTimingClosedLogicAsAShell.html" class="btn btn-neutral" title="Reuse Timing-closed Logic As A Shell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2023, Advanced Micro Devices, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2023.1.3-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

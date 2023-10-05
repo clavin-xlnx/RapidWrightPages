@@ -1,0 +1,266 @@
+===================================================================
+Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format
+===================================================================
+
+Background
+============
+
+`DREAMPlaceFPGA <https://github.com/rachelselinar/DREAMPlaceFPGA>`_ is
+an open source GPU-accelerated placer for FPGAs that uses a deep
+learning toolkit.  It is being developed at the University of Texas at
+Austin in Dr. David Pan's research group.  DREAMPlaceFPGA has
+published work demonstrating some compelling placement runtime
+acceleration compared to other published placers.  DREAMPlaceFPGA has
+also adopted `support for the FPGA Interchange Format <https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main/IFsupport>`_.
+
+The :ref:`FPGA Interchange Format` (FPGAIF) is a standard exchange format designed to
+provide all the information necessary to perform placement and routing
+in an open source context. See :ref:`FPGA Interchange Format` for
+additional details and resources.
+
+Approach
+===========
+This tutorial will demonstrate how to convert an existing design from
+Vivado into the FPGA Interchange Format to be placed in
+DREAMPlaceFPGA.  It will then demonstrate how the resulting placed
+design can be routed either by the router in Vivado or in RapidWright
+via RWRoute as shown in the diagram below.
+
+.. image:: images/interchange_dreamplacefpga.png
+	:width: 550px
+	:align: center
+
+
+Getting Started
+================
+
+1. Prerequisites
+-------------------
+To run this tutorial, you will need:
+
+1. RapidWright 2023.1.3 or later
+2. Vivado 2023.1 or later
+3. `DREAMPlaceFPGA commit 95b5e3d <https://github.com/rachelselinar/DREAMPlaceFPGA/commit/95b5e3dcb7964c1501d025f641c65dfc2768e33f>`_
+  
+To checkout and build DREAMPlaceFPGA, please see their `build
+instructions
+<https://github.com/rachelselinar/DREAMPlaceFPGA#build>`_. Also see
+the `note here <https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main/IFsupport#i-generate-the-bookshelf-files-from-the-interchange-format-if-netlist>`_
+for how to generate an FPGA Interchange device model file.  Our notes
+on the install process for CentOS 7 can be found here: :ref:`Notes on Setting Up DREAMPlaceFPGA`.
+   
+2. Getting an example design and converting it to the FPGA Interchange Format
+----------------------------------------------------------------------------------
+For the ease of demonstration purposes in this tutorial, we have
+chosen a simple design targeting a VU3P (Virtex UltraScale+ ``xcvu3p-ffvc1517-2-e``).    To get started, follow the commands below (alternate
+design DCP download link here: :download:`gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp <files/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp>`):
+
+.. code-block:: bash
+
+  wget http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
+  rapidwright DcpToInterchange gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
+
+This will convert the design checkpoint file into two files:
+
+1. ``gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist`` -- a logical netlist
+   file in the FPGA Interchange Format
+2. ``gnl_2_4_7_3.0_gnl_3500_03_7_80_80.phys`` -- a physical netlist
+   (placement and routing information) file in the FPGA Interchange
+   Format
+
+For this tutorial, we are only interested in #1 (the logical netlist)
+as we will be generating a new implementation with the tools mentioned above.
+
+3. Placing the design with DREAMPlaceFPGA
+----------------------------------------------
+There are a few preparatory steps in order to perform a placement run
+with DREAMPlaceFPGA.  Currently, DREAMPlaceFPGA reads Interchange
+files by converting them to bookshelf format consistent with the
+`ISPD'16 contest <https://www.ispd.cc/contests/16/FAQ.html>`_.  Convert the example DCP with the following command:
+
+.. code-block:: bash
+
+  cd DREAMPlaceFPGA # Or wherever your DREAMPlaceFPGA installation is located
+  python IFsupport/IF2bookshelf.py --netlist gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist 
+
+Next, DREAMPlaceFPGA uses a JSON settings file to configure the
+placement run that we need to configure.  Here is an example JSON
+settings file for our example design (which you can also download
+here :download:`gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json <files/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json>`):
+
+.. code-block:: bash
+
+  wget -O test/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json
+  
+.. include:: files/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json
+   :literal:
+
+By default, the ``"gpu" : 0,`` acceleration option is disabled so the
+tutorial is compatible with a greater number of compute
+configurations, however, this is an option with a compatible GPU (see
+`DREAMPlaceFPGA External Dependencies for details
+<https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main#dependencies>`_). For
+a full description of the options available, see `Running DREAMPlaceFPGA <https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main#running>`_.
+
+To run DREAMPlaceFPGA with the configuration file, run the following
+at a terminal:
+
+.. code-block:: bash
+
+  python dreamplacefpga/Placer.py test/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json
+
+Placement will proceed and may take a few minutes, afterwards a result
+new FPGA Interchange physical netlist file will be generated here: ``results/design/design.phys``.
+  
+4. Converting the placed design to a DCP and routing it in Vivado
+----------------------------------------------------------------------
+Now that the design is fully placed by DREAMPlaceFPGA, we can convert
+it back to a DCP and open it in Vivado by running the following
+command:
+
+.. code-block:: bash
+
+  rapidwright PhysicalNetlistToDcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist results/design/design.phys gnl_2_4_7_3.0_gnl_3500_03_7_80_80.xdc placed.dcp --out_of_context
+   
+This command will invoke RapidWright to load the logical netlist
+(which has not changed) and physical netlist (which now contains the
+new placement information) into a placed design checkpoint
+(``placed.dcp``), readable by Vivado.  Opening this design in Vivado
+will show the resulting placement solution:
+
+.. code-block:: bash
+
+  vivado placed.dcp
+
+.. image:: images/dreamplacefpga_placed.png
+	:width: 550px
+	:align: center
+		
+By default, the design has all the cells locked (notice the orange
+colored cells that have been placed) as this is advantageous for some
+implementation flows used by RapidWright.  However, the placement can
+be unlocked with the Vivado Tcl command ``lock_design -unlock -level
+placement``.  Also, the command above added the ``--out_of_context``
+option to ensure that when the DCP was opened in Vivado, that it
+treated it as an out of context implementation and would not
+automatically insert buffers on all the top level ports.
+
+Now that the placed design is loaded in Vivado, we can route it by
+running the following Tcl command in Vivado:
+
+.. code-block:: 
+
+   route_design
+
+Afterwards, we should see something like this:
+
+.. image:: images/dreamplacefpga_placed_vivado_routed.png
+        :width: 550px
+	:align: center
+
+   
+We can then validate the solution of the route by running:
+
+.. code-block:: 
+
+   report_route_status
+
+Which should report something similar to this:
+
+.. code-block:: 
+
+  Design Route Status
+                                                 :      # nets :
+     ------------------------------------------- : ----------- :
+     # of logical nets.......................... :        4937 :
+         # of nets not needing routing.......... :         878 :
+             # of internally routed nets........ :         728 :
+             # of implicitly routed ports....... :         150 :
+         # of routable nets..................... :        4059 :
+             # of fully routed nets............. :        4059 :
+         # of nets with routing errors.......... :           0 :
+     ------------------------------------------- : ----------- :
+  
+The key  metric to look for is the last one to ensure there are 0 nets
+with routing errors.
+
+As an alternative to Vivado, we can also use RWRoute (the main router
+in RapidWright) to route the design--showing how the FPGA Interchange
+Format allows placement and routing to happen in different open source
+tools on the same design.
+
+  
+5. Routing the placed solution with RWRoute in RapidWright
+-----------------------------------------------------------
+If we return to the placed solution of our design generated by
+DREAMPlaceFPGA, we can take another path through RapidWright to have
+it routed by its main router, RWRoute.  To load the FPGA Interchange
+design files in RWRoute, we need to have the ``.netlist`` and
+``.phys`` files in the same directory with the same root name.  We can
+accomplish this by simply copying the file over and invoking RWRoute:
+
+.. code-block:: 
+
+   cp results/design/design.phys gnl_2_4_7_3.0_gnl_3500_03_7_80_80.phys
+   rapidwright RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.phys rwroute_routed.dcp --nonTimingDriven --outOfContext
+
+The last ``rapidwright`` command will accomplish 3 things:
+
+ 1. Load the existing FPGA Interchange placed result from
+    DREAMPlaceFPGA into RapidWright
+ 2. Route the design using RWRoute (non-timing driven mode)
+ 3. Once routing is complete, it will export a routed design checkpoint
+    called ``rwroute_routed.dcp``.  The ``--outOfContext`` option is
+    added since the example design's top level ports do not connect to
+    IOBs and allows Vivado to import the design without inserting buffers.
+
+    
+6. Validate the RWRoute routing solution in Vivado
+-------------------------------------------------------
+We can open the routed DCP from RWRoute by running the following in
+our existing Vivado Tcl prompt:
+
+.. code-block:: 
+
+  open_checkpoint rwroute_routed.dcp
+
+The result should look similar to the solution below:
+
+.. image:: images/dreamplacefpga_placed_rwroute_routed.png
+        :width: 550px
+	:align: center
+
+
+We can similarly validate the routed solution with Vivado by running
+the Tcl command:
+		
+.. code-block:: 
+
+  report_route_status
+
+Which should produce an identical one as to that shown above for the
+Vivado routed solution:
+
+.. code-block:: 
+
+  Design Route Status
+                                                 :      # nets :
+     ------------------------------------------- : ----------- :
+     # of logical nets.......................... :        4937 :
+         # of nets not needing routing.......... :         878 :
+             # of internally routed nets........ :         728 :
+             # of implicitly routed ports....... :         150 :
+         # of routable nets..................... :        4059 :
+             # of fully routed nets............. :        4059 :
+         # of nets with routing errors.......... :           0 :
+     ------------------------------------------- : ----------- :  
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Notes on Setting Up DREAMPlaceFPGA &mdash; RapidWright 2023.1.3-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2023.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Merge_Designs.html">Merging Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Interchange_Format.html">FPGA Interchange Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Notes on Setting Up DREAMPlaceFPGA</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Notes_on_Setting_Up_DREAMPlaceFPGA.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="notes-on-setting-up-dreamplacefpga">
+<h1>Notes on Setting Up DREAMPlaceFPGA<a class="headerlink" href="#notes-on-setting-up-dreamplacefpga" title="Permalink to this headline">¶</a></h1>
+<p>These notes relate specifically to setting up DREAMPlaceFPGA for use
+with RapidWright on a CentOS 7 Linux OS without <code class="docutils literal notranslate"><span class="pre">sudo</span></code> access.
+Ultimately, the pre-requisites and instructions provided on the
+<a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA#dependencies">DREAMPlaceFPGA repository</a>
+should be referenced as well.</p>
+<p>This assumes that RapidWright has been setup as described in our
+<a class="reference internal" href="Install.html#install"><span class="std std-ref">Install</span></a> page.</p>
+<p>To provide a clean installation, these notes use a Python Virtual
+Environment to avoid conflicts with existing installed packages.</p>
+<div class="section" id="setup-a-python-virtual-environment">
+<h2>1. Setup a Python Virtual Environment<a class="headerlink" href="#setup-a-python-virtual-environment" title="Permalink to this headline">¶</a></h2>
+<p>This step is highly recommended and assumes Python 3 is on your PATH.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-mvenv<span class="w"> </span>env
+<span class="nb">source</span><span class="w"> </span>env/bin/activate
+</pre></div>
+</div>
+</div>
+<div class="section" id="checkout-dreamplacefpga">
+<h2>2. Checkout DREAMPlaceFPGA<a class="headerlink" href="#checkout-dreamplacefpga" title="Permalink to this headline">¶</a></h2>
+<p>Assumes that <code class="docutils literal notranslate"><span class="pre">git</span></code> is on your PATH.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/rachelselinar/DREAMPlaceFPGA.git
+<span class="nb">cd</span><span class="w"> </span>DREAMPlaceFPGA/
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-optional-install-libffi-and-boost-locally">
+<h2>2a. (Optional) Install <code class="docutils literal notranslate"><span class="pre">libffi</span></code> and <code class="docutils literal notranslate"><span class="pre">Boost</span></code> locally<a class="headerlink" href="#a-optional-install-libffi-and-boost-locally" title="Permalink to this headline">¶</a></h2>
+<p>Our CentOS 7 environment was missing the library <code class="docutils literal notranslate"><span class="pre">libffi</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Boost</span></code>, if your system already has them installed, you can skip
+step ahead to step 3.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install libffi locally</span>
+wget<span class="w"> </span>ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
+tar<span class="w"> </span>xvf<span class="w"> </span>libffi-3.2.1.tar.gz
+<span class="nb">cd</span><span class="w"> </span>libffi-3.2.1
+./configure<span class="w"> </span>--prefix<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/python/libffi/
+make
+make<span class="w"> </span>install
+<span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/python/libffi/lib64:<span class="nv">$LD_LIBRARY_PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/python/libffi/lib/pkgconfig:<span class="nv">$PKG_CONFIG_PATH</span>
+<span class="nb">cd</span><span class="w"> </span>..
+
+<span class="c1"># Install Boost locally</span>
+wget<span class="w"> </span>https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.gz
+tar<span class="w"> </span>zxvf<span class="w"> </span>boost_1_81_0.tar.gz
+<span class="nb">cd</span><span class="w"> </span>boost_1_81_0
+./bootstrap.sh<span class="w"> </span>--prefix<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/install
+./b2<span class="w"> </span>install
+<span class="nb">export</span><span class="w"> </span><span class="nv">BOOST_ROOT</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/install
+<span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-dreamplacefpga-python-dependencies">
+<h2>3. Install DREAMPlaceFPGA Python dependencies<a class="headerlink" href="#install-dreamplacefpga-python-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>We found the <code class="docutils literal notranslate"><span class="pre">numba</span></code> package was also necessary for installation at this step.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>numba
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-and-install-dreamplacefpga">
+<h2>4. Build and Install DREAMPlaceFPGA<a class="headerlink" href="#build-and-install-dreamplacefpga" title="Permalink to this headline">¶</a></h2>
+<p>We encountered a problem with <code class="docutils literal notranslate"><span class="pre">flex</span> <span class="pre">2.6.4</span></code> that would cause a
+compilation problem and we had to revert to <code class="docutils literal notranslate"><span class="pre">flex</span> <span class="pre">2.5.37</span></code> to resolve
+it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="k">$(</span>dirname<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span><span class="k">)</span>
+make
+make<span class="w"> </span>install
+</pre></div>
+</div>
+</div>
+<div class="section" id="generate-fpga-interchange-device-file-for-vu3p">
+<h2>5. Generate FPGA Interchange device file for VU3P<a class="headerlink" href="#generate-fpga-interchange-device-file-for-vu3p" title="Permalink to this headline">¶</a></h2>
+<p>This is a one-time generation to provide DREAMPlaceFPGA a device
+file.  It will take a bit more memory to complete, hence the
+<code class="docutils literal notranslate"><span class="pre">_JAVA_OPTIONS=-Xmx16g</span></code> option.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>IFsupport
+<span class="nv">_JAVA_OPTIONS</span><span class="o">=</span>-Xmx16g<span class="w"> </span>rapidwright<span class="w"> </span>DeviceResourcesExample<span class="w"> </span>xcvu3p-ffvc1517-2-e
+<span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2023, Advanced Micro Devices, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2023.1.3-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

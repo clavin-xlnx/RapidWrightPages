@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FPGA Interchange Format &mdash; RapidWright 2023.1.3-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RapidWright Publications" href="Papers.html" />
+    <link rel="prev" title="Bitstream Manipulation" href="Bitstream_Manipulation.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2023.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Merge_Designs.html">Merging Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FPGA Interchange Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-the-fpga-interchange-format">What is the FPGA Interchange Format?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-does-the-fpga-interchange-format-enable">What does the FPGA Interchange Format enable?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-is-rapidwright-related-to-the-fpga-interchange-format">How is RapidWright related to the FPGA Interchange Format?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-resources">Additional Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>FPGA Interchange Format</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/FPGA_Interchange_Format.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="fpga-interchange-format">
+<h1>FPGA Interchange Format<a class="headerlink" href="#fpga-interchange-format" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-the-fpga-interchange-format">
+<h2>What is the FPGA Interchange Format?<a class="headerlink" href="#what-is-the-fpga-interchange-format" title="Permalink to this headline">¶</a></h2>
+<p>The FPGA Interchange Format (FPGAIF) is a standard exchange format designed to
+provide all the information necessary to perform placement and routing
+in an open source context.  It contains three major schemas that define how
+to transfer the following kinds of data in an architecture-independent
+way:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>FPGA architecture device model: The available placement and programmable routing
+resources on the FPGA</p></li>
+<li><p>Logical netlist: Cell definitions, networks, pins, hierarchy,
+etc.</p></li>
+<li><p>Physical netlist: Placement mappings and routing configurations,
+i.e. mapping the logical netlist to the FPGA architecture device model</p></li>
+</ol>
+</div></blockquote>
+<p>The FPGAIF is hosted as an <a class="reference external" href="https://www.chipsalliance.org/projects/">open source project</a> under the <a class="reference external" href="https://www.chipsalliance.org/">CHIPS Alliance</a> and original development was
+started in 2020.</p>
+</div>
+<div class="section" id="what-does-the-fpga-interchange-format-enable">
+<h2>What does the FPGA Interchange Format enable?<a class="headerlink" href="#what-does-the-fpga-interchange-format-enable" title="Permalink to this headline">¶</a></h2>
+<p>Primarily it allows tools–both commercial and open source–an open way to
+exchange FPGA device and design data to enable customized place and
+route solutions.  Some tools and efforts that support the FPGAIF:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA">DREAMPlaceFPGA</a>
+– An open source GPU accelerated FPGA placer (<a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main/IFsupport">FPGAIF Support Page</a>)</p></li>
+<li><p><a class="reference external" href="https://xilinx.github.io/fpga24_routing_contest/">ISFPGA 2024 Runtime-first Routing Contest</a></p></li>
+<li><p><a class="reference external" href="https://fpga-interchange-schema.readthedocs.io/">python-fpga-interchange</a> – A Python module for reading and writing
+FPGA Interchange Files</p></li>
+<li><p><a class="reference external" href="https://github.com/Xilinx/RapidWright/tree/master/interchange">RapidWright</a> – Full support for all AMD-Xilinx architectures and design files</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="how-is-rapidwright-related-to-the-fpga-interchange-format">
+<h2>How is RapidWright related to the FPGA Interchange Format?<a class="headerlink" href="#how-is-rapidwright-related-to-the-fpga-interchange-format" title="Permalink to this headline">¶</a></h2>
+<p>RapidWright has a full reference implementation of the entire FPGA
+Interchange schema.  It is able to generate nearly all supported FPGA
+devices in the format and can read and write Interchange designs.  It
+can convert those designs to and from design checkpoint files to be
+exported and imported from Vivado.</p>
+</div>
+<div class="section" id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.linkedin.com/pulse/chips-alliance-fpga-interchange-format-ivo-bolsens/?trackingId=or6MV42Xn5ixheYSpNrldA%3D%3D">AMD-Xilinx announcement of support for the FPGA Interchange Format</a></p></li>
+<li><p><a class="reference external" href="https://opensource.googleblog.com/2022/02/FPGA%20Interchange%20format%20to%20enable%20interoperable%20FPGA%20tooling.html">Google Open Source Blog Article on the FPGA Interchange Format</a></p></li>
+<li><p><a class="reference external" href="https://fpga-interchange-schema.readthedocs.io/">ReadTheDocs Documentation for the FPGA Interchange Schema</a></p></li>
+<li><p><a class="reference external" href="https://github.com/chipsalliance/fpga-interchange-schema">FPGA Interchange Schema GitHub Repository</a></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Papers.html" class="btn btn-neutral float-right" title="RapidWright Publications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Bitstream_Manipulation.html" class="btn btn-neutral" title="Bitstream Manipulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2023, Advanced Micro Devices, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2023.1.3-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

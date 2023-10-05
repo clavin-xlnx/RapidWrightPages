@@ -9,6 +9,7 @@ RapidWright Tutorials
    RWRoute_partial_routing
    ReportTimingExample
    ReusingTimingClosedLogicAsAShell
+   Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format
    SLR_Crosser_DCP_Creator_Tutorial
    IPI_PreImpl_Tutorial
    PipelineGeneratorExample

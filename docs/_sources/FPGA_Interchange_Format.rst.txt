@@ -1,0 +1,57 @@
+===================================================================
+FPGA Interchange Format
+===================================================================
+
+What is the FPGA Interchange Format?
+======================================
+The FPGA Interchange Format (FPGAIF) is a standard exchange format designed to
+provide all the information necessary to perform placement and routing
+in an open source context.  It contains three major schemas that define how
+to transfer the following kinds of data in an architecture-independent
+way:
+
+ 1. FPGA architecture device model: The available placement and programmable routing
+    resources on the FPGA
+ 2. Logical netlist: Cell definitions, networks, pins, hierarchy,
+    etc.
+ 3. Physical netlist: Placement mappings and routing configurations,
+    i.e. mapping the logical netlist to the FPGA architecture device model
+
+The FPGAIF is hosted as an `open source project
+<https://www.chipsalliance.org/projects/>`_ under the `CHIPS Alliance
+<https://www.chipsalliance.org/>`_ and original development was
+started in 2020.
+
+
+What does the FPGA Interchange Format enable?
+===============================================
+Primarily it allows tools--both commercial and open source--an open way to
+exchange FPGA device and design data to enable customized place and
+route solutions.  Some tools and efforts that support the FPGAIF:
+
+
+ * `DREAMPlaceFPGA <https://github.com/rachelselinar/DREAMPlaceFPGA>`_
+   -- An open source GPU accelerated FPGA placer (`FPGAIF Support Page <https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main/IFsupport>`_)
+ * `ISFPGA 2024 Runtime-first Routing Contest <https://xilinx.github.io/fpga24_routing_contest/>`_
+ * `python-fpga-interchange <https://fpga-interchange-schema.readthedocs.io/>`_ -- A Python module for reading and writing
+   FPGA Interchange Files
+ * `RapidWright <https://github.com/Xilinx/RapidWright/tree/master/interchange>`_ -- Full support for all AMD-Xilinx architectures and design files
+
+How is RapidWright related to the FPGA Interchange Format?
+=============================================================
+RapidWright has a full reference implementation of the entire FPGA
+Interchange schema.  It is able to generate nearly all supported FPGA
+devices in the format and can read and write Interchange designs.  It
+can convert those designs to and from design checkpoint files to be
+exported and imported from Vivado.  
+
+
+Additional Resources
+=================================================================
+
+ * `AMD-Xilinx announcement of support for the FPGA Interchange Format <https://www.linkedin.com/pulse/chips-alliance-fpga-interchange-format-ivo-bolsens/?trackingId=or6MV42Xn5ixheYSpNrldA%3D%3D>`_
+ * `Google Open Source Blog Article on the FPGA Interchange Format <https://opensource.googleblog.com/2022/02/FPGA%20Interchange%20format%20to%20enable%20interoperable%20FPGA%20tooling.html>`_
+ * `ReadTheDocs Documentation for the FPGA Interchange Schema <https://fpga-interchange-schema.readthedocs.io/>`_
+ * `FPGA Interchange Schema GitHub Repository <https://github.com/chipsalliance/fpga-interchange-schema>`_
+
+   

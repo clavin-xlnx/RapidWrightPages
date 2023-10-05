@@ -18,6 +18,7 @@ RapidWright Documentation
    Implementation_Basics
    Merge_Designs
    Bitstream_Manipulation
+   FPGA_Interchange_Format
    Papers
    PreImplemented_Module_Flow
    Tutorials
