@@ -11,6 +11,7 @@ RapidWright Tutorials
    ReusingTimingClosedLogicAsAShell
    Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format
    PolynomialGenerator
+   ECO_Insert_Route_Debug
    SLR_Crosser_DCP_Creator_Tutorial
    IPI_PreImpl_Tutorial
    PipelineGeneratorExample
