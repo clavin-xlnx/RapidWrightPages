@@ -10,6 +10,7 @@ com.xilinx.rapidwright.design.tools
 com.xilinx.rapidwright.device
 com.xilinx.rapidwright.device.browser
 com.xilinx.rapidwright.device.helper
+com.xilinx.rapidwright.eco
 com.xilinx.rapidwright.edif
 com.xilinx.rapidwright.edif.compare
 com.xilinx.rapidwright.examples
