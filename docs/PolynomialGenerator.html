@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-117897999-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Polynomial Generator: Placed and Routed Circuits in Seconds &mdash; RapidWright 2023.1.4-beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/RapidWrightGear32.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Create Placed and Routed DCP to Cross SLR" href="SLR_Crosser_DCP_Creator_Tutorial.html" />
+    <link rel="prev" title="Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format" href="Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+		  
+		  
+            
+            <a href="http://rapidwright.io"><img src="_static/rwlogo_xsm_black.png" class="logo" alt="Logo"/></a><br/>
+          
+		  
+          
+            <a href="index.html" class="icon icon-home"> RapidWright Docs
+          
+          </a>
+		  
+          
+            
+            
+              <div class="version">
+                2023.1.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Architecture.html">FPGA Architecture Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Xilinx_Architecture.html">Xilinx Architecture Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RapidWright_Overview.html">RapidWright Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_Checkpoints.html">Design Checkpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Implementation_Basics.html">Implementation Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Merge_Designs.html">Merging Designs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bitstream_Manipulation.html">Bitstream Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FPGA_Interchange_Format.html">FPGA Interchange Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Papers.html">RapidWright Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PreImplemented_Module_Flow.html">A Pre-implemented Module Flow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorials.html">RapidWright Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_timing_driven_routing.html">RWRoute Timing-driven Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_wirelength_driven_routing.html">RWRoute Wirelength-driven Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RWRoute_partial_routing.html">RWRoute Partial Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ReusingTimingClosedLogicAsAShell.html">Reuse Timing-closed Logic As A Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format.html">Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Polynomial Generator: Placed and Routed Circuits in Seconds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prerequisites">1. Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-simple-polynomial-circuit-in-seconds">2. Creating a Simple Polynomial Circuit in Seconds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#more-complex-polynomial-and-inspection-with-the-rapidwright-hand-placer">3. More Complex Polynomial and Inspection with the RapidWright Hand Placer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExampleWithRouting.html">RapidWright PipelineGeneratorWithRouting Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_I.html">Pre-implemented Modules - Part I</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PreImplemented_Modules_Part_II.html">Pre-implemented Modules - Part II</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_and_Use_an_SLR_Bridge.html">Create and Use an SLR Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ICCAD23_Tutorial.html">RapidWright ICCAD 2023 Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+		<div class="download-links">
+			<br/>
+			<br/>
+			<center>
+				<a href="RapidWright.pdf">Download PDF<br/><img src="_static/pdf.svg"/></a>
+				<br/>
+				<br/>
+				<br/>
+				<a href="../javadoc/index.html">Javadoc API Reference<br/><img src="_static/javadoc.svg"/></a>
+			</center>
+		</div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RapidWright Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="Tutorials.html">RapidWright Tutorials</a> &raquo;</li>
+        
+      <li>Polynomial Generator: Placed and Routed Circuits in Seconds</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/PolynomialGenerator.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="polynomial-generator-placed-and-routed-circuits-in-seconds">
+<h1>Polynomial Generator: Placed and Routed Circuits in Seconds<a class="headerlink" href="#polynomial-generator-placed-and-routed-circuits-in-seconds" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Often, FPGA compilation runtime can be long due to the complexity and
+nature of problems that are solved in mapping a user’s design onto the
+fabric of an FPGA.  However, if we scope a user’s design to a
+specific domain, the compilation process can become signficantly
+simplified.</p>
+<p>This tutorial aims to provide a limited scope proof-of-concept of this
+idea.  Consider the mathematical formula called a <a class="reference external" href="https://en.wikipedia.org/wiki/Polynomial">polynomial</a>. A polynomial equation
+consists of an expression of variables and coefficients that involves
+only the operations of addition, subtraction, multiplication and
+positive integer-powers of variables.  Since a polynomical relies on a
+finite set of mathematical operations, we can devise circuit “generators” for
+these operators that can be created on-the-fly.  These circuit
+generators (adders, subtractors, multipliers and
+raise-to-integer-power) have very predictable implementation patterns
+on FPGA fabric and can thus be placed and internally routed very
+quickly.</p>
+<p>In this application, the polynomials supported have the following
+attributes:</p>
+<ul class="simple">
+<li><p>Coefficients are integers and the first coefficient is positive</p></li>
+<li><p>No division operations are present</p></li>
+<li><p>Four mathematical operators: addition, subtraction, multiplication
+and positive integer powers</p></li>
+</ul>
+<p>RapidWright has three generators to support the
+<code class="docutils literal notranslate"><span class="pre">PolynomialGenerator</span></code> that implement the four supported mathematical
+operators.  A combination adder/subtractor generator for addition and
+subtraction and a multiplier generator for multiplication and raise to
+the integer power (chaining multiple multipliers together).</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prerequisites">
+<h3>1. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>To run this tutorial, you will need:</p>
+<ol class="arabic simple">
+<li><p>RapidWright 2023.1.4 or later</p></li>
+<li><p>Vivado 2023.1 or later</p></li>
+</ol>
+</div>
+<div class="section" id="creating-a-simple-polynomial-circuit-in-seconds">
+<h3>2. Creating a Simple Polynomial Circuit in Seconds<a class="headerlink" href="#creating-a-simple-polynomial-circuit-in-seconds" title="Permalink to this headline">¶</a></h3>
+<p>The interface to run the <code class="docutils literal notranslate"><span class="pre">PolynomialGenerator</span></code> is quite simple:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>PolynomialGenerator
+</pre></div>
+</div>
+<p>Which should produce the usage message:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>USAGE:<span class="w"> </span>&lt;polynomial&gt;<span class="w"> </span>&lt;bit<span class="w"> </span>width<span class="w"> </span><span class="m">1</span><span class="w"> </span>to<span class="w"> </span><span class="m">18</span>&gt;<span class="w"> </span><span class="o">[</span>--hand-placer<span class="o">]</span>
+</pre></div>
+</div>
+<p>The polynomial syntax requires explicit operators and expanded set of terms
+(no parethesis or factors), for example:</p>
+<div class="math">
+<p><img src="_images/math/8e57bf5227c67a78f72a8a51ce24162b2a7860b7.png" alt="(x-1)(x+2) = x^2+x-2"/></p>
+</div><p>should be rewritten as <code class="docutils literal notranslate"><span class="pre">x^2+x-2</span></code>.  Coefficient also will require the
+explicit multiplication operator <code class="docutils literal notranslate"><span class="pre">*</span></code>, for example:</p>
+<div class="math">
+<p><img src="_images/math/26388e24c3057d4b26fbd35c80507a4bd67dfe68.png" alt="3x^2+x-2"/></p>
+</div><p>should be rewritten as <code class="docutils literal notranslate"><span class="pre">3*x^2+x-2</span></code>.</p>
+<p>The mathematical generators will create placed and routed circuits up
+to 18 bits of width.  Although the FPGA fabric can support much larger
+dimensions, for simplicity we limit this proof-of-concept to 18 bits.  Further
+work could push this limit far beyond 18 bits.</p>
+<p>We can generate this polynomial with 16 bit operators with the
+following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>PolynomialGenerator<span class="w"> </span><span class="m">3</span>*x^2+x-2<span class="w"> </span><span class="m">16</span>
+</pre></div>
+</div>
+<p>With the following output (<a class="reference external" href="http://www.rapidwright.io/docs/Implementation_Basics.html#rwroute">RWRoute</a> output removed for brevity):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">==============================================================================</span>
+<span class="o">==</span><span class="w">                           </span>Polynomial<span class="w"> </span><span class="nv">Generator</span><span class="w">                           </span><span class="o">==</span>
+<span class="o">==============================================================================</span>
+<span class="w">             </span>Load<span class="w"> </span>Device:<span class="w">     </span><span class="m">1</span>.692s
+<span class="w">          </span>Init<span class="w"> </span>Operators:<span class="w">     </span><span class="m">0</span>.878s
+<span class="w">     </span>Build<span class="w"> </span>Operator<span class="w"> </span>Tree:<span class="w">     </span><span class="m">0</span>.183s
+...
+&lt;Removed<span class="w"> </span>RWRoute<span class="w"> </span>Output&gt;
+...
+<span class="w">             </span>Final<span class="w"> </span>Route:<span class="w">     </span><span class="m">0</span>.474s
+<span class="w">               </span>Write<span class="w"> </span>DCP:<span class="w">     </span><span class="m">0</span>.455s
+------------------------------------------------------------------------------
+<span class="w">         </span><span class="o">[</span>No<span class="w"> </span>GC<span class="o">]</span><span class="w"> </span>*Total*:<span class="w">     </span><span class="m">3</span>.681s
+Wrote<span class="w"> </span>DCP:<span class="w"> </span>polynomial.dcp
+</pre></div>
+</div>
+<p>The resulting DCP, <code class="docutils literal notranslate"><span class="pre">polynomial.dcp</span></code> should be generated in just a few
+seconds and can be examined by Vivado by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado<span class="w"> </span>polynomial.dcp<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>(Let’s run it in the background so we can return to the terminal later
+with Vivado still running).</p>
+<p>Once loaded, we can zoom to the placed and routed circuit in clock
+region <code class="docutils literal notranslate"><span class="pre">X3Y3</span></code>, we can also highlight the individual operators by
+color by running the following Tcl command in the Vivado Tcl prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>foreach c [get_cells] { incr i; highlight_objects -leaf_cells $c -color_index $i }
+</pre></div>
+</div>
+<p>The resulting circuit should looks similar to this:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/polynomial1.png"><img alt="_images/polynomial1.png" class="align-center" src="_images/polynomial1.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>We can also run <code class="docutils literal notranslate"><span class="pre">report_route_status</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">report_route_status</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">Route</span> <span class="n">Status</span>
+                                            <span class="p">:</span>      <span class="c1"># nets :</span>
+<span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+<span class="c1"># of logical nets.......................... :        1775 :</span>
+    <span class="c1"># of nets not needing routing.......... :        1659 :</span>
+        <span class="c1"># of internally routed nets........ :        1334 :</span>
+        <span class="c1"># of nets with no loads............ :         292 :</span>
+        <span class="c1"># of implicitly routed ports....... :          33 :</span>
+    <span class="c1"># of routable nets..................... :         116 :</span>
+        <span class="c1"># of fully routed nets............. :         116 :</span>
+    <span class="c1"># of nets with routing errors.......... :           0 :</span>
+<span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
+</pre></div>
+</div>
+<p>which shows the design being fully routed without any errors or
+violations.  We can also check timing with <code class="docutils literal notranslate"><span class="pre">report_timing</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">report_timing</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Slack</span> <span class="p">(</span><span class="n">MET</span><span class="p">)</span> <span class="p">:</span>             <span class="mf">0.310</span><span class="n">ns</span>  <span class="p">(</span><span class="n">required</span> <span class="n">time</span> <span class="o">-</span> <span class="n">arrival</span> <span class="n">time</span><span class="p">)</span>
+  <span class="n">Source</span><span class="p">:</span>                 <span class="n">mult2_51</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">DSP_OUTPUT_INST</span><span class="o">/</span><span class="n">CLK</span>
+                            <span class="p">(</span><span class="n">rising</span> <span class="n">edge</span><span class="o">-</span><span class="n">triggered</span> <span class="n">cell</span> <span class="n">DSP_OUTPUT</span> <span class="n">clocked</span> <span class="n">by</span> <span class="n">clk</span>  <span class="p">{</span><span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span> <span class="n">fall</span><span class="o">@</span><span class="mf">0.646</span><span class="n">ns</span> <span class="n">period</span><span class="o">=</span><span class="mf">1.291</span><span class="n">ns</span><span class="p">})</span>
+  <span class="n">Destination</span><span class="p">:</span>            <span class="n">mult_34</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">DSP_A_B_DATA_INST</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+                            <span class="p">(</span><span class="n">rising</span> <span class="n">edge</span><span class="o">-</span><span class="n">triggered</span> <span class="n">cell</span> <span class="n">DSP_A_B_DATA</span> <span class="n">clocked</span> <span class="n">by</span> <span class="n">clk</span>  <span class="p">{</span><span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span> <span class="n">fall</span><span class="o">@</span><span class="mf">0.646</span><span class="n">ns</span> <span class="n">period</span><span class="o">=</span><span class="mf">1.291</span><span class="n">ns</span><span class="p">})</span>
+  <span class="n">Path</span> <span class="n">Group</span><span class="p">:</span>             <span class="n">clk</span>
+  <span class="n">Path</span> <span class="n">Type</span><span class="p">:</span>              <span class="n">Setup</span> <span class="p">(</span><span class="n">Max</span> <span class="n">at</span> <span class="n">Slow</span> <span class="n">Process</span> <span class="n">Corner</span><span class="p">)</span>
+  <span class="n">Requirement</span><span class="p">:</span>            <span class="mf">1.291</span><span class="n">ns</span>  <span class="p">(</span><span class="n">clk</span> <span class="n">rise</span><span class="o">@</span><span class="mf">1.291</span><span class="n">ns</span> <span class="o">-</span> <span class="n">clk</span> <span class="n">rise</span><span class="o">@</span><span class="mf">0.000</span><span class="n">ns</span><span class="p">)</span>
+  <span class="n">Data</span> <span class="n">Path</span> <span class="n">Delay</span><span class="p">:</span>        <span class="mf">0.577</span><span class="n">ns</span>  <span class="p">(</span><span class="n">logic</span> <span class="mf">0.207</span><span class="n">ns</span> <span class="p">(</span><span class="mf">35.875</span><span class="o">%</span><span class="p">)</span>  <span class="n">route</span> <span class="mf">0.370</span><span class="n">ns</span> <span class="p">(</span><span class="mf">64.125</span><span class="o">%</span><span class="p">))</span>
+  <span class="n">Logic</span> <span class="n">Levels</span><span class="p">:</span>           <span class="mi">0</span>
+  <span class="n">Clock</span> <span class="n">Path</span> <span class="n">Skew</span><span class="p">:</span>        <span class="o">-</span><span class="mf">0.095</span><span class="n">ns</span> <span class="p">(</span><span class="n">DCD</span> <span class="o">-</span> <span class="n">SCD</span> <span class="o">+</span> <span class="n">CPR</span><span class="p">)</span>
+    <span class="n">Destination</span> <span class="n">Clock</span> <span class="n">Delay</span> <span class="p">(</span><span class="n">DCD</span><span class="p">):</span>    <span class="mf">1.763</span><span class="n">ns</span> <span class="o">=</span> <span class="p">(</span> <span class="mf">3.054</span> <span class="o">-</span> <span class="mf">1.291</span> <span class="p">)</span>
+    <span class="n">Source</span> <span class="n">Clock</span> <span class="n">Delay</span>      <span class="p">(</span><span class="n">SCD</span><span class="p">):</span>    <span class="mf">2.047</span><span class="n">ns</span>
+    <span class="n">Clock</span> <span class="n">Pessimism</span> <span class="n">Removal</span> <span class="p">(</span><span class="n">CPR</span><span class="p">):</span>    <span class="mf">0.189</span><span class="n">ns</span>
+  <span class="n">Clock</span> <span class="n">Uncertainty</span><span class="p">:</span>      <span class="mf">0.035</span><span class="n">ns</span>  <span class="p">((</span><span class="n">TSJ</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">TIJ</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">DJ</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">PE</span>
+    <span class="n">Total</span> <span class="n">System</span> <span class="n">Jitter</span>     <span class="p">(</span><span class="n">TSJ</span><span class="p">):</span>    <span class="mf">0.071</span><span class="n">ns</span>
+    <span class="n">Total</span> <span class="n">Input</span> <span class="n">Jitter</span>      <span class="p">(</span><span class="n">TIJ</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+    <span class="n">Discrete</span> <span class="n">Jitter</span>          <span class="p">(</span><span class="n">DJ</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+    <span class="n">Phase</span> <span class="n">Error</span>              <span class="p">(</span><span class="n">PE</span><span class="p">):</span>    <span class="mf">0.000</span><span class="n">ns</span>
+
+    <span class="n">Location</span>             <span class="n">Delay</span> <span class="nb">type</span>                <span class="n">Incr</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>  <span class="n">Path</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>    <span class="n">Netlist</span> <span class="n">Resource</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+                         <span class="p">(</span><span class="n">clock</span> <span class="n">clk</span> <span class="n">rise</span> <span class="n">edge</span><span class="p">)</span>        <span class="mf">0.000</span>     <span class="mf">0.000</span> <span class="n">r</span>
+                                                      <span class="mf">0.000</span>     <span class="mf">0.000</span> <span class="n">r</span>  <span class="n">clk</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">107</span><span class="p">,</span> <span class="n">unset</span><span class="p">)</span>          <span class="mf">2.047</span>     <span class="mf">2.047</span>    <span class="n">mult2_51</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">CLK</span>
+    <span class="n">DSP48E2_X12Y73</span>       <span class="n">DSP_OUTPUT</span>                                   <span class="n">r</span>  <span class="n">mult2_51</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">DSP_OUTPUT_INST</span><span class="o">/</span><span class="n">CLK</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+    <span class="n">DSP48E2_X12Y73</span>       <span class="n">DSP_OUTPUT</span> <span class="p">(</span><span class="n">Prop_DSP_OUTPUT_DSP48E2_CLK_P</span><span class="p">[</span><span class="mi">41</span><span class="p">])</span>
+                                                      <span class="mf">0.207</span>     <span class="mf">2.254</span> <span class="n">r</span>  <span class="n">mult2_51</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">DSP_OUTPUT_INST</span><span class="o">/</span><span class="n">P</span><span class="p">[</span><span class="mi">41</span><span class="p">]</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">routed</span><span class="p">)</span>           <span class="mf">0.370</span>     <span class="mf">2.624</span>    <span class="n">mult_34</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+    <span class="n">DSP48E2_X12Y72</span>       <span class="n">DSP_A_B_DATA</span>                                 <span class="n">r</span>  <span class="n">mult_34</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">DSP_A_B_DATA_INST</span><span class="o">/</span><span class="n">A</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+  <span class="o">-------------------------------------------------------------------</span>    <span class="o">-------------------</span>
+
+                         <span class="p">(</span><span class="n">clock</span> <span class="n">clk</span> <span class="n">rise</span> <span class="n">edge</span><span class="p">)</span>        <span class="mf">1.291</span>     <span class="mf">1.291</span> <span class="n">r</span>
+                                                      <span class="mf">0.000</span>     <span class="mf">1.291</span> <span class="n">r</span>  <span class="n">clk</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span>
+                         <span class="n">net</span> <span class="p">(</span><span class="n">fo</span><span class="o">=</span><span class="mi">107</span><span class="p">,</span> <span class="n">unset</span><span class="p">)</span>          <span class="mf">1.763</span>     <span class="mf">3.054</span>    <span class="n">mult_34</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">CLK</span>
+    <span class="n">DSP48E2_X12Y72</span>       <span class="n">DSP_A_B_DATA</span>                                 <span class="n">r</span>  <span class="n">mult_34</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">DSP_A_B_DATA_INST</span><span class="o">/</span><span class="n">CLK</span>
+                         <span class="n">clock</span> <span class="n">pessimism</span>              <span class="mf">0.189</span>     <span class="mf">3.243</span>
+                         <span class="n">clock</span> <span class="n">uncertainty</span>           <span class="o">-</span><span class="mf">0.035</span>     <span class="mf">3.207</span>
+    <span class="n">DSP48E2_X12Y72</span>       <span class="n">DSP_A_B_DATA</span> <span class="p">(</span><span class="n">Setup_DSP_A_B_DATA_DSP48E2_CLK_A</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+                                                     <span class="o">-</span><span class="mf">0.273</span>     <span class="mf">2.934</span>    <span class="n">mult_34</span><span class="o">/</span><span class="n">mult</span><span class="o">/</span><span class="n">DSP_A_B_DATA_INST</span>
+  <span class="o">-------------------------------------------------------------------</span>
+                         <span class="n">required</span> <span class="n">time</span>                          <span class="mf">2.934</span>
+                         <span class="n">arrival</span> <span class="n">time</span>                          <span class="o">-</span><span class="mf">2.624</span>
+  <span class="o">-------------------------------------------------------------------</span>
+                         <span class="n">slack</span>                                  <span class="mf">0.310</span>
+</pre></div>
+</div>
+<p>By default, the clock constraint in the polynomial design is set to
+775MHz, or the highest specification of the DSP in speed grade 2
+UltraScale+ devices.  As can be seen above, this circuit has been
+placed and routed successfully and has margin to spare to run at this
+frequency.  Of course, as polynomials grow larger, this frequency may
+be impacted, but it strives to run at the spec of the device.</p>
+<p>We can repeat this process for a more complex polynomial in the next
+step–keep your Vivado instance open so we can reload the next
+iteration more quickly.</p>
+</div>
+<div class="section" id="more-complex-polynomial-and-inspection-with-the-rapidwright-hand-placer">
+<h3>3. More Complex Polynomial and Inspection with the RapidWright Hand Placer<a class="headerlink" href="#more-complex-polynomial-and-inspection-with-the-rapidwright-hand-placer" title="Permalink to this headline">¶</a></h3>
+<p>For the next step, let’s consider a more complex polynomial:</p>
+<div class="math">
+<p><img src="_images/math/8f6cdf2f0e363f451d2200c657c9cdbef174f87c.png" alt="8y^4+43yx^3+7x^2-14"/></p>
+</div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>PolynomialGenerator<span class="w"> </span><span class="m">8</span>*y^4+43*y*x^3+7*x^2-14<span class="w"> </span><span class="m">18</span><span class="w"> </span>--hand-placer
+</pre></div>
+</div>
+<p>This will generate a multi-variable polynomial with inputs <code class="docutils literal notranslate"><span class="pre">x</span></code> and
+<code class="docutils literal notranslate"><span class="pre">y</span></code> and before the design is routed, will invoke the RapidWright
+hand placer that will allow the placement of the polynomial to be
+inspected by the user.  After running the command, a window should pop
+up that looks similar to this:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/polynomial2.png"><img alt="_images/polynomial2.png" class="align-center" src="_images/polynomial2.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>This is a simplified device model view in RapidWright of the targeted
+device with the operator moduled overlayed in green and orange.  The
+user can use a mouse scroll wheel up to zoom in (or <code class="docutils literal notranslate"><span class="pre">CTRL</span></code> + <code class="docutils literal notranslate"><span class="pre">-</span></code>)
+and down to zoom out (or <code class="docutils literal notranslate"><span class="pre">CTRL</span></code> + <code class="docutils literal notranslate"><span class="pre">=</span></code>).  Alternatively, there are
+toolbar buttons to control zoom, or zoom to a selected module (which
+can be selected on the right window pane list).</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/polynomial3.png"><img alt="_images/polynomial3.png" class="align-center" src="_images/polynomial3.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>After zooming in, try selecting one of the module instances by moving
+the mouse over one of the shapes, click and hold the left mouse button
+and move the block around the fabric as shown in the animation below:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/polynomial4.gif"><img alt="_images/polynomial4.gif" class="align-center" src="_images/polynomial4.gif" style="width: 550px;" /></a>
+</div></blockquote>
+<p>Notice that the color of the block changes color based on what area of
+the fabric is located.  Green means a valid placement location, red is
+invalid and orange is valid although its footprint overlaps with
+another module.  Also notice that when a module instance is being drag
+selected, it has translucent lines to other module instances.  The
+thickness of these lines is determined by the number of net
+connections between those two module instances.  In this fashion, the
+modules can be placed or re-placed by hand.</p>
+<p>Try moving the <code class="docutils literal notranslate"><span class="pre">add18_0</span></code> block away from the rest of the module
+instances onto another valid location (where the block turns green) as
+shown in the image below:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/polynomial5.png"><img alt="_images/polynomial5.png" class="align-center" src="_images/polynomial5.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>If you make a mistake, the hand placer also has an Undo/Redo stack so
+<code class="docutils literal notranslate"><span class="pre">CTRL</span></code> + <code class="docutils literal notranslate"><span class="pre">Z</span></code> will undo the last movement and <code class="docutils literal notranslate"><span class="pre">CTRL</span></code> +
+<code class="docutils literal notranslate"><span class="pre">SHIFT</span></code> + <code class="docutils literal notranslate"><span class="pre">Z</span></code> will redo a movement.  When completed, the window
+can be closed and the new placement is automatically applied.</p>
+<p>Once the window is closed, the <code class="docutils literal notranslate"><span class="pre">PolynomialGenerator</span></code> will
+automatically resume and generate the <code class="docutils literal notranslate"><span class="pre">polynomial.dcp</span></code>.  We can then
+use <code class="docutils literal notranslate"><span class="pre">refresh_design</span></code> in Vivado’s Tcl prompt to re-load the DCP:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>refresh_design
+set i 0; foreach c [get_cells] { incr i; highlight_objects -leaf_cells $c -color_index $i }
+</pre></div>
+</div>
+<p>After we zoom in, we should see a very similar floorplan layout to the
+one chosen interactively in the hand placer:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/polynomial6.png"><img alt="_images/polynomial6.png" class="align-center" src="_images/polynomial6.png" style="width: 550px;" /></a>
+</div></blockquote>
+<p>Notice in the snapshot above, the <code class="docutils literal notranslate"><span class="pre">add18_0</span></code> module instance is in
+the top right of the screen, in step with where we placed it in the
+hand placer.</p>
+<p>Again, we can repeat the Vivado Tcl commands <code class="docutils literal notranslate"><span class="pre">report_route_status</span></code>
+and <code class="docutils literal notranslate"><span class="pre">report_timing</span></code> to validate the result.  Although we do not
+replicate the output here, the design should be valid and meet timing
+as in step 2.</p>
+<p>At this point you are invited to try different polynomials of your own
+and try making your own placements in the hand placer to explore the
+several possibilities available to you in this proof-of-concept.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SLR_Crosser_DCP_Creator_Tutorial.html" class="btn btn-neutral float-right" title="Create Placed and Routed DCP to Cross SLR" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format.html" class="btn btn-neutral" title="Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018-2023, Advanced Micro Devices, Inc.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2023.1.4-beta',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      <script type="text/javascript" src="_static/copybutton.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

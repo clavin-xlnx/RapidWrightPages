@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Create and Use an SLR Bridge &mdash; RapidWright 2023.1.3-beta documentation</title>
+  <title>Create and Use an SLR Bridge &mdash; RapidWright 2023.1.4-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2023.1.3
+                2023.1.4
               </div>
             
           
@@ -121,6 +121,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ReportTimingExample.html">RapidWright Report Timing Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ReusingTimingClosedLogicAsAShell.html">Reuse Timing-closed Logic As A Shell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format.html">Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PolynomialGenerator.html">Polynomial Generator: Placed and Routed Circuits in Seconds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
@@ -234,7 +235,7 @@
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/tdm.png"><img alt="_images/tdm.png" class="align-center" src="_images/tdm.png" style="width: 550px;" /></a>
 </div></blockquote>
-<p>The TDM circuit switches between 4 low frequency signals (1X CLK) to drive data into the faster clock domain (4X CLK), and vice versa.  The red-dotted line shows the boundary and encompasses the circuit that will be generated directly from RapidWright.  Due to the challenging nature of crossing SLRs, RapidWright has a dedicated circuit generator for SLR crossings that can custom route the clock to avoid hold time issues and minimize inter-SLR delay penalties to provide an implementation that achieves high performance (&gt;750MHz).</p>
+<p>The TDM circuit switches between 4 low frequency signals (1X CLK) to drive data into the faster clock domain (4X CLK), and vice versa.  The red-dotted line shows the boundary and encompasses the circuit that will be generated directly from RapidWright.  Due to the challenging nature of crossing SLRs, RapidWright has a dedicated circuit generator for SLR crossings that can custom route the clock to avoid hold time issues and minimize inter-SLR delay penalties to provide an implementation that achieves high performance (&gt;700MHz).</p>
 <p>By taking this approach, greater bandwidth over the SLR boundaries can be achieved and/or minimizing the total number of SLLs used–leaving them available for other applications such as when building a <a class="reference internal" href="Glossary.html#term-shell"><span class="xref std std-term">shell</span></a>.</p>
 </div>
 <div class="section" id="getting-started">
@@ -307,12 +308,12 @@ Option                                   Description
 </div>
 <div class="section" id="combining-the-designs">
 <h3>Combining the Designs<a class="headerlink" href="#combining-the-designs" title="Permalink to this headline">¶</a></h3>
-<p>Now that we know we have a correct bridge, we start on our main design.  To do so, we have provided a synthesized version of our TDM circuit where N=32. To open it:</p>
-<ol class="arabic simple">
-<li><p>Download <a class="reference download internal" download="" href="_downloads/2982db30c1a4e403863cbc1efea2d28d/synth32_BB.dcp"><code class="xref download docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code></a> into your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
-<li><p>Open it in Vivado using the Tcl command:</p></li>
-</ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span><span class="w"> </span>synth32_BB.dcp
+<p>Now that we know we have a correct bridge, we can begin on our main
+design.  To do so, we have provided a synthesized version of our TDM
+circuit where N=32. To open <a class="reference download internal" download="" href="_downloads/2982db30c1a4e403863cbc1efea2d28d/synth32_BB.dcp"><code class="xref download docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code></a>, run the following Tcl commands in Vivado’s
+Tcl prompt:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span><span class="w"> </span>wget<span class="w"> </span>http:<span class="o">//</span>www.rapidwright.io<span class="o">/</span>docs<span class="o">/</span>_downloads<span class="o">/</span>synth32_BB.dcp
+<span class="nv">open_checkpoint</span><span class="w"> </span>synth32_BB.dcp
 </pre></div>
 </div>
 <p>Look at the Vivado netlist view of the <code class="docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code> design. The SLR Bridge (<code class="docutils literal notranslate"><span class="pre">crossing</span></code> instance) has been left open as a black box to be populated with our RapidWright bridge implementation, see the screenshot below for reference:</p>
@@ -331,12 +332,11 @@ Option                                   Description
 </div>
 <div class="section" id="implementation">
 <h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h3>
-<p>We can now proceed to constrain the design and run place and route by running the following script:</p>
-<ol class="arabic simple">
-<li><p>Download <a class="reference download internal" download="" href="_downloads/8bbc160bdcb93f3b37eac383c3e1f882/run_PnR.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_PnR.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
-<li><p>Run the Tcl command:</p></li>
-</ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>run_PnR.tcl
+<p>We can now proceed to constrain the design and run place and route by
+sourcing the <a class="reference download internal" download="" href="_downloads/8bbc160bdcb93f3b37eac383c3e1f882/run_PnR.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_PnR.tcl</span></code></a> script in
+Vivado by running the following Tcl commands in Vivado’s Tcl prompt:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span><span class="w"> </span>wget<span class="w"> </span>http:<span class="o">//</span>www.rapidwright.io<span class="o">/</span>docs<span class="o">/</span>_downloads<span class="o">/</span>run_PnR.tcl
+<span class="nb">source</span><span class="w"> </span>run_PnR.tcl
 </pre></div>
 </div>
 <p>Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:</p>
@@ -357,12 +357,11 @@ Option                                   Description
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/slr_routed.png"><img alt="_images/slr_routed.png" class="align-center" src="_images/slr_routed.png" style="width: 550px;" /></a>
 </div></blockquote>
-<p>For additional analysis of timing reports can be performed on the specific paths crossing the SLR and leading up to it by:</p>
-<ol class="arabic simple">
-<li><p>Downloading <a class="reference download internal" download="" href="_downloads/db22add9e77242144fc6a54a74550ef6/run_timing.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_timing.tcl</span></code></a> to your <code class="docutils literal notranslate"><span class="pre">bridge_tutorial</span></code> directory</p></li>
-<li><p>Running the Tcl command:</p></li>
-</ol>
-<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>run_timing.tcl
+<p>For additional analysis of timing reports can be performed on the
+specific paths crossing the SLR and leading up to it by sourcing the <a class="reference download internal" download="" href="_downloads/db22add9e77242144fc6a54a74550ef6/run_timing.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_timing.tcl</span></code></a> script in Vivado
+by running the following Tcl commands in Vivado’s Tcl prompt:</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span><span class="w"> </span>wget<span class="w"> </span>http:<span class="o">//</span>www.rapidwright.io<span class="o">/</span>docs<span class="o">/</span>_downloads<span class="o">/</span>run_timing.tcl
+<span class="nb">source</span><span class="w"> </span>run_timing.tcl
 </pre></div>
 </div>
 <p>Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:</p>
@@ -380,7 +379,7 @@ Option                                   Description
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/slr_timing.png"><img alt="_images/slr_timing.png" class="align-center" src="_images/slr_timing.png" style="width: 750px;" /></a>
 </div></blockquote>
-<p>The clock constraint for the design is 1.34ns and our implementation met timing with 0.02ns of positive slack, meaning it can be implemented with a 750MHz fast (4X) clock.  This is quite close to the spec of the VU7P which is 775MHz.</p>
+<p>The clock constraint for the design is 1.4ns and our implementation met timing with 0.02ns of positive slack, meaning it can be implemented with a &gt;710MHz fast (4X) clock.  This is quite close to the spec of the VU7P which is 775MHz.</p>
 </div>
 <div class="section" id="conclusion">
 <h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h3>
@@ -431,7 +430,7 @@ Option                                   Description
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2023.1.3-beta',
+            VERSION:'2023.1.4-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

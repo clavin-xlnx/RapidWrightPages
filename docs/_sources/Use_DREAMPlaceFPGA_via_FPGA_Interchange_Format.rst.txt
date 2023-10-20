@@ -81,7 +81,7 @@ files by converting them to bookshelf format consistent with the
 .. code-block:: bash
 
   cd DREAMPlaceFPGA # Or wherever your DREAMPlaceFPGA installation is located
-  python IFsupport/IF2bookshelf.py --netlist gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist 
+  python3 IFsupport/IF2bookshelf.py --netlist gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist 
 
 Next, DREAMPlaceFPGA uses a JSON settings file to configure the
 placement run that we need to configure.  Here is an example JSON
@@ -107,7 +107,7 @@ at a terminal:
 
 .. code-block:: bash
 
-  python dreamplacefpga/Placer.py test/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json
+  python3 dreamplacefpga/Placer.py test/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json
 
 Placement will proceed and may take a few minutes, afterwards a result
 new FPGA Interchange physical netlist file will be generated here: ``results/design/design.phys``.

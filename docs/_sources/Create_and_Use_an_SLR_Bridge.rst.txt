@@ -13,7 +13,7 @@ The TDM circuit and its connectivity with a RapidWright SLR bridge is shown in t
 	:width: 550px
 	:align: center
 
-The TDM circuit switches between 4 low frequency signals (1X CLK) to drive data into the faster clock domain (4X CLK), and vice versa.  The red-dotted line shows the boundary and encompasses the circuit that will be generated directly from RapidWright.  Due to the challenging nature of crossing SLRs, RapidWright has a dedicated circuit generator for SLR crossings that can custom route the clock to avoid hold time issues and minimize inter-SLR delay penalties to provide an implementation that achieves high performance (>750MHz).  	
+The TDM circuit switches between 4 low frequency signals (1X CLK) to drive data into the faster clock domain (4X CLK), and vice versa.  The red-dotted line shows the boundary and encompasses the circuit that will be generated directly from RapidWright.  Due to the challenging nature of crossing SLRs, RapidWright has a dedicated circuit generator for SLR crossings that can custom route the clock to avoid hold time issues and minimize inter-SLR delay penalties to provide an implementation that achieves high performance (>700MHz).  	
 
 By taking this approach, greater bandwidth over the SLR boundaries can be achieved and/or minimizing the total number of SLLs used--leaving them available for other applications such as when building a :term:`shell`.
 	
@@ -104,13 +104,15 @@ We have specified a 750MHz clock constraint (1.333 ns period) and the timing rep
 
 Combining the Designs
 -----------------------
-Now that we know we have a correct bridge, we start on our main design.  To do so, we have provided a synthesized version of our TDM circuit where N=32. To open it:
-
-1. Download :download:`synth32_BB.dcp <files/synth32_BB.dcp>` into your ``bridge_tutorial`` directory
-2. Open it in Vivado using the Tcl command:
+Now that we know we have a correct bridge, we can begin on our main
+design.  To do so, we have provided a synthesized version of our TDM
+circuit where N=32. To open :download:`synth32_BB.dcp
+<files/synth32_BB.dcp>`, run the following Tcl commands in Vivado's
+Tcl prompt:
 
 .. code-block:: tcl
 
+	exec wget http://www.rapidwright.io/docs/_downloads/synth32_BB.dcp
 	open_checkpoint synth32_BB.dcp
 
 Look at the Vivado netlist view of the ``synth32_BB.dcp`` design. The SLR Bridge (``crossing`` instance) has been left open as a black box to be populated with our RapidWright bridge implementation, see the screenshot below for reference:
@@ -132,13 +134,13 @@ Note that the netlist icon next to ``crossing`` should change from dark to white
 
 Implementation
 ------------------
-We can now proceed to constrain the design and run place and route by running the following script:
-
-1. Download :download:`run_PnR.tcl <files/run_PnR.tcl>` to your ``bridge_tutorial`` directory
-2. Run the Tcl command:
+We can now proceed to constrain the design and run place and route by
+sourcing the :download:`run_PnR.tcl <files/run_PnR.tcl>` script in
+Vivado by running the following Tcl commands in Vivado's Tcl prompt:
 
 .. code-block:: tcl
 
+	exec wget http://www.rapidwright.io/docs/_downloads/run_PnR.tcl
 	source run_PnR.tcl
 
 Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:
@@ -152,13 +154,13 @@ This can take several minutes (up to 30 minutes inside the tutorial virtual mach
 	:width: 550px
 	:align: center
 
-For additional analysis of timing reports can be performed on the specific paths crossing the SLR and leading up to it by:
-
-1. Downloading :download:`run_timing.tcl <files/run_timing.tcl>` to your ``bridge_tutorial`` directory
-2. Running the Tcl command:
+For additional analysis of timing reports can be performed on the
+specific paths crossing the SLR and leading up to it by sourcing the :download:`run_timing.tcl <files/run_timing.tcl>` script in Vivado
+by running the following Tcl commands in Vivado's Tcl prompt:
 
 .. code-block:: tcl
 
+	exec wget http://www.rapidwright.io/docs/_downloads/run_timing.tcl
 	source run_timing.tcl
 
 Alternatively, you can copy and paste the contents of the Tcl file below into the Tcl console in Vivado:
@@ -172,7 +174,7 @@ This will produce several tabs in the ``Timing`` window tab as shown below:
 	:width: 750px
 	:align: center	
 
-The clock constraint for the design is 1.34ns and our implementation met timing with 0.02ns of positive slack, meaning it can be implemented with a 750MHz fast (4X) clock.  This is quite close to the spec of the VU7P which is 775MHz.  
+The clock constraint for the design is 1.4ns and our implementation met timing with 0.02ns of positive slack, meaning it can be implemented with a >710MHz fast (4X) clock.  This is quite close to the spec of the VU7P which is 775MHz.  
 	
 Conclusion
 --------------

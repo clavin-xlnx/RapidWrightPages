@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reuse Timing-closed Logic As A Shell &mdash; RapidWright 2023.1.3-beta documentation</title>
+  <title>Reuse Timing-closed Logic As A Shell &mdash; RapidWright 2023.1.4-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2023.1.3
+                2023.1.4
               </div>
             
           
@@ -132,6 +132,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format.html">Use DREAMPlaceFPGA to Place a Netlist via FPGA Interchange Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PolynomialGenerator.html">Polynomial Generator: Placed and Routed Circuits in Seconds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SLR_Crosser_DCP_Creator_Tutorial.html">Create Placed and Routed DCP to Cross SLR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IPI_PreImpl_Tutorial.html">Build an IP Integrator Design with Pre-Implemented Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PipelineGeneratorExample.html">RapidWright PipelineGenerator Example</a></li>
@@ -311,7 +312,7 @@ dynamic modules turned into black boxes.</p>
 <h3>1. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
 <p>To run this tutorial, you will need:</p>
 <ol class="arabic simple">
-<li><p>RapidWright 2023.1.2 or later</p></li>
+<li><p>RapidWright 2023.1.3 or later</p></li>
 <li><p>Vivado 2023.1 or later</p></li>
 </ol>
 </div>
@@ -322,12 +323,25 @@ chosen a simple RISCV design targeting a KCU105 board (Kintex
 UltraScale <code class="docutils literal notranslate"><span class="pre">xcku040-ffva1156-2-e</span></code>).  The design was created using
 the <a class="reference external" href="https://github.com/litex-hub/linux-on-litex-vexriscv">Linux on LiteX-VexRiscv</a> project, but
 we will recreate the design using a minimal set of steps and
-dependencies.  To get started, follow the commands below (alternate
-project files download link here: <a class="reference download internal" download="" href="_downloads/63009257c609c9cfb59807633ae9dbce/kcu105_example.zip"><code class="xref download docutils literal notranslate"><span class="pre">kcu105_example.zip</span></code></a>):</p>
+dependencies.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This design compilation step will take 8-12 minutes to complete.
+If you’d prefer to skip past step 2, you can <a class="reference download internal" download="" href="_downloads/529a79f844f492107bb88cb724b0d511/kcu105_step2.zip"><code class="xref download docutils literal notranslate"><span class="pre">download</span> <span class="pre">the</span> <span class="pre">output</span> <span class="pre">files</span></code></a> instead by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/kcu105_step2.zip
+unzip<span class="w"> </span>kcu105_step2.zip
+<span class="nb">cd</span><span class="w"> </span>kcu105
+vivado<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>and then skip to step 3.</p>
+</div>
+<p>To get started, follow the commands below to <a class="reference download internal" download="" href="_downloads/63009257c609c9cfb59807633ae9dbce/kcu105_example.zip"><code class="xref download docutils literal notranslate"><span class="pre">download</span> <span class="pre">the</span>
+<span class="pre">source</span> <span class="pre">files</span></code></a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/kcu105_example.zip
 unzip<span class="w"> </span>kcu105_example.zip
 <span class="nb">cd</span><span class="w"> </span>kcu105
-vivado<span class="w"> </span>-source<span class="w"> </span>kcu105.tcl
+vivado<span class="w"> </span>-source<span class="w"> </span>kcu105.tcl<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
 <p>The included script will create a Vivado project, load the generated
@@ -336,7 +350,8 @@ Verilog module for one of the RISCV CPUs has already been annotated
 for you with <code class="docutils literal notranslate"><span class="pre">DONT_TOUCH</span></code> and will serve as our dynamic module for
 this tutorial.  The script will take several minutes to complete but
 will generate a placed and routed DCP and EDIF file ready for
-RapidWright.</p>
+RapidWright.  Notice we are running Vivado in the background as we
+will come back to the terminal shortly.</p>
 <p>A sample result is shown in the image below with the leaf cells of CPU
 core (<code class="docutils literal notranslate"><span class="pre">cores_1_cpu_logic_cpu</span></code>) highlighted in yellow.</p>
 <blockquote>
@@ -390,9 +405,15 @@ command prompt:</p>
 <span class="n">open_checkpoint</span> <span class="n">kcu105_route_shell</span><span class="o">.</span><span class="n">dcp</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to the large number of constraints generated in
+RapidWright, opening the checkpoint might take a few
+minutes.</p>
+</div>
 <p>If RapidWright was able to correctly create the black box, you should
-see exactly one critical warning from Vivado reported as shown in the
-dialog below:</p>
+see exactly one critical warning, which may show up in a dialog from Vivado
+as shown below:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/Shell-Picture3.png"><img alt="_images/Shell-Picture3.png" class="align-center" src="_images/Shell-Picture3.png" style="width: 550px;" /></a>
 </div></blockquote>
@@ -453,7 +474,10 @@ of the RISCV core, we can load it directly in Vivado with
 </div>
 <p>Once the dynamic module has been loaded with the synthesized RISCV
 core, we can implement the design and check the results</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">place_design</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># We need to waive a DRC due to the nature of the design</span>
+<span class="n">set_msg_config</span> <span class="o">-</span><span class="nb">id</span> <span class="p">{</span><span class="n">Common</span> <span class="mi">17</span><span class="o">-</span><span class="mi">55</span><span class="p">}</span> <span class="o">-</span><span class="n">new_severity</span> <span class="p">{</span><span class="ne">Warning</span><span class="p">}</span>
+<span class="n">set_property</span> <span class="n">SEVERITY</span> <span class="p">{</span><span class="ne">Warning</span><span class="p">}</span> <span class="p">[</span><span class="n">get_drc_checks</span> <span class="n">REQP</span><span class="o">-</span><span class="mi">1753</span><span class="p">]</span>
+<span class="n">place_design</span>
 <span class="n">route_design</span>
 <span class="n">report_route_status</span>
 <span class="n">report_timing</span>
@@ -614,7 +638,7 @@ approach for your own projects.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2023.1.3-beta',
+            VERSION:'2023.1.4-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
