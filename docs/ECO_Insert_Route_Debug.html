@@ -147,7 +147,7 @@
 <li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ICCAD23_Tutorial.html">RapidWright ICCAD 2023 Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ICCAD23_Tutorial.html">RapidWright ICCAD 2023 Hands-on Tutorial</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
@@ -302,7 +302,7 @@ An <a class="reference external" href="https://docs.xilinx.com/r/en-US/ug949-viv
 refers to compilation of a sub-module that is intended to be integrated with a top-level
 design at some future time. In such a flow, for example, any top-level ports will not have
 I/O buffer cells inserted.
-command using the Tcl Console located in the lower portion of the Vivado GUI:</p>
+Run the following command using the Tcl Console located in the lower portion of the Vivado GUI:</p>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">open_checkpoint</span><span class="w"> </span>files<span class="o">/</span>fifo36_routed.dcp
 </pre></div>
 </div>
@@ -380,12 +380,12 @@ The following image shows the result after zooming out six steps:</p>
 <span class="n">Design</span> <span class="n">Route</span> <span class="n">Status</span>
                                                <span class="p">:</span>      <span class="c1"># nets :</span>
    <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
-   <span class="c1"># of logical nets.......................... :       87710 :</span>
-       <span class="c1"># of nets not needing routing.......... :       33884 :</span>
-           <span class="c1"># of internally routed nets........ :       30548 :</span>
+   <span class="c1"># of logical nets.......................... :       87712 :</span>
+       <span class="c1"># of nets not needing routing.......... :       33882 :</span>
+           <span class="c1"># of internally routed nets........ :       30546 :</span>
            <span class="c1"># of nets with no loads............ :        3299 :</span>
-       <span class="c1"># of routable nets..................... :       53826 :</span>
-           <span class="c1"># of fully routed nets............. :       53826 :</span>
+       <span class="c1"># of routable nets..................... :       53830 :</span>
+           <span class="c1"># of fully routed nets............. :       53830 :</span>
        <span class="c1"># of nets with routing errors.......... :          37 :</span>
            <span class="c1"># of nets with no driver........... :          37 :</span>
    <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
@@ -475,12 +475,12 @@ Running <code class="docutils literal notranslate"><span class="pre">report_rout
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Design</span> <span class="n">Route</span> <span class="n">Status</span>
                                                <span class="p">:</span>      <span class="c1"># nets :</span>
    <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
-   <span class="c1"># of logical nets.......................... :       87673 :</span>
-       <span class="c1"># of nets not needing routing.......... :       33816 :</span>
-           <span class="c1"># of internally routed nets........ :       30517 :</span>
+   <span class="c1"># of logical nets.......................... :       87675 :</span>
+       <span class="c1"># of nets not needing routing.......... :       33814 :</span>
+           <span class="c1"># of internally routed nets........ :       30515 :</span>
            <span class="c1"># of nets with no loads............ :        3299 :</span>
-       <span class="c1"># of routable nets..................... :       53857 :</span>
-           <span class="c1"># of fully routed nets............. :       53857 :</span>
+       <span class="c1"># of routable nets..................... :       53861 :</span>
+           <span class="c1"># of fully routed nets............. :       53861 :</span>
        <span class="c1"># of nets with routing errors.......... :           0 :</span>
    <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
 </pre></div>
@@ -496,25 +496,24 @@ RapidWright’s <code class="docutils literal notranslate"><span class="pre">Mod
 closer to the design under debug.
 For the scope of this tutorial, we will visually identify a new location for placing the debug
 core but it should be noted that automated methods also exist.</p>
-<p>Using Vivado (which should still have the last <code class="docutils literal notranslate"><span class="pre">boom_medium_debug.dcp</span></code> open) select and zoom
-into the following site:</p>
+<p>Using Vivado (which should still have the last <code class="docutils literal notranslate"><span class="pre">boom_medium_debug.dcp</span></code> open) it can be observed
+that there are free block RAM resources to the left and right of the design under debug which
+would represent better locations for any debug core.</p>
+<p>Select and zoom into the following site:</p>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">select_objects</span><span class="w"> </span><span class="k">[</span><span class="nv">get_sites</span><span class="w"> </span>RAMB36_X7Y34<span class="k">]</span>
 </pre></div>
 </div>
-<p>Zooming out will reveal that there are free block RAM resources to the left and right of the
-design under debug, representing a better location for a debug core.
-Furthermore, note that LUT resources to the right of the RAM resource must also be unoccupied
-as they are necessary to host a number of GND sources.</p>
+<p>Note that this site is unoccupied, and that LUT resources to the right of this RAM resource are
+also unoccupied as they are necessary to host a number of GND sources.</p>
 <p>Edit <code class="docutils literal notranslate"><span class="pre">src/EcoInsertRouteDebug.java</span></code> again, comment out the <code class="docutils literal notranslate"><span class="pre">placeOnOriginalAnchor()</span></code>
 call and instead place the debug core at this new location, as shown below:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// debug1ModuleInst.placeOnOriginalAnchor();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ModuleInst</span><span class="w"> </span><span class="n">debug1ModuleInst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseDesign</span><span class="p">.</span><span class="na">createModuleInst</span><span class="p">(</span><span class="s">&quot;debug1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">debugModule</span><span class="p">);</span>
+<span class="c1">// debug1ModuleInst.placeOnOriginalAnchor(); // Comment out this line</span>
 
-<span class="c1">// &lt;&lt; SNIP &gt;&gt;</span>
-
-<span class="n">Device</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseDesign</span><span class="p">.</span><span class="na">getDevice</span><span class="p">();</span>
+<span class="n">Device</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseDesign</span><span class="p">.</span><span class="na">getDevice</span><span class="p">();</span><span class="w"> </span><span class="c1">// Add this and the following line</span>
 <span class="n">debug1ModuleInst</span><span class="p">.</span><span class="na">place</span><span class="p">(</span><span class="n">device</span><span class="p">.</span><span class="na">getSite</span><span class="p">(</span><span class="s">&quot;RAMB36_X7Y34&quot;</span><span class="p">));</span>
 
-<span class="c1">// &lt;&lt; SNIP &gt;&gt;</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">ModuleInst</span><span class="o">&gt;</span><span class="w"> </span><span class="n">debugInsts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>Re-compile and execute the modified source code by calling</p>

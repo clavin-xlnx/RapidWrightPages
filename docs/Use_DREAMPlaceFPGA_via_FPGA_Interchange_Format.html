@@ -146,7 +146,7 @@
 <li class="toctree-l2"><a class="reference internal" href="FPGA19_Workshop.html">RapidWright FPGA 2019 Deep Dive Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FCCM19_Workshop.html">RapidWright FCCM 2019 Workshop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FPL19_Tutorial.html">RapidWright FPL 2019 Tutorial</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ICCAD23_Tutorial.html">RapidWright ICCAD 2023 Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ICCAD23_Tutorial.html">RapidWright ICCAD 2023 Hands-on Tutorial</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Tech_Articles.html">Tech Articles</a></li>
@@ -262,8 +262,15 @@ via RWRoute as shown in the diagram below.</p>
 <ol class="arabic simple">
 <li><p>RapidWright 2023.1.3 or later</p></li>
 <li><p>Vivado 2023.1 or later</p></li>
-<li><p><a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/commit/95b5e3dcb7964c1501d025f641c65dfc2768e33f">DREAMPlaceFPGA commit 95b5e3d</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/commit/fb6d086ed082f8404123679ec59d53e7116b3f2e">DREAMPlaceFPGA commit fb6d086</a></p></li>
 </ol>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you are using a pre-configured AWS Instance from a
+RapidWright hands-on conference event,
+<code class="docutils literal notranslate"><span class="pre">DREAMPlaceFPGA</span></code> has already been setup for you in
+<code class="docutils literal notranslate"><span class="pre">~/DREAMPlaceFPGA</span></code>.</p>
+</div>
 <p>To checkout and build DREAMPlaceFPGA, please see their <a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA#build">build
 instructions</a>. Also see
 the <a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA/tree/main/IFsupport#i-generate-the-bookshelf-files-from-the-interchange-format-if-netlist">note here</a>
@@ -274,7 +281,7 @@ on the install process for CentOS 7 can be found here: <a class="reference inter
 <h3>2. Getting an example design and converting it to the FPGA Interchange Format<a class="headerlink" href="#getting-an-example-design-and-converting-it-to-the-fpga-interchange-format" title="Permalink to this headline">¶</a></h3>
 <p>For the ease of demonstration purposes in this tutorial, we have
 chosen a simple design targeting a VU3P (Virtex UltraScale+ <code class="docutils literal notranslate"><span class="pre">xcvu3p-ffvc1517-2-e</span></code>).    To get started, follow the commands below (alternate
-design DCP download link here: <a class="reference download internal" download="" href="_downloads/11db45fb044abe4a2a8bcdcda8521319/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp"><code class="xref download docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp</span></code></a>):</p>
+design DCP download link here: <a class="reference download internal" download="" href="_downloads/b295e6d1f3cb643f9d045e15e84706ba/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp"><code class="xref download docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp</span></code></a>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
 rapidwright<span class="w"> </span>DcpToInterchange<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80.dcp
 </pre></div>
@@ -297,13 +304,13 @@ with DREAMPlaceFPGA.  Currently, DREAMPlaceFPGA reads Interchange
 files by converting them to bookshelf format consistent with the
 <a class="reference external" href="https://www.ispd.cc/contests/16/FAQ.html">ISPD‘16 contest</a>.  Convert the example DCP with the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>DREAMPlaceFPGA<span class="w"> </span><span class="c1"># Or wherever your DREAMPlaceFPGA installation is located</span>
-python3<span class="w"> </span>IFsupport/IF2bookshelf.py<span class="w"> </span>--netlist<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist
+python3<span class="w"> </span>IFsupport/IF2bookshelf.py<span class="w"> </span>--netlist<span class="w"> </span>../gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist
 </pre></div>
 </div>
 <p>Next, DREAMPlaceFPGA uses a JSON settings file to configure the
 placement run that we need to configure.  Here is an example JSON
 settings file for our example design (which you can also download
-here <a class="reference download internal" download="" href="_downloads/4bb88e3356d513d71951d98afbfeb9fa/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json"><code class="xref download docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json</span></code></a>):</p>
+here <a class="reference download internal" download="" href="_downloads/8e17fabd67db41c56ba8e98f656d1db1/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json"><code class="xref download docutils literal notranslate"><span class="pre">gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json</span></code></a>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-O<span class="w"> </span>test/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json<span class="w"> </span>http://www.rapidwright.io/docs/_downloads/gnl_2_4_7_3.0_gnl_3500_03_7_80_80.json
 </pre></div>
 </div>
@@ -350,7 +357,7 @@ new FPGA Interchange physical netlist file will be generated here: <code class="
 <p>Now that the design is fully placed by DREAMPlaceFPGA, we can convert
 it back to a DCP and open it in Vivado by running the following
 command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>PhysicalNetlistToDcp<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist<span class="w"> </span>results/design/design.phys<span class="w"> </span>gnl_2_4_7_3.0_gnl_3500_03_7_80_80.xdc<span class="w"> </span>placed.dcp<span class="w"> </span>--out_of_context
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rapidwright<span class="w"> </span>PhysicalNetlistToDcp<span class="w"> </span>../gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist<span class="w"> </span>results/design/design.phys<span class="w"> </span>../gnl_2_4_7_3.0_gnl_3500_03_7_80_80.xdc<span class="w"> </span>placed.dcp<span class="w"> </span>--out_of_context
 </pre></div>
 </div>
 <p>This command will invoke RapidWright to load the logical netlist
@@ -358,7 +365,7 @@ command:</p>
 new placement information) into a placed design checkpoint
 (<code class="docutils literal notranslate"><span class="pre">placed.dcp</span></code>), readable by Vivado.  Opening this design in Vivado
 will show the resulting placement solution:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado<span class="w"> </span>placed.dcp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vivado<span class="w"> </span>placed.dcp<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/dreamplacefpga_placed.png"><img alt="_images/dreamplacefpga_placed.png" class="align-center" src="_images/dreamplacefpga_placed.png" style="width: 550px;" /></a>
@@ -386,16 +393,16 @@ running the following Tcl command in Vivado:</p>
                                                <span class="p">:</span>      <span class="c1"># nets :</span>
    <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
    <span class="c1"># of logical nets.......................... :        4937 :</span>
-       <span class="c1"># of nets not needing routing.......... :         878 :</span>
-           <span class="c1"># of internally routed nets........ :         728 :</span>
+       <span class="c1"># of nets not needing routing.......... :         898 :</span>
+           <span class="c1"># of internally routed nets........ :         748 :</span>
            <span class="c1"># of implicitly routed ports....... :         150 :</span>
-       <span class="c1"># of routable nets..................... :        4059 :</span>
-           <span class="c1"># of fully routed nets............. :        4059 :</span>
+       <span class="c1"># of routable nets..................... :        4039 :</span>
+           <span class="c1"># of fully routed nets............. :        4039 :</span>
        <span class="c1"># of nets with routing errors.......... :           0 :</span>
    <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
 </pre></div>
 </div>
-<p>The key  metric to look for is the last one to ensure there are 0 nets
+<p>The key metric to look for is the last one to ensure there are 0 nets
 with routing errors.</p>
 <p>As an alternative to Vivado, we can also use RWRoute (the main router
 in RapidWright) to route the design–showing how the FPGA Interchange
@@ -409,8 +416,9 @@ DREAMPlaceFPGA, we can take another path through RapidWright to have
 it routed by its main router, RWRoute.  To load the FPGA Interchange
 design files in RWRoute, we need to have the <code class="docutils literal notranslate"><span class="pre">.netlist</span></code> and
 <code class="docutils literal notranslate"><span class="pre">.phys</span></code> files in the same directory with the same root name.  We can
-accomplish this by simply copying the file over and invoking RWRoute:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">results</span><span class="o">/</span><span class="n">design</span><span class="o">/</span><span class="n">design</span><span class="o">.</span><span class="n">phys</span> <span class="n">gnl_2_4_7_3</span><span class="mf">.0</span><span class="n">_gnl_3500_03_7_80_80</span><span class="o">.</span><span class="n">phys</span>
+accomplish this by simply copying the files over and invoking RWRoute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">../</span><span class="n">gnl_2_4_7_3</span><span class="mf">.0</span><span class="n">_gnl_3500_03_7_80_80</span><span class="o">.</span><span class="n">netlist</span> <span class="o">.</span>
+<span class="n">cp</span> <span class="n">results</span><span class="o">/</span><span class="n">design</span><span class="o">/</span><span class="n">design</span><span class="o">.</span><span class="n">phys</span> <span class="n">gnl_2_4_7_3</span><span class="mf">.0</span><span class="n">_gnl_3500_03_7_80_80</span><span class="o">.</span><span class="n">phys</span>
 <span class="n">rapidwright</span> <span class="n">RWRoute</span> <span class="n">gnl_2_4_7_3</span><span class="mf">.0</span><span class="n">_gnl_3500_03_7_80_80</span><span class="o">.</span><span class="n">phys</span> <span class="n">rwroute_routed</span><span class="o">.</span><span class="n">dcp</span> <span class="o">--</span><span class="n">nonTimingDriven</span> <span class="o">--</span><span class="n">outOfContext</span>
 </pre></div>
 </div>
@@ -447,11 +455,11 @@ Vivado routed solution:</p>
                                                <span class="p">:</span>      <span class="c1"># nets :</span>
    <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
    <span class="c1"># of logical nets.......................... :        4937 :</span>
-       <span class="c1"># of nets not needing routing.......... :         878 :</span>
-           <span class="c1"># of internally routed nets........ :         728 :</span>
+       <span class="c1"># of nets not needing routing.......... :         898 :</span>
+           <span class="c1"># of internally routed nets........ :         748 :</span>
            <span class="c1"># of implicitly routed ports....... :         150 :</span>
-       <span class="c1"># of routable nets..................... :        4059 :</span>
-           <span class="c1"># of fully routed nets............. :        4059 :</span>
+       <span class="c1"># of routable nets..................... :        4039 :</span>
+           <span class="c1"># of fully routed nets............. :        4039 :</span>
        <span class="c1"># of nets with routing errors.......... :           0 :</span>
    <span class="o">-------------------------------------------</span> <span class="p">:</span> <span class="o">-----------</span> <span class="p">:</span>
 </pre></div>

@@ -1,18 +1,54 @@
 ===========================================
-RapidWright ICCAD 2023 Tutorial
+RapidWright ICCAD 2023 Hands-on Tutorial
 ===========================================
-RapidWright will be at `ICCAD 2023 <https://iccad.com/>`_ in San
-Francisco, CA, USA!  We'll be
-presenting a hands on tutorial on Wednesday, November 1st, 2023 in the
-Artisan meeting room at 11:00am PDT.
-
-Please check back here soon for more details.
-
-
 **Title:** RapidWright: Unleashing the Full Power of FPGA Technology with Domain-Specific Tooling
-|br| **Where:** Artisan Room, Hyatt Regency San Francisco Downtown SOMA, ICCAD 2023
-|br| **When:**  Wednesday, November 1st, 2023, 11:00am PDT
 |br| **Organizers:** Chris Lavin and Eddie Hung
+|br| **Where:** Artisan Room, Hyatt Regency San Francisco Downtown SOMA, `ICCAD 2023 <https://iccad.com/>`_
+|br| **When:**  Wednesday, November 1st, 2023, 11:00am PDT
+ * 11:00am - 11:05am : Machine Allocation
+ * 11:05am - 11:15am : Introduction and Overview
+ * 11:15am - 1:00pm : Hands-on, self-guided tutorials
+
++------------------------------------+---------+----------------------------------------+
+|**Featured Tutorial Segments**      | Time    | **Description**                        |
++====================================+=========+========================================+
+| |Shell|                            | 30 mins | Create a pre-implemented shell from an |
+|                                    |         | |br| existing design without pblocks   |
++------------------------------------+---------+----------------------------------------+
+| |DREAMPlace|                       | 25 mins | Use a 3rd party placer with the FPGA   |
+|                                    |         | |br|  Interchange Format               |
++------------------------------------+---------+----------------------------------------+
+| |PG|                               | 15 mins | Create placed and routed circuits from |
+|                                    |         | |br| scratch in seconds                |
++------------------------------------+---------+----------------------------------------+
+| |ECO|                              | 35 mins | Add debug logic without changing       |
+|                                    |         | |br| existing placement and routing    |
++------------------------------------+---------+----------------------------------------+
+
+===================================== ======== ==========================================
+ **Additional Tutorial Segments**     Time     **Description**                                                      
+===================================== ======== ==========================================
+|HelloWorld| |Jup|                     5 mins  Intro to RapidWright in Jupyter Notebooks              
+|ScratchNetlist| |Jup|                10 mins  How to build a netlist from scratch 
+|PM1|                                 15 mins  How to create a pre-implemented module                           
+|PM2|                                 15 mins  Use & relocate pre-implemented modules                  
+|SAT| |Jup|                           15 mins  Use SAT to solve hard routing congestion              
+|SLR|                                 20 mins  Combine Vivado & RapidWright circuits              
+|Router| |Jup|                        20 mins  How to build a basic router in RapidWright              
+===================================== ======== ==========================================
+
+|Jup| = Jupyter Notebook Tutorial
+
+.. note:: To run the Jupyter Notebook tutorials (those marked with the
+	  |Jup| icon above), first run
+
+	  .. code-block:: bash
+
+	     cd ~/RapidWright-binder
+	     jupyter notebook
+
+	  in a separate terminal in the AWS Instance to start the server,
+	  then click on the corresponding tutorial segments above.
 
 	
 Questions? 
@@ -25,3 +61,53 @@ Contact organizers:
 .. |br| raw:: html
 
   <br/>
+
+.. |HelloWorld| raw:: html
+
+	<a href="http://localhost:8888/notebooks/HelloWorld.ipynb" target="_blank">Hello, World</a>
+
+.. |ScratchNetlist| raw:: html
+
+	<a href="http://localhost:8888/notebooks/EDIFNetlistFromScratch.ipynb" target="_blank">Create Netlist from Scratch</a>
+	
+.. |PM1| raw:: html
+
+	<a href="PreImplemented_Modules_Part_I.html" target="_blank">Pre-implemented Modules: Part I</a>
+
+.. |PM2| raw:: html
+
+	<a href="PreImplemented_Modules_Part_II.html" target="_blank">Pre-implemented Modules: Part II</a>
+
+.. |SAT| raw:: html
+
+	<a href="http://localhost:8888/notebooks/SATRouter.ipynb" target="_blank">SAT Router</a>
+
+.. |SLR| raw:: html
+
+	<a href="Create_and_Use_an_SLR_Bridge.html" target="_blank">Create and Use an SLR Bridge</a>
+
+.. |Router| raw:: html
+
+	<a href="http://localhost:8888/notebooks/BasicRouting.ipynb" target="_blank">Basic Routing</a>
+
+.. |Shell| raw:: html
+
+	<a href="ReusingTimingClosedLogicAsAShell.html" target="_blank"C>Reuse Timing-closed Logic As A Shell</a>
+
+.. |DREAMPlace| raw:: html
+
+	<a href="Use_DREAMPlaceFPGA_via_FPGA_Interchange_Format.html" target="_blank"C>Using DREAMPlaceFPGA to Place</a>
+
+.. |PG| raw:: html
+
+	<a href="PolynomialGenerator.html" target="_blank"C>Polynomial Generator</a>
+
+.. |ECO| raw:: html
+
+	<a href="ECO_Insert_Route_Debug.html" target="_blank"C>ECO Debug Core Insertion</a>
+
+
+	
+.. |Jup| image:: images/jupyter.png
+	:width: 25px
+  

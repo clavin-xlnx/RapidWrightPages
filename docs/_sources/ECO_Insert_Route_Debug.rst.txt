@@ -99,7 +99,7 @@ An `out-of-context synthesis run <https://docs.xilinx.com/r/en-US/ug949-vivado-d
 refers to compilation of a sub-module that is intended to be integrated with a top-level
 design at some future time. In such a flow, for example, any top-level ports will not have
 I/O buffer cells inserted.
-command using the Tcl Console located in the lower portion of the Vivado GUI:
+Run the following command using the Tcl Console located in the lower portion of the Vivado GUI:
 
 .. code-block:: tcl
 
@@ -202,12 +202,12 @@ can be run in the Vivado Tcl Console to give the following result:
     Design Route Status
                                                    :      # nets :
        ------------------------------------------- : ----------- :
-       # of logical nets.......................... :       87710 :
-           # of nets not needing routing.......... :       33884 :
-               # of internally routed nets........ :       30548 :
+       # of logical nets.......................... :       87712 :
+           # of nets not needing routing.......... :       33882 :
+               # of internally routed nets........ :       30546 :
                # of nets with no loads............ :        3299 :
-           # of routable nets..................... :       53826 :
-               # of fully routed nets............. :       53826 :
+           # of routable nets..................... :       53830 :
+               # of fully routed nets............. :       53830 :
            # of nets with routing errors.......... :          37 :
                # of nets with no driver........... :          37 :
        ------------------------------------------- : ----------- :
@@ -316,12 +316,12 @@ Running ``report_route_status`` now shows that the design contains no routing er
     Design Route Status
                                                    :      # nets :
        ------------------------------------------- : ----------- :
-       # of logical nets.......................... :       87673 :
-           # of nets not needing routing.......... :       33816 :
-               # of internally routed nets........ :       30517 :
+       # of logical nets.......................... :       87675 :
+           # of nets not needing routing.......... :       33814 :
+               # of internally routed nets........ :       30515 :
                # of nets with no loads............ :        3299 :
-           # of routable nets..................... :       53857 :
-               # of fully routed nets............. :       53857 :
+           # of routable nets..................... :       53861 :
+               # of fully routed nets............. :       53861 :
            # of nets with routing errors.......... :           0 :
        ------------------------------------------- : ----------- :
 
@@ -338,31 +338,31 @@ closer to the design under debug.
 For the scope of this tutorial, we will visually identify a new location for placing the debug
 core but it should be noted that automated methods also exist.
 
-Using Vivado (which should still have the last ``boom_medium_debug.dcp`` open) select and zoom
-into the following site:
+Using Vivado (which should still have the last ``boom_medium_debug.dcp`` open) it can be observed
+that there are free block RAM resources to the left and right of the design under debug which
+would represent better locations for any debug core.
+
+Select and zoom into the following site:
 
 .. code-block:: tcl
 
     select_objects [get_sites RAMB36_X7Y34]
 
-Zooming out will reveal that there are free block RAM resources to the left and right of the
-design under debug, representing a better location for a debug core.
-Furthermore, note that LUT resources to the right of the RAM resource must also be unoccupied
-as they are necessary to host a number of GND sources.
+Note that this site is unoccupied, and that LUT resources to the right of this RAM resource are
+also unoccupied as they are necessary to host a number of GND sources.
 
 Edit ``src/EcoInsertRouteDebug.java`` again, comment out the ``placeOnOriginalAnchor()``
 call and instead place the debug core at this new location, as shown below:
 
 .. code-block:: java
 
-            // debug1ModuleInst.placeOnOriginalAnchor();
+            ModuleInst debug1ModuleInst = baseDesign.createModuleInst("debug1", debugModule);
+            // debug1ModuleInst.placeOnOriginalAnchor(); // Comment out this line
 
-            // << SNIP >>
-
-            Device device = baseDesign.getDevice();
+            Device device = baseDesign.getDevice(); // Add this and the following line
             debug1ModuleInst.place(device.getSite("RAMB36_X7Y34"));
 
-            // << SNIP >>
+            List<ModuleInst> debugInsts = new ArrayList();
 
 Re-compile and execute the modified source code by calling
 

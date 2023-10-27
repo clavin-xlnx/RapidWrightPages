@@ -5,7 +5,8 @@ These notes relate specifically to setting up DREAMPlaceFPGA for use
 with RapidWright on a CentOS 7 Linux OS without ``sudo`` access.
 Ultimately, the pre-requisites and instructions provided on the
 `DREAMPlaceFPGA repository <https://github.com/rachelselinar/DREAMPlaceFPGA#dependencies>`_
-should be referenced as well.
+should be referenced as well.  This process can take up to 40 minutes to
+complete.
 
 This assumes that RapidWright has been setup as described in our
 :ref:`Install` page.
@@ -30,7 +31,8 @@ Assumes that ``git`` is on your PATH.
 
   git clone --recursive https://github.com/rachelselinar/DREAMPlaceFPGA.git
   cd DREAMPlaceFPGA/
-
+  git checkout fb6d086ed082f8404123679ec59d53e7116b3f2e
+  
 
 2a. (Optional) Install ``libffi`` and ``Boost`` locally
 ---------------------------------------------------------
@@ -85,6 +87,7 @@ it.
   cmake .. -DCMAKE_INSTALL_PREFIX=$(dirname `pwd`)
   make 
   make install
+  cd ..
    
 5. Generate FPGA Interchange device file for VU3P
 --------------------------------------------------

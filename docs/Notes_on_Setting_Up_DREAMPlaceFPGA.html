@@ -197,7 +197,8 @@
 with RapidWright on a CentOS 7 Linux OS without <code class="docutils literal notranslate"><span class="pre">sudo</span></code> access.
 Ultimately, the pre-requisites and instructions provided on the
 <a class="reference external" href="https://github.com/rachelselinar/DREAMPlaceFPGA#dependencies">DREAMPlaceFPGA repository</a>
-should be referenced as well.</p>
+should be referenced as well.  This process can take up to 40 minutes to
+complete.</p>
 <p>This assumes that RapidWright has been setup as described in our
 <a class="reference internal" href="Install.html#install"><span class="std std-ref">Install</span></a> page.</p>
 <p>To provide a clean installation, these notes use a Python Virtual
@@ -215,6 +216,7 @@ Environment to avoid conflicts with existing installed packages.</p>
 <p>Assumes that <code class="docutils literal notranslate"><span class="pre">git</span></code> is on your PATH.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/rachelselinar/DREAMPlaceFPGA.git
 <span class="nb">cd</span><span class="w"> </span>DREAMPlaceFPGA/
+git<span class="w"> </span>checkout<span class="w"> </span>fb6d086ed082f8404123679ec59d53e7116b3f2e
 </pre></div>
 </div>
 </div>
@@ -264,6 +266,7 @@ it.</p>
 cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="k">$(</span>dirname<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span><span class="k">)</span>
 make
 make<span class="w"> </span>install
+<span class="nb">cd</span><span class="w"> </span>..
 </pre></div>
 </div>
 </div>

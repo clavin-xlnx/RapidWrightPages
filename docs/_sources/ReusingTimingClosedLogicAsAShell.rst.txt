@@ -112,8 +112,9 @@ we will recreate the design using a minimal set of steps and
 dependencies.  
 
 .. note::
-   This design compilation step will take 8-12 minutes to complete.
-   If you'd prefer to skip past step 2, you can :download:`download the output files <files/kcu105_step2.zip>` instead by running:
+   This design compilation step can take up to 30 minutes to complete
+   and it is highly recommended to skip past it to save time.  To do
+   so, you can :download:`download the output files <files/kcu105_step2.zip>` instead by running:
 
    .. code-block:: bash
 		   

@@ -40,8 +40,13 @@ To run this tutorial, you will need:
 
 1. RapidWright 2023.1.3 or later
 2. Vivado 2023.1 or later
-3. `DREAMPlaceFPGA commit 95b5e3d <https://github.com/rachelselinar/DREAMPlaceFPGA/commit/95b5e3dcb7964c1501d025f641c65dfc2768e33f>`_
-  
+3. `DREAMPlaceFPGA commit fb6d086 <https://github.com/rachelselinar/DREAMPlaceFPGA/commit/fb6d086ed082f8404123679ec59d53e7116b3f2e>`_
+
+.. attention:: If you are using a pre-configured AWS Instance from a
+	       RapidWright hands-on conference event,
+	       ``DREAMPlaceFPGA`` has already been setup for you in
+	       ``~/DREAMPlaceFPGA``.
+   
 To checkout and build DREAMPlaceFPGA, please see their `build
 instructions
 <https://github.com/rachelselinar/DREAMPlaceFPGA#build>`_. Also see
@@ -81,7 +86,7 @@ files by converting them to bookshelf format consistent with the
 .. code-block:: bash
 
   cd DREAMPlaceFPGA # Or wherever your DREAMPlaceFPGA installation is located
-  python3 IFsupport/IF2bookshelf.py --netlist gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist 
+  python3 IFsupport/IF2bookshelf.py --netlist ../gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist 
 
 Next, DREAMPlaceFPGA uses a JSON settings file to configure the
 placement run that we need to configure.  Here is an example JSON
@@ -120,7 +125,7 @@ command:
 
 .. code-block:: bash
 
-  rapidwright PhysicalNetlistToDcp gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist results/design/design.phys gnl_2_4_7_3.0_gnl_3500_03_7_80_80.xdc placed.dcp --out_of_context
+  rapidwright PhysicalNetlistToDcp ../gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist results/design/design.phys ../gnl_2_4_7_3.0_gnl_3500_03_7_80_80.xdc placed.dcp --out_of_context
    
 This command will invoke RapidWright to load the logical netlist
 (which has not changed) and physical netlist (which now contains the
@@ -130,7 +135,7 @@ will show the resulting placement solution:
 
 .. code-block:: bash
 
-  vivado placed.dcp
+  vivado placed.dcp &
 
 .. image:: images/dreamplacefpga_placed.png
 	:width: 550px
@@ -173,15 +178,15 @@ Which should report something similar to this:
                                                  :      # nets :
      ------------------------------------------- : ----------- :
      # of logical nets.......................... :        4937 :
-         # of nets not needing routing.......... :         878 :
-             # of internally routed nets........ :         728 :
+         # of nets not needing routing.......... :         898 :
+             # of internally routed nets........ :         748 :
              # of implicitly routed ports....... :         150 :
-         # of routable nets..................... :        4059 :
-             # of fully routed nets............. :        4059 :
+         # of routable nets..................... :        4039 :
+             # of fully routed nets............. :        4039 :
          # of nets with routing errors.......... :           0 :
      ------------------------------------------- : ----------- :
   
-The key  metric to look for is the last one to ensure there are 0 nets
+The key metric to look for is the last one to ensure there are 0 nets
 with routing errors.
 
 As an alternative to Vivado, we can also use RWRoute (the main router
@@ -197,10 +202,11 @@ DREAMPlaceFPGA, we can take another path through RapidWright to have
 it routed by its main router, RWRoute.  To load the FPGA Interchange
 design files in RWRoute, we need to have the ``.netlist`` and
 ``.phys`` files in the same directory with the same root name.  We can
-accomplish this by simply copying the file over and invoking RWRoute:
+accomplish this by simply copying the files over and invoking RWRoute:
 
 .. code-block:: 
 
+   cp ../gnl_2_4_7_3.0_gnl_3500_03_7_80_80.netlist .
    cp results/design/design.phys gnl_2_4_7_3.0_gnl_3500_03_7_80_80.phys
    rapidwright RWRoute gnl_2_4_7_3.0_gnl_3500_03_7_80_80.phys rwroute_routed.dcp --nonTimingDriven --outOfContext
 
@@ -247,11 +253,11 @@ Vivado routed solution:
                                                  :      # nets :
      ------------------------------------------- : ----------- :
      # of logical nets.......................... :        4937 :
-         # of nets not needing routing.......... :         878 :
-             # of internally routed nets........ :         728 :
+         # of nets not needing routing.......... :         898 :
+             # of internally routed nets........ :         748 :
              # of implicitly routed ports....... :         150 :
-         # of routable nets..................... :        4059 :
-             # of fully routed nets............. :        4059 :
+         # of routable nets..................... :        4039 :
+             # of fully routed nets............. :        4039 :
          # of nets with routing errors.......... :           0 :
      ------------------------------------------- : ----------- :  
     
