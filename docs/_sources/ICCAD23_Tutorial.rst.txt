@@ -1,7 +1,8 @@
 ===========================================
 RapidWright ICCAD 2023 Hands-on Tutorial
 ===========================================
-**Title:** RapidWright: Unleashing the Full Power of FPGA Technology with Domain-Specific Tooling
+:download:`Slides <files/ICCAD2023-RapidWright-Tutorial.pdf>` | :download:`Invited Paper <files/ICCAD2023-FinalCameraReady.pdf>` | :download:`Reference Handout <files/ICCAD2023-RapidWright-Tutorial-Reference.pdf>` 
+|br| **Title:** RapidWright: Unleashing the Full Power of FPGA Technology with Domain-Specific Tooling
 |br| **Organizers:** Chris Lavin and Eddie Hung
 |br| **Where:** Artisan Room, Hyatt Regency San Francisco Downtown SOMA, `ICCAD 2023 <https://iccad.com/>`_
 |br| **When:**  Wednesday, November 1st, 2023, 11:00am PDT
