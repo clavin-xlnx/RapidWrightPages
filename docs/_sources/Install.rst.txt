@@ -22,13 +22,7 @@ What You Need to Get Started
 3. [Optional] If you are running Linux and want to run the GUI portion of RapidWright, you may need an older libpng12 library.  For those running Debian/Ubuntu-based distros, try the following:
 
 
-.. warning:: Older versions of libpng have been found to have several
-
-	     vulnerabilities and is only needed for GUI
-
-	     use. Installing this deprecated library should be taken with
-
-	     caution based on the risk of the operating environment.	     
+.. warning:: Older versions of libpng have been found to have several vulnerabilities and is only needed for GUI use. Installing this deprecated library should be taken with caution based on the risk of the operating environment.	     
    
 .. code-block:: bash
 
