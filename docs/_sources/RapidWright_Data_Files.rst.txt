@@ -113,6 +113,13 @@ Another option to avoid on-demand download is to obtain the
 `GitHub Releases<https://github.com/Xilinx/RapidWright/releases>`_) 
 and replace the ``data`` directory in the ``RapidWright`` directory with its contents.
 
-.. note:: Due to GitHub size limitations, starting with the 2022.1.0 through 2022.2.3
-release, the data files were split into two downloads (``rapidwright_data.zip`` and ``rapidwright_data2.zip``).  In 2023.1.0, we switched to Zstandard compression for all our data files that has allowed the release to be consolidated back to a single release zip file.
-``rapidwright_data.zip`` and ``rapidwright_data2.zip``.
+.. note:: Due to GitHub size limitations, 2022.1.0 to 2022.2.3 and
+	  2024.1.0 and later releases, the data files were split into
+	  two downloads (``rapidwright_data.zip`` and
+	  ``rapidwright_data2.zip``).  In 2023.1.0, we switched to
+	  Zstandard compression for all our data files that has
+	  allowed the release to be consolidated back to a single
+	  release zip file, but newer devices starting in 2024.1.0
+	  caused the release to exceed the limit again.  All files
+	  except Series 7 devices are in ``rapidwright_data.zip`` and
+	  Series 7 devices are in ``rapidwright_data2.zip``.
