@@ -114,7 +114,7 @@ Another option to avoid on-demand download is to obtain the
 and replace the ``data`` directory in the ``RapidWright`` directory with its contents.
 
 .. note:: Due to GitHub size limitations, 2022.1.0 to 2022.2.3 and
-	  2024.1.0 and later releases, the data files were split into
+	  2024.1.0 and later releases, the data files are split into
 	  two downloads (``rapidwright_data.zip`` and
 	  ``rapidwright_data2.zip``).  In 2023.1.0, we switched to
 	  Zstandard compression for all our data files that has
