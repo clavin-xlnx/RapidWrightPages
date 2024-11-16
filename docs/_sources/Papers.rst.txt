@@ -14,10 +14,24 @@ Additional RapidWright Publications
 =========== ================================================================================================================================================================================
 Conference  Title                                                                                                                                                           
 =========== ================================================================================================================================================================================
-FPGA 2022   :download:`RapidStream: Parallel Physical Implementation of FPGA HLS Designs <files/FPGA22-RapidStream.pdf>` | **Best Paper Award Winner**
+FPL 2024*   :download:`DynaRapid: Fast-Tracking from C to Routed Circuits <files/FPL24-DynaRapid.pdf>` | :download:`Slides <files/FPL24-DynaRapid-Presentation.pdf>`  | `Video <https://cds.cern.ch/record/2903951?ln=en>`_
+TRETS 9/23  `RapidStream 2.0: Automated Parallel Implementation of Latency–Insensitive FPGA Designs Through Partial Reconfiguration <https://dl.acm.org/doi/10.1145/3593025>`_
+FPGA 2022*  :download:`RapidStream: Parallel Physical Implementation of FPGA HLS Designs <files/FPGA22-RapidStream.pdf>` | `Video <https://dl.acm.org/doi/suppl/10.1145/3490422.3502361/suppl_file/rapidstream-record-1080p.mp4>`_
 FPT 2021    :download:`RWRoute: An Open-source Timing-driven Router for Commercial FPGAs <files/RWRoute_final_submitted.pdf>`      
 FPT 2019    :download:`An Open-source Lightweight Timing Model for RapidWright <files/FPT19-TimingModel.pdf>`    | :download:`Slides <files/FPT19-TimingModel-Presentation.pdf>`
 FPGA 2019   :download:`Build Your Own Domain-specific Solutions with RapidWright <files/FPGA19-RapidWright.pdf>` | :download:`Slides <files/FPGA19-RapidWright-Presentation.pdf>`     
+=========== ================================================================================================================================================================================
+
+***Best Paper Award Winner**
+
+
+Community Competitions
+==============================
+
+=========== ================================================================================================================================================================================
+Conference  Title                                                                                                                                                           
+=========== ================================================================================================================================================================================
+FPGA 2024   `Runtime-First FPGA Interchange Routing Contest <https://xilinx.github.io/fpga24_routing_contest/>`_ | `Conference Site <https://www.isfpga.org/past/fpga2024/fpga-routing-contest/>`_
 =========== ================================================================================================================================================================================
 
 
@@ -25,8 +39,9 @@ Select Community Publications
 ==============================
 
 =========== ====================== ==================================================================
-Conference  Authors                Title                                                                                                                
+Venue       Authors                Title                                                                                                                
 =========== ====================== ==================================================================
+TRETS 6/22  Zhang, N., et al.      `RapidLayout: Fast Hard Block Placement of FPGA-optimized Systolic Arrays Using Evolutionary Algorithm <https://dl.acm.org/doi/10.1145/3501803>`_
 ICCD 2022   Kwadjo, D., et al.     `Accelerating Hybrid Quantized Neural Networks on Multi-tenant Cloud FPGA <https://www.researchgate.net/publication/366433369_Accelerating_Hybrid_Quantized_Neural_Networks_on_Multi-tenant_Cloud_FPGA>`_
 J. of PDC*  Kwadjo, D., et al.     `Towards a Component-based Acceleration of Convolutional Neural Networks on FPGAs <https://www.researchgate.net/publication/360432161_Towards_a_Component-based_Acceleration_of_Convolutional_Neural_Networks_on_FPGAs>`_
 IPDPSW 2021 Kwadjo, D., et al.     `Exploring a Layer-based Pre-implemented Flow for Mapping CNN on FPGA <https://www.researchgate.net/publication/352492458_Exploring_a_Layer-based_Pre-implemented_Flow_for_Mapping_CNN_on_FPGA>`_
