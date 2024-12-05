@@ -38,19 +38,22 @@ FPGA 2024   `Runtime-First FPGA Interchange Routing Contest <https://xilinx.gith
 Select Community Publications
 ==============================
 
-=========== ====================== ==================================================================
-Venue       Authors                Title                                                                                                                
-=========== ====================== ==================================================================
-TRETS 6/22  Zhang, N., et al.      `RapidLayout: Fast Hard Block Placement of FPGA-optimized Systolic Arrays Using Evolutionary Algorithm <https://dl.acm.org/doi/10.1145/3501803>`_
-ICCD 2022   Kwadjo, D., et al.     `Accelerating Hybrid Quantized Neural Networks on Multi-tenant Cloud FPGA <https://www.researchgate.net/publication/366433369_Accelerating_Hybrid_Quantized_Neural_Networks_on_Multi-tenant_Cloud_FPGA>`_
-J. of PDC*  Kwadjo, D., et al.     `Towards a Component-based Acceleration of Convolutional Neural Networks on FPGAs <https://www.researchgate.net/publication/360432161_Towards_a_Component-based_Acceleration_of_Convolutional_Neural_Networks_on_FPGAs>`_
-IPDPSW 2021 Kwadjo, D., et al.     `Exploring a Layer-based Pre-implemented Flow for Mapping CNN on FPGA <https://www.researchgate.net/publication/352492458_Exploring_a_Layer-based_Pre-implemented_Flow_for_Mapping_CNN_on_FPGA>`_
-ASPLOS 2020 Zha, Y., et al.        `Virtualizing FPGAs in the Cloud <https://dl.acm.org/doi/abs/10.1145/3373376.3378491>`_
-FPT 2019    Mandebi, J., et al.    `Automatic Generation of Application-Specific FPGA Overlays with RapidWright <https://ieeexplore.ieee.org/abstract/document/8977903>`_
-FPL 2019    Hale, R., et al.       `Preallocating Resources for Distributed Memory Based FPGA Debug <https://ieeexplore.ieee.org/abstract/document/8892263>`_
-FCCM 2019   Liu, L., et al.        `RapidRoute: Fast Assembly of Communication Structures for FPGA Overlays <https://ieeexplore.ieee.org/abstract/document/8735550>`_
-FPL 2018    Hale, R., et al.       `Enabling Low Impact, Rapid Debug for Highly Utilized FPGA Designs <https://ieeexplore.ieee.org/abstract/document/8533472>`_
-=========== ====================== ==================================================================
+============ ====================== ==================================================================
+Venue        Authors                Title                                                                                                                
+============ ====================== ==================================================================
+TRETS 6/22*  Zhang, N., et al.      `RapidLayout: Fast Hard Block Placement of FPGA-optimized Systolic Arrays Using Evolutionary Algorithm <https://dl.acm.org/doi/10.1145/3501803>`_
+ICCD 2022    Kwadjo, D., et al.     `Accelerating Hybrid Quantized Neural Networks on Multi-tenant Cloud FPGA <https://www.researchgate.net/publication/366433369_Accelerating_Hybrid_Quantized_Neural_Networks_on_Multi-tenant_Cloud_FPGA>`_
+J. of PDC**  Kwadjo, D., et al.     `Towards a Component-based Acceleration of Convolutional Neural Networks on FPGAs <https://www.researchgate.net/publication/360432161_Towards_a_Component-based_Acceleration_of_Convolutional_Neural_Networks_on_FPGAs>`_
+IPDPSW 2021  Kwadjo, D., et al.     `Exploring a Layer-based Pre-implemented Flow for Mapping CNN on FPGA <https://www.researchgate.net/publication/352492458_Exploring_a_Layer-based_Pre-implemented_Flow_for_Mapping_CNN_on_FPGA>`_
+ASPLOS 2020  Zha, Y., et al.        `Virtualizing FPGAs in the Cloud <https://dl.acm.org/doi/abs/10.1145/3373376.3378491>`_
+FPT 2019     Mandebi, J., et al.    `Automatic Generation of Application-Specific FPGA Overlays with RapidWright <https://ieeexplore.ieee.org/abstract/document/8977903>`_
+FPL 2019     Hale, R., et al.       `Preallocating Resources for Distributed Memory Based FPGA Debug <https://ieeexplore.ieee.org/abstract/document/8892263>`_
+FCCM 2019    Liu, L., et al.        `RapidRoute: Fast Assembly of Communication Structures for FPGA Overlays <https://ieeexplore.ieee.org/abstract/document/8735550>`_
+FPL 2018     Hale, R., et al.       `Enabling Low Impact, Rapid Debug for Highly Utilized FPGA Designs <https://ieeexplore.ieee.org/abstract/document/8533472>`_
+============ ====================== ==================================================================
 
+*Best Paper Award ACM TRETS 2023 |br| **Journal of Parallel and Distributed Computing, May 2022 
 
-*Journal of Parallel and Distributed Computing, May 2022 
+.. |br| raw:: html
+
+  <br/>
