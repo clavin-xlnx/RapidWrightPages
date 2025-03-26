@@ -1,0 +1,53 @@
+===========================
+Automatic Install
+===========================
+
+What You Need to Get Started
+==============================
+1. 5GB disk space (4GB after installation).
+2. `Oracle JDK Java 1.8 or later <https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>`_ (`OpenJDK <https://openjdk.java.net/install/>`_ should also work)
+3. `Git <https://git-scm.com/>`_ (source revision control system)
+4. If you are running Linux, you may need an older libpng12 library.  For those running Debian/Ubuntu-based distros, try the following:
+
+.. code-block:: bash
+
+	wget -q -O /tmp/libpng12.deb https://snapshot.debian.org/archive/debian/20160413T160058Z/pool/main/libp/libpng/libpng12-0_1.2.54-6_amd64.deb && sudo dpkg -i /tmp/libpng12.deb && rm /tmp/libpng12.deb
+	
+For CentOS/RedHat/Fedora distros, try the following:
+
+.. code-block:: bash
+
+	sudo yum install libpng12	
+	
+Additional Recommendations
+============================
+1. `Vivado Design Suite 2018.3 or later <https://www.xilinx.com/products/design-tools/vivado.html>`_  (Not essential to run RapidWright, but makes it useful)
+2. An IDE such as:
+    * `Eclipse <http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2>`_ 
+    * `IntelliJ <https://www.jetbrains.com/idea/>`_
+   or a build tool:
+	* `Gradle 4.0 <https://gradle.org/install/>`_ or later
+	
+Automatic Install Steps
+========================
+The easiest way to get RapidWright setup is to use the automatic installer jar that performs the manual installation automatically.  Make sure you have the JDK and Git on your PATH.
+
+1. Download :download:`rapidwright-installer.jar <files/rapidwright-installer.jar>` (or run command below in Linux) to the directory where you would like RapidWright to reside.
+
+.. code-block:: bash
+
+	wget http://www.rapidwright.io/docs/_downloads/rapidwright-installer.jar
+
+2. From a terminal in that directory, run (To open a terminal on Windows, search and run 'cmd.exe' from the Start orb):
+
+.. code-block:: bash
+
+	java -jar rapidwright-installer.jar
+
+3. Use one of the BASH/CSH/BAT scripts created at the end of the install to set the proper environment variables for subsequent invocations of RapidWright.
+4. Setup your IDE (if applicable):
+
+  * :ref:`RapidWright Eclipse Setup`
+  * :ref:`RapidWright IntelliJ Setup`
+  
+Once complete, you can run the DeviceBrowser within your respective IDE to test the installation.

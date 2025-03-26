@@ -1,0 +1,70 @@
+=================================================
+Manual Install 
+=================================================
+RapidWright source code and data files are hosted on `GitHub <https://github.com/Xilinx/RapidWright>`_.  Here is how to get the necessary files to get started:
+
+Run the following from the command line:
+
+.. code-block:: bash
+
+    git clone https://github.com/Xilinx/RapidWright.git
+    cd RapidWright
+    ./gradlew compileJava
+
+This will clone a copy of RapidWright from GitHub, download jar
+dependencies and compile the Java code.  Checking out and compiling
+the code can also be accomplished by using an IDE (see
+:ref:`RapidWright Eclipse Setup` or :ref:`RapidWright IntelliJ Setup`). 
+
+To perform a quick test to ensure RapidWright is setup correctly, try
+running the following:
+    
+.. code-block:: bash
+    
+    java -cp bin:jars/* com.xilinx.rapidwright.device.browser.DeviceBrowser
+
+.. note:: If you prefer to run with Gradle, the same tool can be invoked with: ``./gradlew run --args=DeviceBrowser``
+    
+You should see the GUI come up similar to this screenshot:
+
+.. image:: images/DeviceBrowser.png
+	:width: 550px
+	:align: center
+		
+If you have gotten to this point, congrats!  Your RapidWright install
+is correctly configured and you are ready to start experimenting.
+
+A Couple of Notes:
+===================
+
+CLASSPATH
+-----------
+Java has the notion of a CLASSPATH, this is a list of locations where
+`java` can look for compiled Java code (`.class` files or `.jar`
+files) to execute at runtime.  The CLASSPATH can be set on the command
+line (as in the example test command above) or it can be set via the
+environment variable `CLASSPATH`.  If a script to set the `CLASSPATH`
+variable (in Linux) is desired, the following command can be run:
+    
+.. code-block:: bash
+    
+    echo "export CLASSPATH=`pwd`/bin:`pwd`/jars/*" > bin/rapidwright_classpath.sh
+
+
+    
+This sets up the environment so the `-cp bin:jars/*` classpath option doesn't need to be set
+as an argument when invoking `java`, for example:
+
+.. code-block:: bash
+
+    source bin/rapidwright_classpath.sh
+    java com.xilinx.rapidwright.device.browser.DeviceBrowser
+
+Should start the `DeviceBrowser` just as before.
+    
+
+RAPIDWRIGHT_PATH
+-----------------
+The environment variable `RAPIDWRIGHT_PATH` is no longer required.  It
+can be set in the event that the user has an existing data set of
+files that they want to use or override the existing set.

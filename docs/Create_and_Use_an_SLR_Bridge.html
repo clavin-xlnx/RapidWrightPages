@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Create and Use an SLR Bridge &mdash; RapidWright 2024.2.1-beta documentation</title>
+  <title>Create and Use an SLR Bridge &mdash; RapidWright 2024.2.2-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2024.2.1
+                2024.2.2
               </div>
             
           
@@ -311,7 +311,7 @@ Option                                   Description
 <h3>Combining the Designs<a class="headerlink" href="#combining-the-designs" title="Permalink to this headline">¶</a></h3>
 <p>Now that we know we have a correct bridge, we can begin on our main
 design.  To do so, we have provided a synthesized version of our TDM
-circuit where N=32. To open <a class="reference download internal" download="" href="_downloads/2982db30c1a4e403863cbc1efea2d28d/synth32_BB.dcp"><code class="xref download docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code></a>, run the following Tcl commands in Vivado’s
+circuit where N=32. To open <a class="reference download internal" download="" href="_downloads/23e6b817f902526957d5247d83861a17/synth32_BB.dcp"><code class="xref download docutils literal notranslate"><span class="pre">synth32_BB.dcp</span></code></a>, run the following Tcl commands in Vivado’s
 Tcl prompt:</p>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span><span class="w"> </span>wget<span class="w"> </span>http:<span class="o">//</span>www.rapidwright.io<span class="o">/</span>docs<span class="o">/</span>_downloads<span class="o">/</span>synth32_BB.dcp
 <span class="nv">open_checkpoint</span><span class="w"> </span>synth32_BB.dcp
@@ -334,7 +334,7 @@ Tcl prompt:</p>
 <div class="section" id="implementation">
 <h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h3>
 <p>We can now proceed to constrain the design and run place and route by
-sourcing the <a class="reference download internal" download="" href="_downloads/8bbc160bdcb93f3b37eac383c3e1f882/run_PnR.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_PnR.tcl</span></code></a> script in
+sourcing the <a class="reference download internal" download="" href="_downloads/be2d049e1980bc107b4fcfe52df02524/run_PnR.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_PnR.tcl</span></code></a> script in
 Vivado by running the following Tcl commands in Vivado’s Tcl prompt:</p>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span><span class="w"> </span>wget<span class="w"> </span>http:<span class="o">//</span>www.rapidwright.io<span class="o">/</span>docs<span class="o">/</span>_downloads<span class="o">/</span>run_PnR.tcl
 <span class="nb">source</span><span class="w"> </span>run_PnR.tcl
@@ -354,12 +354,12 @@ Vivado by running the following Tcl commands in Vivado’s Tcl prompt:</p>
 <span class="n">write_checkpoint</span> <span class="o">-</span><span class="n">force</span> <span class="n">routed_32</span><span class="o">.</span><span class="n">dcp</span>
 </pre></div>
 </div>
-<p>This can take several minutes (up to 30 minutes inside the tutorial virtual machine).  For those wishing to skip ahead, we have provided our own implementation of the results of the above Tcl commands here: <a class="reference download internal" download="" href="_downloads/1cfdbabb9e18187966ddde0954d4f611/routed_32.dcp"><code class="xref download docutils literal notranslate"><span class="pre">routed_32.dcp</span></code></a>.  In the Device model view, our implementation looks like this:</p>
+<p>This can take several minutes (up to 30 minutes inside the tutorial virtual machine).  For those wishing to skip ahead, we have provided our own implementation of the results of the above Tcl commands here: <a class="reference download internal" download="" href="_downloads/ff628241e888d3576bb5d753b8b06f68/routed_32.dcp"><code class="xref download docutils literal notranslate"><span class="pre">routed_32.dcp</span></code></a>.  In the Device model view, our implementation looks like this:</p>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/slr_routed.png"><img alt="_images/slr_routed.png" class="align-center" src="_images/slr_routed.png" style="width: 550px;" /></a>
 </div></blockquote>
 <p>For additional analysis of timing reports can be performed on the
-specific paths crossing the SLR and leading up to it by sourcing the <a class="reference download internal" download="" href="_downloads/db22add9e77242144fc6a54a74550ef6/run_timing.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_timing.tcl</span></code></a> script in Vivado
+specific paths crossing the SLR and leading up to it by sourcing the <a class="reference download internal" download="" href="_downloads/f1eeef9d33afed939670da7adbf20ce4/run_timing.tcl"><code class="xref download docutils literal notranslate"><span class="pre">run_timing.tcl</span></code></a> script in Vivado
 by running the following Tcl commands in Vivado’s Tcl prompt:</p>
 <div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nb">exec</span><span class="w"> </span>wget<span class="w"> </span>http:<span class="o">//</span>www.rapidwright.io<span class="o">/</span>docs<span class="o">/</span>_downloads<span class="o">/</span>run_timing.tcl
 <span class="nb">source</span><span class="w"> </span>run_timing.tcl
@@ -431,7 +431,7 @@ by running the following Tcl commands in Vivado’s Tcl prompt:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2024.2.1-beta',
+            VERSION:'2024.2.2-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
