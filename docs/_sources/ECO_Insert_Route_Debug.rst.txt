@@ -19,7 +19,7 @@ This trace-buffer consists of a FIFO36 primitive configured as a ring-buffer tha
 samples its 36-bit data input on each clock cycle.
 Once the clock is stopped, this trace-buffer will contain a 1024 cycle history of the
 activity on those inputs.
-Unloading the contents of this trace-buffer is assumed to be realized using the `Readback Capture <https://docs.xilinx.com/v/u/en-US/xapp1230-configuration-readback-capture>`_ process, which
+Unloading the contents of this trace-buffer is assumed to be realized using the `Readback Capture <https://download.amd.com/docnav/documents/XAPP1230.pdf>`_ process, which
 leverages built-in configuration resources (as opposed to the user-programmable resources)
 to transparently extract the contents of the user state including the contents of block RAMs that
 host our FIFO36.
@@ -61,7 +61,7 @@ Start by cloning and entering the tutorial repository:
 This repository contains:
 
 - `The Gradle Wrapper <https://docs.gradle.org/current/userguide/gradle_wrapper.html>`_ (``gradlew``)
-  which is a script for launching the `Gradle Build Tool <https://gradle.org/)>`_.
+  which is a script for launching the `Gradle Build Tool <https://gradle.org/>`_.
 
 - Gradle settings (``build.gradle``) for this project, indicating what its dependencies
   (e.g. RapidWright) are, where to download them from, as well as the location of source files.

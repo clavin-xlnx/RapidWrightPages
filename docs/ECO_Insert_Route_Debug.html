@@ -19,7 +19,7 @@
     </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Inserting and Routing a Debug Core As An ECO &mdash; RapidWright 2024.2.2-beta documentation</title>
+  <title>Inserting and Routing a Debug Core As An ECO &mdash; RapidWright 2024.2.3-beta documentation</title>
   
 
   
@@ -77,7 +77,7 @@
             
             
               <div class="version">
-                2024.2.2
+                2024.2.3
               </div>
             
           
@@ -245,7 +245,7 @@ of interest to aid debugging.</p>
 samples its 36-bit data input on each clock cycle.
 Once the clock is stopped, this trace-buffer will contain a 1024 cycle history of the
 activity on those inputs.
-Unloading the contents of this trace-buffer is assumed to be realized using the <a class="reference external" href="https://docs.xilinx.com/v/u/en-US/xapp1230-configuration-readback-capture">Readback Capture</a> process, which
+Unloading the contents of this trace-buffer is assumed to be realized using the <a class="reference external" href="https://download.amd.com/docnav/documents/XAPP1230.pdf">Readback Capture</a> process, which
 leverages built-in configuration resources (as opposed to the user-programmable resources)
 to transparently extract the contents of the user state including the contents of block RAMs that
 host our FIFO36.</p>
@@ -276,7 +276,7 @@ An overview of the sections that follow is shown below:</p>
 <p>This repository contains:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.gradle.org/current/userguide/gradle_wrapper.html">The Gradle Wrapper</a> (<code class="docutils literal notranslate"><span class="pre">gradlew</span></code>)
-which is a script for launching the <a class="reference external" href="https://gradle.org/)">Gradle Build Tool</a>.</p></li>
+which is a script for launching the <a class="reference external" href="https://gradle.org/">Gradle Build Tool</a>.</p></li>
 <li><p>Gradle settings (<code class="docutils literal notranslate"><span class="pre">build.gradle</span></code>) for this project, indicating what its dependencies
 (e.g. RapidWright) are, where to download them from, as well as the location of source files.</p></li>
 <li><p>Java sources used in this tutorial (e.g. <code class="docutils literal notranslate"><span class="pre">src/EcoInsertRouteDebug.java</span></code>).</p></li>
@@ -707,7 +707,7 @@ described and could be adapted to ease the process for finding module placements
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2024.2.2-beta',
+            VERSION:'2024.2.3-beta',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
