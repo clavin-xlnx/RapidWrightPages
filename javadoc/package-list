@@ -8,6 +8,8 @@ com.xilinx.rapidwright.design.drc
 com.xilinx.rapidwright.design.merge
 com.xilinx.rapidwright.design.noc
 com.xilinx.rapidwright.design.tools
+com.xilinx.rapidwright.design.xdc
+com.xilinx.rapidwright.design.xdc.parser
 com.xilinx.rapidwright.device
 com.xilinx.rapidwright.device.browser
 com.xilinx.rapidwright.device.helper
